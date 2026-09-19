@@ -1,0 +1,11 @@
+Grammar: AmbiguousExpr
+TokenSplitter: Space
+
+<NUMBER> ::= /[0-9]+/
+<PLUS> ::= '+'
+<TIMES> ::= '*'
+<WS> ::= /[ \t\r\n]+/
+
+<expr> ::= <expr> <PLUS> <expr>
+         | <expr> <TIMES> <expr>  
+         | <NUMBER>

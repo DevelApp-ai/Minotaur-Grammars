@@ -1,0 +1,3 @@
+Grammar: ExpressionGrammar
+<NUMBER> ::= /[0-9]+/
+<expression> ::= <NUMBER>
