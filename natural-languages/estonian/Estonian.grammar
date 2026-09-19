@@ -33,8 +33,7 @@ Keywords: ja, või, aga, kuid, ent, vaid, et, kes, mis, kus, millal, kuidas, mik
 /* Fourteen-case noun system (agglutinative) */
 <noun-phrase> ::= <adjective>* <opt-whitespace> <noun>
 
-<noun> ::= <noun-nominative> | <noun-genitive> | <noun-partitive> | <noun-illative> | <noun-inessive> | <noun-elative> | <noun-allative> | <noun-adessive> | <noun-ablative> | <noun-translative> | <noun-terminative> | <noun
--essive> | <noun-abessive> | <noun-comitative>
+<noun> ::= <noun-nominative> | <noun-genitive> | <noun-partitive> | <noun-illative> | <noun-inessive> | <noun-elative> | <noun-allative> | <noun-adessive> | <noun-ablative> | <noun-translative> | <noun-terminative> | <noun-essive> | <noun-abessive> | <noun-comitative>
 
 <noun-nominative> ::= @CASE[nominative] <noun-stem> ( "" | "d" )
 
@@ -84,8 +83,7 @@ Keywords: ja, või, aga, kuid, ent, vaid, et, kes, mis, kus, millal, kuidas, mik
 
 <verb-past> ::= @TENSE[past] <verb-stem> ( "sin" | "sid" | "s" | "sime" | "site" | "sid" )
 
-<verb-imperative> ::= @MOOD[imperative]
- <verb-stem> ( "" | "gu" | "gem" | "ge" | "gu" )
+<verb-imperative> ::= @MOOD[imperative] <verb-stem> ( "" | "gu" | "gem" | "ge" | "gu" )
 
 /* Passive voice construction */
 <passive-voice> ::= @VOICE[passive] <verb-stem> ( "takse" | "ti" | "tud" | "dakse" | "da" | "dud" )
@@ -113,8 +111,7 @@ Keywords: ja, või, aga, kuid, ent, vaid, et, kes, mis, kus, millal, kuidas, mik
 
 <verb-andma> ::= "annan" | "annad" | "annab" | "anname" | "annate" | "annavad" | "andsin" | "andsid" | "andis" | "andsime" | "andsite" | "andsid" | "andma" | "anda"
 
-<verb-võtma> ::= "võtan" | "võtad" | "võtab" | "võtame" | "võtate" | "võta
-vad" | "võtsin" | "võtsid" | "võttis" | "võtsime" | "võtsite" | "võtsid" | "võtma" | "võtta"
+<verb-võtma> ::= "võtan" | "võtad" | "võtab" | "võtame" | "võtate" | "võtavad" | "võtsin" | "võtsid" | "võttis" | "võtsime" | "võtsite" | "võtsid" | "võtma" | "võtta"
 
 <verb-nägema> ::= "näen" | "näed" | "näeb" | "näeme" | "näete" | "näevad" | "nägin" | "nägid" | "nägi" | "nägime" | "nägite" | "nägid" | "nägema" | "näha"
 
@@ -149,8 +146,7 @@ vad" | "võtsin" | "võtsid" | "võttis" | "võtsime" | "võtsite" | "võtsid" |
 
 <compound-sentence> ::= <main-clause> <opt-whitespace> <coordinating-conjunction> <opt-whitespace> <main-clause>
 
-<coordinating-conjunction> ::= "ja" | "ni
-ng" | "või" | "aga" | "kuid" | "ent" | "vaid" | "ega"
+<coordinating-conjunction> ::= "ja" | "ning" | "või" | "aga" | "kuid" | "ent" | "vaid" | "ega"
 
 <complex-sentence> ::= <main-clause> <opt-whitespace> "," <opt-whitespace> <subordinate-clause> | <subordinate-clause> <opt-whitespace> "," <opt-whitespace> <main-clause>
 
@@ -207,8 +203,7 @@ ng" | "või" | "aga" | "kuid" | "ent" | "vaid" | "ega"
 @CONTEXT_RULE[modal-infinitive]:
     IF <modal-verb> IN <sentence>
     THEN FOLLOWED-BY <infinitive> IN ma-infinitive
-   
- ELSE ERROR "Modal requires infinitive"
+    ELSE ERROR "Modal requires infinitive"
 
 @CONTEXT_RULE[aspectual-infinitive]:
     IF <aspectual-verb> IN <sentence>

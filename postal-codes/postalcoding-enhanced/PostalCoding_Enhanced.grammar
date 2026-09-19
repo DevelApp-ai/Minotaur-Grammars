@@ -28,8 +28,7 @@ TokenSplitter: None
 
 /* International Format (extensible) */
 <international-address> ::= <name-part> <intl-street-address> <intl-zip-part>
-<intl-street-address> ::= <opt-whitespace> <street-name> <whitespace> <house-num> <opt-whi
-tespace> <opt-apt-num> <EOL>
+<intl-street-address> ::= <opt-whitespace> <street-name> <whitespace> <house-num> <opt-whitespace> <opt-apt-num> <EOL>
 <intl-zip-part>      ::= <opt-whitespace><country-code>"-"<postal-code> <whitespace> <city-name> <EOL>
 <country-code>       ::= "DK" | "US" | "DE" | "FR" | "UK" | "CA" | "AU"
 <postal-code>        ::= <alphanumeric-code>

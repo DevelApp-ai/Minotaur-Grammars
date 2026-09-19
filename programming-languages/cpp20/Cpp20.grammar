@@ -25,8 +25,7 @@ Keywords: alignas, alignof, and, and_eq, asm, auto, bitand, bitor, bool, break, 
 
 <nested-name-specifier> ::= :: | <type-name> :: | <namespace-name> :: | <decltype-specifier> :: | <nested-name-specifier> <identifier> :: | <nested-name-specifier> template? <simple-template-id> ::
 
-<lambda-expression> ::= <lambda-introducer> <lambda-declarator>?
- <compound-statement>
+<lambda-expression> ::= <lambda-introducer> <lambda-declarator>? <compound-statement>
 
 <lambda-introducer> ::= [ <lambda-capture>? ]
 
@@ -62,8 +61,7 @@ Keywords: alignas, alignof, and, and_eq, asm, auto, bitand, bitor, bool, break, 
 
 <nested-requirement> ::= requires <constraint-expression> ;
 
-<postfix-expression> ::= <primary-expression> | <postfix-expression> [ <expression> ] | <postfix-expression> ( <expression-list>? ) | <simple-type-specifier> ( <expression-list>? ) | <typename-specifier> ( <expression-list>? ) | <postfix-expression> . template? <id-expression> | <postfix-expression> -> template? <id-expression> | <postfix-expression> ++ | <postfix-expression> -- | dynamic_cast < <type-id> > ( <expression> ) | static_cast < <type-id> > ( <expression> ) | reinterpret_cast < <type-id> > ( <expression> ) | const_cast < <type-id> 
-> ( <expression> ) | typeid ( <expression> ) | typeid ( <type-id> )
+<postfix-expression> ::= <primary-expression> | <postfix-expression> [ <expression> ] | <postfix-expression> ( <expression-list>? ) | <simple-type-specifier> ( <expression-list>? ) | <typename-specifier> ( <expression-list>? ) | <postfix-expression> . template? <id-expression> | <postfix-expression> -> template? <id-expression> | <postfix-expression> ++ | <postfix-expression> -- | dynamic_cast < <type-id> > ( <expression> ) | static_cast < <type-id> > ( <expression> ) | reinterpret_cast < <type-id> > ( <expression> ) | const_cast < <type-id> > ( <expression> ) | typeid ( <expression> ) | typeid ( <type-id> )
 
 <expression-list> ::= <initializer-list>
 
@@ -99,8 +97,7 @@ Keywords: alignas, alignof, and, and_eq, asm, auto, bitand, bitor, bool, break, 
 
 <shift-expression> ::= <additive-expression> | <shift-expression> << <additive-expression> | <shift-expression> >> <additive-expression>
 
-<compare-expression> ::= <shift-expression> | <compare-expression> < <shift-expression> | <compare-expres
-sion> > <shift-expression> | <compare-expression> <= <shift-expression> | <compare-expression> >= <shift-expression> | <compare-expression> <=> <shift-expression>
+<compare-expression> ::= <shift-expression> | <compare-expression> < <shift-expression> | <compare-expression> > <shift-expression> | <compare-expression> <= <shift-expression> | <compare-expression> >= <shift-expression> | <compare-expression> <=> <shift-expression>
 
 <relational-expression> ::= <compare-expression> | <relational-expression> == <compare-expression> | <relational-expression> != <compare-expression>
 
@@ -130,8 +127,7 @@ sion> > <shift-expression> | <compare-expression> <= <shift-expression> | <compa
 
 <statement> ::= <labeled-statement> | <attribute-specifier-seq>? <compound-statement> | <attribute-specifier-seq>? <selection-statement> | <attribute-specifier-seq>? <iteration-statement> | <attribute-specifier-seq>? <jump-statement> | <declaration-statement> | <attribute-specifier-seq>? <try-block> | <attribute-specifier-seq>? <coroutine-return-statement>
 
-<labeled-statement> ::= <attribute-specifier-seq>? <identifier> : <st
-atement> | <attribute-specifier-seq>? case <constant-expression> : <statement> | <attribute-specifier-seq>? default : <statement>
+<labeled-statement> ::= <attribute-specifier-seq>? <identifier> : <statement> | <attribute-specifier-seq>? case <constant-expression> : <statement> | <attribute-specifier-seq>? default : <statement>
 
 <compound-statement> ::= { <statement-seq>? }
 
@@ -163,8 +159,7 @@ atement> | <attribute-specifier-seq>? case <constant-expression> : <statement> |
 
 <empty-declaration> ::= ;
 
-<attribute-declaration> ::= <a
-ttribute-specifier-seq> ;
+<attribute-declaration> ::= <attribute-specifier-seq> ;
 
 <decl-specifier> ::= <storage-class-specifier> | <type-specifier> | <function-specifier> | friend | typedef | constexpr | consteval | constinit | inline
 
@@ -200,8 +195,7 @@ ttribute-specifier-seq> ;
 
 <noptr-declarator> ::= <declarator-id> <attribute-specifier-seq>? | <noptr-declarator> <parameters-and-qualifiers> | <noptr-declarator> [ <constant-expression>? ] <attribute-specifier-seq>? | ( <ptr-declarator> )
 
-<parameters-and-qualifiers> ::= ( <parameter-declaration-clause> ) <cv-qualifier-seq>? <ref-quali
-fier>? <noexcept-specifier>? <attribute-specifier-seq>?
+<parameters-and-qualifiers> ::= ( <parameter-declaration-clause> ) <cv-qualifier-seq>? <ref-qualifier>? <noexcept-specifier>? <attribute-specifier-seq>?
 
 <trailing-return-type> ::= -> <type-id>
 
@@ -239,8 +233,7 @@ fier>? <noexcept-specifier>? <attribute-specifier-seq>?
 
 <initializer-list> ::= <initializer-clause> ...? | <initializer-list> , <initializer-clause> ...?
 
-<designated-initi
-alizer-list> ::= <designated-initializer> | <designated-initializer-list> , <designated-initializer>
+<designated-initializer-list> ::= <designated-initializer> | <designated-initializer-list> , <designated-initializer>
 
 <designated-initializer> ::= <designator> <brace-or-equal-initializer>
 
@@ -282,8 +275,7 @@ alizer-list> ::= <designated-initializer> | <designated-initializer-list> , <des
 
 <conversion-function-id> ::= operator <conversion-type-id>
 
-<conversion-type-id> ::= <type-specifier-seq> <conv
-ersion-declarator>?
+<conversion-type-id> ::= <type-specifier-seq> <conversion-declarator>?
 
 <conversion-declarator> ::= <ptr-operator> <conversion-declarator>?
 
@@ -329,8 +321,7 @@ ersion-declarator>?
 
 <function-try-block> ::= try <ctor-initializer>? <compound-statement> <handler-seq>
 
-<handler-seq
-> ::= <handler> <handler-seq>?
+<handler-seq> ::= <handler> <handler-seq>?
 
 <handler> ::= catch ( <exception-declaration> ) <compound-statement>
 
@@ -378,8 +369,7 @@ ersion-declarator>?
 
 <attribute-list> ::= <attribute> ...? | <attribute-list> , <attribute> ...?
 
-<attribute> ::= <attrib
-ute-token> <attribute-argument-clause>?
+<attribute> ::= <attribute-token> <attribute-argument-clause>?
 
 <attribute-token> ::= <identifier> | <attribute-scoped-token>
 
@@ -425,8 +415,7 @@ ute-token> <attribute-argument-clause>?
 
 <endif-line> ::= # endif <new-line>
 
-<control-line> ::= # include <pp-tokens> <new-line> | # define <identifier> <replacement-list> <new-line> | # define <identifier> 
-<lparen> <identifier-list>? <rparen> <replacement-list> <new-line> | # undef <identifier> <new-line> | # line <pp-tokens> <new-line> | # error <pp-tokens>? <new-line> | # pragma <pp-tokens>? <new-line> | # <new-line>
+<control-line> ::= # include <pp-tokens> <new-line> | # define <identifier> <replacement-list> <new-line> | # define <identifier> <lparen> <identifier-list>? <rparen> <replacement-list> <new-line> | # undef <identifier> <new-line> | # line <pp-tokens> <new-line> | # error <pp-tokens>? <new-line> | # pragma <pp-tokens>? <new-line> | # <new-line>
 
 <text-line> ::= <pp-tokens>? <new-line>
 

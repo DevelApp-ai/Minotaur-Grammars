@@ -62,8 +62,7 @@ ContextSensitive: true
  * ============================================================================ */
 
 <uk-street-address> ::= 
-    <house-number> <whitespace> <street-name> <opt-whitespace> <street-type>? <opt-whitespace> <street-direc
-tion>?
+    <house-number> <whitespace> <street-name> <opt-whitespace> <street-type>? <opt-whitespace> <street-direction>?
 
 <house-number> ::= 
     <digit>+ | 
@@ -146,8 +145,7 @@ tion>?
     "Nottinghamshire" | "Notts" | 
     "Oxfordshire" | "Oxon" | 
     "Rutland" | 
-    "Shropshire" | "Sal
-op" | 
+    "Shropshire" | "Salop" | 
     "Somerset" | 
     "South Yorkshire" | 
     "Staffordshire" | "Staffs" | 
@@ -230,8 +228,7 @@ op" |
 /* Standard UK postcode formats */
 <uk-standard-postcode> ::= 
     <uk-outward-code> <whitespace> <uk-inward-code> | 
-    <uk-ou
-tward-code><uk-inward-code>  /* Without space */
+    <uk-outward-code><uk-inward-code>  /* Without space */
 
 /* Outward Code (Area + District) */
 <uk-outward-code> ::= <uk-postcode-area> <uk-postcode-district> <uk-postcode-sector>?
@@ -286,8 +283,7 @@ tward-code><uk-inward-code>  /* Without space */
 <uk-postcode-district> ::= <digit> | <digit><digit> | <digit><digit><digit>
 
 /* Postcode Sector (single digit) */
-<uk-post
-code-sector> ::= <digit>
+<uk-postcode-sector> ::= <digit>
 
 /* Postcode Unit (single digit) */
 <uk-postcode-unit> ::= <digit>
@@ -355,8 +351,7 @@ code-sector> ::= <digit>
 
 /* London postal districts */
 <uk-london-district> ::= 
-    "EC1" | "EC2" | "E
-C3" | "EC4" |  /* East Central */
+    "EC1" | "EC2" | "EC3" | "EC4" |  /* East Central */
     "WC1" | "WC2" |  /* West Central */
     "N1" | "N2" | "N3" | "N4" | "N5" | "N6" | "N7" | "N8" | "N9" | "N10" | 
     "N11" | "N12" | "N13" | "N14" | "N15" | "N16" | "N17" | "N18" | "N19" | "N20" | 
@@ -399,8 +394,7 @@ C3" | "EC4" |  /* East Central */
 
 /* ============================================================================
  * COUNTRY INDICATOR
- * ============================
-================================================ */
+ * ============================================================================ */
 
 <uk-country-indicator> ::= 
     "UK" | "United Kingdom" | "GB" | "Great Britain" | 
@@ -446,6 +440,5 @@ C3" | "EC4" |  /* East Central */
  * - Inward code always ends with 2 letters
  * - Some postcodes are non-geographic (e.g., for large organizations)
  * - London has special postal districts (EC, WC, N, S, E, W, etc.)
- 
-* - Scotland, Wales, and Northern Ireland have their own postcode areas
+ * - Scotland, Wales, and Northern Ireland have their own postcode areas
  */

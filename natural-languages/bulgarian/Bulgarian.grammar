@@ -42,8 +42,7 @@ Keywords: и, или, но, а, ами, че, който, която, което
 <split-complex-sentence> ::= <subordinate-clause> <opt-whitespace> "," <opt-whitespace> <main-clause> <opt-whitespace> "," <opt-whitespace> <subordinate-clause>
 
 /* Passive voice constructions */
-<passive-s
-entence> ::= <passive-clause> <opt-whitespace> <agent-phrase>? <opt-whitespace> <punctuation>?
+<passive-sentence> ::= <passive-clause> <opt-whitespace> <agent-phrase>? <opt-whitespace> <punctuation>?
 
 <passive-clause> ::= <subject> <opt-whitespace> <passive-verb-phrase> <opt-whitespace> <adverbial>*
 
@@ -89,8 +88,7 @@ entence> ::= <passive-clause> <opt-whitespace> <agent-phrase>? <opt-whitespace> 
 /* Demonstrative determiners with gender/number agreement */
 <demonstrative-determiner> ::= @GENDER[masculine] @NUMBER[singular] ( "този" | "онзи" )
                             | @GENDER[feminine] @NUMBER[singular] ( "тази" | "онази" )
-                            | @GENDER[
-neuter] @NUMBER[singular] ( "това" | "онова" )
+                            | @GENDER[neuter] @NUMBER[singular] ( "това" | "онова" )
                             | @NUMBER[plural] ( "тези" | "онези" )
 
 /* Possessive adjectives with gender/number agreement */
@@ -128,8 +126,7 @@ neuter] @NUMBER[singular] ( "това" | "онова" )
 <adjective-with-agreement> ::= @GENDER[masculine] @NUMBER[singular] <adjective-stem>
                             | @GENDER[feminine] @NUMBER[singular] <adjective-stem> "а"
                             | @GENDER[neuter] @NUMBER[singular] <adjective-stem> "о"
-                            | @NUMBER[plural] <ad
-jective-stem> "и"
+                            | @NUMBER[plural] <adjective-stem> "и"
 
 <adjective-comparative> ::= @DEGREE[comparative] ( "по-" <adjective-stem> )
 
@@ -172,8 +169,7 @@ jective-stem> "и"
 /* Aorist (simple past, perfective) */
 <verb-aorist> ::= @TENSE[aorist] @ASPECT[perfective] <aorist-conjugation>
 
-<aorist-conjugation> ::= <verb-st
-em> ( "х" | "" | "" | "хме" | "хте" | "ха" )
+<aorist-conjugation> ::= <verb-stem> ( "х" | "" | "" | "хме" | "хте" | "ха" )
 
 /* Imperfect (past, imperfective) */
 <verb-imperfect> ::= @TENSE[imperfect] @ASPECT[imperfective] <imperfect-conjugation>
@@ -220,8 +216,7 @@ em> ( "х" | "" | "" | "хме" | "хте" | "ха" )
 
 <ingressive-construction> ::= ( "започвам" | "започна" | "заповядам" ) <opt-whitespace> "да" <opt-whitespace> <verb-present>
 
-<continuative-construction> ::= ( "продължавам" | "продължа" ) <opt-wh
-itespace> "да" <opt-whitespace> <verb-present>
+<continuative-construction> ::= ( "продължавам" | "продължа" ) <opt-whitespace> "да" <opt-whitespace> <verb-present>
 
 <terminative-construction> ::= ( "спирам" | "спра" | "свършвам" | "свърша" ) <opt-whitespace> "да" <opt-whitespace> <verb-present>
 
@@ -273,8 +268,7 @@ itespace> "да" <opt-whitespace> <verb-present>
 <preposition> ::= "в" | "на" | "от" | "до" | "за" | "с" | "без" | "след" | "пред" | "над" | "под" | "между" | "при" | "по"
 
 /* Subordinate clauses */
-<subord
-inate-clause> ::= <subordinating-conjunction> <opt-whitespace> <declarative-clause>
+<subordinate-clause> ::= <subordinating-conjunction> <opt-whitespace> <declarative-clause>
 
 <subordinating-conjunction> ::= "че" | "да" | "ако" | "когато" | "където" | "защото" | "въпреки че"
 
@@ -326,8 +320,7 @@ inate-clause> ::= <subordinating-conjunction> <opt-whitespace> <declarative-clau
 
 @CONTEXT_RULE[subject-verb-agreement]:
     IF <subject>.@PERSON == <verb>.@PERSON AND <subject>.@NUMBER == <verb>.@NUMBER
-    T
-HEN VALID
+    THEN VALID
     ELSE WARNING "Subject and verb should agree"
 
 @CONTEXT_RULE[no-case-system]:
@@ -388,8 +381,7 @@ HEN VALID
 
 @CONTEXT_RULE[aspectual-да-requirement]:
     IF <aspectual-periphrastic> PRESENT
-    THEN REQUIRES "да" + <prese
-nt-tense-verb>
+    THEN REQUIRES "да" + <present-tense-verb>
     ELSE VALID
 
 /* ============================================
@@ -440,8 +432,7 @@ nt-tense-verb>
  * CLEFT SENTENCES
  * ============================================ */
 
-<it-cleft> ::= "това" <opt-whitespace> "е" <opt-whitespace> <focused-element> <opt-whitespace> "," <opt-wh
-itespace> <relative-clause>
+<it-cleft> ::= "това" <opt-whitespace> "е" <opt-whitespace> <focused-element> <opt-whitespace> "," <opt-whitespace> <relative-clause>
 
 <focused-element> ::= <noun-phrase> | <adverbial> | <prepositional-phrase>
 
@@ -489,8 +480,7 @@ itespace> <relative-clause>
 <rodopski-dialect-words> ::= @DIALECT[rodopski] ( "кво" | "на" | "са" )
 
 /* ============================================
- * EXTENDED V
-ERB FORMS
+ * EXTENDED VERB FORMS
  * ============================================ */
 
 /* Future in the past */
@@ -536,8 +526,7 @@ ERB FORMS
 <reciprocal-construction> ::= <subject-plural> <opt-whitespace> "се" <opt-whitespace> <verb-present>
                            | <subject-plural> <opt-whitespace> "един друг" <case-marker>
 
-/* =======================
-=====================
+/* ============================================
  * IDIOMATIC EXPRESSIONS
  * ============================================ */
 
@@ -584,8 +573,7 @@ ERB FORMS
 
 <condition-clause-contrary> ::= <subject> <opt-whitespace> "бях" <opt-whitespace> <verb-perfect-participle>
 
-<result-clause-contrary> ::
-= <subject> <opt-whitespace> "щях" <opt-whitespace> "да" <opt-whitespace> "съм" <opt-whitespace> <verb-perfect-participle>
+<result-clause-contrary> ::= <subject> <opt-whitespace> "щях" <opt-whitespace> "да" <opt-whitespace> "съм" <opt-whitespace> <verb-perfect-participle>
 
 /* ============================================
  * COMPARATIVE AND SUPERLATIVE
@@ -642,8 +630,7 @@ ERB FORMS
     ELSE ALLOW
 
 @CONTEXT_RULE[indirect-speech-че]:
-    IF <i
-ndirect-speech> PRESENT
+    IF <indirect-speech> PRESENT
     THEN REQUIRES "че" COMPLEMENTIZER
     ELSE VALID
 

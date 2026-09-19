@@ -55,8 +55,7 @@ FormatType: EBNF
 
 <data-descriptions> ::= <data-description-entry>
 
-<data-description-ent
-ry> ::= <level-number> <data-name>? <data-clauses>* "."
+<data-description-entry> ::= <level-number> <data-name>? <data-clauses>* "."
 
 <level-number> ::= /0[1-9]|[1-4][0-9]|77|88/
 
@@ -113,8 +112,7 @@ ry> ::= <level-number> <data-name>? <data-clauses>* "."
 
 <add-statement> ::= "ADD" <identifier-or-literal> ("," <identifier-or-literal>)* "TO" <identifier-list>
 
-<subtract-statement> ::= "SUBTRACT" <identifier-or-litera
-l> ("," <identifier-or-literal>)* "FROM" <identifier-list>
+<subtract-statement> ::= "SUBTRACT" <identifier-or-literal> ("," <identifier-or-literal>)* "FROM" <identifier-list>
 
 <multiply-statement> ::= "MULTIPLY" <identifier-or-literal> "BY" <identifier-list>
 
@@ -168,8 +166,7 @@ l> ("," <identifier-or-literal>)* "FROM" <identifier-list>
 
 <literal> ::= <numeric-literal> | <string-literal>
 
-<numeric-literal> 
-::= <integer> | <decimal>
+<numeric-literal> ::= <integer> | <decimal>
 
 <string-literal> ::= "\"" <character>* "\"" | "'" <character>* "'"
 
@@ -242,8 +239,7 @@ l> ("," <identifier-or-literal>)* "FROM" <identifier-list>
 
 <io-control-entries> ::= <IDENTIFIER>
 
-<file-descriptions> ::= "FD" <file-nam
-e> <file-description-clauses>* "."
+<file-descriptions> ::= "FD" <file-name> <file-description-clauses>* "."
 
 <file-description-clauses> ::= <record-clause> | <block-clause> | <label-clause>
 
@@ -285,8 +281,7 @@ e> <file-description-clauses>* "."
 
 /* Database Access */
 <exec-sql-statement> ::= "EXEC" "SQL" <sql-statement> "END-EXEC"
-<sql-st
-atement> ::= /.*?/  // Any SQL statement
+<sql-statement> ::= /.*?/  // Any SQL statement
 
 <cics-statement> ::= "EXEC" "CICS" <cics-command> "END-EXEC"
 <cics-command> ::= /[A-Z][A-Z0-9\-]*(?:\s+[^\s]+)*/  // CICS command like SEND, RECEIVE, EXECUTE
@@ -327,8 +322,7 @@ atement> ::= /.*?/  // Any SQL statement
 
 <exception-name> ::= <identifier>
 
-/* JSON Support (COBOL 2023) 
-*/
+/* JSON Support (COBOL 2023) */
 <json-generate-statement> ::= "JSON" "GENERATE" <identifier> "FROM" <identifier> "."
 
 <json-parse-statement> ::= "JSON" "PARSE" <identifier> "INTO" <identifier> "."
@@ -384,8 +378,7 @@ atement> ::= /.*?/  // Any SQL statement
 <vsam-file> ::= <identifier>
 
 <vsam-read> ::= "READ" <vsam-file> <vsam-options>? "."
-<vsam-options> ::= "INTO" <identifier> | "KEY" <relational-operator> <identifier-or-literal> | "RID" <relational-operat
-or> <identifier-or-literal>
+<vsam-options> ::= "INTO" <identifier> | "KEY" <relational-operator> <identifier-or-literal> | "RID" <relational-operator> <identifier-or-literal>
 
 <vsam-write> ::= "WRITE" <vsam-file> <vsam-write-options>? "."
 <vsam-write-options> ::= "FROM" <identifier> | "INVALID" <imperative-statement>
@@ -430,8 +423,7 @@ or> <identifier-or-literal>
                      | "NOT" <condition>
                      | "(" <condition> ")"
 
-<rela
-tional-operator> ::= "=" | ">" | "<" | ">=" | "<=" | "NOT" "=" | "<>"
+<relational-operator> ::= "=" | ">" | "<" | ">=" | "<=" | "NOT" "=" | "<>"
 
 /* Additional COBOL Verbs */
 <alter-statement> ::= "ALTER" <procedure-name> "TO" "PROCEED" "TO" <procedure-name> "."
@@ -477,8 +469,7 @@ tional-operator> ::= "=" | ">" | "<" | ">=" | "<=" | "NOT" "=" | "<>"
 
 <merge-statement> ::= "MERGE" <file-name> ("ON" <sort-key>)* <merge-options> "."
 
-<sor
-t-key> ::= "ASCENDING" | "DESCENDING" <data-name>
+<sort-key> ::= "ASCENDING" | "DESCENDING" <data-name>
 
 <sort-options> ::= "INPUT" "PROCEDURE" <procedure-name>
                  | "OUTPUT" "PROCEDURE" <procedure-name>

@@ -59,8 +59,7 @@ SymbolTableSharing: hierarchical
 <declaration> ::= <property> ":" <opt-whitespace> <value> <priority>?
 <property> ::= @SYMBOL[css_property] <property-name>
 <value> ::= <value-list>
-<priorit
-y> ::= "!" <opt-whitespace> "important"
+<priority> ::= "!" <opt-whitespace> "important"
 
 <value-list> ::= <value-item> <value-list-tail>?
 <value-list-tail> ::= <value-separator> <value-list>
@@ -110,8 +109,7 @@ y> ::= "!" <opt-whitespace> "important"
 <media-type> ::= "all" | "screen" | "print" | "speech" | <identifier>
 <media-expression> ::= "and" <whitespace> "(" <media-feature> <media-value>? ")"
 <media-feature> ::= <identifier>
-<media-value> ::
-= ":" <opt-whitespace> <value-item>
+<media-value> ::= ":" <opt-whitespace> <value-item>
 
 /* Values and Units */
 <length> ::= <number> <length-unit>
@@ -165,8 +163,7 @@ y> ::= "!" <opt-whitespace> "important"
 <sign> ::= "+" | "-"
 
 /* Character Classes */
-<digit> ::= "0" | "1" | "2" | "3" | "4" | "5"
- | "6" | "7" | "8" | "9"
+<digit> ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
 <hex-digit> ::= <digit> | "A" | "B" | "C" | "D" | "E" | "F" | "a" | "b" | "c" | "d" | "e" | "f"
 
 <letter> ::= "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M"
@@ -205,8 +202,7 @@ y> ::= "!" <opt-whitespace> "important"
 /* Symbol Definitions for Cross-Language Validation */
 @SYMBOLS {
     id_selector: <id-selector>
-    class
-_selector: <class-selector>
+    class_selector: <class-selector>
     css_property: <property>
 }
 
