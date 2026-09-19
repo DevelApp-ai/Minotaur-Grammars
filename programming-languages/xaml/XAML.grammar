@@ -72,14 +72,13 @@ ContextSensitive: true
 <char-data> ::= /[^<&]+/
 <reference> ::= "&" <identifier> ";" | "&#" /[0-9]+/ ";"
 <cd-sect> ::= "<![CDATA[" <cdata-content> "]]>"
-<cdata-content> ::= /(?!]]>)[sS]*/
+<cdata-content> ::= /(?!\]\]>)[\s\S]*/
 <comment> ::= "<!--" <comment-content> "-->"
-<comment-content> ::= /(?!-->)[sS]*/
+<comment-content> ::= /(?!-->)[\s\S]*/
 <pi> ::= "<?" <pitarget> (<s> <pi-content>)? "?>"
 <pitarget> ::= <identifier>
-<pi-content> ::= /(?>|[sS])*?/
+<pi-content> ::= /[^?]*/
 
 <identifier> ::= /[A-Za-z_][A-Za-z0-9_.-]*/
 <eq> ::= <s>? "=" <s>?
-<s> ::= /[ 	
-]+/
+<s> ::= /[ \t\r\n]+/

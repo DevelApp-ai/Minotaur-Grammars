@@ -73,21 +73,21 @@ FormatType: EBNF
                      | <constructor-declaration>
                      | <method-declaration>
                      | <index-member-declaration>
-<property-declaration> ::= <identifier> <optional>? ("!" )? (":" <whitespace> <type-expression>)? ("=" <whitespace> <expression>)? <semicolon>?
+<property-declaration> ::= <identifier> <optional>? "!"? (":" <whitespace> <type-expression>)? ("=" <whitespace> <expression>)? <semicolon>?
 <constructor-declaration> ::= "constructor" <whitespace>? "(" <parameter-list>? ")" <whitespace>? <class-body>?
 <method-declaration> ::= <identifier> <optional>? <type-params>? "(" <parameter-list>? ")" (":" <whitespace> <type-expression>)? <whitespace>? <class-body>?
 <index-member-declaration> ::= <index-signature>
 
 <function-declaration> ::= "function" <whitespace> <identifier> <type-params>? "(" <parameter-list>? ")" (":" <whitespace> <type-expression>)? <whitespace>? <class-body>?
 <parameter-list> ::= <parameter> ("," <whitespace>? <parameter>)*
-<parameter> ::= <accessibility>? <readonly>? <rest>? <identifier> <optional>? ("?" | ":" <whitespace> <type-expression>)? ("=" <whitespace> <expression>)?
+<parameter> ::= <accessibility>? <readonly>? <rest>? <identifier> <optional>? (":" <whitespace> <type-expression>)? ("=" <whitespace> <expression>)?
 <rest> ::= "..."
 <accessibility> ::= "public" | "private" | "protected"
 <readonly> ::= "readonly"
 
 <variable-statement> ::= ("declare" <whitespace>)? ("const" | "let" | "var") <whitespace> <variable-declaration-list> <semicolon>?
 <variable-declaration-list> ::= <variable-declaration> ("," <whitespace>? <variable-declaration>)*
-<variable-declaration> ::= <identifier> <optional>? ("!" )? (":" <whitespace> <type-expression>)? ("=" <whitespace> <expression>)?
+<variable-declaration> ::= <identifier> <optional>? "!"? (":" <whitespace> <type-expression>)? ("=" <whitespace> <expression>)?
 
 <type-params> ::= "<" <type-param-list> ">"
 <type-param-list> ::= <type-param> ("," <whitespace>? <type-param>)*
@@ -137,7 +137,7 @@ FormatType: EBNF
 <member-expression> ::= <primary-expression>
                       | <member-expression> "." <identifier>
                       | <member-expression> "[" <expression> "]"
-                      | <member-expression> "!" 
+                      | <member-expression> "!"
                       | <member-expression> <template-literal>
 <primary-expression> ::= <identifier> | "this" | "super" | <literal> | <array-literal> | <object-literal> | <paren-expression>
                       | <arrow-function> | <function-expression> | <class-declaration> | <template-literal> | "await" <whitespace> <unary-expression>
@@ -183,15 +183,13 @@ FormatType: EBNF
 <template-parts> ::= (<template-char>+ | "${" <expression> "}")*
 
 <literal> ::= <string-literal> | <int-literal> | <float-literal> | <bool-literal> | "null" | "undefined" | <regex-literal>
-<string-literal> ::= /"[^"\]*"/ | /'[^'\]*'/
+<string-literal> ::= /"[^"\\]*"/ | /'[^'\\]*'/
 <int-literal> ::= /[0-9]+/
-<float-literal> ::= /[0-9]+.[0-9]+/
+<float-literal> ::= /[0-9]+\.[0-9]+/
 <bool-literal> ::= "true" | "false"
-<regex-literal> ::= //([^/\]|\.)+/[a-z]*/
+<regex-literal> ::= /\/([^\/\\]|\\.)+\/[a-z]*/
 
 <identifier> ::= /[_$a-zA-Z][_$a-zA-Z0-9]*/
 <dotted-name> ::= <identifier> ("." <identifier>)*
-<whitespace> ::= /[ 	]+/
-<newline> ::= /
-|
-/
+<whitespace> ::= /[ \t]+/
+<newline> ::= /\n|\r\n/

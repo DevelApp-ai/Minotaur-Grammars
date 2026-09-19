@@ -114,7 +114,7 @@ FormatType: EBNF
 <for-condition> ::= <expression>
 <for-range> ::= <identifier-list> <whitespace>? ":=" <whitespace>? "range" <whitespace> <expression>
 
-<switch-statement> ::= "switch" <whitespace> <expression> <whitespace>? <whitespace>? "{" <case-clauses>? "}"
+<switch-statement> ::= "switch" <whitespace> <expression> <whitespace>? "{" <case-clauses>? "}"
                     | "switch" <whitespace> <simple-statement> ";" <whitespace> <expression> <whitespace>? "{" <case-clauses>? "}"
                     | "switch" <whitespace> "type" <whitespace>? "{" <case-clauses>? "}"
 <case-clauses> ::= <case-clause>+
@@ -179,14 +179,12 @@ FormatType: EBNF
 
 <literal> ::= <int-literal> | <float-literal> | <string-literal> | <rune-literal> | <bool-literal> | <nil-literal>
 <int-literal> ::= /[0-9]+/ | /0[xX][0-9a-fA-F]+/
-<float-literal> ::= /([0-9]+.[0-9]*|.[0-9]+)([eE][+-]?[0-9]+)?/
-<string-literal> ::= /"[^"\]*"/ | /`[^`]*`/
-<rune-literal> ::= /'([^'\]|\.)'/
+<float-literal> ::= /([0-9]+\.[0-9]*|\.[0-9]+)([eE][+-]?[0-9]+)?/
+<string-literal> ::= /"[^"\\]*"/
+<rune-literal> ::= /'([^'\\]|\\.)'/
 <bool-literal> ::= "true" | "false"
 <nil-literal> ::= "nil"
 
 <identifier> ::= /[_a-zA-Z][_a-zA-Z0-9]*/
-<whitespace> ::= /[ 	]+/
-<newline> ::= /
-|
-/
+<whitespace> ::= /[ \t]+/
+<newline> ::= /\n|\r\n/

@@ -29,8 +29,7 @@ FormatType: EBNF
 <cardinality> ::= "?" | "*" | "+"
 <attlistdecl> ::= "<!ATTLIST" <s> <name> <attdef>* <s>? ">"
 <attdef> ::= <s> <name> <s> <att-type> <s> <default-decl>
-<att-type> ::= <cdata-type> | ("ID" | "IDREF" | "IDREFS" | "ENTITY" | "ENTITIES" | "NMTOKEN" | "NMTOKENS") | <enumerated-type>
-<cdata-type> ::= "CDATA"
+<att-type> ::= "CDATA" | ("ID" | "IDREF" | "IDREFS" | "ENTITY" | "ENTITIES" | "NMTOKEN" | "NMTOKENS") | <enumerated-type>
 <enumerated-type> ::= <notation-type> | <enumeration>
 <notation-type> ::= "NOTATION" <s> "(" <s>? <name> (<s>? "|" <s>? <name>)* <s>? ")"
 <enumeration> ::= "(" <s>? <nmtoken> (<s>? "|" <s>? <nmtoken>)* <s>? ")"
@@ -50,12 +49,13 @@ FormatType: EBNF
 <empty-elem-tag> ::= "<" <name> (<s> <attribute>)* <s>? "/>"
 <stag> ::= "<" <name> (<s> <attribute>)* <s>? ">"
 <attribute> ::= <name> <eq> <att-value>
-<att-value> ::= '"' <char-ref>* <entity-ref>* '"' | "'" <char-ref>* <entity-ref>* "'"
+<att-value> ::= '"' <att-value-content> '"' | "'" <att-value-content> "'"
+<att-value-content> ::= /[^<"]*/
 <etag> ::= "</" <name> <s>? ">"
 <content> ::= (<element> | <char-data> | <reference> | <cd-sect> | <comment> | <pi>)*
 
 <cd-sect> ::= "<![CDATA[" <cdata-content> "]]>"
-<cdata-content> ::= /(?!]]>)[sS]*/
+<cdata-content> ::= /(?!\]\]>)[\s\S]*/
 <char-data> ::= /[^<&]+/
 <reference> ::= <entity-ref> | <char-ref>
 <entity-ref> ::= "&" <name> ";"
@@ -63,10 +63,10 @@ FormatType: EBNF
 <pe-reference> ::= "%" <name> ";"
 
 <comment> ::= "<!--" <comment-content> "-->"
-<comment-content> ::= /(?!-->)[sS]*/
+<comment-content> ::= /(?!-->)[\s\S]*/
 <pi> ::= "<?" <pitarget> (<s> <pi-content>)? "?>"
 <pitarget> ::= <name>
-<pi-content> ::= /(?>|[sS])*?/
+<pi-content> ::= /[^?]*/
 
 <misc> ::= <comment> | <pi> | <s>
 
@@ -82,5 +82,4 @@ FormatType: EBNF
 <pubid-char> ::= /[ -#%-;-~]/
 <pubid-char-p> ::= /[ -#%-!(-.0-;=-~]/
 <eq> ::= <s>? "=" <s>?
-<s> ::= /[ 	
-]+/
+<s> ::= /[ \t\r\n]+/

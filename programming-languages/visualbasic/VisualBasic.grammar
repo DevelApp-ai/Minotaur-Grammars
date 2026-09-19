@@ -61,8 +61,8 @@ FormatType: EBNF
 
 <property-declaration> ::= <attributes>? <modifier-list>? "Property" <whitespace> <identifier> <whitespace>? "(" <parameter-list>? ")" <whitespace>? ("As" <whitespace> <type-expression>)? <newline> <accessor-list> "End" <whitespace> "Property" <newline>
 <accessor-list> ::= <accessor>*
-<accessor> ::= <modifier-list>? ("Get" <newline> <method-body> "End" <whitespace> "Get" <newline>
-             | "Set" <whitespace>? "(" <identifier> ")" <newline> <method-body> "End" <whitespace> "Set" <newline>)
+<accessor> ::= <modifier-list>? "Get" <newline> <method-body> "End" <whitespace> "Get" <newline>
+             | <modifier-list>? "Set" <whitespace>? "(" <identifier> ")" <newline> <method-body> "End" <whitespace> "Set" <newline>
 
 <field-declaration> ::= <attributes>? <modifier-list>? ("Dim" | "Const") <whitespace> <declarator-list> <newline>
 <declarator-list> ::= <declarator> ("," <whitespace> <declarator>)*
@@ -75,7 +75,7 @@ FormatType: EBNF
 <event-list> ::= <identifier> ("," <whitespace> <identifier>)*
 
 <parameter-list> ::= <parameter> ("," <whitespace> <parameter>)*
-<parameter> ::= <modifier-list>? <identifier>? <whitespace>? "ByVal"? <whitespace>? <identifier> <optional-param-suffix>?
+<parameter> ::= <modifier-list>? ("ByVal" <whitespace>)? <identifier> <optional-param-suffix>?
               | <modifier-list>? "Optional" <whitespace> <identifier> <optional-param-suffix>
               | "ParamArray" <whitespace> <identifier> <whitespace>? "As" <whitespace> <type-expression>
 <optional-param-suffix> ::= <array-suffix>? <whitespace>? "As" <whitespace> <type-expression> <whitespace>? ("=" <whitespace> <expression>)?
@@ -101,9 +101,8 @@ FormatType: EBNF
              | <label-statement>
 
 <local-declaration-statement> ::= ("Dim" | "Static" | "Const") <whitespace> <declarator-list> <newline>
-<assignment-statement> ::= <assignment-target> <whitespace>? <assignment-operator> <whitespace>? <expression> <newline>
-<assignment-target> ::= <expression>
-<assignment-operator> ::= "=" | "+=" | "-=" | "*=" | "/=" | "\=" | "^=" | "&="
+<assignment-statement> ::= <expression> <whitespace>? <assignment-operator> <whitespace>? <expression> <newline>
+<assignment-operator> ::= "=" | "+=" | "-=" | "*=" | "/=" | "\\=" | "^=" | "&="
 <call-statement> ::= <expression> <whitespace>? "(" <argument-list>? ")" <newline> | <expression> <newline>
 
 <if-statement> ::= <if-block>
@@ -136,22 +135,23 @@ FormatType: EBNF
 <continue-statement> ::= "Continue" <whitespace> ("Do" | "For" | "While") <newline>
 <throw-statement> ::= "Throw" (<whitespace> <expression>)? <newline>
 <raiseevent-statement> ::= "RaiseEvent" <whitespace> <identifier> <whitespace>? "(" <argument-list>? ")" <newline>
-<addhandler-statement> ::= ("AddHandler" | "RemoveHandler") <whitespace> <expression> <comma>? <whitespace> <expression> <newline>
+<addhandler-statement> ::= ("AddHandler" | "RemoveHandler") <whitespace> <expression> <whitespace> "," <whitespace> <expression> <newline>
 <using-statement> ::= "Using" <whitespace> <using-resource-list> <newline> <method-body> "End" <whitespace> "Using" <newline>
 <using-resource-list> ::= <using-resource> ("," <whitespace> <using-resource>)*
 <using-resource> ::= <identifier> <whitespace>? "As" <whitespace> <type-expression> <whitespace>? ("=" <whitespace> <expression>)? | <expression>
 <with-statement> ::= "With" <whitespace> <expression> <newline> <with-body> "End" <whitespace> "With" <newline>
 <with-body> ::= <with-statement-item>*
-<with-statement-item> ::= <assignment-statement> | <call-statement> | <whitespace>? "." <identifier> <whitespace>? <assignment-operator> <whitespace>? <expression> <newline>
+<with-statement-item> ::= <assignment-statement> | <call-statement> | <expression> <whitespace>? "." <identifier> <whitespace>? <assignment-operator> <whitespace>? <expression> <newline>
 <label-statement> ::= <identifier> ":" <newline>
 
-<type-expression> ::= <builtin-type> | <dotted-name> <whitespace>? "(" <whitespace>? ")"? | <dotted-name> | ("(" ")" | "(" <whitespace>? ")") <whitespace>? <type-expression>
+<type-expression> ::= <builtin-type> | <dotted-name> | <array-type-expression>
+<array-type-expression> ::= <type-expression> <whitespace>? <array-suffix>
 <builtin-type> ::= "Integer" | "Long" | "Short" | "Byte" | "Boolean" | "String" | "Char" | "Double" | "Single" | "Decimal" | "Date" | "Object"
 
 <expression> ::= <binary-expression>
-              | "CType" <whitespace>? "(" <expression> <comma>? <whitespace> <type-expression> ")"
+              | "CType" <whitespace>? "(" <expression> <whitespace> "," <whitespace> <type-expression> ")"
 <binary-expression> ::= <unary-expression> (<whitespace>? <binary-operator> <whitespace>? <unary-expression>)*
-<binary-operator> ::= "And" | "Or" | "Xor" | "AndAlso" | "OrElse" | "Is" | "IsNot" | "Like" | "Mod" | "^" | "&" | "+" | "-" | "*" | "/" | "\" | "=" | "<>" | "<" | "<=" | ">" | ">="
+<binary-operator> ::= "And" | "Or" | "Xor" | "AndAlso" | "OrElse" | "Is" | "IsNot" | "Like" | "Mod" | "^" | "&" | "+" | "-" | "*" | "/" | "\\" | "=" | "<>" | "<" | "<=" | ">" | ">="
 <unary-expression> ::= "Not" <whitespace> <unary-expression>
                     | "-" <whitespace>? <unary-expression>
                     | <postfix-expression>
@@ -172,18 +172,14 @@ FormatType: EBNF
 <attribute-list> ::= <attribute> ("," <whitespace>? <attribute>)*
 <attribute> ::= <dotted-name> <whitespace>? "(" <argument-list>? ")"
 
-<literal> ::= <string-literal> | <int-literal> | <float-literal> | <bool-literal> | "Nothing" | <date-literal> | <char-literal>
+<literal> ::= <string-literal> | <int-literal> | <float-literal> | <bool-literal> | "Nothing" | <date-literal>
 <string-literal> ::= /"[^"]*"/
 <int-literal> ::= /&?H[0-9A-Fa-f]+/ | /[0-9]+/ | /&[Oo][0-7]+/
-<float-literal> ::= /[0-9]+.[0-9]+/ | /[0-9]+.[0-9]*[eE][+-]?[0-9]+/
+<float-literal> ::= /[0-9]+\.[0-9]+/ | /[0-9]+\.[0-9]*[eE][+-]?[0-9]+/
 <bool-literal> ::= "True" | "False"
-<date-literal> ::= /#[0-9/:-]+[ ]?[APap][Mm]#/
-<char-literal> ::= /"c"[^"]*"/
+<date-literal> ::= /#[0-9\/:-]+[ ]?[APap][Mm]#/
 
 <identifier> ::= /[_a-zA-Z][_a-zA-Z0-9]*/
 <dotted-name> ::= <identifier> ("." <identifier>)*
-<whitespace> ::= /[ 	]+/
-<newline> ::= /
-|
-/
-<comma> ::= ","
+<whitespace> ::= /[ \t]+/
+<newline> ::= /\n|\r\n/

@@ -97,6 +97,7 @@ FormatType: EBNF
            | <cons-pattern>
            | <list-pattern>
 <wildcard-pattern> ::= "_"
+<literal-pattern> ::= <literal>
 <tuple-pattern> ::= "(" <pattern> "," <pattern> ("," <pattern>)* ")"
 <record-pattern> ::= "{" <pattern-field-list> "}"
 <pattern-field-list> ::= <identifier> <whitespace> "=" <whitespace> <pattern> (";" <identifier> <whitespace> "=" <whitespace> <pattern>)*
@@ -196,16 +197,14 @@ FormatType: EBNF
 <literal> ::= <bool-literal> | <int32-literal> | <float-literal> | <string-literal> | <char-literal> | <unit-literal> | <null-literal>
 <bool-literal> ::= "true" | "false"
 <int32-literal> ::= /-?[0-9]+/
-<float-literal> ::= /-?[0-9]+.[0-9]+([eE][+-]?[0-9]+)?/
-<string-literal> ::= /@?"([^"\]|\.)*"/
-<char-literal> ::= /'([^'\]|\.)'/
+<float-literal> ::= /-?[0-9]+\.[0-9]+([eE][+-]?[0-9]+)?/
+<string-literal> ::= /@?"([^"\\]|\\.)*"/
+<char-literal> ::= /'([^'\\]|\\.)'/
 <unit-literal> ::= "()"
 <null-literal> ::= "null"
 
 <identifier> ::= /[_a-zA-Z][_a-zA-Z0-9']*/
 <dotted-name> ::= <identifier> ("." <identifier>)*
 <attributes> ::= <attribute-list> <newline>
-<whitespace> ::= /[ 	]+/
-<newline> ::= /
-|
-/
+<whitespace> ::= /[ \t]+/
+<newline> ::= /\n|\r\n/
