@@ -1,0 +1,4 @@
+Grammar: MyDerived
+Inherits: does_not_exist
+
+<NUMBER> ::= /[0-9]+/
