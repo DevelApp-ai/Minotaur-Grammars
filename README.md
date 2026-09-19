@@ -1,39 +1,54 @@
 # Minotaur-Grammars
 
-The grammar library for [Minotaur](https://github.com/DevelApp-ai/Minotaur), the compiler-compiler platform.
+The consolidated grammar library for the DevelApp ecosystem. This repository
+is the **single home for grammar definitions** used by
+[Minotaur](https://github.com/DevelApp-ai/Minotaur),
+[ENFAStepLexer-StepParser](https://github.com/DevelApp-ai/ENFAStepLexer-StepParser),
+and grammars distributed via **Minotaur-Marketplace**.
 
-This repository holds the grammar definitions previously bundled in the Minotaur
-engine repository under `grammars/`:
+## Layout
 
-- **Programming-language grammars** (C#, C/C++, Java, JavaScript, TypeScript, COBOL, PL/I, Rust, Go, CSS, SQL, and more)
-- **Natural-language grammars** (Danish, German, French, Latin, Ancient Greek, Faroese, and more) — optional downloadable content, useful for multilingual parsing demos and testing the grammar format
-- **Compiler-compiler base grammars** (ABNF, CEBNF, ...)
-- **Postal-code grammars** (`PostalCodes/`) with tests
-
-## Usage
-
-Grammars are consumed by the Minotaur engine. Clone or download this repository
-when you need grammar definitions; the Minotaur engine repository itself stays
-focused on the compiler-compiler platform code.
-
-## Structure
-
-- `*.grammar` — grammar definitions
-- `*_Examples.txt` — example inputs for the corresponding grammar
-- `*_README.md` — notes for the corresponding grammar
-- `PostalCodes/` — postal-code grammars and their tests
-- `sample.grammar` — sample grammar demonstrating context-sensitive projections and semantic rules (imported from [ENFAStepLexer-StepParser](https://github.com/DevelApp-ai/ENFAStepLexer-StepParser))
-- `test-grammars/` — grammars used by [ENFAStepLexer-StepParser](https://github.com/DevelApp-ai/ENFAStepLexer-StepParser) tests, benchmarks, and demo (extracted from inline C# strings):
-  - `test-grammars/step-parser-tests/<TestClass>/<GrammarName>.grammar`
-  - `test-grammars/benchmarks/ParserBenchmarks/`
-  - `test-grammars/demo/StepParserDemo/`
-  - Numbered variants (`TestGrammar.2.grammar`) are distinct grammars that share a name across test methods; some are deliberately invalid (used for error-path tests).
+Every grammar lives in its own folder with its metadata and license, grouped
+by category (`programming-languages/`, `natural-languages/`,
+`compiler-compilers/`, `postal-codes/`). See
+[docs/STRUCTURE.md](docs/STRUCTURE.md) for the full layout and file-by-file
+reference.
 
 ## Licensing
 
-There is **no repository-level license**. Licensing is a **per-grammar property**:
+There is **no repository-level license**. Each grammar folder carries its own
+`LICENSE`: DevelApp-authored grammars are MIT; grammars sourced elsewhere
+keep their origin license with attribution. See
+[docs/LICENSING.md](docs/LICENSING.md).
 
-- Grammars authored by DevelApp / Lars Buch are **MIT** licensed.
-- Grammars originating elsewhere follow their **origin license** (see the individual grammar folder / metadata once the per-grammar licensing work lands).
+## Marketplace distribution
 
-See the [licensing tracking issue](https://github.com/DevelApp-ai/Minotaur-Grammars/issues/1) for details.
+Minotaur-Marketplace is the distributor for all grammars in this repository.
+Each grammar is packaged (tar.gz) with a `minotaur-metadata.json` matching the
+marketplace `GrammarInfo` schema:
+
+- Schema: [schemas/minotaur-metadata.schema.json](schemas/minotaur-metadata.schema.json)
+- A grammar that validates against the schema and the OPA policies can be
+  packaged with `GrammarPackageExporter` and published with zero manual edits.
+
+## Validation
+
+```bash
+# Build the OPA input document from the grammar folders
+scripts/build-opa-input.sh
+
+# License + metadata policies (must return an empty violation set)
+opa eval -d policies -i opa-input.json 'data.minotaur'
+
+# Policy unit tests
+opa test policies
+```
+
+The OPA policies are intentionally minimal: they check licensing and metadata
+completeness. Grammar correctness is proven by integration tests that load and
+parse the grammars through ENFAStepLexer-StepParser in CI.
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the step-by-step checklist for
+adding a grammar.

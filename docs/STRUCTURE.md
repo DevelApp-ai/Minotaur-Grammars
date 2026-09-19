@@ -1,0 +1,63 @@
+# Repository Structure
+
+Each grammar lives in its own folder, grouped by category:
+
+```
+programming-languages/       # grammars for programming & markup languages
+  csharp10/
+    CSharp10.grammar         # the grammar itself (MainFile)
+    minotaur-metadata.json   # marketplace metadata (GrammarInfo)
+    LICENSE                  # per-grammar license (see docs/LICENSING.md)
+    CSharp10_Examples.txt    # optional sidecar: example inputs
+    CSharp10_README.md       # optional sidecar: grammar notes
+natural-languages/           # natural-language grammars (optional
+  danish/                    #   downloadable content in the marketplace)
+compiler-compilers/          # base grammars other grammars inherit from
+  antlr4-base/               #   (e.g. antlr4_base, yacc_base, flex_base)
+postal-codes/                # postal-code grammars
+  us-postal-code/
+    US_Postal_Code.grammar
+    Tests/                   # grammar-specific test inputs
+schemas/
+  minotaur-metadata.schema.json   # JSON Schema for minotaur-metadata.json
+policies/                    # OPA/Rego validation policies (shared with
+  minotaur/                  #   Minotaur and Minotaur-Marketplace)
+scripts/
+  build-opa-input.sh         # builds opa-input.json for policy evaluation
+docs/
+  LICENSING.md               # per-author licensing policy
+  STRUCTURE.md               # this document
+```
+
+## Conventions
+
+- **Folder names** are kebab-case (e.g. `us-postal-code`, `antlr4-base`).
+- **Grammar file names** keep their original names (e.g. `CSharp10.grammar`);
+  `MainFile` in the metadata points at the file inside the folder.
+- **Sidecars** (`*_Examples.txt`, `*_README.md`) move into the corresponding
+  grammar folder.
+- A grammar folder is any directory containing a `minotaur-metadata.json` —
+  this is also how the validation scripts discover grammars.
+
+## What each file is
+
+| File | Purpose |
+| --- | --- |
+| `<Name>.grammar` | The grammar definition consumed by Minotaur / ENFAStepLexer-StepParser |
+| `minotaur-metadata.json` | Marketplace package metadata; validates against `schemas/minotaur-metadata.schema.json` |
+| `LICENSE` | Per-grammar license text with an `SPDX-License-Identifier:` line |
+| `*_Examples.txt` | Sample inputs exercising the grammar |
+| `*_README.md` | Notes about the grammar (coverage, origin, quirks) |
+| `Tests/` | Grammar-specific test cases |
+
+## Validation
+
+```bash
+scripts/build-opa-input.sh
+opa eval -d policies -i opa-input.json 'data.minotaur'
+opa test policies
+```
+
+Grammar *correctness* is not checked by OPA; the CI pipeline validates
+metadata and licensing here, and loads/parses changed grammars through
+ENFAStepLexer-StepParser integration tests.
