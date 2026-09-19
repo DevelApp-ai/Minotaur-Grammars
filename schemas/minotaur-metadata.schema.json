@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/DevelApp-ai/Minotaur-Grammars/schemas/minotaur-metadata.schema.json",
+  "title": "Minotaur grammar package metadata (GrammarInfo)",
+  "type": "object",
+  "required": [
+    "Id",
+    "Name",
+    "Vendor",
+    "DisplayName",
+    "Version",
+    "MinotaurVersion",
+    "Description",
+    "License",
+    "Tags",
+    "MainFile",
+    "Dependencies",
+    "Documentation",
+    "Repository",
+    "Author",
+    "PricingModel"
+  ],
+  "properties": {
+    "Id": {
+      "type": "string",
+      "pattern": "^[a-z0-9.-]+$",
+      "description": "Package id, e.g. develapp.csharp10"
+    },
+    "Name": {
+      "type": "string"
+    },
+    "Vendor": {
+      "type": "string"
+    },
+    "DisplayName": {
+      "type": "string"
+    },
+    "Version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+(-[\\w.]+)?$"
+    },
+    "MinotaurVersion": {
+      "type": "string"
+    },
+    "Description": {
+      "type": "string",
+      "minLength": 1
+    },
+    "License": {
+      "type": "string",
+      "description": "SPDX license identifier, must match the folder's LICENSE file"
+    },
+    "Tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "MainFile": {
+      "type": "string",
+      "description": "Grammar file name within the folder"
+    },
+    "Dependencies": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "Documentation": {
+      "type": "string"
+    },
+    "Repository": {
+      "type": "string"
+    },
+    "Author": {
+      "type": "object",
+      "required": [
+        "Username",
+        "FirstName",
+        "LastName"
+      ],
+      "properties": {
+        "Username": {
+          "type": "string"
+        },
+        "FirstName": {
+          "type": "string"
+        },
+        "LastName": {
+          "type": "string"
+        }
+      }
+    },
+    "PricingModel": {
+      "type": "string",
+      "enum": [
+        "free",
+        "paid",
+        "freemium"
+      ],
+      "default": "free"
+    }
+  },
+  "additionalProperties": false
+}
