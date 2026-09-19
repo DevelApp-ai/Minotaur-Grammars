@@ -1,0 +1,25 @@
+{
+  "Id": "develapp.test.parserbenchmarks",
+  "Name": "ParserBenchmarks Grammar",
+  "Vendor": "DevelApp",
+  "DisplayName": "ParserBenchmarks Grammar",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "Benchmark grammar for ParserBenchmarks in ENFAStepLexer-StepParser.",
+  "License": "MIT",
+  "Tags": [
+    "test-grammar",
+    "minotaur",
+    "enfa"
+  ],
+  "MainFile": "BenchmarkGrammar.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}

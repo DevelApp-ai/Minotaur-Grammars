@@ -1,0 +1,25 @@
+{
+  "Id": "develapp.test.cognitivegraphanalyticstests",
+  "Name": "CognitiveGraphAnalyticsTests Grammar",
+  "Vendor": "DevelApp",
+  "DisplayName": "CognitiveGraphAnalyticsTests Grammar",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "Test-fixture grammar for CognitiveGraphAnalyticsTests in ENFAStepLexer-StepParser.",
+  "License": "MIT",
+  "Tags": [
+    "test-grammar",
+    "minotaur",
+    "enfa"
+  ],
+  "MainFile": "TestGrammar.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}

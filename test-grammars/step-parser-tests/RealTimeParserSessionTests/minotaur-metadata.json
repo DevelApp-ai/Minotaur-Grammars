@@ -1,0 +1,25 @@
+{
+  "Id": "develapp.test.realtimeparsersessiontests",
+  "Name": "RealTimeParserSessionTests Grammar",
+  "Vendor": "DevelApp",
+  "DisplayName": "RealTimeParserSessionTests Grammar",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "Test-fixture grammars for RealTimeParserSessionTests in ENFAStepLexer-StepParser.",
+  "License": "MIT",
+  "Tags": [
+    "test-grammar",
+    "minotaur",
+    "enfa"
+  ],
+  "MainFile": "ExpressionGrammar.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}
