@@ -1,0 +1,24 @@
+{
+  "Id": "develapp.grammarfile",
+  "Name": "GrammarFile",
+  "Vendor": "DevelApp",
+  "DisplayName": "GrammarFile",
+  "Version": "1.0.0",
+  "MinotaurVersion": "1.5.1",
+  "Description": "GrammarFile grammar describing project and tooling file formats for the Minotaur platform.",
+  "License": "MIT",
+  "Tags": [
+    "project-file",
+    "minotaur"
+  ],
+  "MainFile": "GrammarFile.grammar",
+  "Dependencies": [],
+  "Documentation": "",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}

@@ -1,0 +1,24 @@
+{
+  "Id": "develapp.dotnetproject",
+  "Name": "DotNetProject",
+  "Vendor": "DevelApp",
+  "DisplayName": "DotNetProject",
+  "Version": "1.0.0",
+  "MinotaurVersion": "1.5.1",
+  "Description": "DotNetProject grammar describing project and tooling file formats for the Minotaur platform.",
+  "License": "MIT",
+  "Tags": [
+    "project-file",
+    "minotaur"
+  ],
+  "MainFile": "DotNetProject.grammar",
+  "Dependencies": [],
+  "Documentation": "",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}

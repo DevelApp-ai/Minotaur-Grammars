@@ -1,0 +1,24 @@
+{
+  "Id": "develapp.mbnf",
+  "Name": "MBNF",
+  "Vendor": "DevelApp",
+  "DisplayName": "MBNF",
+  "Version": "1.0.0",
+  "MinotaurVersion": "1.5.1",
+  "Description": "MBNF base/meta grammar for the Minotaur compiler-compiler platform. Used for grammar composition and inheritance.",
+  "License": "MIT",
+  "Tags": [
+    "compiler-compiler",
+    "minotaur"
+  ],
+  "MainFile": "MBNF.grammar",
+  "Dependencies": [],
+  "Documentation": "",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}
