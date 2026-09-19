@@ -1,0 +1,17 @@
+# Grammar parse-validation baseline (issue #19).
+#
+# Repository-relative paths of grammar files that currently FAIL to load
+# through StepLexer/StepParser (StepParserEngine.LoadGrammarFromContent +
+# structural checks) in ENFAStepLexer-StepParser's
+# GrammarRepositoryParseTests. Lines starting with '#' and blank lines are
+# ignored.
+#
+# - Pull requests validate only changed .grammar files; files listed here are
+#   exempt (pre-existing failures, not regressions).
+# - Pushes to main verify that the set of failing files matches this list
+#   exactly (both new failures and unexpectedly fixed files are flagged).
+# - Regenerate: Actions tab -> Grammar Validation -> Run workflow -> mode
+#   'record', then commit the artifact's grammar-parse-baseline.new.txt here.
+#
+# This file starts empty: the first full 'verify' run on main after the
+# harness lands will report the actual current state; record and commit it.

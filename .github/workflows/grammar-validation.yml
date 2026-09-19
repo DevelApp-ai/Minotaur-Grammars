@@ -5,6 +5,13 @@ name: Grammar Validation
 # benchmarks, and demo load all grammars from here (test-grammars/), so a
 # grammar change that breaks loading or parsing fails CI.
 #
+# In addition, every grammar file (not just test-grammars/) is parse-validated
+# through StepLexer/StepParser by GrammarRepositoryParseTests in the ENFA
+# suite (see issue #19): on pull requests only the changed .grammar files are
+# validated (fast path), while pushes to main verify ALL grammars against the
+# recorded baseline (.grammar-parse-baseline.txt). The baseline can be
+# regenerated with a workflow_dispatch run in 'record' mode.
+#
 # This is the primary grammar-correctness gate (see issue #7); OPA policies
 # (issue #5) only cover license/metadata concerns once those exist.
 
@@ -13,6 +20,12 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Grammar parse-validation mode'
+        type: choice
+        options: [verify, record]
+        default: verify
 
 env:
   DOTNET_VERSION: '8.0.x'
@@ -28,6 +41,10 @@ jobs:
     steps:
       - name: Checkout Minotaur-Grammars (this repository)
         uses: actions/checkout@v4
+        with:
+          # Full history on PRs so changed-file detection can diff against
+          # the base commit.
+          fetch-depth: ${{ github.event_name == 'pull_request' && '0' || '1' }}
 
       - name: Checkout ENFAStepLexer-StepParser
         uses: actions/checkout@v4
@@ -42,6 +59,37 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      # Determines which grammars the parse-validation harness (see issue
+      # #19) should validate:
+      #  - pull_request: only the .grammar files changed in the PR; skip
+      #    entirely (mode=none) when no grammar file changed.
+      #  - push to main: verify all grammars against the baseline.
+      #  - workflow_dispatch: the selected mode (verify or record).
+      - name: Determine grammar parse-validation scope
+        run: |
+          set -euo pipefail
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            base="${{ github.event.pull_request.base.sha }}"
+            files=$(git diff --name-only --diff-filter=ACMR "${base}"..HEAD -- '*.grammar' || true)
+            if [ -n "${files//\n/}" ]; then
+              {
+                echo "GRAMMAR_VALIDATION_MODE=changed"
+                echo "GRAMMAR_VALIDATION_FILES<<GRAMMAR_FILES_EOF"
+                echo "${files}"
+                echo "GRAMMAR_FILES_EOF"
+              } >> "$GITHUB_ENV"
+              echo "Parse-validating changed grammars:"
+              echo "${files}"
+            else
+              echo "GRAMMAR_VALIDATION_MODE=none" >> "$GITHUB_ENV"
+              echo "No grammar files changed - parse validation skipped."
+            fi
+          elif [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "GRAMMAR_VALIDATION_MODE=${{ inputs.mode }}" >> "$GITHUB_ENV"
+          else
+            echo "GRAMMAR_VALIDATION_MODE=verify" >> "$GITHUB_ENV"
+          fi
 
       # Replicates enfa/.github/actions/setup-cognitivegraph-feed (that action
       # resolves paths relative to the ENFA checkout root, which does not hold
@@ -65,6 +113,7 @@ jobs:
       - name: Run test suite against this repository's grammars
         env:
           MINOTAUR_GRAMMARS_DIR: ${{ github.workspace }}
+          GRAMMAR_VALIDATION_BASELINE_OUT: ${{ github.workspace }}/grammar-parse-baseline.new.txt
         run: >
           dotnet test enfa/ENFAStepLexer-StepParser.sln
           --configuration Release
@@ -77,6 +126,16 @@ jobs:
           name: grammar-validation-results
           path: TestResults
           if-no-files-found: warn
+
+      # Present only in 'record' runs: the freshly observed baseline for
+      # .grammar-parse-baseline.txt, ready to be committed.
+      - name: Upload recorded grammar parse baseline
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: grammar-parse-baseline
+          path: grammar-parse-baseline.new.txt
+          if-no-files-found: ignore
 
   # Fail fast on obvious structural problems that the test suite cannot see
   # (e.g. stray files at repo root, empty grammar files).
