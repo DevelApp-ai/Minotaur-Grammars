@@ -1,0 +1,100 @@
+name: Grammar Validation
+
+# Validates grammar changes in this repository by running the
+# ENFAStepLexer-StepParser test suite against this checkout. Its tests,
+# benchmarks, and demo load all grammars from here (test-grammars/), so a
+# grammar change that breaks loading or parsing fails CI.
+#
+# This is the primary grammar-correctness gate (see issue #7); OPA policies
+# (issue #5) only cover license/metadata concerns once those exist.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+env:
+  DOTNET_VERSION: '8.0.x'
+
+jobs:
+  validate-grammars:
+    name: ENFAStepLexer-StepParser integration suite
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout Minotaur-Grammars (this repository)
+        uses: actions/checkout@v4
+
+      - name: Checkout ENFAStepLexer-StepParser
+        uses: actions/checkout@v4
+        with:
+          repository: DevelApp-ai/ENFAStepLexer-StepParser
+          path: enfa
+          # Validate against the consumer's main branch so grammar changes
+          # are proven compatible with what consumers actually use.
+          ref: main
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Provide DevelApp.CognitiveGraph package feed
+        uses: ./enfa/.github/actions/setup-cognitivegraph-feed
+
+      - name: Run test suite against this repository's grammars
+        env:
+          MINOTAUR_GRAMMARS_DIR: ${{ github.workspace }}
+        run: >
+          dotnet test enfa/ENFAStepLexer-StepParser.sln
+          --configuration Release
+          --logger trx --results-directory ./TestResults
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: grammar-validation-results
+          path: TestResults
+          if-no-files-found: warn
+
+  # Fail fast on obvious structural problems that the test suite cannot see
+  # (e.g. stray files at repo root, empty grammar files).
+  sanity-check:
+    name: Repository sanity checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout Minotaur-Grammars (this repository)
+        uses: actions/checkout@v4
+
+      - name: No empty grammar files
+        run: |
+          set -euo pipefail
+          empty=$(find . -name '*.grammar' -type f -empty)
+          if [ -n "$empty" ]; then
+            echo "Empty grammar files found:" >&2
+            echo "$empty" >&2
+            exit 1
+          fi
+
+      - name: Every grammar file declares a Grammar header
+        run: |
+          set -euo pipefail
+          missing=""
+          while IFS= read -r f; do
+            if ! grep -qE '^\s*Grammar:\s*\S+' "$f"; then
+              missing="$missing$f"$'\n'
+            fi
+          done < <(find . -name '*.grammar' -type f)
+          if [ -n "$missing" ]; then
+            echo "Grammar files without a 'Grammar:' header:" >&2
+            printf '%s' "$missing" >&2
+            exit 1
+          fi
