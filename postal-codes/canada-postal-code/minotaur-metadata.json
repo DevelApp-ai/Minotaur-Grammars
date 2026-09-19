@@ -1,0 +1,24 @@
+{
+  "Id": "develapp.canadapostalcode",
+  "Name": "Canada_Postal_Code",
+  "Vendor": "DevelApp",
+  "DisplayName": "Canada Postal Code",
+  "Version": "1.0.0",
+  "MinotaurVersion": "1.5.1",
+  "Description": "Canada Postal Code grammar for the Minotaur platform.",
+  "License": "MIT",
+  "Tags": [
+    "postal-code",
+    "postal-codes"
+  ],
+  "MainFile": "Canada_Postal_Code.grammar",
+  "Dependencies": [],
+  "Documentation": "",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}

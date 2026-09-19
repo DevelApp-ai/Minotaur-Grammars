@@ -1,0 +1,24 @@
+{
+  "Id": "develapp.mexicopostalcode",
+  "Name": "Mexico_Postal_Code",
+  "Vendor": "DevelApp",
+  "DisplayName": "Mexico Postal Code",
+  "Version": "1.0.0",
+  "MinotaurVersion": "1.5.1",
+  "Description": "Mexico Postal Code grammar for the Minotaur platform.",
+  "License": "MIT",
+  "Tags": [
+    "postal-code",
+    "postal-codes"
+  ],
+  "MainFile": "Mexico_Postal_Code.grammar",
+  "Dependencies": [],
+  "Documentation": "",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}

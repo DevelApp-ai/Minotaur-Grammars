@@ -1,0 +1,24 @@
+{
+  "Id": "develapp.postalcoding",
+  "Name": "PostalCoding",
+  "Vendor": "DevelApp",
+  "DisplayName": "PostalCoding",
+  "Version": "1.0.0",
+  "MinotaurVersion": "1.5.1",
+  "Description": "PostalCoding postal-coding grammar for the Minotaur platform.",
+  "License": "MIT",
+  "Tags": [
+    "postal-code",
+    "postal-codes"
+  ],
+  "MainFile": "PostalCoding.grammar",
+  "Dependencies": [],
+  "Documentation": "",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}

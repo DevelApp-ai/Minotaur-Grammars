@@ -1,0 +1,24 @@
+{
+  "Id": "develapp.japanpostalcode",
+  "Name": "Japan_Postal_Code",
+  "Vendor": "DevelApp",
+  "DisplayName": "Japan Postal Code",
+  "Version": "1.0.0",
+  "MinotaurVersion": "1.5.1",
+  "Description": "Japan Postal Code grammar for the Minotaur platform.",
+  "License": "MIT",
+  "Tags": [
+    "postal-code",
+    "postal-codes"
+  ],
+  "MainFile": "Japan_Postal_Code.grammar",
+  "Dependencies": [],
+  "Documentation": "",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}
