@@ -1,0 +1,24 @@
+{
+  "Id": "develapp.java17",
+  "Name": "Java17",
+  "Vendor": "DevelApp",
+  "DisplayName": "Java17",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "Java17 programming-language grammar for the Minotaur parser platform.",
+  "License": "MIT",
+  "Tags": [
+    "programming-language",
+    "minotaur"
+  ],
+  "MainFile": "Java17.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}

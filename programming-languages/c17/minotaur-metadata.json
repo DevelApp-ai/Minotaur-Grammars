@@ -1,0 +1,24 @@
+{
+  "Id": "develapp.c17",
+  "Name": "C17",
+  "Vendor": "DevelApp",
+  "DisplayName": "C17",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "C17 programming-language grammar for the Minotaur parser platform.",
+  "License": "MIT",
+  "Tags": [
+    "programming-language",
+    "minotaur"
+  ],
+  "MainFile": "C17.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}

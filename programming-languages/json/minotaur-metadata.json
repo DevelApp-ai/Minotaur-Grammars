@@ -1,0 +1,24 @@
+{
+  "Id": "develapp.json",
+  "Name": "JSON",
+  "Vendor": "DevelApp",
+  "DisplayName": "JSON",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "JSON programming-language grammar for the Minotaur parser platform.",
+  "License": "MIT",
+  "Tags": [
+    "programming-language",
+    "minotaur"
+  ],
+  "MainFile": "JSON.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}
