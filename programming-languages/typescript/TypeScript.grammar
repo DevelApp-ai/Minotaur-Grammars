@@ -1,0 +1,197 @@
+Grammar: TypeScript
+TokenSplitter: Space
+FormatType: EBNF
+
+/*
+ * TypeScript Grammar Definition (ES2022 + type system)
+ * Authored from scratch for Minotaur (issue #8); based on the
+ * TypeScript Language Specification (high-level structure).
+ */
+
+<ts-program> ::= <statement-list>?
+<statement-list> ::= <statement> <statement-list>?
+
+<statement> ::= <import-declaration>
+             | <export-declaration>
+             | <type-alias-declaration>
+             | <interface-declaration>
+             | <enum-declaration>
+             | <namespace-declaration>
+             | <class-declaration>
+             | <function-declaration>
+             | <variable-statement>
+             | <if-statement>
+             | <while-statement>
+             | <for-statement>
+             | <do-while-statement>
+             | <switch-statement>
+             | <try-statement>
+             | <return-statement>
+             | <throw-statement>
+             | <break-statement>
+             | <continue-statement>
+             | <expression-statement>
+             | <block>
+             | <semicolon>
+
+<import-declaration> ::= "import" <whitespace> <import-clause> <whitespace> "from" <whitespace> <string-literal> <semicolon>?
+<import-clause> ::= <import-default> <import-named>
+                  | <import-named>
+                  | <import-default>
+                  | "*"
+<import-default> ::= <identifier>
+<import-named> ::= "{" <import-spec-list> "}" | "*" <whitespace> "as" <whitespace> <identifier>
+<import-spec-list> ::= <import-spec> ("," <import-spec>)* ","?
+<import-spec> ::= <identifier> ("as" <whitespace> <identifier>)?
+
+<export-declaration> ::= "export" <whitespace> <statement>
+                       | "export" <whitespace> "default" <whitespace> <statement>
+                       | "export" <whitespace> <import-named> <whitespace> "from" <whitespace> <string-literal> <semicolon>?
+
+<type-alias-declaration> ::= "type" <whitespace> <identifier> <type-params>? <whitespace> "=" <whitespace> <type-expression> <semicolon>?
+
+<interface-declaration> ::= "interface" <whitespace> <identifier> <type-params>? <heritage-clause>? <whitespace>? "{" <interface-body>? "}"
+<interface-body> ::= <interface-member> (<newline>? <interface-member>)*
+<interface-member> ::= <property-signature> | <method-signature> | <index-signature>
+<property-signature> ::= <accessibility>? <readonly>? <identifier> <optional>? ":" <whitespace> <type-expression> <semicolon>?
+<method-signature> ::= <identifier> <optional>? <type-params>? "(" <parameter-list>? ")" (":" <whitespace> <type-expression>)? <semicolon>?
+<index-signature> ::= "[" <identifier> ":" <whitespace> <type-expression> "]" ":" <whitespace> <type-expression>
+<optional> ::= "?"
+
+<enum-declaration> ::= ("const" <whitespace>)? "enum" <whitespace> <identifier> <whitespace>? "{" <enum-body>? "}"
+<enum-body> ::= <enum-member> ("," <enum-member>)* ","?
+<enum-member> ::= <identifier> ("=" <whitespace> <expression>)?
+
+<namespace-declaration> ::= "namespace" <whitespace> <dotted-name> <whitespace>? "{" <statement-list>? "}"
+
+<class-declaration> ::= "abstract"? <whitespace>? "class" <whitespace> <identifier> <type-params>? <heritage-clause>? <whitespace>? "{" <class-body>? "}"
+<heritage-clause> ::= <whitespace> "extends" <whitespace> <type-expression> | <whitespace> "implements" <whitespace> <type-list>
+<type-list> ::= <type-expression> ("," <whitespace>? <type-expression>)*
+<class-body> ::= <class-member> (<newline>? <class-member>)*
+<class-member> ::= <accessibility>? <readonly>? ("static" <whitespace>)? <class-member-kind>
+<class-member-kind> ::= <property-declaration>
+                     | <constructor-declaration>
+                     | <method-declaration>
+                     | <index-member-declaration>
+<property-declaration> ::= <identifier> <optional>? ("!" )? (":" <whitespace> <type-expression>)? ("=" <whitespace> <expression>)? <semicolon>?
+<constructor-declaration> ::= "constructor" <whitespace>? "(" <parameter-list>? ")" <whitespace>? <class-body>?
+<method-declaration> ::= <identifier> <optional>? <type-params>? "(" <parameter-list>? ")" (":" <whitespace> <type-expression>)? <whitespace>? <class-body>?
+<index-member-declaration> ::= <index-signature>
+
+<function-declaration> ::= "function" <whitespace> <identifier> <type-params>? "(" <parameter-list>? ")" (":" <whitespace> <type-expression>)? <whitespace>? <class-body>?
+<parameter-list> ::= <parameter> ("," <whitespace>? <parameter>)*
+<parameter> ::= <accessibility>? <readonly>? <rest>? <identifier> <optional>? ("?" | ":" <whitespace> <type-expression>)? ("=" <whitespace> <expression>)?
+<rest> ::= "..."
+<accessibility> ::= "public" | "private" | "protected"
+<readonly> ::= "readonly"
+
+<variable-statement> ::= ("declare" <whitespace>)? ("const" | "let" | "var") <whitespace> <variable-declaration-list> <semicolon>?
+<variable-declaration-list> ::= <variable-declaration> ("," <whitespace>? <variable-declaration>)*
+<variable-declaration> ::= <identifier> <optional>? ("!" )? (":" <whitespace> <type-expression>)? ("=" <whitespace> <expression>)?
+
+<type-params> ::= "<" <type-param-list> ">"
+<type-param-list> ::= <type-param> ("," <whitespace>? <type-param>)*
+<type-param> ::= <identifier> ("extends" <whitespace> <type-expression>)? ("=" <whitespace> <type-expression>)?
+
+<type-expression> ::= <union-type>
+<union-type> ::= <intersection-type> (<whitespace>? "|" <whitespace>? <intersection-type>)*
+<intersection-type> ::= <primary-type> (<whitespace>? "&" <whitespace>? <primary-type>)*
+<primary-type> ::= <type-name>
+                | <type-reference>
+                | <array-type>
+                | <tuple-type>
+                | <object-type>
+                | <function-type>
+                | <literal-type>
+                | "keyof" <whitespace> <type-expression>
+                | "typeof" <whitespace> <identifier>
+                | "readonly" <whitespace> <type-expression>
+                | "(" <type-expression> ")"
+<type-name> ::= "any" | "unknown" | "never" | "void" | "undefined" | "null" | "boolean" | "number" | "string" | "bigint" | "symbol" | "object"
+<type-reference> ::= <dotted-name> <type-args>?
+<type-args> ::= "<" <type-arg-list> ">"
+<type-arg-list> ::= <type-expression> ("," <whitespace>? <type-expression>)*
+<array-type> ::= <primary-type> "[" "]" | "Array" <type-args>
+<tuple-type> ::= "[" <type-expression> ("," <whitespace>? <type-expression>)* "]"
+<object-type> ::= "{" <object-type-body>? "}"
+<object-type-body> ::= <type-member> (<newline>? ";"? <type-member>)*
+<type-member> ::= <property-signature> | <method-signature> | <index-signature>
+<function-type> ::= <type-params>? "(" <parameter-list>? ")" <whitespace>? "=>" <whitespace> <type-expression>
+<literal-type> ::= <string-literal> | <int-literal> | <bool-literal>
+
+<expression> ::= <assignment-expression>
+<assignment-expression> ::= <conditional-expression>
+                          | <left-hand-side> <whitespace>? <assignment-operator> <whitespace>? <assignment-expression>
+<assignment-operator> ::= "=" | "+=" | "-=" | "*=" | "/=" | "%=" | "&&=" | "||=" | "??=" | "**=" | "<<=" | ">>=" | "&=" | "|=" | "^="
+<conditional-expression> ::= <binary-expression> <whitespace>? "?" <whitespace>? <assignment-expression> <whitespace>? ":" <whitespace>? <assignment-expression>
+<binary-expression> ::= <unary-expression> (<whitespace>? <binary-operator> <whitespace>? <unary-expression>)*
+<binary-operator> ::= "||" | "&&" | "??" | "==" | "!=" | "===" | "!==" | "<" | "<=" | ">" | ">=" | "instanceof" | "in" | "+" | "-" | "*" | "/" | "%" | "**" | "|" | "^" | "&" | "<<" | ">>" | ">>>"
+<unary-expression> ::= ("!" | "~" | "+" | "-" | "typeof" <whitespace> | "void" <whitespace> | "await" <whitespace>)? <unary-expression>
+                    | "++" <left-hand-side>
+                    | "--" <left-hand-side>
+                    | <left-hand-side> "++"
+                    | <left-hand-side> "--"
+                    | <left-hand-side>
+<left-hand-side> ::= <call-expression> | "new" <whitespace> <call-expression> | <member-expression>
+<call-expression> ::= <member-expression> <type-args>? "(" <argument-list>? ")"
+<member-expression> ::= <primary-expression>
+                      | <member-expression> "." <identifier>
+                      | <member-expression> "[" <expression> "]"
+                      | <member-expression> "!" 
+                      | <member-expression> <template-literal>
+<primary-expression> ::= <identifier> | "this" | "super" | <literal> | <array-literal> | <object-literal> | <paren-expression>
+                      | <arrow-function> | <function-expression> | <class-declaration> | <template-literal> | "await" <whitespace> <unary-expression>
+<argument-list> ::= <assignment-expression> ("," <whitespace>? <assignment-expression>)*
+<array-literal> ::= "[" <argument-list>? "]"
+<object-literal> ::= "{" <property-definition-list>? "}"
+<property-definition-list> ::= <property-definition> ("," <whitespace>? <property-definition>)* ","?
+<property-definition> ::= <identifier> ":" <whitespace>? <assignment-expression>
+                       | "[" <expression> "]" ":" <whitespace>? <assignment-expression>
+                       | <method-signature>
+                       | <spread-property>
+<spread-property> ::= "..." <assignment-expression>
+<paren-expression> ::= "(" <expression> ")"
+<arrow-function> ::= <arrow-params> <whitespace>? "=>" <whitespace>? <arrow-body>
+<arrow-params> ::= <identifier> | "(" <parameter-list>? ")"
+<arrow-body> ::= <class-body> | <assignment-expression>
+<function-expression> ::= "function" <identifier>? "(" <parameter-list>? ")" (":" <whitespace> <type-expression>)? <whitespace>? <class-body>?
+
+<if-statement> ::= "if" <whitespace>? "(" <expression> ")" <whitespace>? <statement> <else-branch>?
+<else-branch> ::= <whitespace>? "else" <whitespace>? <statement>
+<while-statement> ::= "while" <whitespace>? "(" <expression> ")" <whitespace>? <statement>
+<for-statement> ::= "for" <whitespace>? "(" <for-head> ")" <whitespace>? <statement>
+<for-head> ::= <for-in-head> | <for-of-head> | <for-classic>
+<for-classic> ::= <variable-statement>? ";" <whitespace>? <expression>? ";" <whitespace>? <expression>?
+<for-in-head> ::= <variable-statement> <whitespace> "in" <whitespace> <expression>
+<for-of-head> ::= <variable-statement> <whitespace> "of" <whitespace> <expression>
+<do-while-statement> ::= "do" <whitespace>? <statement> <whitespace>? "while" <whitespace>? "(" <expression> ")" <semicolon>?
+<switch-statement> ::= "switch" <whitespace>? "(" <expression> ")" <whitespace>? "{" <case-clauses>? "}"
+<case-clauses> ::= <case-clause>+
+<case-clause> ::= ("case" <whitespace> <expression> | "default") ":" <statement-list>?
+<try-statement> ::= "try" <whitespace>? <block> <catch-clause>? <finally-clause>?
+<catch-clause> ::= <whitespace>? "catch" <whitespace>? "(" <identifier> (":" <whitespace> <type-expression>)? ")" <whitespace>? <block>
+<finally-clause> ::= <whitespace>? "finally" <whitespace>? <block>
+<return-statement> ::= "return" (<whitespace> <expression>)? <semicolon>?
+<throw-statement> ::= "throw" <whitespace> <expression> <semicolon>?
+<break-statement> ::= "break" (<whitespace> <identifier>)? <semicolon>?
+<continue-statement> ::= "continue" (<whitespace> <identifier>)? <semicolon>?
+<expression-statement> ::= <expression> <semicolon>?
+<block> ::= "{" <statement-list>? "}"
+<semicolon> ::= ";"
+
+<template-literal> ::= "`" <template-parts> "`"
+<template-parts> ::= (<template-char>+ | "${" <expression> "}")*
+
+<literal> ::= <string-literal> | <int-literal> | <float-literal> | <bool-literal> | "null" | "undefined" | <regex-literal>
+<string-literal> ::= /"[^"\]*"/ | /'[^'\]*'/
+<int-literal> ::= /[0-9]+/
+<float-literal> ::= /[0-9]+.[0-9]+/
+<bool-literal> ::= "true" | "false"
+<regex-literal> ::= //([^/\]|\.)+/[a-z]*/
+
+<identifier> ::= /[_$a-zA-Z][_$a-zA-Z0-9]*/
+<dotted-name> ::= <identifier> ("." <identifier>)*
+<whitespace> ::= /[ 	]+/
+<newline> ::= /
+|
+/

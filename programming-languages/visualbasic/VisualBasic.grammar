@@ -1,0 +1,189 @@
+Grammar: VisualBasic
+TokenSplitter: Space
+FormatType: EBNF
+
+/*
+ * Visual Basic (.NET) Grammar Definition
+ * Authored from scratch for Minotaur (issue #8); based on the
+ * VB.NET Language Specification (high-level structure).
+ */
+
+<compilation-unit> ::= <option-statements>? <imports-statements>? <namespace-member-declarations>?
+
+<option-statements> ::= ("Option" <whitespace> ("Strict" | "Explicit" | "Compare" <whitespace> ("Binary" | "Text")) <newline>)+
+<imports-statements> ::= <imports-statement>+
+<imports-statement> ::= "Imports" <whitespace> <dotted-name> <whitespace>? <newline>
+
+<namespace-member-declarations> ::= <namespace-member-declaration>+
+<namespace-member-declaration> ::= <namespace-declaration> | <type-declaration>
+
+<namespace-declaration> ::= "Namespace" <whitespace> <dotted-name> <newline> <namespace-member-declarations> "End" <whitespace> "Namespace" <newline>
+
+<type-declaration> ::= <module-declaration>
+                     | <class-declaration>
+                     | <structure-declaration>
+                     | <interface-declaration>
+                     | <enum-declaration>
+
+<module-declaration> ::= <attributes>? <modifier-list>? "Module" <whitespace> <identifier> <newline> <module-body> "End" <whitespace> "Module" <newline>
+<module-body> ::= <member-declaration>*
+
+<class-declaration> ::= <attributes>? <modifier-list>? "Class" <whitespace> <identifier> <inheritance-clause>? <newline> <class-body> "End" <whitespace> "Class" <newline>
+<class-body> ::= <member-declaration>*
+
+<structure-declaration> ::= <attributes>? <modifier-list>? "Structure" <whitespace> <identifier> <newline> <class-body> "End" <whitespace> "Structure" <newline>
+
+<interface-declaration> ::= <attributes>? <modifier-list>? "Interface" <whitespace> <identifier> <inheritance-clause>? <newline> <interface-body> "End" <whitespace> "Interface" <newline>
+<interface-body> ::= <interface-member>*
+
+<enum-declaration> ::= <attributes>? <modifier-list>? "Enum" <whitespace> <identifier> <whitespace>? ("As" <whitespace> <type-expression>)? <newline> <enum-body> "End" <whitespace> "Enum" <newline>
+<enum-body> ::= <enum-member>*
+<enum-member> ::= <attributes>? <identifier> <whitespace>? ("=" <whitespace> <expression>)? <newline>
+
+<inheritance-clause> ::= <whitespace> "Inherits" <whitespace> <type-list>
+<type-list> ::= <type-expression> ("," <whitespace> <type-expression>)*
+
+<modifier-list> ::= <modifier>+
+<modifier> ::= "Public" | "Private" | "Protected" | "Friend" | "Shared" | "MustInherit" | "NotInheritable" | "Shadows" | "Partial" | "MustOverride" | "NotOverridable" | "Overridable" | "Overrides" | "Overloads"
+
+<member-declaration> ::= <method-declaration>
+                       | <constructor-declaration>
+                       | <property-declaration>
+                       | <field-declaration>
+                       | <event-declaration>
+                       | <delegate-declaration>
+                       | <type-declaration>
+
+<method-declaration> ::= <attributes>? <modifier-list>? ("Sub" | "Function") <whitespace> <identifier> <whitespace>? "(" <parameter-list>? ")" <whitespace>? ("As" <whitespace> <type-expression>)? <whitespace>? <handles-clause>? <newline> <method-body> "End" <whitespace> ("Sub" | "Function") <newline>
+<method-body> ::= <statement>*
+
+<constructor-declaration> ::= <attributes>? <modifier-list>? "Sub" <whitespace> "New" <whitespace>? "(" <parameter-list>? ")" <newline> <method-body> "End" <whitespace> "Sub" <newline>
+
+<property-declaration> ::= <attributes>? <modifier-list>? "Property" <whitespace> <identifier> <whitespace>? "(" <parameter-list>? ")" <whitespace>? ("As" <whitespace> <type-expression>)? <newline> <accessor-list> "End" <whitespace> "Property" <newline>
+<accessor-list> ::= <accessor>*
+<accessor> ::= <modifier-list>? ("Get" <newline> <method-body> "End" <whitespace> "Get" <newline>
+             | "Set" <whitespace>? "(" <identifier> ")" <newline> <method-body> "End" <whitespace> "Set" <newline>)
+
+<field-declaration> ::= <attributes>? <modifier-list>? ("Dim" | "Const") <whitespace> <declarator-list> <newline>
+<declarator-list> ::= <declarator> ("," <whitespace> <declarator>)*
+<declarator> ::= <identifier> <array-suffix>? <whitespace>? ("As" <whitespace> <type-expression>)? <whitespace>? ("=" <whitespace> <expression>)?
+<array-suffix> ::= "(" <whitespace>? ("," <whitespace>?)* ")"
+
+<event-declaration> ::= <attributes>? <modifier-list>? "Event" <whitespace> <identifier> <whitespace>? ("As" <whitespace> <type-expression>)? <newline>
+<delegate-declaration> ::= <attributes>? <modifier-list>? "Delegate" <whitespace> ("Sub" | "Function") <whitespace> <identifier> <whitespace>? "(" <parameter-list>? ")" <whitespace>? ("As" <whitespace> <type-expression>)? <newline>
+<handles-clause> ::= "Handles" <whitespace> <event-list>
+<event-list> ::= <identifier> ("," <whitespace> <identifier>)*
+
+<parameter-list> ::= <parameter> ("," <whitespace> <parameter>)*
+<parameter> ::= <modifier-list>? <identifier>? <whitespace>? "ByVal"? <whitespace>? <identifier> <optional-param-suffix>?
+              | <modifier-list>? "Optional" <whitespace> <identifier> <optional-param-suffix>
+              | "ParamArray" <whitespace> <identifier> <whitespace>? "As" <whitespace> <type-expression>
+<optional-param-suffix> ::= <array-suffix>? <whitespace>? "As" <whitespace> <type-expression> <whitespace>? ("=" <whitespace> <expression>)?
+
+<statement> ::= <local-declaration-statement>
+             | <assignment-statement>
+             | <call-statement>
+             | <if-statement>
+             | <select-statement>
+             | <for-statement>
+             | <for-each-statement>
+             | <while-statement>
+             | <do-loop-statement>
+             | <try-statement>
+             | <return-statement>
+             | <exit-statement>
+             | <continue-statement>
+             | <throw-statement>
+             | <raiseevent-statement>
+             | <addhandler-statement>
+             | <using-statement>
+             | <with-statement>
+             | <label-statement>
+
+<local-declaration-statement> ::= ("Dim" | "Static" | "Const") <whitespace> <declarator-list> <newline>
+<assignment-statement> ::= <assignment-target> <whitespace>? <assignment-operator> <whitespace>? <expression> <newline>
+<assignment-target> ::= <expression>
+<assignment-operator> ::= "=" | "+=" | "-=" | "*=" | "/=" | "\=" | "^=" | "&="
+<call-statement> ::= <expression> <whitespace>? "(" <argument-list>? ")" <newline> | <expression> <newline>
+
+<if-statement> ::= <if-block>
+<if-block> ::= ("If" | "ElseIf") <whitespace> <expression> <whitespace> "Then" <whitespace>? <newline>? <method-body> <if-tail>?
+<if-tail> ::= "Else" <whitespace>? <newline>? <method-body> "End" <whitespace> "If" <newline>
+            | <if-block>
+            | "End" <whitespace> "If" <newline>
+
+<select-statement> ::= "Select" <whitespace> "Case" <whitespace> <expression> <newline> <case-blocks> "End" <whitespace> "Select" <newline>
+<case-blocks> ::= <case-block>+
+<case-block> ::= "Case" <whitespace> <case-clause-list> <whitespace>? <newline>? <method-body>
+<case-clause-list> ::= <case-clause> ("," <whitespace> <case-clause>)*
+<case-clause> ::= <expression> | <expression> <whitespace> "To" <whitespace> <expression> | "Else" | "Is" <whitespace>? <relational-operator> <whitespace> <expression>
+<relational-operator> ::= "=" | "<>" | "<" | "<=" | ">" | ">="
+
+<for-statement> ::= "For" <whitespace> <identifier> <whitespace>? "=" <whitespace> <expression> <whitespace> "To" <whitespace> <expression> <whitespace>? ("Step" <whitespace> <expression>)? <newline> <method-body> "Next" <whitespace>? <identifier>? <newline>
+<for-each-statement> ::= "For" <whitespace> "Each" <whitespace> <identifier> <whitespace>? "In" <whitespace> <expression> <newline> <method-body> "Next" <whitespace>? <identifier>? <newline>
+<while-statement> ::= "While" <whitespace> <expression> <newline> <method-body> "End" <whitespace> "While" <newline>
+<do-loop-statement> ::= "Do" <whitespace>? (<while-clause> | <until-clause>)? <newline>? <method-body> "Loop" <whitespace>? (<while-clause> | <until-clause>)? <newline>
+<while-clause> ::= "While" <whitespace> <expression>
+<until-clause> ::= "Until" <whitespace> <expression>
+
+<try-statement> ::= "Try" <newline> <method-body> <catch-blocks>? <finally-block>? "End" <whitespace> "Try" <newline>
+<catch-blocks> ::= <catch-block>+
+<catch-block> ::= "Catch" <whitespace>? <identifier> <whitespace>? ("As" <whitespace> <type-expression>)? <whitespace>? ("When" <whitespace> <expression>)? <newline>? <method-body>
+<finally-block> ::= "Finally" <newline>? <method-body>
+
+<return-statement> ::= "Return" (<whitespace> <expression>)? <newline>
+<exit-statement> ::= "Exit" <whitespace> ("Sub" | "Function" | "Property" | "Do" | "For" | "While" | "Select" | "Try") <newline>
+<continue-statement> ::= "Continue" <whitespace> ("Do" | "For" | "While") <newline>
+<throw-statement> ::= "Throw" (<whitespace> <expression>)? <newline>
+<raiseevent-statement> ::= "RaiseEvent" <whitespace> <identifier> <whitespace>? "(" <argument-list>? ")" <newline>
+<addhandler-statement> ::= ("AddHandler" | "RemoveHandler") <whitespace> <expression> <comma>? <whitespace> <expression> <newline>
+<using-statement> ::= "Using" <whitespace> <using-resource-list> <newline> <method-body> "End" <whitespace> "Using" <newline>
+<using-resource-list> ::= <using-resource> ("," <whitespace> <using-resource>)*
+<using-resource> ::= <identifier> <whitespace>? "As" <whitespace> <type-expression> <whitespace>? ("=" <whitespace> <expression>)? | <expression>
+<with-statement> ::= "With" <whitespace> <expression> <newline> <with-body> "End" <whitespace> "With" <newline>
+<with-body> ::= <with-statement-item>*
+<with-statement-item> ::= <assignment-statement> | <call-statement> | <whitespace>? "." <identifier> <whitespace>? <assignment-operator> <whitespace>? <expression> <newline>
+<label-statement> ::= <identifier> ":" <newline>
+
+<type-expression> ::= <builtin-type> | <dotted-name> <whitespace>? "(" <whitespace>? ")"? | <dotted-name> | ("(" ")" | "(" <whitespace>? ")") <whitespace>? <type-expression>
+<builtin-type> ::= "Integer" | "Long" | "Short" | "Byte" | "Boolean" | "String" | "Char" | "Double" | "Single" | "Decimal" | "Date" | "Object"
+
+<expression> ::= <binary-expression>
+              | "CType" <whitespace>? "(" <expression> <comma>? <whitespace> <type-expression> ")"
+<binary-expression> ::= <unary-expression> (<whitespace>? <binary-operator> <whitespace>? <unary-expression>)*
+<binary-operator> ::= "And" | "Or" | "Xor" | "AndAlso" | "OrElse" | "Is" | "IsNot" | "Like" | "Mod" | "^" | "&" | "+" | "-" | "*" | "/" | "\" | "=" | "<>" | "<" | "<=" | ">" | ">="
+<unary-expression> ::= "Not" <whitespace> <unary-expression>
+                    | "-" <whitespace>? <unary-expression>
+                    | <postfix-expression>
+<postfix-expression> ::= <primary-expression> <postfix-tail>*
+<postfix-tail> ::= "." <identifier>
+                | "(" <argument-list>? ")"
+                | "(" <expression> ")"
+                | "!" <identifier>
+<primary-expression> ::= <literal> | <identifier> | <dotted-name> | <new-expression> | "(" <expression> ")" | "Me" | "MyBase" | "MyClass" | "GetType" <whitespace>? "(" <type-expression> ")"
+<new-expression> ::= "New" <whitespace> <type-expression> <whitespace>? "(" <argument-list>? ")" <whitespace>? <object-initializer>?
+<argument-list> ::= <argument> ("," <whitespace>? <argument>)*
+<argument> ::= <expression> | <identifier> ":=" <whitespace>? <expression>
+<object-initializer> ::= "With" <whitespace>? "{" <field-initializer-list>? "}"
+<field-initializer-list> ::= <field-initializer> ("," <whitespace>? <field-initializer>)*
+<field-initializer> ::= "." <identifier> <whitespace>? "=" <whitespace>? <expression>
+
+<attributes> ::= "<" <attribute-list> ">" <newline>
+<attribute-list> ::= <attribute> ("," <whitespace>? <attribute>)*
+<attribute> ::= <dotted-name> <whitespace>? "(" <argument-list>? ")"
+
+<literal> ::= <string-literal> | <int-literal> | <float-literal> | <bool-literal> | "Nothing" | <date-literal> | <char-literal>
+<string-literal> ::= /"[^"]*"/
+<int-literal> ::= /&?H[0-9A-Fa-f]+/ | /[0-9]+/ | /&[Oo][0-7]+/
+<float-literal> ::= /[0-9]+.[0-9]+/ | /[0-9]+.[0-9]*[eE][+-]?[0-9]+/
+<bool-literal> ::= "True" | "False"
+<date-literal> ::= /#[0-9/:-]+[ ]?[APap][Mm]#/
+<char-literal> ::= /"c"[^"]*"/
+
+<identifier> ::= /[_a-zA-Z][_a-zA-Z0-9]*/
+<dotted-name> ::= <identifier> ("." <identifier>)*
+<whitespace> ::= /[ 	]+/
+<newline> ::= /
+|
+/
+<comma> ::= ","

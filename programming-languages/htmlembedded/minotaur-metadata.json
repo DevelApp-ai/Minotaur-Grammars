@@ -1,0 +1,26 @@
+{
+  "Id": "develapp.htmlembedded",
+  "Name": "HTMLEmbedded",
+  "Vendor": "DevelApp",
+  "DisplayName": "HTMLEmbedded",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "HTML grammar with embedded script/style contexts for the Minotaur parser platform (authored for issue #8).",
+  "License": "MIT",
+  "Tags": [
+    "programming-language",
+    "minotaur",
+    "markup",
+    "embedded"
+  ],
+  "MainFile": "HTMLEmbedded.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}

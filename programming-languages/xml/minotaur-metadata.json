@@ -1,0 +1,25 @@
+{
+  "Id": "develapp.xml",
+  "Name": "XML",
+  "Vendor": "DevelApp",
+  "DisplayName": "XML",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "XML 1.0 grammar for the Minotaur parser platform (authored for issue #8).",
+  "License": "MIT",
+  "Tags": [
+    "programming-language",
+    "minotaur",
+    "markup"
+  ],
+  "MainFile": "XML.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}

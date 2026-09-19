@@ -1,0 +1,25 @@
+{
+  "Id": "develapp.fsharp",
+  "Name": "FSharp",
+  "Vendor": "DevelApp",
+  "DisplayName": "FSharp",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "F# grammar for the Minotaur parser platform (authored for issue #8).",
+  "License": "MIT",
+  "Tags": [
+    "programming-language",
+    "minotaur",
+    "dotnet"
+  ],
+  "MainFile": "FSharp.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}

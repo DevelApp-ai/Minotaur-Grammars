@@ -1,0 +1,74 @@
+Grammar: HTMLEmbedded
+TokenSplitter: Space
+FormatType: EBNF
+EmbeddedLanguage: true
+ContextSensitive: true
+SymbolTableSharing: hierarchical
+
+/*
+ * HTML Grammar Definition (embedded-language host)
+ * Authored from scratch for Minotaur (issue #8); based on the
+ * WHATWG HTML Living Standard (high-level structure).
+ * Serves as the host context for embedded <script> and <style>
+ * content (delegated to JavaScript/TypeScript and CSS grammars).
+ */
+
+<html-document> ::= <doctype>? <html-element>
+<doctype> ::= "<!DOCTYPE" <whitespace> "html" <whitespace>? ">"
+
+<html-element> ::= <html-start-tag> <html-content> </html-end-tag>
+<html-start-tag> ::= "<html" <whitespace>? (<attribute> <whitespace>?)* ">"
+</html-end-tag> ::= "</html" <whitespace>? ">"
+<html-content> ::= <head-element>? <body-element>
+
+<head-element> ::= <head-start-tag> <head-content> "</head" <whitespace>? ">"
+<head-start-tag> ::= "<head" <whitespace>? ">"
+<head-content> ::= (<head-element-item> | <whitespace>)*
+<head-element-item> ::= <title-element> | <meta-element> | <link-element> | <style-element> | <script-element> | <base-element>
+
+<title-element> ::= "<title" <whitespace>? ">" <text-content> "</title" <whitespace>? ">"
+<meta-element> ::= "<meta" <whitespace> (<attribute> <whitespace>?)* "/>" | "<meta" <whitespace> (<attribute> <whitespace>?)* ">"
+<link-element> ::= "<link" <whitespace> (<attribute> <whitespace>?)* "/>" | "<link" <whitespace> (<attribute> <whitespace>?)* ">"
+<base-element> ::= "<base" <whitespace> (<attribute> <whitespace>?)* "/>" | "<base" <whitespace> (<attribute> <whitespace>?)* ">"
+
+<body-element> ::= <body-start-tag> <body-content> "</body" <whitespace>? ">"
+<body-start-tag> ::= "<body" <whitespace>? (<attribute> <whitespace>?)* ">"
+<body-content> ::= <content-item>*
+<content-item> ::= <element> | <text-content> | <whitespace> | <comment> | <cdata-section>
+
+<element> ::= <normal-element> | <void-element> | <raw-text-element>
+<normal-element> ::= <start-tag> <content-item>* </end-tag>
+<start-tag> ::= "<" <tag-name> (<whitespace> <attribute>)* <whitespace>? ">"
+</end-tag> ::= "</" <tag-name> <whitespace>? ">"
+
+<void-element> ::= <void-tag>
+<void-tag> ::= "<" <void-tag-name> (<whitespace> <attribute>)* <whitespace>? "/>"?
+<void-tag-name> ::= "area" | "base" | "br" | "col" | "embed" | "hr" | "img" | "input"
+                 | "link" | "meta" | "param" | "source" | "track" | "wbr"
+
+<raw-text-element> ::= <script-element> | <style-element> | <textarea-element> | <title-element>
+<script-element> ::= "<script" (<whitespace> <attribute>)* <whitespace>? ">" <script-content> "</script" <whitespace>? ">"
+<script-content> ::= <javascript-source> | <typescript-source> | ""
+<javascript-source> ::= /* delegated to JavaScript grammar (EmbeddedLanguage) */ ""
+<typescript-source> ::= /* delegated to TypeScript grammar when type="text/typescript" */ ""
+<style-element> ::= "<style" (<whitespace> <attribute>)* <whitespace>? ">" <style-content> "</style" <whitespace>? ">"
+<style-content> ::= <css-source> | ""
+<css-source> ::= /* delegated to CSS grammar (EmbeddedLanguage) */ ""
+<textarea-element> ::= "<textarea" (<whitespace> <attribute>)* <whitespace>? ">" <text-content> "</textarea" <whitespace>? ">"
+
+<tag-name> ::= /[a-zA-Z][a-zA-Z0-9-]*/
+<text-content> ::= /[^<]+/
+
+<attribute> ::= <attribute-name> (<whitespace>? "=" <whitespace>? <attribute-value>)?
+<attribute-name> ::= /[a-zA-Z_:][-a-zA-Z0-9_:.]*/
+<attribute-value> ::= <double-quoted-value> | <single-quoted-value> | <unquoted-value>
+<double-quoted-value> ::= '"' /[^"]*/ '"'
+<single-quoted-value> ::= "'" /[^']*/ "'"
+<unquoted-value> ::= /[^ 	
+>"'=]+/
+
+<comment> ::= "<!--" /[sS]*?/ "-->"
+<cdata-section> ::= "<![CDATA[" /[sS]*?/ "]]>"
+
+<whitespace> ::= /[ 	
+]+/
