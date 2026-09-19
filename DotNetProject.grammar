@@ -1,3 +1,4 @@
+Grammar: DotNetProject
 # DotNet Project Grammar
 # Supports .NET solution and project file parsing for cross-file analysis
 # Enables project-level loading with embedded grammars for different file types

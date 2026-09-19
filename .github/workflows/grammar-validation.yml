@@ -43,8 +43,24 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
+      # Replicates enfa/.github/actions/setup-cognitivegraph-feed (that action
+      # resolves paths relative to the ENFA checkout root, which does not hold
+      # here because ENFA is checked out under enfa/).
       - name: Provide DevelApp.CognitiveGraph package feed
-        uses: ./enfa/.github/actions/setup-cognitivegraph-feed
+        run: |
+          set -euo pipefail
+          CG_VERSION=$(grep -oPm1 '(?<=DevelApp.CognitiveGraph" Version=")[^"]+' \
+            enfa/src/DevelApp.StepParser/DevelApp.StepParser.csproj)
+          if [ -z "$CG_VERSION" ]; then
+            echo "Could not determine DevelApp.CognitiveGraph version" >&2
+            exit 1
+          fi
+          echo "Providing DevelApp.CognitiveGraph ${CG_VERSION} from the CognitiveGraph release"
+          mkdir -p "$GITHUB_WORKSPACE/.cgfeed"
+          curl -sL --fail --retry 3 \
+            -o "$GITHUB_WORKSPACE/.cgfeed/DevelApp.CognitiveGraph.${CG_VERSION}.nupkg" \
+            "https://github.com/DevelApp-ai/CognitiveGraph/releases/download/v${CG_VERSION}/DevelApp.CognitiveGraph.${CG_VERSION}.nupkg"
+          dotnet nuget add source "$GITHUB_WORKSPACE/.cgfeed" -n cognitivegraph-release
 
       - name: Run test suite against this repository's grammars
         env:
