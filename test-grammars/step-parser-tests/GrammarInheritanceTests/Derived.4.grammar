@@ -1,0 +1,5 @@
+Grammar: Derived
+Inherits: antlr4_base, bison_base
+
+<expression> ::= <NUMBER>
+<NUMBER> ::= /[0-9]+/

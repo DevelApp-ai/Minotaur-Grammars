@@ -1,0 +1,4 @@
+Grammar: Base
+Inheritable: true
+
+<NUMBER> ::= /[0-9]+/

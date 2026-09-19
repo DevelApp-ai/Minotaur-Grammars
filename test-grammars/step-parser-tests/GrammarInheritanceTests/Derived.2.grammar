@@ -1,0 +1,5 @@
+Grammar: Derived
+Inherits: antlr4_base
+
+<IDENTIFIER> ::= /custom-[a-z]+/
+<expression> ::= <IDENTIFIER>

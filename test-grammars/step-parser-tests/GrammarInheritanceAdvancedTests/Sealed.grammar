@@ -1,0 +1,4 @@
+Grammar: Sealed
+Inheritable: false
+
+<NUMBER> ::= /[0-9]+/
