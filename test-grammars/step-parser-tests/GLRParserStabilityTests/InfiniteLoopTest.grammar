@@ -1,0 +1,4 @@
+Grammar: InfiniteLoopTest
+<NUMBER> ::= /[0-9]+/
+<expr> ::= <expr>
+<expr> ::= <NUMBER>

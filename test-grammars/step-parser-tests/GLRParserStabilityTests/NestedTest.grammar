@@ -1,0 +1,4 @@
+Grammar: NestedTest
+<NUMBER> ::= /[0-9]+/
+<expr> ::= '(' <expr> ')'
+<expr> ::= <NUMBER>
