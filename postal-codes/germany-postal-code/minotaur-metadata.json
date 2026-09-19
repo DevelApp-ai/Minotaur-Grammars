@@ -1,0 +1,24 @@
+{
+  "Id": "develapp.germany-postal-code",
+  "Name": "Germany_Postal_Code",
+  "Vendor": "DevelApp",
+  "DisplayName": "Germany Postal Code",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "Germany_Postal_Code postal-code grammar for the Minotaur parser platform.",
+  "License": "MIT",
+  "Tags": [
+    "postal-code",
+    "minotaur"
+  ],
+  "MainFile": "Germany_Postal_Code.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}
