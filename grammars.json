@@ -1,0 +1,395 @@
+{
+ "description": "Index of all grammars in this repository",
+ "grammars": [
+  {
+   "name": "ABNF",
+   "category": "compiler-compilers",
+   "path": "compiler-compilers/abnf/ABNF.grammar"
+  },
+  {
+   "name": "antlr4_base",
+   "category": "compiler-compilers",
+   "path": "compiler-compilers/antlr4-base/antlr4_base.grammar"
+  },
+  {
+   "name": "bison_base",
+   "category": "compiler-compilers",
+   "path": "compiler-compilers/bison-base/bison_base.grammar"
+  },
+  {
+   "name": "CEBNF",
+   "category": "compiler-compilers",
+   "path": "compiler-compilers/cebnf/CEBNF.grammar"
+  },
+  {
+   "name": "flex_base",
+   "category": "compiler-compilers",
+   "path": "compiler-compilers/flex-base/flex_base.grammar"
+  },
+  {
+   "name": "GrammarFile",
+   "category": "compiler-compilers",
+   "path": "compiler-compilers/grammar-file/GrammarFile.grammar"
+  },
+  {
+   "name": "lex_base",
+   "category": "compiler-compilers",
+   "path": "compiler-compilers/lex-base/lex_base.grammar"
+  },
+  {
+   "name": "MBNF",
+   "category": "compiler-compilers",
+   "path": "compiler-compilers/mbnf/MBNF.grammar"
+  },
+  {
+   "name": "SampleLanguageGrammar",
+   "category": "compiler-compilers",
+   "path": "compiler-compilers/sample-language/sample.grammar"
+  },
+  {
+   "name": "yacc_base",
+   "category": "compiler-compilers",
+   "path": "compiler-compilers/yacc-base/yacc_base.grammar"
+  },
+  {
+   "name": "Ancient_Greek",
+   "category": "natural-languages",
+   "path": "natural-languages/ancient-greek/Ancient_Greek.grammar"
+  },
+  {
+   "name": "Austrian",
+   "category": "natural-languages",
+   "path": "natural-languages/austrian/Austrian.grammar"
+  },
+  {
+   "name": "Bulgarian",
+   "category": "natural-languages",
+   "path": "natural-languages/bulgarian/Bulgarian.grammar"
+  },
+  {
+   "name": "Croatian",
+   "category": "natural-languages",
+   "path": "natural-languages/croatian/Croatian.grammar"
+  },
+  {
+   "name": "Czech",
+   "category": "natural-languages",
+   "path": "natural-languages/czech/Czech.grammar"
+  },
+  {
+   "name": "Danish",
+   "category": "natural-languages",
+   "path": "natural-languages/danish/Danish.grammar"
+  },
+  {
+   "name": "Dutch",
+   "category": "natural-languages",
+   "path": "natural-languages/dutch/Dutch.grammar"
+  },
+  {
+   "name": "Estonian",
+   "category": "natural-languages",
+   "path": "natural-languages/estonian/Estonian.grammar"
+  },
+  {
+   "name": "Faroese",
+   "category": "natural-languages",
+   "path": "natural-languages/faroese/Faroese.grammar"
+  },
+  {
+   "name": "Finnish",
+   "category": "natural-languages",
+   "path": "natural-languages/finnish/Finnish.grammar"
+  },
+  {
+   "name": "French",
+   "category": "natural-languages",
+   "path": "natural-languages/french/French.grammar"
+  },
+  {
+   "name": "GB_English",
+   "category": "natural-languages",
+   "path": "natural-languages/gb-english/GB_English.grammar"
+  },
+  {
+   "name": "German",
+   "category": "natural-languages",
+   "path": "natural-languages/german/German.grammar"
+  },
+  {
+   "name": "Greenlandic",
+   "category": "natural-languages",
+   "path": "natural-languages/greenlandic/Greenlandic.grammar"
+  },
+  {
+   "name": "Hungarian",
+   "category": "natural-languages",
+   "path": "natural-languages/hungarian/Hungarian.grammar"
+  },
+  {
+   "name": "Icelandic",
+   "category": "natural-languages",
+   "path": "natural-languages/icelandic/Icelandic.grammar"
+  },
+  {
+   "name": "Irish",
+   "category": "natural-languages",
+   "path": "natural-languages/irish/Irish.grammar"
+  },
+  {
+   "name": "Italian",
+   "category": "natural-languages",
+   "path": "natural-languages/italian/Italian.grammar"
+  },
+  {
+   "name": "Latin",
+   "category": "natural-languages",
+   "path": "natural-languages/latin/Latin.grammar"
+  },
+  {
+   "name": "Latvian",
+   "category": "natural-languages",
+   "path": "natural-languages/latvian/Latvian.grammar"
+  },
+  {
+   "name": "Lithuanian",
+   "category": "natural-languages",
+   "path": "natural-languages/lithuanian/Lithuanian.grammar"
+  },
+  {
+   "name": "Maltese",
+   "category": "natural-languages",
+   "path": "natural-languages/maltese/Maltese.grammar"
+  },
+  {
+   "name": "Modern_Greek",
+   "category": "natural-languages",
+   "path": "natural-languages/modern-greek/Modern_Greek.grammar"
+  },
+  {
+   "name": "Norwegian_Bokmål",
+   "category": "natural-languages",
+   "path": "natural-languages/norwegian-bokmål/Norwegian_Bokmål.grammar"
+  },
+  {
+   "name": "Norwegian_Nynorsk",
+   "category": "natural-languages",
+   "path": "natural-languages/norwegian-nynorsk/Norwegian_Nynorsk.grammar"
+  },
+  {
+   "name": "Old_Norse",
+   "category": "natural-languages",
+   "path": "natural-languages/old-norse/Old_Norse.grammar"
+  },
+  {
+   "name": "Polish",
+   "category": "natural-languages",
+   "path": "natural-languages/polish/Polish.grammar"
+  },
+  {
+   "name": "Portuguese",
+   "category": "natural-languages",
+   "path": "natural-languages/portuguese/Portuguese.grammar"
+  },
+  {
+   "name": "Romanian",
+   "category": "natural-languages",
+   "path": "natural-languages/romanian/Romanian.grammar"
+  },
+  {
+   "name": "Slovak",
+   "category": "natural-languages",
+   "path": "natural-languages/slovak/Slovak.grammar"
+  },
+  {
+   "name": "Spanish",
+   "category": "natural-languages",
+   "path": "natural-languages/spanish/Spanish.grammar"
+  },
+  {
+   "name": "Swedish_Expanded",
+   "category": "natural-languages",
+   "path": "natural-languages/swedish-expanded/Swedish_Expanded.grammar"
+  },
+  {
+   "name": "Swedish",
+   "category": "natural-languages",
+   "path": "natural-languages/swedish/Swedish.grammar"
+  },
+  {
+   "name": "Swiss_German",
+   "category": "natural-languages",
+   "path": "natural-languages/swiss-german/Swiss_German.grammar"
+  },
+  {
+   "name": "US_English",
+   "category": "natural-languages",
+   "path": "natural-languages/us-english/US_English.grammar"
+  },
+  {
+   "name": "Australia_Postal_Code",
+   "category": "postal-codes",
+   "path": "postal-codes/australia-postal-code/Australia_Postal_Code.grammar"
+  },
+  {
+   "name": "Brazil_Postal_Code",
+   "category": "postal-codes",
+   "path": "postal-codes/brazil-postal-code/Brazil_Postal_Code.grammar"
+  },
+  {
+   "name": "Canada_Postal_Code",
+   "category": "postal-codes",
+   "path": "postal-codes/canada-postal-code/Canada_Postal_Code.grammar"
+  },
+  {
+   "name": "China_Postal_Code",
+   "category": "postal-codes",
+   "path": "postal-codes/china-postal-code/China_Postal_Code.grammar"
+  },
+  {
+   "name": "France_Postal_Code",
+   "category": "postal-codes",
+   "path": "postal-codes/france-postal-code/France_Postal_Code.grammar"
+  },
+  {
+   "name": "Germany_Postal_Code",
+   "category": "postal-codes",
+   "path": "postal-codes/germany-postal-code/Germany_Postal_Code.grammar"
+  },
+  {
+   "name": "International_Postal_Codes",
+   "category": "postal-codes",
+   "path": "postal-codes/international-postal-codes/International_Postal_Codes.grammar"
+  },
+  {
+   "name": "Japan_Postal_Code",
+   "category": "postal-codes",
+   "path": "postal-codes/japan-postal-code/Japan_Postal_Code.grammar"
+  },
+  {
+   "name": "Mexico_Postal_Code",
+   "category": "postal-codes",
+   "path": "postal-codes/mexico-postal-code/Mexico_Postal_Code.grammar"
+  },
+  {
+   "name": "PostalCode_Index",
+   "category": "postal-codes",
+   "path": "postal-codes/postal-code-index/PostalCode_Index.grammar"
+  },
+  {
+   "name": "PostalCoding_Enhanced",
+   "category": "postal-codes",
+   "path": "postal-codes/postal-coding-enhanced/PostalCoding_Enhanced.grammar"
+  },
+  {
+   "name": "PostalCoding",
+   "category": "postal-codes",
+   "path": "postal-codes/postal-coding/PostalCoding.grammar"
+  },
+  {
+   "name": "UK_Postal_Code",
+   "category": "postal-codes",
+   "path": "postal-codes/uk-postal-code/UK_Postal_Code.grammar"
+  },
+  {
+   "name": "US_Postal_Code",
+   "category": "postal-codes",
+   "path": "postal-codes/us-postal-code/US_Postal_Code.grammar"
+  },
+  {
+   "name": "C17",
+   "category": "programming-languages",
+   "path": "programming-languages/c17/C17.grammar"
+  },
+  {
+   "name": "ClassicASP",
+   "category": "programming-languages",
+   "path": "programming-languages/classic-asp/ClassicASP.grammar"
+  },
+  {
+   "name": "COBOL2023",
+   "category": "programming-languages",
+   "path": "programming-languages/cobol2023/COBOL2023.grammar"
+  },
+  {
+   "name": "Cpp20",
+   "category": "programming-languages",
+   "path": "programming-languages/cpp20/Cpp20.grammar"
+  },
+  {
+   "name": "CSharp10",
+   "category": "programming-languages",
+   "path": "programming-languages/csharp10/CSharp10.grammar"
+  },
+  {
+   "name": "CSS",
+   "category": "programming-languages",
+   "path": "programming-languages/css/CSS.grammar"
+  },
+  {
+   "name": "DotNetProject",
+   "category": "programming-languages",
+   "path": "programming-languages/dot-net-project/DotNetProject.grammar"
+  },
+  {
+   "name": "ExtensionFile",
+   "category": "programming-languages",
+   "path": "programming-languages/extension-file/ExtensionFile.grammar"
+  },
+  {
+   "name": "FolderProject",
+   "category": "programming-languages",
+   "path": "programming-languages/folder-project/FolderProject.grammar"
+  },
+  {
+   "name": "JavaScriptES2022",
+   "category": "programming-languages",
+   "path": "programming-languages/java-script-es2022/JavaScriptES2022.grammar"
+  },
+  {
+   "name": "JavaScript",
+   "category": "programming-languages",
+   "path": "programming-languages/java-script/JavaScript.grammar"
+  },
+  {
+   "name": "Java",
+   "category": "programming-languages",
+   "path": "programming-languages/java/Java.grammar"
+  },
+  {
+   "name": "Java17",
+   "category": "programming-languages",
+   "path": "programming-languages/java17/Java17.grammar"
+  },
+  {
+   "name": "JSON",
+   "category": "programming-languages",
+   "path": "programming-languages/json/JSON.grammar"
+  },
+  {
+   "name": "JSONSchema",
+   "category": "programming-languages",
+   "path": "programming-languages/jsonschema/JSONSchema.grammar"
+  },
+  {
+   "name": "PL1",
+   "category": "programming-languages",
+   "path": "programming-languages/pl1/PL1.grammar"
+  },
+  {
+   "name": "Python311",
+   "category": "programming-languages",
+   "path": "programming-languages/python311/Python311.grammar"
+  },
+  {
+   "name": "Rust2021",
+   "category": "programming-languages",
+   "path": "programming-languages/rust2021/Rust2021.grammar"
+  },
+  {
+   "name": "WebAssembly20",
+   "category": "programming-languages",
+   "path": "programming-languages/web-assembly20/WebAssembly20.grammar"
+  }
+ ]
+}
