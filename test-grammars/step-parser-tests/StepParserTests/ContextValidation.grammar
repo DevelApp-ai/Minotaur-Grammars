@@ -1,0 +1,20 @@
+Grammar: ContextValidation
+TokenSplitter: Space
+
+<FUNCTION> ::= 'function'
+<CLASS> ::= 'class' 
+<IDENTIFIER> ::= /[a-zA-Z][a-zA-Z0-9]*/
+<LBRACE> ::= '{'
+<RBRACE> ::= '}'
+<ASSIGN> ::= '='
+<NUMBER> ::= /[0-9]+/
+<SEMICOLON> ::= ';'
+<WS> ::= /[ \t\r\n]+/
+
+<declaration> ::= <class_declaration> | <function_declaration>
+<class_declaration> ::= <CLASS> <IDENTIFIER> <LBRACE> <class_body> <RBRACE> => { enterClassContext($2); }
+<function_declaration> ::= <FUNCTION> <IDENTIFIER> <LBRACE> <function_body> <RBRACE> => { enterFunctionContext($2); }
+<class_body> ::= <field_declaration>* => { validateClassMembers($1); }
+<function_body> ::= <local_declaration>* => { validateLocalVariables($1); }
+<field_declaration> ::= <IDENTIFIER> <ASSIGN> <NUMBER> <SEMICOLON> => { declareField($1); }
+<local_declaration> ::= <IDENTIFIER> <ASSIGN> <NUMBER> <SEMICOLON> => { declareLocal($1); }

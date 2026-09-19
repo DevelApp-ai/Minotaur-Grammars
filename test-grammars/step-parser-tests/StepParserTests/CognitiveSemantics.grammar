@@ -1,0 +1,17 @@
+Grammar: CognitiveSemantics
+TokenSplitter: Space
+
+<IDENTIFIER> ::= /[a-zA-Z][a-zA-Z0-9]*/
+<ASSIGN> ::= '='
+<NUMBER> ::= /[0-9]+/
+<DOT> ::= '.'
+<LPAREN> ::= '('
+<RPAREN> ::= ')'
+<SEMICOLON> ::= ';'
+<WS> ::= /[ \t\r\n]+/
+
+<program> ::= <statement>* => { buildSemanticGraph($1); }
+<statement> ::= <declaration> | <field_access> | <function_call>
+<declaration> ::= <IDENTIFIER> <ASSIGN> <NUMBER> <SEMICOLON> => { addSymbolNode($1, $3); }
+<field_access> ::= <IDENTIFIER> <DOT> <IDENTIFIER> <SEMICOLON> => { addFieldRelation($1, $3); }
+<function_call> ::= <IDENTIFIER> <LPAREN> <RPAREN> <SEMICOLON> => { addCallRelation($1); }

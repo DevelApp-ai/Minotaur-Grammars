@@ -1,0 +1,8 @@
+Grammar: MixedRules
+TokenSplitter: Space
+
+<NUMBER> ::= /[0-9]+/
+<PLUS> ::= '+'
+
+<expr> ::= <expr> <PLUS> <expr>
+         | <NUMBER>

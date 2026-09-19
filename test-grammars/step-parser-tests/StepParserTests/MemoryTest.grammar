@@ -1,0 +1,4 @@
+Grammar: MemoryTest
+<NUMBER> ::= /[0-9]+/
+<PLUS> ::= '+'
+<expr> ::= <NUMBER> | <expr> <PLUS> <expr>
