@@ -1,1 +1,7 @@
-successfully downloaded text file (SHA: 1598051cdf93e6b5862a4975101f30ec43872681)
+Ja čitam knjigu.
+Ti pišeš pismo.
+On studira.
+Čitao sam knjigu.
+Ću čitati.
+Tko si?
+Što radiš?
