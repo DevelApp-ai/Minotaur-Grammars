@@ -1,3 +1,4 @@
+Grammar: FolderProject
 # Folder Project Grammar
 # Generic folder-based project structure for cross-file analysis
 # Supports various project types through file pattern detection and grammar embedding
