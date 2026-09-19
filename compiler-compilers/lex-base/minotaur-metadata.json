@@ -1,0 +1,24 @@
+{
+  "Id": "develapp.lex-base",
+  "Name": "lex_base",
+  "Vendor": "DevelApp",
+  "DisplayName": "lex base",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "lex_base compiler-compiler grammar for the Minotaur parser platform.",
+  "License": "MIT",
+  "Tags": [
+    "compiler-compiler",
+    "minotaur"
+  ],
+  "MainFile": "lex_base.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}
