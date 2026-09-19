@@ -114,8 +114,7 @@ Jeg blev overrasket.
 Du blev forsinket.
 Han blev ked af det.
 Hun blev syg.
-Vi bl
-ev enige.
+Vi blev enige.
 I blev trætte.
 De blev hjemme.
 
@@ -241,8 +240,7 @@ Du har givet dit bedste.
 Han har givet hende blomster.
 Hun har givet os håb.
 Vi har givet dem muligheden.
-I h
-ar givet meget.
+I har givet meget.
 De har givet op.
 
 ## Gender Agreement - Common Gender (en-words)

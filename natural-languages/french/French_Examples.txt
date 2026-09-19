@@ -167,8 +167,7 @@ L'eau.
 Les livres.
 Les tables.
 
-## I
-ndefinite Articles
+## Indefinite Articles
 
 Un livre.
 Une table.
@@ -315,8 +314,7 @@ Elles s'appellent.
 ## Interrogative Forms
 
 # Intonation
-Tu
- viens?
+Tu viens?
 Elle parle français?
 Ils habitent ici?
 
@@ -454,8 +452,7 @@ Elle veut du fromage.
 
 ## Adverbs
 
-Je parle bien f
-rançais.
+Je parle bien français.
 Tu cours vite.
 Il travaille lentement.
 Elle chante mal.

@@ -57,8 +57,7 @@ Present tense: stem + -i/-ur
 - tala → tali (I speak)
 
 Past tense: stem + -di/-ti/-aði
-- búgva → búgvað
-i (lived)
+- búgva → búgvaði (lived)
 - tala → talaði (spoke)
 
 #### Irregular Verbs (Common)
@@ -162,7 +161,6 @@ Ert tú lærarí?
 ### Case Usage
 ```
 Hundurin er stórur. (Nominative)
-
 (The dog is big)
 
 Eg síggi hundin. (Accusative)

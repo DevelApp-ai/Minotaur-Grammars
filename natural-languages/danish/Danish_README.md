@@ -41,8 +41,7 @@ Danish follows strict V2 word order in main clauses:
 
 Examples:
 ```
-I dag ar
-bejder jeg.            (Today work I)
+I dag arbejder jeg.            (Today work I)
 Bogen læser han.               (The book reads he)
 I København bor vi.            (In Copenhagen live we)
 ```
@@ -107,8 +106,7 @@ Danish's productive compounding system:
 #### Comparison
 - **Positive**: stor, god, lille
 - **Comparative**: 
-  - Regular: større, bedre (-ere 
-suffix)
+  - Regular: større, bedre (-ere suffix)
   - Irregular: bedre, værre, større, mindre, ældre, yngre
   - Analytic: mere + adjective
 - **Superlative**:
@@ -162,8 +160,7 @@ suffix)
 
 #### Sentence Adverbs
 Positioned in middle field, affecting whole clause:
-- altid, måske, nok, jo, vel, da, dog, også, heller, endda, bare
-, lige
+- altid, måske, nok, jo, vel, da, dog, også, heller, endda, bare, lige
 
 ### 9. Prepositional System
 
@@ -211,8 +208,7 @@ Sentences with multiple embedding points:
 
 #### Split Complex Sentences
 Subordinate clauses separated by main clause:
-- "Når det regner, går jeg hjem, fo
-rdi jeg ikke har paraply" (When it rains, I go home because I don't have an umbrella)
+- "Når det regner, går jeg hjem, fordi jeg ikke har paraply" (When it rains, I go home because I don't have an umbrella)
 
 #### Parenthetical Clauses
 Inserted remarks within main clause:
@@ -264,8 +260,7 @@ Connecting ideas across sentences:
 - **Temporal**: først, derefter, så, til sidst, endelig, samtidig
 - **Causal**: derfor, således, følgelig, som følge heraf
 - **Contrastive**: derimod, til gengæld, på den anden side, alligevel, dog
-- **Additive**: desuden, endvidere, yderm
-ere, ligeledes
+- **Additive**: desuden, endvidere, ydermere, ligeledes
 - **Conclusive**: altså, kort sagt, med andre ord
 
 #### Embedded Clause Sequences
@@ -305,8 +300,7 @@ The grammar includes comprehensive support for six major Danish regional dialect
 
 One of Denmark's most distinctive dialects, spoken in Southern Jutland near the German border.
 
-**Pronouns**: jeg/du/hun/de → æ/a, dæ, ho, di | mig/dig → mæ, dæ | min/mit/vores → mæn/
-mæt/voes
+**Pronouns**: jeg/du/hun/de → æ/a, dæ, ho, di | mig/dig → mæ, dæ | min/mit/vores → mæn/mæt/voes
 
 **Verbs**: har/er/bliver → hâ/ha, æ/ä, bli/bliw
 
@@ -378,8 +372,7 @@ Unique dialect spoken on the island of Bornholm, showing Swedish and Norwegian i
 
 #### Dialect Markers
 
-All dialectal forms are
- tagged with specific markers for identification:
+All dialectal forms are tagged with specific markers for identification:
 - `@DIALECT[southern_jutland]` - Sønderjysk
 - `@DIALECT[northwestern_jutland]` - Thybomål
 - `@DIALECT[funen]` - Fynsk
@@ -449,8 +442,7 @@ All patterns support full Danish orthography (a-z, æ, ø, å).
 ## Technical Implementation
 
 - **Format**: CEBNF (Context-Enhanced Backus-Naur Form)
-- **Token splitti
-ng**: Space-based for natural language
+- **Token splitting**: Space-based for natural language
 - **Context attributes**: 
   - @GENDER[common|neuter]
   - @NUMBER[singular|plural]
@@ -487,8 +479,7 @@ This comprehensive grammar with sub-sentence support enables:
 
 | Feature | Basic Grammar | Comprehensive Grammar | With Sub-Sentences | 1 Dialect | 6 Dialects |
 |---------|---------------|----------------------|--------------------|-----------|------------| 
-| Lines of code | 303 | 774 | 1,0
-41 | 1,163 | 1,393 |
+| Lines of code | 303 | 774 | 1,041 | 1,163 | 1,393 |
 | Verb tenses | 3 | 6 | 6 | 6 | 6 |
 | Subordinate clause types | 4 | 7 | 9 | 9 | 9 |
 | Nesting levels | 1 | 2 | 3+ | 3+ | 3+ |
@@ -538,8 +529,7 @@ Based on standard Danish grammar references:
 - Modern Danish orthographic conventions
 - Spoken and written Danish patterns
 - Regional dialect documentation:
-  - Sout
-hern Jutland (Sønderjysk)
+  - Southern Jutland (Sønderjysk)
   - Northwestern Jutland (Thybomål)
   - Funen (Fynsk)
   - Lolland (Lollandsk)

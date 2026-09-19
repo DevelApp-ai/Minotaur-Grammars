@@ -68,8 +68,7 @@ Gender affects:
 
 #### Imperfect (Imparfait)
 - Ongoing past actions
-- Descript
-ions in the past
+- Descriptions in the past
 - Habitual past actions
 
 #### Passé Composé
@@ -147,8 +146,7 @@ Adjectives agree with nouns in gender and number:
 - nous (we), vous (you pl./formal), ils/elles (they)
 
 #### Object Pronouns
-**D
-irect**: me, te, le/la, nous, vous, les
+**Direct**: me, te, le/la, nous, vous, les
 **Indirect**: me, te, lui, nous, vous, leur
 
 **Order before verb**: me/te/se/nous/vous + le/la/les + lui/leur + y + en
@@ -232,8 +230,7 @@ Common prepositions:
 - **en**: in, to (with countries/materials)
 - **dans**: in, inside
 - **sur**: on, upon
-- **sou
-s**: under
+- **sous**: under
 - **avec**: with
 - **sans**: without
 - **pour**: for
@@ -292,8 +289,7 @@ This comprehensive French grammar enables:
 | Feature | Coverage |
 |---------|----------|
 | Verb groups | All 3 groups with regular and irregular patterns |
-| Tenses | Present, imperfect, passé composé, fu
-ture, conditional |
+| Tenses | Present, imperfect, passé composé, future, conditional |
 | Moods | Indicative, subjunctive, imperative, conditional |
 | Gender | Masculine and feminine with full agreement |
 | Articles | Definite, indefinite, partitive |

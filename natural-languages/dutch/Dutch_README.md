@@ -66,8 +66,7 @@ Unique productive diminutive system (always neuter):
 
 ### Verb System
 - **Present**: werk, werkt, werken
-- **Past**: werkte, werkten (weak) / kwam,
- kwamen (strong)
+- **Past**: werkte, werkten (weak) / kwam, kwamen (strong)
 - **Perfect**: heb gewerkt, ben gekomen
 - **Future**: zal werken
 

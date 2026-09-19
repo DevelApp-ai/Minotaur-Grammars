@@ -49,7 +49,6 @@ While SVO is default, word order is highly flexible for emphasis:
 ### Irregular Verbs
 být (to be), mít (to have), moci (can), chtít (to want), vědět (to know), dát (to give), vzít (to take)
 
-
 ### Preposition Case Government
 - **Genitive**: od, do, z, bez, pro, vedle, u
 - **Dative**: k, proti, díky, kvůli

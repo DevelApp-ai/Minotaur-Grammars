@@ -62,8 +62,7 @@ Unlike Germanic languages with 0-4 cases, Finnish has **15 grammatical cases**:
     - `talotta` (without a house)
     
 14. **Instructive** (-in): "by means of" (plural only)
-    - `talo
-in` (by means of houses)
+    - `taloin` (by means of houses)
     
 15. **Comitative** (-ne- + possessive): "with" (plural only)
     - `taloineen` (with his/her houses)
@@ -138,8 +137,7 @@ Finnish has five different infinitive forms, each with different uses:
 
 ### 7. Passive Voice
 
-Finnish passive is impersonal (no explicit subject)
-:
+Finnish passive is impersonal (no explicit subject):
 
 ```
 Täällä puhutaan suomea.
@@ -225,8 +223,7 @@ Southwest: "Hän puhuu" (similar but with different pronunciation)
 
 **Region**: Southeastern Finland  
 **Features**:
-- Lo
-ng vowels in certain positions: `oo`, `ee`
+- Long vowels in certain positions: `oo`, `ee`
 - Distinctive intonation
 
 ### 6. Middle Finnish Dialects (Keskisuomalaiset murteet)
@@ -321,8 +318,7 @@ Se on Pekka, joka tuli eilen.
 ### Present Tense
 
 Personal endings:
-- 1sg: `-n` (
-puhun - I speak)
+- 1sg: `-n` (puhun - I speak)
 - 2sg: `-t` (puhut - you speak)
 - 3sg: `Ø` or `-V` (puhuu - he/she speaks)
 - 1pl: `-mme` (puhumme - we speak)
@@ -388,8 +384,7 @@ A unique Finnish feature is the choice between partitive and accusative for obje
 ### Use Partitive When:
 1. Object is indefinite: `Juon kahvia` (I drink coffee - some coffee)
 2. Action is incomplete: `Luin kirjaa` (I was reading a book)
-3. Sentence is negative: `
-En juo kahvia` (I don't drink coffee)
+3. Sentence is negative: `En juo kahvia` (I don't drink coffee)
 4. With partitive verbs: `Rakastan sinua` (I love you)
 
 ### Use Accusative/Genitive When:
@@ -464,8 +459,7 @@ The grammar includes 15 context-sensitive validation rules:
 10. **Infinitive selection**: Correct infinitive with modal verbs
 11. **Passive construction**: Passive is impersonal
 12. **Dialect consistency**: Don't mix dialects
-13. **Regis
-ter consistency**: Don't mix standard and colloquial
+13. **Register consistency**: Don't mix standard and colloquial
 14. **Postposition government**: Postpositions require genitive
 15. **Nested clause depth**: Warnings for deep nesting
 
@@ -515,8 +509,7 @@ This grammar supports:
 - **Iso suomen kielioppi** (Comprehensive Finnish Grammar)
 - **Fred Karlsson**: Finnish: An Essential Grammar
 - **Suomen murteet** (Finnish Dialects)
-- **Kieli-instituutti** (Insti
-tute for the Languages of Finland)
+- **Kieli-instituutti** (Institute for the Languages of Finland)
 
 ---
 
