@@ -1,0 +1,25 @@
+{
+  "Id": "develapp.cobol2023",
+  "Name": "COBOL2023",
+  "Vendor": "DevelApp",
+  "DisplayName": "COBOL2023",
+  "Version": "1.0.0",
+  "MinotaurVersion": "1.5.1",
+  "Description": "COBOL2023 grammar for the Minotaur compiler-compiler platform. Authored and maintained by DevelApp.",
+  "License": "MIT",
+  "Tags": [
+    "programming-language",
+    "programming-languages",
+    "minotaur"
+  ],
+  "MainFile": "COBOL2023.grammar",
+  "Dependencies": [],
+  "Documentation": "README.md",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}

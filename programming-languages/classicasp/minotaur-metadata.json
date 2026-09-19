@@ -1,0 +1,25 @@
+{
+  "Id": "develapp.classicasp",
+  "Name": "ClassicASP",
+  "Vendor": "DevelApp",
+  "DisplayName": "ClassicASP",
+  "Version": "1.0.0",
+  "MinotaurVersion": "1.5.1",
+  "Description": "ClassicASP grammar for the Minotaur compiler-compiler platform. Authored and maintained by DevelApp.",
+  "License": "MIT",
+  "Tags": [
+    "programming-language",
+    "programming-languages",
+    "minotaur"
+  ],
+  "MainFile": "ClassicASP.grammar",
+  "Dependencies": [],
+  "Documentation": "README.md",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}
