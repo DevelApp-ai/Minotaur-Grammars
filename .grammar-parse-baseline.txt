@@ -13,5 +13,26 @@
 # - Regenerate: Actions tab -> Grammar Validation -> Run workflow -> mode
 #   'record', then commit the artifact's grammar-parse-baseline.new.txt here.
 #
-# This file starts empty: the first full 'verify' run on main after the
-# harness lands will report the actual current state; record and commit it.
+# Current known-failing grammars and why (verified 2026-09-19, derived from
+# the first full 'verify' run on main plus static analysis of every grammar
+# file against the GrammarLoader rule heuristics):
+#
+#  - DotNetProject, FolderProject: legacy ANTLR-style syntax
+#    ('grammar X;' / 'rule:' productions) - no EBNF '<...> ::= ' rules.
+#  - GrammarCompositionTests/TestGrammar.grammar: header-only fixture
+#    (composition tests register full content in C#).
+#  - First, MyDerived.4, MyDerived.5, MyDerived.6: inheritance-only fixtures
+#    ('Grammar:' + 'Inherits:' and nothing else; the referenced base grammars
+#    are registered by the C# tests, not present as files).
+#
+# Fixing these grammars (converting to EBNF rule syntax or giving the
+# fixtures minimal rules) is tracked separately; until then they are exempt
+# from per-PR regression gating.
+
+programming-languages/dotnetproject/DotNetProject.grammar
+programming-languages/folderproject/FolderProject.grammar
+test-grammars/step-parser-tests/GrammarCompositionTests/TestGrammar.grammar
+test-grammars/step-parser-tests/GrammarInheritanceAdvancedTests/First.grammar
+test-grammars/step-parser-tests/GrammarInheritanceAdvancedTests/MyDerived.4.grammar
+test-grammars/step-parser-tests/GrammarInheritanceAdvancedTests/MyDerived.5.grammar
+test-grammars/step-parser-tests/GrammarInheritanceAdvancedTests/MyDerived.6.grammar
