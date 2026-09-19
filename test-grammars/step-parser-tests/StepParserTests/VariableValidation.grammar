@@ -1,0 +1,13 @@
+Grammar: VariableValidation
+TokenSplitter: Space
+
+<IDENTIFIER> ::= /[a-zA-Z][a-zA-Z0-9]*/
+<ASSIGN> ::= '='
+<NUMBER> ::= /[0-9]+/
+<SEMICOLON> ::= ';'
+<WS> ::= /[ \t\r\n]+/
+
+<program> ::= <statement>* => { validateProgram($1); }
+<statement> ::= <variable_declaration> | <variable_usage>
+<variable_declaration> ::= <IDENTIFIER> <ASSIGN> <NUMBER> <SEMICOLON> => { declareVariable($1); }
+<variable_usage> ::= <IDENTIFIER> <SEMICOLON> => { useVariable($1); }

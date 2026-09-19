@@ -1,0 +1,16 @@
+Grammar: TypeChecking
+TokenSplitter: Space
+
+<IDENTIFIER> ::= /[a-zA-Z][a-zA-Z0-9]*/
+<NUMBER> ::= /[0-9]+/
+<STRING> ::= /"[^"]*"/
+<ASSIGN> ::= '='
+<PLUS> ::= '+'
+<SEMICOLON> ::= ';'
+<WS> ::= /[ \t\r\n]+/
+
+<statement> ::= <typed_declaration> | <expression_statement>
+<typed_declaration> ::= <IDENTIFIER> <ASSIGN> <value> <SEMICOLON> => { inferType($1, $3); }
+<expression_statement> ::= <expression> <SEMICOLON> => { validateExpression($1); }
+<expression> ::= <IDENTIFIER> <PLUS> <IDENTIFIER> => { validateBinaryOperation($1, $3); }
+<value> ::= <NUMBER> | <STRING> | <IDENTIFIER>
