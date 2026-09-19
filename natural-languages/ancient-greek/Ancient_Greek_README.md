@@ -38,8 +38,7 @@ Ancient Greek has one of the most complex verb systems among Indo-European langu
 1. **Indicative** (ὁριστική): Statements of fact
 2. **Subjunctive** (ὑποτακτική): Possibility, purpose, fear
 3. **Optative** (εὐκτική): Wishes, potential action
-4. **Imperative** (προ
-στακτική): Commands
+4. **Imperative** (προστακτική): Commands
 
 #### Three Voices
 1. **Active** (ἐνεργητική): Subject performs action - λύω (I loose)
@@ -112,7 +111,6 @@ Singular:
 Singular:
 - Nominative: ὁ ἀνήρ
 - Genitive: τοῦ ἀνδρός
-
 - Dative: τῷ ἀνδρί
 - Accusative: τὸν ἄνδρα
 - Vocative: ὦ ἄνερ
@@ -187,8 +185,7 @@ Ancient Greek prepositions govern specific cases:
 - σύν (with, together with)
 
 **With Accusative:**
-- εἰς (into
-, to)
+- εἰς (into, to)
 - πρός (to, toward, in addition to)
 
 **With Multiple Cases:**
@@ -247,8 +244,7 @@ Ancient Greek uses the Greek alphabet with polytonic accents and breathing marks
 
 The grammar supports dialectal variations:
 - **@DIALECT[attic]**: Standard Classical Greek (Athens)
-- **@DIALECT[ionic]**: Herod
-otus, Homeric epic
+- **@DIALECT[ionic]**: Herodotus, Homeric epic
 - **@DIALECT[doric]**: Sparta, Sicily, choral lyrics
 - **@DIALECT[aeolic]**: Lesbos, Sappho, Alcaeus
 
@@ -300,8 +296,7 @@ See `Ancient_Greek_Examples.txt` for validated sentences demonstrating:
 
 ## Historical Note
 
-Ancient Greek, particularly the Attic dialect, became the lingua franca 
-of the ancient Mediterranean world following Alexander the Great's conquests. The later form, Koine Greek, was the language of the New Testament and remained influential throughout the Byzantine Empire. Modern Greek is directly descended from Ancient Greek through continuous evolution.
+Ancient Greek, particularly the Attic dialect, became the lingua franca of the ancient Mediterranean world following Alexander the Great's conquests. The later form, Koine Greek, was the language of the New Testament and remained influential throughout the Byzantine Empire. Modern Greek is directly descended from Ancient Greek through continuous evolution.
 
 ## References
 
