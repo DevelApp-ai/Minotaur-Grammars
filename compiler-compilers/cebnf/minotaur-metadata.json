@@ -1,0 +1,24 @@
+{
+  "Id": "develapp.cebnf",
+  "Name": "CEBNF",
+  "Vendor": "DevelApp",
+  "DisplayName": "CEBNF",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "CEBNF compiler-compiler grammar for the Minotaur parser platform.",
+  "License": "MIT",
+  "Tags": [
+    "compiler-compiler",
+    "minotaur"
+  ],
+  "MainFile": "CEBNF.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}

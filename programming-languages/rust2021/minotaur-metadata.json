@@ -1,0 +1,24 @@
+{
+  "Id": "develapp.rust2021",
+  "Name": "Rust2021",
+  "Vendor": "DevelApp",
+  "DisplayName": "Rust2021",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "Rust2021 programming-language grammar for the Minotaur parser platform.",
+  "License": "MIT",
+  "Tags": [
+    "programming-language",
+    "minotaur"
+  ],
+  "MainFile": "Rust2021.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}

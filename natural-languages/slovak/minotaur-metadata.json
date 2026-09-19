@@ -1,0 +1,25 @@
+{
+  "Id": "develapp.slovak",
+  "Name": "Slovak",
+  "Vendor": "DevelApp",
+  "DisplayName": "Slovak",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "Slovak natural-language grammar for the Minotaur parser platform.",
+  "License": "MIT",
+  "Tags": [
+    "natural-language",
+    "minotaur",
+    "optional-download"
+  ],
+  "MainFile": "Slovak.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}

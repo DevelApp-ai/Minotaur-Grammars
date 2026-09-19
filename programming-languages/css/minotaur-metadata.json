@@ -1,0 +1,24 @@
+{
+  "Id": "develapp.css",
+  "Name": "CSS",
+  "Vendor": "DevelApp",
+  "DisplayName": "CSS",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "CSS programming-language grammar for the Minotaur parser platform.",
+  "License": "MIT",
+  "Tags": [
+    "programming-language",
+    "minotaur"
+  ],
+  "MainFile": "CSS.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}

@@ -1,0 +1,24 @@
+{
+  "Id": "develapp.java",
+  "Name": "Java",
+  "Vendor": "DevelApp",
+  "DisplayName": "Java",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "Java programming-language grammar for the Minotaur parser platform.",
+  "License": "MIT",
+  "Tags": [
+    "programming-language",
+    "minotaur"
+  ],
+  "MainFile": "Java.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}

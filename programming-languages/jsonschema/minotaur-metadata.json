@@ -1,0 +1,24 @@
+{
+  "Id": "develapp.jsonschema",
+  "Name": "JSONSchema",
+  "Vendor": "DevelApp",
+  "DisplayName": "JSONSchema",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "JSONSchema programming-language grammar for the Minotaur parser platform.",
+  "License": "MIT",
+  "Tags": [
+    "programming-language",
+    "minotaur"
+  ],
+  "MainFile": "JSONSchema.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}

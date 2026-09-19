@@ -1,0 +1,24 @@
+{
+  "Id": "develapp.python311",
+  "Name": "Python311",
+  "Vendor": "DevelApp",
+  "DisplayName": "Python311",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "Python311 programming-language grammar for the Minotaur parser platform.",
+  "License": "MIT",
+  "Tags": [
+    "programming-language",
+    "minotaur"
+  ],
+  "MainFile": "Python311.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}

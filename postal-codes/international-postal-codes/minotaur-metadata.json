@@ -1,0 +1,24 @@
+{
+  "Id": "develapp.international-postal-codes",
+  "Name": "International_Postal_Codes",
+  "Vendor": "DevelApp",
+  "DisplayName": "International Postal Codes",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "International_Postal_Codes postal-code grammar for the Minotaur parser platform.",
+  "License": "MIT",
+  "Tags": [
+    "postal-code",
+    "minotaur"
+  ],
+  "MainFile": "International_Postal_Codes.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}

@@ -1,0 +1,26 @@
+{
+  "Id": "develapp.sample",
+  "Name": "sample",
+  "Vendor": "DevelApp",
+  "DisplayName": "sample",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "sample programming-language grammar for the Minotaur parser platform. Inherits from antlr4_base.",
+  "License": "MIT",
+  "Tags": [
+    "programming-language",
+    "minotaur"
+  ],
+  "MainFile": "sample.grammar",
+  "Dependencies": [
+    "antlr4_base"
+  ],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}

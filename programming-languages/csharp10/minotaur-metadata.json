@@ -1,0 +1,24 @@
+{
+  "Id": "develapp.csharp10",
+  "Name": "CSharp10",
+  "Vendor": "DevelApp",
+  "DisplayName": "CSharp10",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "CSharp10 programming-language grammar for the Minotaur parser platform.",
+  "License": "MIT",
+  "Tags": [
+    "programming-language",
+    "minotaur"
+  ],
+  "MainFile": "CSharp10.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}

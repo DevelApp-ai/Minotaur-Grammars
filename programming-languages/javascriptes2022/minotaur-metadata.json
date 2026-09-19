@@ -1,0 +1,24 @@
+{
+  "Id": "develapp.javascriptes2022",
+  "Name": "JavaScriptES2022",
+  "Vendor": "DevelApp",
+  "DisplayName": "JavaScriptES2022",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "JavaScriptES2022 programming-language grammar for the Minotaur parser platform.",
+  "License": "MIT",
+  "Tags": [
+    "programming-language",
+    "minotaur"
+  ],
+  "MainFile": "JavaScriptES2022.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}

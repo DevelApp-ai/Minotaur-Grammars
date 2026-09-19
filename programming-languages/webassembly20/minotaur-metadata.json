@@ -1,0 +1,24 @@
+{
+  "Id": "develapp.webassembly20",
+  "Name": "WebAssembly20",
+  "Vendor": "DevelApp",
+  "DisplayName": "WebAssembly20",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "WebAssembly20 programming-language grammar for the Minotaur parser platform.",
+  "License": "MIT",
+  "Tags": [
+    "programming-language",
+    "minotaur"
+  ],
+  "MainFile": "WebAssembly20.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}
