@@ -1,0 +1,25 @@
+{
+  "Id": "develapp.test.glrparserstabilitytests",
+  "Name": "GLRParserStabilityTests Grammar",
+  "Vendor": "DevelApp",
+  "DisplayName": "GLRParserStabilityTests Grammar",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "Test-fixture grammars (ambiguity, left recursion, malformed input, loop protection) for GLRParserStabilityTests in ENFAStepLexer-StepParser.",
+  "License": "MIT",
+  "Tags": [
+    "test-grammar",
+    "minotaur",
+    "enfa"
+  ],
+  "MainFile": "StabilityTest.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}

@@ -1,0 +1,25 @@
+{
+  "Id": "develapp.test.stepparsertests",
+  "Name": "StepParserTests Grammar",
+  "Vendor": "DevelApp",
+  "DisplayName": "StepParserTests Grammar",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "Test-fixture grammars (incl. deliberately invalid grammars for error paths) for StepParserTests in ENFAStepLexer-StepParser.",
+  "License": "MIT",
+  "Tags": [
+    "test-grammar",
+    "minotaur",
+    "enfa"
+  ],
+  "MainFile": "SimpleExpr.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}

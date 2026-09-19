@@ -44,7 +44,8 @@ docs/
 | File | Purpose |
 | --- | --- |
 | `<Name>.grammar` | The grammar definition consumed by Minotaur / ENFAStepLexer-StepParser |
-| `minotaur-metadata.json` | Marketplace package metadata; validates against `schemas/minotaur-metadata.schema.json` |
+| `minotau
+r-metadata.json` | Marketplace package metadata; validates against `schemas/minotaur-metadata.schema.json` |
 | `LICENSE` | Per-grammar license text with an `SPDX-License-Identifier:` line |
 | `*_Examples.txt` | Sample inputs exercising the grammar |
 | `*_README.md` | Notes about the grammar (coverage, origin, quirks) |
@@ -61,3 +62,20 @@ opa test policies
 Grammar *correctness* is not checked by OPA; the CI pipeline validates
 metadata and licensing here, and loads/parses changed grammars through
 ENFAStepLexer-StepParser integration tests.
+
+## Test grammars
+
+`test-grammars/` holds the grammars extracted from ENFAStepLexer-StepParser
+(tests, benchmarks, demo; see issue #9). These folders follow the same
+per-grammar layout as the categories above — each contains a
+`minotaur-metadata.json` (tagged `test-grammar`) and a MIT `LICENSE` —
+so they are discoverable and validated by the same OPA policies and scripts.
+They are test fixtures rather than marketplace content: some deliberately
+describe invalid or malformed grammars (error-path tests), which is fine
+because OPA validates metadata and licensing, not grammar semantics.
+
+| Subfolder | Consumer |
+| --- | --- |
+| `test-grammars/step-parser-tests/<TestClass>/` | `DevelApp.StepParser.Tests` (`TestGrammars.Get`) |
+| `test-grammars/benchmarks/ParserBenchmarks/` | `DevelApp.Benchmarks` |
+| `test-grammars/demo/StepParserDemo/` | `ENFAStepLexer.Demo` |
