@@ -1,0 +1,28 @@
+Grammar: ExpressionGrammar
+TokenSplitter: Space
+
+# Token definitions
+<NUMBER> ::= /[0-9]+/ => { return("NUMBER"); }
+<IDENTIFIER> ::= /[a-zA-Z][a-zA-Z0-9]*/ => { return("IDENTIFIER"); }
+<PLUS> ::= "+" => { return("PLUS"); }
+<MINUS> ::= "-" => { return("MINUS"); }
+<TIMES> ::= "*" => { return("TIMES"); }
+<DIVIDE> ::= "/" => { return("DIVIDE"); }
+<LPAREN> ::= "(" => { return("LPAREN"); }
+<RPAREN> ::= ")" => { return("RPAREN"); }
+<WS> ::= /[ \t\r\n]+/ => { /* skip whitespace */ }
+
+# Production rules with precedence
+<expr> ::= <expr> <PLUS> <expr> => { createBinaryOp($1, $2, $3); }
+         | <expr> <MINUS> <expr> => { createBinaryOp($1, $2, $3); }
+         | <expr> <TIMES> <expr> => { createBinaryOp($1, $2, $3); }
+         | <expr> <DIVIDE> <expr> => { createBinaryOp($1, $2, $3); }
+         | <LPAREN> <expr> <RPAREN> => { $2 }
+         | <NUMBER> => { $1 }
+         | <IDENTIFIER> => { $1 }
+
+# Precedence rules (higher level = higher precedence)
+Precedence: {
+  Level1: { operators: ["+", "-"], associativity: "left" }
+  Level2: { operators: ["*", "/"], associativity: "left" }
+}
