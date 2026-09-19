@@ -22,5 +22,13 @@ focused on the compiler-compiler platform code.
 - `*_Examples.txt` — example inputs for the corresponding grammar
 - `*_README.md` — notes for the corresponding grammar
 - `PostalCodes/` — postal-code grammars and their tests
+- `sample.grammar` — sample grammar demonstrating context-sensitive projections and semantic rules (imported from [ENFAStepLexer-StepParser](https://github.com/DevelApp-ai/ENFAStepLexer-StepParser))
 
-License: AGPL-3.0 (as the Minotaur project).
+## Licensing
+
+There is **no repository-level license**. Licensing is a **per-grammar property**:
+
+- Grammars authored by DevelApp / Lars Buch are **MIT** licensed.
+- Grammars originating elsewhere follow their **origin license** (see the individual grammar folder / metadata once the per-grammar licensing work lands).
+
+See the [licensing tracking issue](https://github.com/DevelApp-ai/Minotaur-Grammars/issues/1) for details.
