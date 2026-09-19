@@ -1,2 +1,7 @@
 Grammar: MyDerived
 Inherits: a
+
+# Minimal placeholder rule so this inheritance fixture parses standalone
+# (issue #18). Parsing still throws GR3002 because of the inheritance
+# cycle a -> b -> a, which is exactly what the test asserts.
+<FIXTURE> ::= /fixture/

@@ -1,4 +1,4 @@
-# Grammar parse-validation baseline (issue #19).
+# Grammar parse-validation baseline (issue #18).
 #
 # Repository-relative paths of grammar files that currently FAIL to load
 # through StepLexer/StepParser (StepParserEngine.LoadGrammarFromContent +
@@ -13,26 +13,11 @@
 # - Regenerate: Actions tab -> Grammar Validation -> Run workflow -> mode
 #   'record', then commit the artifact's grammar-parse-baseline.new.txt here.
 #
-# Current known-failing grammars and why (verified 2026-09-19, derived from
-# the first full 'verify' run on main plus static analysis of every grammar
-# file against the GrammarLoader rule heuristics):
+# The baseline is currently EMPTY: all 162 grammars parse. The 7 grammars
+# that failed the first full 'verify' run (run #127, 2026-09-19) have been
+# fixed in this PR:
 #
-#  - DotNetProject, FolderProject: legacy ANTLR-style syntax
-#    ('grammar X;' / 'rule:' productions) - no EBNF '<...> ::= ' rules.
-#  - GrammarCompositionTests/TestGrammar.grammar: header-only fixture
-#    (composition tests register full content in C#).
-#  - First, MyDerived.4, MyDerived.5, MyDerived.6: inheritance-only fixtures
-#    ('Grammar:' + 'Inherits:' and nothing else; the referenced base grammars
-#    are registered by the C# tests, not present as files).
-#
-# Fixing these grammars (converting to EBNF rule syntax or giving the
-# fixtures minimal rules) is tracked separately; until then they are exempt
-# from per-PR regression gating.
-
-programming-languages/dotnetproject/DotNetProject.grammar
-programming-languages/folderproject/FolderProject.grammar
-test-grammars/step-parser-tests/GrammarCompositionTests/TestGrammar.grammar
-test-grammars/step-parser-tests/GrammarInheritanceAdvancedTests/First.grammar
-test-grammars/step-parser-tests/GrammarInheritanceAdvancedTests/MyDerived.4.grammar
-test-grammars/step-parser-tests/GrammarInheritanceAdvancedTests/MyDerived.5.grammar
-test-grammars/step-parser-tests/GrammarInheritanceAdvancedTests/MyDerived.6.grammar
+#  - DotNetProject, FolderProject: rewritten from legacy ANTLR-style syntax
+#    to EBNF rule syntax.
+#  - GrammarCompositionTests/TestGrammar.grammar and the inheritance-only
+#    fixtures (First, MyDerived.4/5/6): given a minimal placeholder rule.

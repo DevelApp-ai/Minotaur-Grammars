@@ -1,3 +1,8 @@
 Grammar: TestGrammar
 TokenSplitter: Space
 Context: default
+
+# Minimal placeholder rule: this fixture is loaded by GrammarCompositionTests
+# only to verify header parsing (Name, TokenSplitter); the rule below makes
+# the grammar itself parseable by StepLexer/StepParser (issue #18).
+<FIXTURE> ::= /fixture/

@@ -1,2 +1,6 @@
 Grammar: MyDerived
 Inherits: middle
+
+# Minimal placeholder rule so this inheritance fixture parses standalone
+# (issue #18). Meaningful rules come from the registered base grammars.
+<FIXTURE> ::= /fixture/
