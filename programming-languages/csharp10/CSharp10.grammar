@@ -30,8 +30,7 @@ Keywords: abstract, as, base, bool, break, byte, case, catch, char, checked, cla
 
 <using_static_directive> ::= using static <type_name> ;
 
-<glo
-bal_using_directive> ::= global using <namespace_name> ; | global using static <type_name> ; | global using <identifier> = <namespace_or_type_name> ;
+<global_using_directive> ::= global using <namespace_name> ; | global using static <type_name> ; | global using <identifier> = <namespace_or_type_name> ;
 
 <global_attributes> ::= <global_attribute_section>+
 
@@ -77,8 +76,7 @@ bal_using_directive> ::= global using <namespace_name> ; | global using static <
 
 <class_declaration> ::= <attributes>? <class_modifiers>? partial? class <identifier> <type_parameter_list>? <class_base>? <type_parameter_constraints_clauses>? <class_body> <semicolon>?
 
-<class_modifiers> ::= <cla
-ss_modifier>+
+<class_modifiers> ::= <class_modifier>+
 
 <class_modifier> ::= new | public | protected | internal | private | abstract | sealed | static | unsafe | partial
 
@@ -116,8 +114,7 @@ ss_modifier>+
 
 <constant_modifier> ::= new | public | protected | internal | private
 
-<constant_declarators> ::= <constant_declarator> | <constant_d
-eclarators> , <constant_declarator>
+<constant_declarators> ::= <constant_declarator> | <constant_declarators> , <constant_declarator>
 
 <constant_declarator> ::= <identifier> = <constant_expression>
 
@@ -165,8 +162,7 @@ eclarators> , <constant_declarator>
 
 <property_modifiers> ::= <property_modifier>+
 
-<property_modifier> ::= new | public | protected | internal | private | static | virtual | sealed | overr
-ide | abstract | extern | unsafe
+<property_modifier> ::= new | public | protected | internal | private | static | virtual | sealed | override | abstract | extern | unsafe
 
 <accessor_declarations> ::= <get_accessor_declaration> <set_accessor_declaration>? | <set_accessor_declaration> <get_accessor_declaration>? | <get_accessor_declaration> <init_accessor_declaration>? | <init_accessor_declaration> <get_accessor_declaration>?
 
@@ -204,8 +200,7 @@ ide | abstract | extern | unsafe
 
 <operator_modifier> ::= public | static | extern | unsafe
 
-<operator_declarato
-r> ::= <unary_operator_declarator> | <binary_operator_declarator> | <conversion_operator_declarator>
+<operator_declarator> ::= <unary_operator_declarator> | <binary_operator_declarator> | <conversion_operator_declarator>
 
 <unary_operator_declarator> ::= <type> operator <overloadable_unary_operator> ( <type> <identifier> )
 
@@ -243,8 +238,7 @@ r> ::= <unary_operator_declarator> | <binary_operator_declarator> | <conversion_
 
 <struct_declaration> ::= <attributes>? <struct_modifiers>? partial? struct <identifier> <type_parameter_list>? <struct_interfaces>? <type_parameter_constraints_clauses>? <struct_body> <semicolon>? | <attributes>? <struct_modifiers>? partial? record struct <identifier> <type_parameter_list>? <record_parameters>? <struct_interfaces>? <type_parameter_constraints_clauses>? <record_struct_body> <semicolon>?
 
-<struct_modifi
-ers> ::= <struct_modifier>+
+<struct_modifiers> ::= <struct_modifier>+
 
 <struct_modifier> ::= new | public | protected | internal | private | unsafe | readonly | ref | partial
 
@@ -286,8 +280,7 @@ ers> ::= <struct_modifier>+
 
 <interface_modifiers> ::= <interface_modifier>+
 
-<interface_modifier> ::= new | public | protected | internal | priva
-te | unsafe | partial
+<interface_modifier> ::= new | public | protected | internal | private | unsafe | partial
 
 <variant_type_parameter_list> ::= < <variant_type_parameters> >
 
@@ -319,8 +312,7 @@ te | unsafe | partial
 
 <interface_accessors> ::= <attributes>? get ; | <attributes>? set ; | <attributes>? init ; | <attributes>? get ; <attributes>? set ; | <attributes>? get ; <attributes>? init ; | <attributes>? set ; <attributes>? get ; | <attributes>? init ; <attributes>? get ;
 
-<interface_event_declaration> ::= <attributes>? 
-new? event <type> <identifier> ;
+<interface_event_declaration> ::= <attributes>? new? event <type> <identifier> ;
 
 <interface_indexer_declaration> ::= <attributes>? new? <type> this [ <formal_parameter_list> ] { <interface_accessors> }
 
@@ -374,8 +366,7 @@ new? event <type> <identifier> ;
 
 <non_array_type> ::= <value_type> | <class_type> | <interface_type> | <delegate_type> | <type_parameter>
 
-<rank_specifiers> ::= <
-rank_specifier>+
+<rank_specifiers> ::= <rank_specifier>+
 
 <rank_specifier> ::= [ <dim_separators>? ]
 
@@ -419,8 +410,7 @@ rank_specifier>+
 
 <literal> ::= <boolean_literal> | <integer_literal> | <real_literal> | <character_literal> | <string_literal> | <null_literal>
 
-<boo
-lean_literal> ::= true | false
+<boolean_literal> ::= true | false
 
 <integer_literal> ::= <decimal_integer_literal> | <hexadecimal_integer_literal> | <binary_integer_literal>
 
@@ -464,8 +454,7 @@ lean_literal> ::= true | false
 
 <unicode_escape_sequence> ::= \u <hex_digit> <hex_digit> <hex_digit> <hex_digit> | \U <hex_digit> <hex_digit> <hex_digit> <hex_digit> <hex_digit> <hex_digit> <hex_digit> <hex_digit>
 
-<string_literal> ::= <regul
-ar_string_literal> | <verbatim_string_literal>
+<string_literal> ::= <regular_string_literal> | <verbatim_string_literal>
 
 <regular_string_literal> ::= " <regular_string_literal_characters>? "
 
@@ -509,8 +498,7 @@ ar_string_literal> | <verbatim_string_literal>
 
 <interpolated_verbatim_string_part> ::= <interpolated_verbatim_string_text> | <interpolation>
 
-<interpolated_verbatim_string_text> ::= <interpolated_verbatim_string_t
-ext_character>+
+<interpolated_verbatim_string_text> ::= <interpolated_verbatim_string_text_character>+
 
 <interpolated_verbatim_string_text_character> ::= <any_character_except_quote_and_brace> | <quote_escape_sequence> | <open_brace_escape_sequence> | <close_brace_escape_sequence>
 
@@ -552,8 +540,7 @@ ext_character>+
 
 <object_creation_expression> ::= new <type> ( <argument_list>? ) <object_or_collection_initializer>? | new <type> <object_or_collection_initializer> | new <object_or_collection_initializer>
 
-<object_or_collection_initi
-alizer> ::= <object_initializer> | <collection_initializer>
+<object_or_collection_initializer> ::= <object_initializer> | <collection_initializer>
 
 <object_initializer> ::= { <member_initializer_list>? } | { <member_initializer_list> , }
 
@@ -599,8 +586,7 @@ alizer> ::= <object_initializer> | <collection_initializer>
 
 <default_value_expression> ::= default ( <type> ) | default
 
-<nameof_expression> ::= nameof
- ( <named_entity> )
+<nameof_expression> ::= nameof ( <named_entity> )
 
 <named_entity> ::= <simple_name> | <member_access> | <qualified_alias_member>
 
@@ -638,8 +624,7 @@ alizer> ::= <object_initializer> | <collection_initializer>
 
 <range_expression> ::= <unary_expression> | <unary_expression> .. <unary_expression> | <unary_expression> .. | .. <unary_expression> | ..
 
-<unary_expression> ::= <primary_expression> | + <unary_expression> | - <unary_expression> | ! <unary_expression> | ~ <unary_expression> | <pre_increment_expression> | <pre_decrement_expression> | <cast_expression> | <await_expression> | <pointer_
-indirection_expression> | <addressof_expression>
+<unary_expression> ::= <primary_expression> | + <unary_expression> | - <unary_expression> | ! <unary_expression> | ~ <unary_expression> | <pre_increment_expression> | <pre_decrement_expression> | <cast_expression> | <await_expression> | <pointer_indirection_expression> | <addressof_expression>
 
 <pre_increment_expression> ::= ++ <unary_expression>
 
@@ -673,8 +658,7 @@ indirection_expression> | <addressof_expression>
 
 <conditional_or_expression> ::= <conditional_and_expression> | <conditional_or_expression> || <conditional_and_expression>
 
-<null_coalescing_express
-ion> ::= <conditional_or_expression> | <null_coalescing_expression> ?? <conditional_or_expression>
+<null_coalescing_expression> ::= <conditional_or_expression> | <null_coalescing_expression> ?? <conditional_or_expression>
 
 <conditional_expression> ::= <null_coalescing_expression> | <null_coalescing_expression> ? <expression> : <expression>
 
@@ -686,6 +670,263 @@ ion> ::= <conditional_or_expression> | <null_coalescing_expression> ?? <conditio
 
 <implicit_anonymous_function_parameter_list> ::= <implicit_anonymous_function_parameter> | <implicit_anonymous_function_parameter_list> , <implicit_anonymous_function_parameter>
 
-<implicit_ano
+<implicit_anonymous_function_parameter> ::= <identifier>
 
-... [Content truncated]
+<anonymous_function_body> ::= <expression> | <block>
+
+<query_expression> ::= <from_clause> <query_body>
+
+<from_clause> ::= from <type>? <identifier> in <expression>
+
+<query_body> ::= <query_body_clauses>? <select_or_group_clause> <query_continuation>?
+
+<query_body_clauses> ::= <query_body_clause>+
+
+<query_body_clause> ::= <from_clause> | <let_clause> | <where_clause> | <join_clause> | <orderby_clause>
+
+<let_clause> ::= let <identifier> = <expression>
+
+<where_clause> ::= where <boolean_expression>
+
+<join_clause> ::= join <type>? <identifier> in <expression> on <expression> equals <expression> <into_clause>?
+
+<into_clause> ::= into <identifier>
+
+<orderby_clause> ::= orderby <orderings>
+
+<orderings> ::= <ordering> | <orderings> , <ordering>
+
+<ordering> ::= <expression> <ordering_direction>?
+
+<ordering_direction> ::= ascending | descending
+
+<select_or_group_clause> ::= <select_clause> | <group_clause>
+
+<select_clause> ::= select <expression>
+
+<group_clause> ::= group <expression> by <expression>
+
+<query_continuation> ::= into <identifier> <query_body>
+
+<assignment> ::= <unary_expression> <assignment_operator> <expression>
+
+<assignment_operator> ::= = | += | -= | *= | /= | %= | &= | |= | ^= | <<= | >>=
+
+<expression> ::= <non_assignment_expression> | <assignment>
+
+<non_assignment_expression> ::= <conditional_expression> | <lambda_expression> | <query_expression>
+
+<constant_expression> ::= <expression>
+
+<boolean_expression> ::= <expression>
+
+<statement> ::= <labeled_statement> | <declaration_statement> | <embedded_statement>
+
+<embedded_statement> ::= <block> | <empty_statement> | <expression_statement> | <selection_statement> | <iteration_statement> | <jump_statement> | <try_statement> | <checked_statement> | <unchecked_statement> | <lock_statement> | <using_statement> | <yield_statement> | <unsafe_statement> | <fixed_statement>
+
+<block> ::= { <statement_list>? }
+
+<statement_list> ::= <statement>+
+
+<empty_statement> ::= ;
+
+<labeled_statement> ::= <identifier> : <statement>
+
+<declaration_statement> ::= <local_variable_declaration> ; | <local_constant_declaration> ; | <local_function_declaration>
+
+<local_variable_declaration> ::= <local_variable_type> <local_variable_declarators> | using <local_variable_type> <local_variable_declarators>
+
+<local_variable_type> ::= <type> | var
+
+<local_variable_declarators> ::= <local_variable_declarator> | <local_variable_declarators> , <local_variable_declarator>
+
+<local_variable_declarator> ::= <identifier> | <identifier> = <local_variable_initializer>
+
+<local_variable_initializer> ::= <expression> | <array_initializer>
+
+<local_constant_declaration> ::= const <type> <constant_declarators>
+
+<local_function_declaration> ::= <local_function_header> <local_function_body>
+
+<local_function_header> ::= <local_function_modifiers>? <return_type> <identifier> <type_parameter_list>? ( <formal_parameter_list>? ) <type_parameter_constraints_clauses>?
+
+<local_function_modifiers> ::= <local_function_modifier>+
+
+<local_function_modifier> ::= async | unsafe | static | extern
+
+<local_function_body> ::= <block> | => <expression> ;
+
+<expression_statement> ::= <statement_expression> ;
+
+<statement_expression> ::= <invocation_expression> | <null_conditional_invocation_expression> | <object_creation_expression> | <assignment> | <post_increment_expression> | <post_decrement_expression> | <pre_increment_expression> | <pre_decrement_expression> | <await_expression>
+
+<null_conditional_invocation_expression> ::= <primary_expression> ?. <identifier> <type_argument_list>? ( <argument_list>? ) | <primary_expression> ?[ <expression_list> ]
+
+<selection_statement> ::= <if_statement> | <switch_statement>
+
+<if_statement> ::= if ( <boolean_expression> ) <embedded_statement> | if ( <boolean_expression> ) <embedded_statement> else <embedded_statement>
+
+<switch_statement> ::= switch ( <expression> ) <switch_block>
+
+<switch_block> ::= { <switch_sections>? }
+
+<switch_sections> ::= <switch_section>+
+
+<switch_section> ::= <switch_labels> <statement_list>
+
+<switch_labels> ::= <switch_label>+
+
+<switch_label> ::= case <pattern> <case_guard>? : | case <constant_expression> <case_guard>? : | default :
+
+<pattern> ::= <declaration_pattern> | <constant_pattern> | <var_pattern> | <discard_pattern> | <type_pattern> | <parenthesized_pattern> | <relational_pattern> | <logical_pattern> | <property_pattern> | <positional_pattern> | <list_pattern>
+
+<declaration_pattern> ::= <type> <designation>
+
+<designation> ::= <simple_designation> | <tuple_designation> | <discard_designation>
+
+<simple_designation> ::= <identifier>
+
+<tuple_designation> ::= ( <designations>? )
+
+<designations> ::= <designation> | <designations> , <designation>
+
+<discard_designation> ::= _
+
+<constant_pattern> ::= <constant_expression>
+
+<var_pattern> ::= var <designation>
+
+<discard_pattern> ::= _
+
+<type_pattern> ::= <type>
+
+<parenthesized_pattern> ::= ( <pattern> )
+
+<relational_pattern> ::= < <relational_expression> | <= <relational_expression> | > <relational_expression> | >= <relational_expression>
+
+<logical_pattern> ::= <pattern> and <pattern> | <pattern> or <pattern> | not <pattern>
+
+<property_pattern> ::= <type>? { <property_pattern_clause_list>? }
+
+<property_pattern_clause_list> ::= <property_pattern_clause> | <property_pattern_clause_list> , <property_pattern_clause>
+
+<property_pattern_clause> ::= <identifier> : <pattern> | <nested_identifier> : <pattern>
+
+<nested_identifier> ::= <identifier> . <identifier> | <nested_identifier> . <identifier>
+
+<positional_pattern> ::= <type>? ( <positional_pattern_clause_list>? )
+
+<positional_pattern_clause_list> ::= <positional_pattern_clause> | <positional_pattern_clause_list> , <positional_pattern_clause>
+
+<positional_pattern_clause> ::= <pattern>
+
+<list_pattern> ::= [ <list_pattern_clause_list>? ]
+
+<list_pattern_clause_list> ::= <list_pattern_clause> | <list_pattern_clause_list> , <list_pattern_clause>
+
+<list_pattern_clause> ::= <pattern> | .. <pattern>?
+
+<iteration_statement> ::= <while_statement> | <do_statement> | <for_statement> | <foreach_statement>
+
+<while_statement> ::= while ( <boolean_expression> ) <embedded_statement>
+
+<do_statement> ::= do <embedded_statement> while ( <boolean_expression> ) ;
+
+<for_statement> ::= for ( <for_initializer>? ; <for_condition>? ; <for_iterator>? ) <embedded_statement>
+
+<for_initializer> ::= <local_variable_declaration> | <statement_expression_list>
+
+<for_condition> ::= <boolean_expression>
+
+<for_iterator> ::= <statement_expression_list>
+
+<statement_expression_list> ::= <statement_expression> | <statement_expression_list> , <statement_expression>
+
+<foreach_statement> ::= foreach ( <local_variable_type> <identifier> in <expression> ) <embedded_statement> | await foreach ( <local_variable_type> <identifier> in <expression> ) <embedded_statement>
+
+<jump_statement> ::= <break_statement> | <continue_statement> | <goto_statement> | <return_statement> | <throw_statement>
+
+<break_statement> ::= break ;
+
+<continue_statement> ::= continue ;
+
+<goto_statement> ::= goto <identifier> ; | goto case <constant_expression> ; | goto default ;
+
+<return_statement> ::= return <expression>? ;
+
+<throw_statement> ::= throw <expression>? ;
+
+<try_statement> ::= try <block> <catch_clauses> | try <block> <finally_clause> | try <block> <catch_clauses> <finally_clause>
+
+<catch_clauses> ::= <specific_catch_clauses> <general_catch_clause>? | <general_catch_clause>
+
+<specific_catch_clauses> ::= <specific_catch_clause>+
+
+<specific_catch_clause> ::= catch ( <class_type> <identifier>? ) <exception_filter>? <block>
+
+<general_catch_clause> ::= catch <exception_filter>? <block>
+
+<exception_filter> ::= when ( <boolean_expression> )
+
+<finally_clause> ::= finally <block>
+
+<checked_statement> ::= checked <block>
+
+<unchecked_statement> ::= unchecked <block>
+
+<lock_statement> ::= lock ( <expression> ) <embedded_statement>
+
+<using_statement> ::= using ( <resource_acquisition> ) <embedded_statement> | using <resource_acquisition> <embedded_statement>
+
+<resource_acquisition> ::= <local_variable_declaration> | <expression>
+
+<yield_statement> ::= yield return <expression> ; | yield break ;
+
+<unsafe_statement> ::= unsafe <block>
+
+<fixed_statement> ::= fixed ( <pointer_type> <fixed_pointer_declarators> ) <embedded_statement>
+
+<fixed_pointer_declarators> ::= <fixed_pointer_declarator> | <fixed_pointer_declarators> , <fixed_pointer_declarator>
+
+<fixed_pointer_declarator> ::= <identifier> = <fixed_pointer_initializer>
+
+<fixed_pointer_initializer> ::= & <variable_reference> | <expression>
+
+<array_initializer> ::= { <variable_initializer_list>? } | { <variable_initializer_list> , }
+
+<variable_initializer_list> ::= <variable_initializer> | <variable_initializer_list> , <variable_initializer>
+
+<attributes> ::= <attribute_section>+
+
+<attribute_section> ::= [ <attribute_target_specifier>? <attribute_list> ]
+
+<attribute_target_specifier> ::= <attribute_target> :
+
+<attribute_target> ::= field | event | method | param | property | return | type
+
+<identifier> ::= <available_identifier> | @ <identifier_or_keyword>
+
+<available_identifier> ::= <identifier_or_keyword> but not a <keyword>
+
+<identifier_or_keyword> ::= <identifier_start_character> <identifier_part_characters>?
+
+<identifier_start_character> ::= <letter_character> | _ | <unicode_escape_sequence>
+
+<identifier_part_characters> ::= <identifier_part_character>+
+
+<identifier_part_character> ::= <letter_character> | <decimal_digit_character> | <connecting_character> | <combining_character> | <formatting_character> | <unicode_escape_sequence>
+
+<letter_character> ::= <unicode_character_of_classes_Lu_Ll_Lt_Lm_Lo_or_Nl>
+
+<combining_character> ::= <unicode_character_of_classes_Mn_or_Mc>
+
+<decimal_digit_character> ::= <unicode_character_of_the_class_Nd>
+
+<connecting_character> ::= <unicode_character_of_the_class_Pc>
+
+<formatting_character> ::= <unicode_character_of_the_class_Cf>
+
+<keyword> ::= abstract | as | base | bool | break | byte | case | catch | char | checked | class | const | continue | decimal | default | delegate | do | double | else | enum | event | explicit | extern | false | finally | fixed | float | for | foreach | goto | if | implicit | in | int | interface | internal | is | lock | long | namespace | new | null | object | operator | out | override | params | private | protected | public | readonly | ref | return | sbyte | sealed | short | sizeof | stackalloc | static | string | struct | switch | this | throw | true | try | typeof | uint | ulong | unchecked | unsafe | ushort | using | virtual | void | volatile | while | add | alias | ascending | async | await | by | descending | dynamic | equals | from | get | global | group | into | join | let | nameof | notnull | on | orderby | partial | remove | select | set | unmanaged | value | var | when | where | with | yield | and | or | not | record | init | file | scoped | required
+
+<contextual_keyword> ::= add | alias | ascending | async | await | by | descending | dynamic | equals | from | get | global | group | into | join | let | nameof | notnull | on | orderby | partial | remove | select | set | unmanaged | value | var | when | where | with | yield | and | or | not | record | init | file | scoped | required
+
