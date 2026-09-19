@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/DevelApp-AI/Minotaur-Grammars/schemas/minotaur-metadata.schema.json",
+  "title": "Minotaur grammar package metadata",
+  "description": "Metadata for a grammar packaged and distributed via Minotaur-Marketplace. Mirrors the GrammarInfo model used by Minotaur.Core.Services.Marketplace (GrammarPackageExporter / MinotaurMarketplaceClient).",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "Id",
+    "Name",
+    "Vendor",
+    "DisplayName",
+    "Version",
+    "MinotaurVersion",
+    "Description",
+    "License",
+    "Tags",
+    "MainFile",
+    "Dependencies",
+    "Documentation",
+    "Repository",
+    "Author",
+    "PricingModel"
+  ],
+  "properties": {
+    "Id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9.-]*$",
+      "description": "Unique marketplace id, e.g. develapp.csharp10 (DevelApp grammars use the develapp. prefix)."
+    },
+    "Name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Vendor": {
+      "type": "string",
+      "minLength": 1
+    },
+    "DisplayName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "Version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+(-[0-9A-Za-z.-]+)?$"
+    },
+    "MinotaurVersion": {
+      "type": "string",
+      "description": "Minimum Minotaur version, or * for any."
+    },
+    "Description": {
+      "type": "string",
+      "minLength": 1
+    },
+    "License": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9.-]+$",
+      "description": "SPDX identifier, must match the folder's LICENSE file."
+    },
+    "Tags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "MainFile": {
+      "type": "string",
+      "minLength": 1,
+      "description": "File name of the main .grammar file inside the grammar folder."
+    },
+    "Dependencies": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "Documentation": {
+      "type": "string"
+    },
+    "Repository": {
+      "type": "string"
+    },
+    "Author": {
+      "type": "object",
+      "required": [
+        "Username",
+        "FirstName",
+        "LastName"
+      ],
+      "properties": {
+        "Username": {
+          "type": "string",
+          "minLength": 1
+        },
+        "FirstName": {
+          "type": "string",
+          "minLength": 1
+        },
+        "LastName": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": true
+    },
+    "PricingModel": {
+      "type": "string",
+      "enum": [
+        "free",
+        "paid",
+        "freemium"
+      ],
+      "default": "free"
+    }
+  }
+}
