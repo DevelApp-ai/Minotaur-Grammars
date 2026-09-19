@@ -44,8 +44,7 @@ Keywords: async, await, break, case, catch, class, const, continue, debugger, de
 <import-specifier-tail> ::= , <import-specifier-list>
 
 <import-specifier> ::= <identifier-name>
-      
-               | <identifier-name> as <identifier-name>
+                     | <identifier-name> as <identifier-name>
 
 <module-specifier> ::= <string-literal>
 
@@ -100,8 +99,7 @@ Keywords: async, await, break, case, catch, class, const, continue, debugger, de
 <breakable-statement> ::= <iteration-statement>
                         | <switch-statement>
 
-<block-stateme
-nt> ::= <block>
+<block-statement> ::= <block>
 
 <block> ::= { <statement-list>? }
 
@@ -161,8 +159,7 @@ nt> ::= <block>
 
 <empty-statement> ::= ;
 
-<expression-statement> ::= <exp
-ression> <semicolon>?
+<expression-statement> ::= <expression> <semicolon>?
 
 <if-statement> ::= if ( <expression> ) <statement> else <statement>
                  | if ( <expression> ) <statement>
@@ -203,8 +200,7 @@ ression> <semicolon>?
                        | continue <label-identifier> <semicolon>?
 
 <break-statement> ::= break <semicolon>?
-                    | break <label-identifier> <semic
-olon>?
+                    | break <label-identifier> <semicolon>?
 
 <return-statement> ::= return <semicolon>?
                      | return <expression> <semicolon>?
@@ -270,8 +266,7 @@ olon>?
 <arrow-parameters> ::= <binding-identifier>
                      | <covered-formal-parameters>
 
-<concise-body>
- ::= <assignment-expression>
+<concise-body> ::= <assignment-expression>
                  | { <function-body> }
 
 <arrow-formal-parameters> ::= ( <unique-formal-parameters> )
@@ -321,8 +316,7 @@ olon>?
 
 <class-tail> ::= <class-heritage>? { <class-body>? }
 
-<class-heritage> ::= extends 
-<left-hand-side-expression>
+<class-heritage> ::= extends <left-hand-side-expression>
 
 <class-body> ::= <class-element-list>
 
@@ -373,8 +367,7 @@ olon>?
                        | <template-literal>
                        | <covered-parenthesized-expression-and-arrow-parameter-list>
 
-<covered-parenthesized-expression-and-arro
-w-parameter-list> ::= ( <expression> )
+<covered-parenthesized-expression-and-arrow-parameter-list> ::= ( <expression> )
                                                               | ( <expression> , <assignment-expression-list> )
                                                               | ( )
                                                               | ( ... <binding-identifier> )
@@ -424,8 +417,7 @@ w-parameter-list> ::= ( <expression> )
                           | <string-literal>
                           | <numeric-literal>
 
-<computed-prop
-erty-name> ::= [ <assignment-expression> ]
+<computed-property-name> ::= [ <assignment-expression> ]
 
 <covered-initializer-name> ::= <identifier-reference> <initializer>
 
@@ -470,8 +462,7 @@ erty-name> ::= [ <assignment-expression> ]
 
 <regular-expression-non-terminator-except-backslash> ::= <source-character-except-line-terminator-backslash>
 
-<regular-expression-f
-lags> ::= <regular-expression-flag> <regular-expression-flags>?
+<regular-expression-flags> ::= <regular-expression-flag> <regular-expression-flags>?
 
 <regular-expression-flag> ::= <identifier-part>
 
@@ -526,8 +517,7 @@ lags> ::= <regular-expression-flag> <regular-expression-flags>?
                         | <optional-expression> <optional-chain>
 
 <optional-chain> ::= ?. <arguments>
-              
-     | ?. [ <expression> ]
+                   | ?. [ <expression> ]
                    | ?. <identifier-name>
                    | ?. <private-identifier>
                    | ?. <template-literal>
@@ -572,8 +562,7 @@ lags> ::= <regular-expression-flag> <regular-expression-flags>?
 <shift-expression> ::= <additive-expression>
                      | <shift-expression> << <additive-expression>
                      | <shift-expression> >> <additive-expression>
-                   
-  | <shift-expression> >>> <additive-expression>
+                     | <shift-expression> >>> <additive-expression>
 
 <relational-expression> ::= <shift-expression>
                           | <relational-expression> < <shift-expression>
@@ -614,8 +603,7 @@ lags> ::= <regular-expression-flag> <regular-expression-flags>?
                              | <coalesce-expression>
 
 <conditional-expression> ::= <short-circuit-expression>
-     
-                      | <short-circuit-expression> ? <assignment-expression> : <assignment-expression>
+                           | <short-circuit-expression> ? <assignment-expression> : <assignment-expression>
 
 <assignment-expression> ::= <conditional-expression>
                           | <yield-expression>
@@ -675,8 +663,7 @@ lags> ::= <regular-expression-flag> <regular-expression-flags>?
 
 <hex-digits> ::= <hex-digit> <hex-digits>?
 
-<hex-digit> ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | a | b | c
- | d | e | f | A | B | C | D | E | F
+<hex-digit> ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | a | b | c | d | e | f | A | B | C | D | E | F
 
 /* Literals */
 <null-literal> ::= null
@@ -730,8 +717,7 @@ lags> ::= <regular-expression-flag> <regular-expression-flags>?
 
 <binary-digits> ::= <binary-digit> <binary-digits-tail>?
 
-<binary-digits-tail> ::= <binary-digit> <binary
--digits-tail>?
+<binary-digits-tail> ::= <binary-digit> <binary-digits-tail>?
                        | <numeric-literal-separator> <binary-digit> <binary-digits-tail>?
 
 <binary-digit> ::= 0 | 1
@@ -786,8 +772,7 @@ lags> ::= <regular-expression-flag> <regular-expression-flags>?
 <hex-escape-sequence> ::= x <hex-digit> <hex-digit>
 
 <bigint-literal> ::= <decimal-big-integer-literal>
-                   | <non-decimal-integer-
-literal> <big-int-literal-suffix>
+                   | <non-decimal-integer-literal> <big-int-literal-suffix>
 
 /* Character Classes */
 <source-character> ::= <any-unicode-code-point>
@@ -834,8 +819,7 @@ literal> <big-int-literal-suffix>
 <multi-line-comment-chars> ::= <multi-line-not-asterisk-char> <multi-line-comment-chars>?
                              | * <post-asterisk-comment-chars>?
 
-<post-asterisk-comment-chars> ::= <multi-line-not-forward-slash-or-asterisk-char> <mult
-i-line-comment-chars>?
+<post-asterisk-comment-chars> ::= <multi-line-not-forward-slash-or-asterisk-char> <multi-line-comment-chars>?
                                 | * <post-asterisk-comment-chars>?
 
 <multi-line-not-asterisk-char> ::= <source-character-except-asterisk>
@@ -855,6 +839,85 @@ i-line-comment-chars>?
 <top-level-await-expression> ::= await <unary-expression>
 
 /* Error.cause support (ES2022) */
-<error-constructor-call> ::= new Error ( <assignment-expression> , { cause : <
+<error-constructor-call> ::= new Error ( <assignment-expression> , { cause : <assignment-expression> } )
 
-... [Content truncated]
+/* Object.hasOwn support (ES2022) */
+<object-has-own-call> ::= Object . hasOwn ( <assignment-expression> , <assignment-expression> )
+
+/* RegExp match indices (ES2022) */
+<regexp-match-indices> ::= <regular-expression-literal> . exec ( <assignment-expression> )
+
+/* Private field access (ES2022) */
+<private-field-access> ::= <member-expression> . <private-identifier>
+
+/* Class static initialization blocks (ES2022) */
+<static-initialization-block> ::= static { <statement-list>? }
+
+/* Enhanced numeric separators */
+<numeric-separator> ::= _
+
+/* Array.prototype.at() method support */
+<array-at-method> ::= <member-expression> . at ( <assignment-expression> )
+
+/* String.prototype.at() method support */
+<string-at-method> ::= <member-expression> . at ( <assignment-expression> )
+
+/* Temporal character classes */
+<tab> ::= \t
+<vt> ::= \v
+<ff> ::= \f
+<sp> ::= " "
+<nbsp> ::= \u00A0
+<zwnbsp> ::= \uFEFF
+<usp> ::= <unicode-space-separator>
+
+<lf> ::= \n
+<cr> ::= \r
+<ls> ::= \u2028
+<ps> ::= \u2029
+
+<unicode-space-separator> ::= <any-unicode-space-separator>
+
+<any-unicode-code-point> ::= <unicode-character>
+<any-unicode-space-separator> ::= <unicode-space-character>
+<unicode-character> ::= <printable-ascii-character>
+<unicode-space-character> ::= " " | \t | \n | \r | \u00A0 | \uFEFF
+
+<printable-ascii-character> ::= <letter> | <decimal-digit> | <punctuation-character>
+
+<punctuation-character> ::= ! | " | # | $ | % | & | ' | ( | ) | * | + | , | - | . | / | : | ; | < | = | > | ? | @ | [ | \ | ] | ^ | _ | ` | { | | | } | ~
+
+<source-character-except-cr-lf> ::= <printable-ascii-character>
+<source-character-except-double-quote-backslash-cr-lf> ::= <printable-ascii-character-except-double-quote-backslash>
+<source-character-except-single-quote-backslash-cr-lf> ::= <printable-ascii-character-except-single-quote-backslash>
+<source-character-except-escape-character-cr-lf> ::= <printable-ascii-character-except-escape-characters>
+<source-character-except-dollar-sign> ::= <printable-ascii-character-except-dollar>
+<source-character-except-dollar-backslash-grave-accent> ::= <printable-ascii-character-except-dollar-backslash-grave>
+<source-character-except-cr-lf-star-backslash> ::= <printable-ascii-character-except-star-backslash>
+<source-character-except-cr-lf-backslash> ::= <printable-ascii-character-except-backslash>
+<source-character-except-asterisk> ::= <printable-ascii-character-except-asterisk>
+<source-character-except-forward-slash-asterisk> ::= <printable-ascii-character-except-forward-slash-asterisk>
+
+<printable-ascii-character-except-double-quote-backslash> ::= <letter> | <decimal-digit> | <safe-punctuation-except-double-quote-backslash>
+<printable-ascii-character-except-single-quote-backslash> ::= <letter> | <decimal-digit> | <safe-punctuation-except-single-quote-backslash>
+<printable-ascii-character-except-escape-characters> ::= <letter> | <safe-punctuation-except-escape-characters>
+<printable-ascii-character-except-dollar> ::= <letter> | <decimal-digit> | <safe-punctuation-except-dollar>
+<printable-ascii-character-except-dollar-backslash-grave> ::= <letter> | <decimal-digit> | <safe-punctuation-except-dollar-backslash-grave>
+<printable-ascii-character-except-star-backslash> ::= <letter> | <decimal-digit> | <safe-punctuation-except-star-backslash>
+<printable-ascii-character-except-backslash> ::= <letter> | <decimal-digit> | <safe-punctuation-except-backslash>
+<printable-ascii-character-except-asterisk> ::= <letter> | <decimal-digit> | <safe-punctuation-except-asterisk>
+<printable-ascii-character-except-forward-slash-asterisk> ::= <letter> | <decimal-digit> | <safe-punctuation-except-forward-slash-asterisk>
+
+<safe-punctuation-except-double-quote-backslash> ::= ! | # | $ | % | & | ' | ( | ) | * | + | , | - | . | / | : | ; | < | = | > | ? | @ | [ | ] | ^ | _ | ` | { | | | } | ~
+<safe-punctuation-except-single-quote-backslash> ::= ! | " | # | $ | % | & | ( | ) | * | + | , | - | . | / | : | ; | < | = | > | ? | @ | [ | ] | ^ | _ | ` | { | | | } | ~
+<safe-punctuation-except-escape-characters> ::= ! | " | # | $ | % | & | ' | ( | ) | * | + | , | - | . | / | : | ; | < | = | > | ? | @ | [ | ] | ^ | _ | ` | { | | | } | ~
+<safe-punctuation-except-dollar> ::= ! | " | # | % | & | ' | ( | ) | * | + | , | - | . | / | : | ; | < | = | > | ? | @ | [ | \ | ] | ^ | _ | ` | { | | | } | ~
+<safe-punctuation-except-dollar-backslash-grave> ::= ! | " | # | % | & | ' | ( | ) | * | + | , | - | . | / | : | ; | < | = | > | ? | @ | [ | ] | ^ | _ | { | | | } | ~
+<safe-punctuation-except-star-backslash> ::= ! | " | # | $ | % | & | ' | ( | ) | + | , | - | . | / | : | ; | < | = | > | ? | @ | [ | ] | ^ | _ | ` | { | | | } | ~
+<safe-punctuation-except-backslash> ::= ! | " | # | $ | % | & | ' | ( | ) | * | + | , | - | . | / | : | ; | < | = | > | ? | @ | [ | ] | ^ | _ | ` | { | | | } | ~
+<safe-punctuation-except-asterisk> ::= ! | " | # | $ | % | & | ' | ( | ) | + | , | - | . | / | : | ; | < | = | > | ? | @ | [ | \ | ] | ^ | _ | ` | { | | | } | ~
+<safe-punctuation-except-forward-slash-asterisk> ::= ! | " | # | $ | % | & | ' | ( | ) | + | , | - | . | : | ; | < | = | > | ? | @ | [ | \ | ] | ^ | _ | ` | { | | | } | ~
+
+<covered-formal-parameters> ::= ( <formal-parameter-list>? )
+<covered-call-expression-and-async-arrow-head> ::= <member-expression> <arguments>
+
