@@ -1,0 +1,5 @@
+Grammar: B
+Inherits: a
+Inheritable: true
+
+<IDENTIFIER> ::= /[a-zA-Z][a-zA-Z0-9]*/

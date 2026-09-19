@@ -1,0 +1,3 @@
+Grammar: StabilityTest
+<NUMBER> ::= /[0-9]+/
+<expr> ::= <NUMBER>

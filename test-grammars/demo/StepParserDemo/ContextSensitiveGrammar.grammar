@@ -1,0 +1,26 @@
+Grammar: ContextSensitiveGrammar
+TokenSplitter: Space
+
+<FUNCTION> ::= "function"
+<CLASS> ::= "class"
+<IDENTIFIER> ::= /[a-zA-Z][a-zA-Z0-9]*/
+<LBRACE> ::= "{"
+<RBRACE> ::= "}"
+<SEMICOLON> ::= ";"
+<WS> ::= /[ \t\r\n]+/ => { /* skip */ }
+
+<program> ::= <declaration>*
+
+<declaration> ::= <function-declaration> | <class-declaration>
+
+<function-declaration> ::= <FUNCTION> <IDENTIFIER> <LBRACE> <function-body> <RBRACE>
+
+<class-declaration> ::= <CLASS> <IDENTIFIER> <LBRACE> <class-body> <RBRACE>
+
+<function-body> ::= <statement (function-context)>*
+
+<class-body> ::= <statement (class-context)>*
+
+# Context-sensitive rules - same syntax, different semantics based on context
+<statement (function-context)> ::= <IDENTIFIER> <SEMICOLON> => { declareLocalVariable($1); }
+<statement (class-context)> ::= <IDENTIFIER> <SEMICOLON> => { declareField($1); }

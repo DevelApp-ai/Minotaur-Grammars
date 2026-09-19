@@ -1,0 +1,4 @@
+Grammar: MyDerived
+Inherits: antlr4_base
+
+<expression> ::= <NUMBER>

@@ -1,0 +1,20 @@
+Grammar: ModernLanguageGrammar
+Inherits: antlr4_base
+TokenSplitter: Space
+ImportSemantics: true
+
+# Custom tokens extending base grammar
+<ASYNC> ::= "async"
+<AWAIT> ::= "await"
+<ARROW> ::= "=>"
+
+# Extended expressions inheriting base patterns
+<expr> ::= base
+         | <ASYNC> <IDENTIFIER> <ARROW> <expr> => { createAsyncExpression($2, $4); }
+         | <AWAIT> <expr> => { createAwaitExpression($2); }
+
+# Inherit precedence from ANTLR v4 base and extend
+Precedence: {
+  inherit: antlr4_base
+  Level0: { operators: ["await"], associativity: "right" }
+}

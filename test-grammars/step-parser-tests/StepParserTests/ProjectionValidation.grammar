@@ -1,0 +1,15 @@
+Grammar: ProjectionValidation
+TokenSplitter: Space
+
+<IDENTIFIER> ::= /[a-zA-Z][a-zA-Z0-9]*/
+<ASSIGN> ::= '='
+<NUMBER> ::= /[0-9]+/
+<LPAREN> ::= '('
+<RPAREN> ::= ')'
+<DOT> ::= '.'
+<WS> ::= /[ \t\r\n]+/
+
+<expression> ::= <assignment> | <field_access> | <function_call> | <IDENTIFIER>
+<assignment> ::= <IDENTIFIER> <ASSIGN> <NUMBER> => { validateAssignment($1, $3); }
+<field_access> ::= <IDENTIFIER> <DOT> <IDENTIFIER> => { validateFieldAccess($1, $3); }
+<function_call> ::= <IDENTIFIER> <LPAREN> <RPAREN> => { validateFunctionCall($1); }

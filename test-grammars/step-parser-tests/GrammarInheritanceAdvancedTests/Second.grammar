@@ -1,0 +1,4 @@
+Grammar: Second
+Inherits: mybase
+
+<NUMBER> ::= /[0-9]{2,}/

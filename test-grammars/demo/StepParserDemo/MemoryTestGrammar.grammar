@@ -1,0 +1,4 @@
+Grammar: MemoryTestGrammar
+<TOKEN> ::= /[a-zA-Z]+/
+<WS> ::= /[ \t\r\n]+/ => { /* skip */ }
+<expr> ::= <TOKEN>*

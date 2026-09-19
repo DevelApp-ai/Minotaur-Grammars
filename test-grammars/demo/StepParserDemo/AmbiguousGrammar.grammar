@@ -1,0 +1,12 @@
+Grammar: AmbiguousGrammar
+TokenSplitter: Space
+
+<NUMBER> ::= /[0-9]+/
+<PLUS> ::= "+"
+<TIMES> ::= "*"
+<WS> ::= /[ \t\r\n]+/ => { /* skip */ }
+
+# Intentionally ambiguous grammar without precedence
+<expr> ::= <expr> <PLUS> <expr>
+         | <expr> <TIMES> <expr>
+         | <NUMBER>

@@ -1,0 +1,17 @@
+Grammar: ScopeValidation
+TokenSplitter: Space
+
+<FUNCTION> ::= 'function'
+<IDENTIFIER> ::= /[a-zA-Z][a-zA-Z0-9]*/
+<LBRACE> ::= '{'
+<RBRACE> ::= '}'
+<ASSIGN> ::= '='
+<NUMBER> ::= /[0-9]+/
+<SEMICOLON> ::= ';'
+<WS> ::= /[ \t\r\n]+/
+
+<function_declaration> ::= <FUNCTION> <IDENTIFIER> <LBRACE> <function_body> <RBRACE> => { validateFunctionScope($2, $4); }
+<function_body> ::= <statement>*
+<statement> ::= <local_declaration> | <variable_access>
+<local_declaration> ::= <IDENTIFIER> <ASSIGN> <NUMBER> <SEMICOLON> => { declareFunctionLocal($1); }
+<variable_access> ::= <IDENTIFIER> <SEMICOLON> => { validateScopeAccess($1); }

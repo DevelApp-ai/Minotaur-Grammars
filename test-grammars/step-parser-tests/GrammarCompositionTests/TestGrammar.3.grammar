@@ -1,0 +1,2 @@
+Grammar: TestGrammar
+<expression> ::= <term> '+' <term>

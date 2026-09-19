@@ -1,0 +1,7 @@
+Grammar: CognitiveTest
+TokenSplitter: Space
+
+<NUMBER> ::= /[0-9]+/
+<PLUS> ::= '+'
+
+<expr> ::= <NUMBER>

@@ -1,0 +1,5 @@
+Grammar: AmbiguousTest
+<NUMBER> ::= /[0-9]+/
+<expr> ::= <NUMBER> '+' <NUMBER>
+<expr> ::= <NUMBER>
+<stmt> ::= <expr>

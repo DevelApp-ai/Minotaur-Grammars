@@ -1,0 +1,7 @@
+Grammar: Derived
+Inherits: bison_base
+Precedence:
+Level5: { operators: ["*"], associativity: "right" }
+
+<expression> ::= <NUMBER>
+<NUMBER> ::= /[0-9]+/

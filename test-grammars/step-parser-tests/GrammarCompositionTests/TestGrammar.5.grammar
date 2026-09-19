@@ -1,0 +1,2 @@
+Grammar: TestGrammar
+<IDENTIFIER> ::= /[a-zA-Z_]+/

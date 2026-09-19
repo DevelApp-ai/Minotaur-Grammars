@@ -1,0 +1,12 @@
+Grammar: AlternationExpansion
+TokenSplitter: Space
+
+<NUMBER> ::= /[0-9]+/
+<PLUS> ::= '+'
+<MINUS> ::= '-'
+<WS> ::= /[ \t\r\n]+/
+
+<expr> ::= <expr> <PLUS> <expr>
+         | <expr> <MINUS> <expr>
+         | <NUMBER>
+         | <IDENTIFIER>

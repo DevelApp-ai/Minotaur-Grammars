@@ -1,0 +1,8 @@
+Grammar: SingleLineAlternation
+TokenSplitter: Space
+
+<NUMBER> ::= /[0-9]+/
+<PLUS> ::= '+'
+<WS> ::= /[ \t\r\n]+/
+
+<expr> ::= <NUMBER> | <expr> <PLUS> <expr>

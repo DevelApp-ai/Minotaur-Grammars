@@ -1,0 +1,9 @@
+Grammar: AlternationParse
+TokenSplitter: Space
+
+<NUMBER> ::= /[0-9]+/
+<PLUS> ::= '+'
+<WS> ::= /[ \t\r\n]+/
+
+<expr> ::= <expr> <PLUS> <expr>
+         | <NUMBER>

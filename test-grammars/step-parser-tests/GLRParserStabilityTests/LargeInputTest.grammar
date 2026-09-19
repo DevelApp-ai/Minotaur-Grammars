@@ -1,0 +1,3 @@
+Grammar: LargeInputTest
+<NUMBER> ::= /[0-9]+/
+<expr> ::= <NUMBER>

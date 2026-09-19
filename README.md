@@ -23,6 +23,11 @@ focused on the compiler-compiler platform code.
 - `*_README.md` — notes for the corresponding grammar
 - `PostalCodes/` — postal-code grammars and their tests
 - `sample.grammar` — sample grammar demonstrating context-sensitive projections and semantic rules (imported from [ENFAStepLexer-StepParser](https://github.com/DevelApp-ai/ENFAStepLexer-StepParser))
+- `test-grammars/` — grammars used by [ENFAStepLexer-StepParser](https://github.com/DevelApp-ai/ENFAStepLexer-StepParser) tests, benchmarks, and demo (extracted from inline C# strings):
+  - `test-grammars/step-parser-tests/<TestClass>/<GrammarName>.grammar`
+  - `test-grammars/benchmarks/ParserBenchmarks/`
+  - `test-grammars/demo/StepParserDemo/`
+  - Numbered variants (`TestGrammar.2.grammar`) are distinct grammars that share a name across test methods; some are deliberately invalid (used for error-path tests).
 
 ## Licensing
 

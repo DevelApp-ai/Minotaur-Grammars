@@ -1,0 +1,5 @@
+Grammar: Derived
+Inherits: mystery_base
+
+<expression> ::= <NUMBER>
+<NUMBER> ::= /[0-9]+/

@@ -1,0 +1,4 @@
+Grammar: LeftRecursiveTest
+<NUMBER> ::= /[0-9]+/
+<expr> ::= <expr> '+' <NUMBER>
+<expr> ::= <NUMBER>

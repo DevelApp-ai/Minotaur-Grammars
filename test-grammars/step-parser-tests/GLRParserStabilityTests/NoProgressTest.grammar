@@ -1,0 +1,2 @@
+Grammar: NoProgressTest
+<NUMBER> ::= /[0-9]+/
