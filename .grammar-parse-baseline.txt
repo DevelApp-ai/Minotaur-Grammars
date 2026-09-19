@@ -1,4 +1,4 @@
-# Grammar parse-validation baseline (issue #19).
+# Grammar parse-validation baseline (issue #18).
 #
 # Repository-relative paths of grammar files that currently FAIL to load
 # through StepLexer/StepParser (StepParserEngine.LoadGrammarFromContent +
@@ -13,5 +13,11 @@
 # - Regenerate: Actions tab -> Grammar Validation -> Run workflow -> mode
 #   'record', then commit the artifact's grammar-parse-baseline.new.txt here.
 #
-# This file starts empty: the first full 'verify' run on main after the
-# harness lands will report the actual current state; record and commit it.
+# The baseline is currently EMPTY: all 162 grammars parse. The 7 grammars
+# that failed the first full 'verify' run (run #127, 2026-09-19) have been
+# fixed in this PR:
+#
+#  - DotNetProject, FolderProject: rewritten from legacy ANTLR-style syntax
+#    to EBNF rule syntax.
+#  - GrammarCompositionTests/TestGrammar.grammar and the inheritance-only
+#    fixtures (First, MyDerived.4/5/6): given a minimal placeholder rule.

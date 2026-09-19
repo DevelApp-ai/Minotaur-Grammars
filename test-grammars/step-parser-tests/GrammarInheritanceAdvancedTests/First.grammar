@@ -1,2 +1,6 @@
 Grammar: First
 Inherits: mybase
+
+# Minimal placeholder rule so this inheritance fixture parses standalone
+# (issue #18). All meaningful rules come from the registered base grammar.
+<FIXTURE> ::= /fixture/

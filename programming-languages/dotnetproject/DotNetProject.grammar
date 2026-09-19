@@ -1,186 +1,116 @@
 Grammar: DotNetProject
-# DotNet Project Grammar
-# Supports .NET solution and project file parsing for cross-file analysis
-# Enables project-level loading with embedded grammars for different file types
+# DotNet Project Grammar (EBNF, StepLexer/StepParser syntax)
+# Supports .NET solution and project file parsing for cross-file analysis.
+# Rewritten from the legacy ANTLR-style draft to EBNF so it parses with
+# StepParserEngine.LoadGrammarFromContent (issue #18).
 
-grammar DotNetProject;
+TokenSplitter: Space
+Context: default
 
-# Entry point for .NET project structure analysis
-project_root:
-    solution_file? 
-    project_files* 
-    source_files*
-    ;
+# --- Lexical tokens ---
 
-# .NET Solution file (.sln) structure
-solution_file:
-    'Microsoft Visual Studio Solution File, Format Version' version_number
-    solution_projects*
-    solution_configuration*
-    ;
+<WS> ::= /[ \t\r\n]+/
+<COMMENT> ::= /#[^\r\n]*/
+<XML_COMMENT> ::= /<!--[\s\S]*?-->/
+<IDENTIFIER> ::= /[A-Za-z_][A-Za-z0-9_]*/
+<QUALIFIED_IDENTIFIER> ::= /[A-Za-z_][A-Za-z0-9_]*(\.[A-Za-z_][A-Za-z0-9_]*)*/
+<GUID> ::= /\{[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}\}/
+<VERSION_NUMBER> ::= /[0-9]+\.[0-9]+/
+<PACKAGE_VERSION> ::= /[0-9]+\.[0-9]+\.[0-9]+(\.[0-9]+)?(-[A-Za-z0-9]+)?/
+<FILE_PATH> ::= /[^"'\s]+/
+<STRING_LITERAL> ::= /"[^"]*"|'[^']*'/
 
-solution_projects:
-    'Project(' project_type_guid ')' '=' project_name ',' project_path ',' project_guid
-    project_dependencies?
-    'EndProject'
-    ;
+# --- Solution file (.sln) structure ---
 
-# .NET Project file (.csproj, .vbproj, etc.) structure  
-project_files:
-    xml_declaration?
-    project_element
-    ;
+<project_root> ::= <solution_file> <project_files> <source_files>
 
-project_element:
-    '<Project' project_attributes '>'
-    property_groups*
-    item_groups*
-    imports*
-    targets*
-    '</Project>'
-    ;
+<solution_file> ::= 'Microsoft Visual Studio Solution File, Format Version' <VERSION_NUMBER> <solution_projects> <solution_configurations>
 
-property_groups:
-    '<PropertyGroup' condition? '>'
-    properties*
-    '</PropertyGroup>'
-    ;
+<solution_projects> ::= <solution_project> <solution_projects>
+<solution_project> ::= 'Project(' <GUID> ')' '=' <STRING_LITERAL> ',' <STRING_LITERAL> ',' <GUID> 'EndProject'
 
-item_groups:
-    '<ItemGroup' condition? '>'
-    items*
-    '</ItemGroup>'
-    ;
+<solution_configurations> ::= <solution_configuration> <solution_configurations>
+<solution_configuration> ::= <STRING_LITERAL> '=' <STRING_LITERAL>
 
-# Cross-file reference tracking for analysis
-items:
-    compile_include |
-    content_include |
-    embedded_resource |
-    package_reference |
-    project_reference |
-    assembly_reference
-    ;
+# --- Project file (.csproj/.vbproj/...) structure ---
 
-compile_include:
-    '<Compile Include="' file_path '"' compile_attributes? '/>'
-    ;
+<project_files> ::= <project_file> <project_files>
+<project_file> ::= <xml_declaration> <project_element>
 
-project_reference:
-    '<ProjectReference Include="' project_path '"' reference_attributes? '/>'
-    ;
+<xml_declaration> ::= '<?xml version="1.0" encoding="UTF-8"?>'
 
-package_reference:
-    '<PackageReference Include="' package_name '" Version="' version '"' package_attributes? '/>'
-    ;
+<project_element> ::= '<Project' <project_attributes> '>' <property_groups> <item_groups> <imports> <targets> '</Project>'
 
-# Source file integration with embedded grammars
-source_files:
-    csharp_file |
-    vb_file |
-    fsharp_file |
-    razor_file |
-    xaml_file |
-    json_file |
-    xml_file
-    ;
+<project_attributes> ::= <project_attribute> <project_attributes>
+<project_attribute> ::= <STRING_LITERAL> '=' <STRING_LITERAL>
 
-# Embedded grammar references for different file types
-csharp_file:
-    @embed_grammar("CSharp10.grammar")
-    file_path: *.cs
-    cross_file_references: using_directives, namespace_declarations, type_references
-    ;
+<property_groups> ::= <property_group> <property_groups>
+<property_group> ::= '<PropertyGroup' <condition> '>' <properties> '</PropertyGroup>'
 
-vb_file:
-    @embed_grammar("VisualBasic.grammar") 
-    file_path: *.vb
-    cross_file_references: imports_statements, namespace_declarations, type_references
-    ;
+<properties> ::= <property> <properties>
+<property> ::= '<' <IDENTIFIER> '>' <STRING_LITERAL> '</' <IDENTIFIER> '>'
 
-fsharp_file:
-    @embed_grammar("FSharp.grammar")
-    file_path: *.fs
-    cross_file_references: open_statements, module_declarations, type_references
-    ;
+<condition> ::= 'Condition="' <STRING_LITERAL> '"'
 
-razor_file:
-    @embed_grammar("HTMLEmbedded.grammar")
-    @embed_grammar("CSharp10.grammar")
-    file_path: *.razor, *.cshtml
-    cross_file_references: using_directives, model_references, component_references
-    ;
+<item_groups> ::= <item_group> <item_groups>
+<item_group> ::= '<ItemGroup' <condition> '>' <items> '</ItemGroup>'
 
-xaml_file:
-    @embed_grammar("XAML.grammar")
-    file_path: *.xaml
-    cross_file_references: namespace_declarations, type_references, resource_references
-    ;
+<items> ::= <item> <items>
+<item> ::= <compile_include>
+        | <content_include>
+        | <embedded_resource>
+        | <package_reference>
+        | <project_reference>
+        | <assembly_reference>
 
-json_file:
-    @embed_grammar("JSON.grammar")
-    file_path: *.json, *.jsonc
-    cross_file_references: schema_references, configuration_references
-    ;
+<compile_include> ::= '<Compile Include="' <FILE_PATH> '"' '/>'
+<content_include> ::= '<Content Include="' <FILE_PATH> '"' '/>'
+<embedded_resource> ::= '<EmbeddedResource Include="' <FILE_PATH> '"' '/>'
+<package_reference> ::= '<PackageReference Include="' <IDENTIFIER> '" Version="' <PACKAGE_VERSION> '"' '/>'
+<project_reference> ::= '<ProjectReference Include="' <FILE_PATH> '"' '/>'
+<assembly_reference> ::= '<Reference Include="' <IDENTIFIER> '"' '/>'
 
-xml_file:
-    @embed_grammar("XML.grammar")
-    file_path: *.xml, *.config, *.settings
-    cross_file_references: schema_references, configuration_references
-    ;
+<imports> ::= <import> <imports>
+<import> ::= '<Import Project="' <FILE_PATH> '"' '/>'
 
-# Cross-file analysis constructs
-cross_file_references:
-    namespace_usage |
-    type_dependency |
-    resource_dependency |
-    configuration_dependency
-    ;
+<targets> ::= <target> <targets>
+<target> ::= '<Target Name="' <IDENTIFIER> '"' '</Target>'
 
-namespace_usage:
-    source_file: file_path
-    target_namespace: qualified_identifier
-    usage_type: ('using' | 'import' | 'open' | 'include')
-    ;
+# --- Source file classification (embedded grammars) ---
 
-type_dependency:
-    source_file: file_path
-    target_type: qualified_identifier
-    dependency_type: ('inheritance' | 'composition' | 'usage' | 'reference')
-    ;
+<source_files> ::= <source_file> <source_files>
+<source_file> ::= <csharp_file>
+               | <vb_file>
+               | <fsharp_file>
+               | <razor_file>
+               | <xaml_file>
+               | <json_file>
+               | <xml_file>
 
-resource_dependency:
-    source_file: file_path
-    target_resource: resource_path
-    resource_type: ('embedded' | 'content' | 'link' | 'reference')
-    ;
+<csharp_file> ::= <FILE_PATH> '.cs'
+<vb_file> ::= <FILE_PATH> '.vb'
+<fsharp_file> ::= <FILE_PATH> '.fs'
+<razor_file> ::= <FILE_PATH> '.razor'
+<xaml_file> ::= <FILE_PATH> '.xaml'
+<json_file> ::= <FILE_PATH> '.json'
+<xml_file> ::= <FILE_PATH> '.xml'
 
-configuration_dependency:
-    source_file: file_path
-    target_config: config_path
-    config_type: ('appsettings' | 'web.config' | 'app.config' | 'project')
-    ;
+# --- Cross-file reference tracking ---
 
-# Lexical tokens
-project_type_guid: '{' guid_pattern '}'
-project_guid: '{' guid_pattern '}'
-guid_pattern: [0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}
+<cross_file_references> ::= <cross_file_reference> <cross_file_references>
+<cross_file_reference> ::= <namespace_usage>
+                         | <type_dependency>
+                         | <resource_dependency>
+                         | <configuration_dependency>
 
-version_number: [0-9]+\.[0-9]+
-project_name: '"' [^"]+ '"'
-project_path: '"' [^"]+ '"'
-file_path: [^"'\s]+
-package_name: [A-Za-z][A-Za-z0-9._]*
-version: [0-9]+\.[0-9]+\.[0-9]+(\.[0-9]+)?(-[A-Za-z0-9]+)?
+<namespace_usage> ::= <FILE_PATH> <QUALIFIED_IDENTIFIER> <usage_type>
+<usage_type> ::= 'using' | 'import' | 'open' | 'include'
 
-qualified_identifier: [A-Za-z_][A-Za-z0-9_]*(\.[A-Za-z_][A-Za-z0-9_]*)*
-resource_path: [^"'\s]+
-config_path: [^"'\s]+
+<type_dependency> ::= <FILE_PATH> <QUALIFIED_IDENTIFIER> <dependency_type>
+<dependency_type> ::= 'inheritance' | 'composition' | 'usage' | 'reference'
 
-condition: 'Condition="' [^"]+ '"'
-xml_declaration: '<?xml version="1.0" encoding="UTF-8"?>'
+<resource_dependency> ::= <FILE_PATH> <FILE_PATH> <resource_type>
+<resource_type> ::= 'embedded' | 'content' | 'link' | 'reference'
 
-# Whitespace and comments
-WS: [ \t\r\n]+ -> skip;
-COMMENT: '#' ~[\r\n]* -> skip;
-XML_COMMENT: '<!--' .*? '-->' -> skip;
+<configuration_dependency> ::= <FILE_PATH> <FILE_PATH> <config_type>
+<config_type> ::= 'appsettings' | 'web.config' | 'app.config' | 'project'

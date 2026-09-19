@@ -1,2 +1,7 @@
 Grammar: MyDerived
 Inherits: sealed
+
+# Minimal placeholder rule so this inheritance fixture parses standalone
+# (issue #18). Parsing still throws GR3001 because the base is not
+# Inheritable, which is exactly what the test asserts.
+<FIXTURE> ::= /fixture/
