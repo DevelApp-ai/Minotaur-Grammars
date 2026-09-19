@@ -1,0 +1,26 @@
+{
+  "Id": "develapp.xaml",
+  "Name": "XAML",
+  "Vendor": "DevelApp",
+  "DisplayName": "XAML",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "XAML grammar (XML-based, with markup extensions and x: directives) for the Minotaur parser platform (authored for issue #8).",
+  "License": "MIT",
+  "Tags": [
+    "programming-language",
+    "minotaur",
+    "markup",
+    "dotnet"
+  ],
+  "MainFile": "XAML.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}

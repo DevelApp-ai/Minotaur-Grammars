@@ -1,0 +1,25 @@
+{
+  "Id": "develapp.go119",
+  "Name": "Go119",
+  "Vendor": "DevelApp",
+  "DisplayName": "Go119",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "Go 1.19 grammar for the Minotaur parser platform (authored for issue #8).",
+  "License": "MIT",
+  "Tags": [
+    "programming-language",
+    "minotaur",
+    "go"
+  ],
+  "MainFile": "Go119.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}

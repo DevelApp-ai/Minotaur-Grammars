@@ -1,0 +1,25 @@
+{
+  "Id": "develapp.visualbasic",
+  "Name": "VisualBasic",
+  "Vendor": "DevelApp",
+  "DisplayName": "VisualBasic",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "Visual Basic (.NET) grammar for the Minotaur parser platform (authored for issue #8).",
+  "License": "MIT",
+  "Tags": [
+    "programming-language",
+    "minotaur",
+    "dotnet"
+  ],
+  "MainFile": "VisualBasic.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}

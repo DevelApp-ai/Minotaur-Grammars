@@ -1,0 +1,84 @@
+Grammar: XAML
+TokenSplitter: Space
+FormatType: EBNF
+EmbeddedLanguage: true
+ParentContext: XML
+ContextSensitive: true
+
+/*
+ * XAML Grammar Definition (WPF-oriented subset)
+ * Authored from scratch for Minotaur (issue #8); based on the
+ * Microsoft XAML language specification (high-level structure).
+ * Extends XML with markup extensions, x: directives, and
+ * property-element syntax.
+ */
+
+<xaml-document> ::= <prolog>? <xaml-element>
+<prolog> ::= <xml-decl>? <misc>*
+<xml-decl> ::= "<?xml" <s> "version" <eq> '"' "1.0" '"' <s>? "?>"
+<misc> ::= <comment> | <pi> | <s>
+
+<xaml-element> ::= <empty-elem-tag> | <stag> <xaml-content> <etag>
+<empty-elem-tag> ::= "<" <xaml-name> (<s> <attribute>)* <s>? "/>"
+<stag> ::= "<" <xaml-name> (<s> <attribute>)* <s>? ">"
+<etag> ::= "</" <xaml-name> <s>? ">"
+
+<xaml-name> ::= <type-name> | <property-element-name>
+<type-name> ::= (<xml-namespace-prefix> ":")? <identifier> ("." <identifier>)*
+<property-element-name> ::= <type-name> "." <identifier>
+<xml-namespace-prefix> ::= <identifier>
+
+<xaml-content> ::= (<xaml-element> | <char-data> | <reference> | <cd-sect> | <comment> | <pi>)*
+
+<attribute> ::= <xaml-directive> | <plain-attribute> | <markup-extension-attribute>
+<xaml-directive> ::= "x:Class" <eq> <att-value>
+                  | "x:Name" <eq> <att-value>
+                  | "x:Key" <eq> <att-value>
+                  | "x:Uid" <eq> <att-value>
+                  | "x:TypeArguments" <eq> <att-value>
+                  | "x:FieldModifier" <eq> <att-value>
+                  | "x:ClassModifier" <eq> <att-value>
+<plain-attribute> ::= <attr-name> <eq> <att-value>
+<attr-name> ::= (<xml-namespace-prefix> ":")? <identifier>
+<markup-extension-attribute> ::= <attr-name> <eq> <markup-extension-string>
+<markup-extension-string> ::= '"' "{" <markup-extension> "}" '"' | "'" "{" <markup-extension> "}" "'"
+
+<markup-extension> ::= <static-resource>
+                     | <dynamic-resource>
+                     | <template-binding>
+                     | <x-static>
+                     | <x-type>
+                     | <binding-extension>
+                     | <generic-extension>
+<static-resource> ::= "StaticResource" <ext-args>?
+<dynamic-resource> ::= "DynamicResource" <ext-args>?
+<template-binding> ::= "TemplateBinding" <ext-args>?
+<x-static> ::= "x:Static" <ext-args>?
+<x-type> ::= "x:Type" <ext-args>?
+<binding-extension> ::= "Binding" <ext-args>?
+<generic-extension> ::= <type-name> <ext-args>?
+
+<ext-args> ::= <ext-arg> (<s> <ext-arg>)*
+<ext-arg> ::= <positional-arg> | <named-arg>
+<positional-arg> ::= <ext-value>
+<named-arg> ::= <identifier> "=" <ext-value>
+<ext-value> ::= <ext-literal> | <nested-markup-extension>
+<ext-literal> ::= /[^{},= ]+/ | "'" /[^']+/ "'"
+<nested-markup-extension> ::= "{" <markup-extension> "}"
+
+<att-value> ::= '"' <att-value-content> '"' | "'" <att-value-content> "'"
+<att-value-content> ::= /[^"]*/
+
+<char-data> ::= /[^<&]+/
+<reference> ::= "&" <identifier> ";" | "&#" /[0-9]+/ ";"
+<cd-sect> ::= "<![CDATA[" <cdata-content> "]]>"
+<cdata-content> ::= /(?!\]\]>)[\s\S]*/
+<comment> ::= "<!--" <comment-content> "-->"
+<comment-content> ::= /(?!-->)[\s\S]*/
+<pi> ::= "<?" <pitarget> (<s> <pi-content>)? "?>"
+<pitarget> ::= <identifier>
+<pi-content> ::= /[^?]*/
+
+<identifier> ::= /[A-Za-z_][A-Za-z0-9_.-]*/
+<eq> ::= <s>? "=" <s>?
+<s> ::= /[ \t\r\n]+/

@@ -1,0 +1,190 @@
+Grammar: Go119
+TokenSplitter: Space
+FormatType: EBNF
+
+/*
+ * Go 1.19 Grammar Definition
+ * Authored from scratch for Minotaur (issue #8); based on the
+ * Go Language Specification (Go 1.19).
+ */
+
+<go-file> ::= <package-clause> <import-decls>? <top-level-decls>?
+
+<package-clause> ::= "package" <whitespace> <package-name> <newline>
+<package-name> ::= <identifier>
+
+<import-decls> ::= <import-decl>+
+<import-decl> ::= "import" <whitespace> <import-spec>
+                | "import" <whitespace> "(" <import-spec-list>? ")"
+<import-spec-list> ::= <import-spec> (<newline> <import-spec>)*
+<import-spec> ::= <import-alias>? <string-literal>
+<import-alias> ::= <identifier> <whitespace> | "." <whitespace> | "_" <whitespace>
+
+<top-level-decls> ::= <top-level-decl>+
+<top-level-decl> ::= <function-decl>
+                   | <method-decl>
+                   | <type-decl>
+                   | <var-decl>
+                   | <const-decl>
+
+<function-decl> ::= "func" <whitespace> <identifier> <signature> <function-body>?
+<method-decl> ::= "func" <whitespace> "(" <receiver> ")" <whitespace> <identifier> <signature> <function-body>?
+<receiver> ::= <parameter>
+<signature> ::= <parameters> <result>?
+<result> ::= <whitespace> <parameters> | <whitespace> <type-expression>
+<parameters> ::= "(" <parameter-list>? ")"
+<parameter-list> ::= <parameter-decl> ("," <parameter-decl>)*
+<parameter-decl> ::= <identifier-list>? <whitespace>? <type-expression>
+<identifier-list> ::= <identifier> ("," <whitespace>? <identifier>)*
+
+<function-body> ::= <whitespace>? <block>
+
+<block> ::= "{" <statement-list>? "}"
+<statement-list> ::= <statement> (";" <statement>?)*
+
+<type-decl> ::= "type" <whitespace> <type-spec>
+             | "type" <whitespace> "(" <type-spec-list>? ")"
+<type-spec> ::= <identifier> <whitespace>? <type-expression> <newline>?
+             | <identifier> <whitespace>? <struct-type> <newline>?
+             | <identifier> <whitespace>? <interface-type> <newline>?
+
+<struct-type> ::= "struct" <whitespace>? "{" <field-decl-list>? "}"
+<field-decl-list> ::= <field-decl> (<newline>? ";"? <newline>? <field-decl>)*
+<field-decl> ::= <field-name-list> <whitespace> <type-expression> <tag>?
+               | <embedded-field> <tag>?
+<field-name-list> ::= <identifier> ("," <whitespace>? <identifier>)*
+<embedded-field> ::= "*" <whitespace>? <type-expression> | <type-expression>
+<tag> ::= <whitespace> <string-literal>
+
+<interface-type> ::= "interface" <whitespace>? "{" <method-spec-list>? "}"
+<method-spec-list> ::= <method-spec> (";" <method-spec>?)*
+<method-spec> ::= <identifier> <signature>
+                | <type-expression>
+
+<var-decl> ::= "var" <whitespace> <var-spec>
+            | "var" <whitespace> "(" <var-spec-list>? ")"
+<var-spec> ::= <identifier-list> <whitespace>? <type-expression>? <whitespace>? ("=" <whitespace>? <expression-list>)? <newline>?
+<var-spec-list> ::= <var-spec> (<newline>? ";"? <newline>? <var-spec>)*
+
+<const-decl> ::= "const" <whitespace> <const-spec>
+              | "const" <whitespace> "(" <const-spec-list>? ")"
+<const-spec> ::= <identifier-list> <whitespace>? <type-expression>? <whitespace>? "=" <whitespace>? <expression-list> <newline>?
+<const-spec-list> ::= <const-spec> (<newline>? ";"? <newline>? <const-spec>)*
+
+<statement> ::= <declaration-statement>
+             | <simple-statement>
+             | <return-statement>
+             | <if-statement>
+             | <for-statement>
+             | <switch-statement>
+             | <select-statement>
+             | <go-statement>
+             | <defer-statement>
+             | <block>
+             | <labeled-statement>
+             | <break-statement>
+             | <continue-statement>
+             | <goto-statement>
+             | <fallthrough-statement>
+
+<declaration-statement> ::= <type-decl> | <var-decl> | <const-decl>
+
+<simple-statement> ::= <expression-statement>
+                     | <assignment>
+                     | <short-var-decl>
+<expression-statement> ::= <expression>
+<assignment> ::= <expression-list> <whitespace>? <assign-op> <whitespace>? <expression-list>
+<assign-op> ::= "=" | "+=" | "-=" | "*=" | "/=" | "%=" | "&=" | "|=" | "^=" | "<<=" | ">>=" | "&^="
+<short-var-decl> ::= <identifier-list> <whitespace>? ":=" <whitespace>? <expression-list>
+
+<return-statement> ::= "return" (<whitespace> <expression-list>)?
+<break-statement> ::= "break" (<whitespace> <identifier>)?
+<continue-statement> ::= "continue" (<whitespace> <identifier>)?
+<goto-statement> ::= "goto" <whitespace> <identifier>
+<fallthrough-statement> ::= "fallthrough"
+<labeled-statement> ::= <identifier> ":" <statement>
+
+<if-statement> ::= "if" <whitespace> <if-init>? <expression> <whitespace>? <block> <else-clause>?
+<if-init> ::= <simple-statement> ";" <whitespace>?
+<else-clause> ::= <whitespace> "else" <whitespace> <if-statement>
+                | <whitespace> "else" <whitespace>? <block>
+
+<for-statement> ::= "for" <whitespace>? <for-clause>? <whitespace>? <block>
+<for-clause> ::= <for-condition> | <for-range> | <simple-statement> ";" <whitespace>? <expression>? ";" <whitespace>? <simple-statement>
+<for-condition> ::= <expression>
+<for-range> ::= <identifier-list> <whitespace>? ":=" <whitespace>? "range" <whitespace> <expression>
+
+<switch-statement> ::= "switch" <whitespace> <expression> <whitespace>? "{" <case-clauses>? "}"
+                    | "switch" <whitespace> <simple-statement> ";" <whitespace> <expression> <whitespace>? "{" <case-clauses>? "}"
+                    | "switch" <whitespace> "type" <whitespace>? "{" <case-clauses>? "}"
+<case-clauses> ::= <case-clause>+
+<case-clause> ::= ("case" <whitespace> <expression-list> | "default") ":" <statement-list>?
+
+<select-statement> ::= "select" <whitespace>? "{" <comm-clauses>? "}"
+<comm-clauses> ::= <comm-clause>+
+<comm-clause> ::= <comm-case> ":" <statement-list>?
+<comm-case> ::= "case" <whitespace> <comm-op> | "default"
+<comm-op> ::= <expression> "<-" <whitespace> <expression>
+           | <identifier-list> <whitespace>? ":=" <whitespace>? "range" <whitespace> <expression>
+
+<go-statement> ::= "go" <whitespace> <expression>
+<defer-statement> ::= "defer" <whitespace> <expression>
+
+<type-expression> ::= <type-name>
+                    | <pointer-type>
+                    | <array-type>
+                    | <slice-type>
+                    | <map-type>
+                    | <chan-type>
+                    | <func-type>
+                    | <struct-type>
+                    | <interface-type>
+                    | "(" <type-expression> ")"
+<type-name> ::= <identifier> | <qualified-identifier>
+<qualified-identifier> ::= <identifier> "." <identifier>
+<pointer-type> ::= "*" <whitespace>? <type-expression>
+<array-type> ::= "[" <expression> "]" <whitespace>? <type-expression> | "[" "..." "]" <whitespace>? <type-expression>
+<slice-type> ::= "[" "]" <whitespace>? <type-expression>
+<map-type> ::= "map" <whitespace>? "[" <type-expression> "]" <whitespace>? <type-expression>
+<chan-type> ::= "chan" <whitespace> <type-expression>
+             | "chan" "<-" <whitespace> <type-expression>
+             | "<-" "chan" <whitespace> <type-expression>
+<func-type> ::= "func" <signature>
+
+<expression> ::= <unary-expression>
+              | <expression> <binary-op> <whitespace>? <expression>
+<binary-op> ::= "||" | "&&" | "==" | "!=" | "<" | "<=" | ">" | ">=" | "+" | "-" | "|" | "^" | "*" | "/" | "%" | "<<" | ">>" | "&" | "&^"
+<unary-expression> ::= <primary-expression>
+                    | <unary-op> <whitespace>? <unary-expression>
+<unary-op> ::= "+" | "-" | "!" | "^" | "*" | "&" | "<-"
+
+<primary-expression> ::= <operand>
+                      | <primary-expression> <index>
+                      | <primary-expression> <slice-expression>
+                      | <primary-expression> <type-assertion>
+                      | <primary-expression> <call>
+                      | <primary-expression> "." <identifier>
+<index> ::= "[" <expression> "]"
+<slice-expression> ::= "[" <expression>? ":" <expression>? (":" <expression>)? "]"
+<type-assertion> ::= "." "(" <type-expression> ")"
+<call> ::= "(" <expression-list>? ")"
+
+<operand> ::= <literal> | <identifier> | <qualified-identifier> | "(" <expression> ")"
+           | <composite-literal> | <func-literal>
+<composite-literal> ::= <type-expression> <whitespace>? "{" <element-list>? "}"
+<element-list> ::= <element> ("," <element>)* ","?
+<element> ::= <expression> | <key> ":" <expression>
+<key> ::= <identifier> | <expression>
+<func-literal> ::= "func" <signature> <function-body>
+
+<literal> ::= <int-literal> | <float-literal> | <string-literal> | <rune-literal> | <bool-literal> | <nil-literal>
+<int-literal> ::= /[0-9]+/ | /0[xX][0-9a-fA-F]+/
+<float-literal> ::= /([0-9]+\.[0-9]*|\.[0-9]+)([eE][+-]?[0-9]+)?/
+<string-literal> ::= /"[^"\\]*"/
+<rune-literal> ::= /'([^'\\]|\\.)'/
+<bool-literal> ::= "true" | "false"
+<nil-literal> ::= "nil"
+
+<identifier> ::= /[_a-zA-Z][_a-zA-Z0-9]*/
+<whitespace> ::= /[ \t]+/
+<newline> ::= /\n|\r\n/

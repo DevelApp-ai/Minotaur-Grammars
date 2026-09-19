@@ -1,0 +1,210 @@
+Grammar: FSharp
+TokenSplitter: Space
+FormatType: EBNF
+
+/*
+ * F# Grammar Definition
+ * Authored from scratch for Minotaur (issue #8); based on the
+ * F# Language Specification (high-level structure, not exhaustive).
+ */
+
+<fsharp-file> ::= <namespace-or-module-declarations>?
+
+<namespace-or-module-declarations> ::= <implementation-file>
+<implementation-file> ::= <file-header-attributes>? <named-module-or-namespace>
+                        | <declaration-list>
+
+<named-module-or-namespace> ::= "namespace" <whitespace> <dotted-name> <declaration-list>
+                              | "module" <whitespace> <dotted-name> <declaration-list>
+
+<declaration-list> ::= (<declaration> <newline>?)*
+
+<declaration> ::= <open-declaration>
+                | <let-declaration>
+                | <type-declaration>
+                | <function-definition>
+                | <member-definition>
+                | <module-abbrev>
+                | <attribute-declaration>
+                | <exception-declaration>
+
+<open-declaration> ::= "open" <whitespace> <dotted-name>
+
+<module-abbrev> ::= "module" <whitespace> <identifier> <whitespace> "=" <whitespace> <dotted-name>
+
+<let-declaration> ::= <attributes>? <accessibility>? "let" <whitespace> <mutable>? <pattern> <type-annotation>? <let-rhs>
+<let-rhs> ::= "=" <whitespace> <expression>
+            | <function-body>
+<function-body> ::= <parameters> <whitespace> "=" <whitespace> <expression>
+
+<function-definition> ::= <attributes>? <accessibility>? "let" <whitespace> "rec"? <whitespace> <identifier> <function-body>
+
+<parameters> ::= <simple-parameter>+
+<simple-parameter> ::= "(" <pattern> <type-annotation>? ")"
+
+<type-declaration> ::= <attributes>? <accessibility>? "type" <whitespace> <type-name> <type-parameters>? <type-body>
+<type-name> ::= <dotted-name>
+<type-parameters> ::= "<" <type-parameter-list> ">"
+<type-parameter-list> ::= <type-parameter> ("," <type-parameter>)*
+<type-parameter> ::= "'" <identifier>
+<type-body> ::= "=" <whitespace> <type-definition>
+              | <class-body>
+<type-definition> ::= <record-definition>
+                    | <union-definition>
+                    | <abbreviation-definition>
+                    | <enum-definition>
+
+<record-definition> ::= "{" <record-field-list> "}"
+<record-field-list> ::= <record-field> (";" <record-field>)*
+<record-field> ::= <accessibility>? <identifier> <whitespace> ":" <whitespace> <type-expression>
+
+<union-definition> ::= <union-case> ("|" <union-case>)*
+<union-case> ::= <identifier> <union-case-fields>?
+<union-case-fields> ::= "of" <type-expression>
+
+<abbreviation-definition> ::= <type-expression>
+<enum-definition> ::= <enum-case> ("|" <enum-case>)*
+<enum-case> ::= <identifier> <whitespace> "=" <whitespace> <int32-literal>
+
+<class-body> ::= <member-list>
+<member-list> ::= <member-definition>*
+<member-definition> ::= <attributes>? <accessibility>? <member-kind>
+<member-kind> ::= "member" <whitespace> <member-name> <whitespace> "=" <whitespace> <expression>
+                | "abstract" <whitespace> <member-name> <whitespace> ":" <whitespace> <type-expression>
+                | "override" <whitespace> <member-name> <whitespace> "=" <whitespace> <expression>
+                | "static" <whitespace> "member" <whitespace> <member-name> <whitespace> "=" <whitespace> <expression>
+                | <constructor-definition>
+<member-name> ::= <dotted-name> "." <identifier>
+<constructor-definition> ::= "new" <whitespace> "(" <parameter-list>? ")" <whitespace> "=" <whitespace> <expression>
+
+<attribute-declaration> ::= <attribute-target>? <attribute-list>
+<attribute-target> ::= "assembly:" | "module:"
+<attribute-list> ::= "[" "<" <attribute> ("," <attribute>)* ">" "]"
+<attribute> ::= <dotted-name> <attribute-arguments>?
+<attribute-arguments> ::= "(" <expression-list> ")"
+
+<exception-declaration> ::= "exception" <whitespace> <union-definition>
+
+<accessibility> ::= "private" | "internal" | "public"
+<mutable> ::= "mutable"
+
+<pattern> ::= <identifier>
+           | <wildcard-pattern>
+           | <literal-pattern>
+           | <tuple-pattern>
+           | <record-pattern>
+           | <union-case-pattern>
+           | <cons-pattern>
+           | <list-pattern>
+<wildcard-pattern> ::= "_"
+<literal-pattern> ::= <literal>
+<tuple-pattern> ::= "(" <pattern> "," <pattern> ("," <pattern>)* ")"
+<record-pattern> ::= "{" <pattern-field-list> "}"
+<pattern-field-list> ::= <identifier> <whitespace> "=" <whitespace> <pattern> (";" <identifier> <whitespace> "=" <whitespace> <pattern>)*
+<union-case-pattern> ::= <identifier> <pattern>?
+<cons-pattern> ::= <pattern> "::" <pattern>
+<list-pattern> ::= "[" <pattern-list>? "]"
+<pattern-list> ::= <pattern> ("," <pattern>)*
+
+<type-annotation> ::= <whitespace> ":" <whitespace> <type-expression>
+
+<type-expression> ::= <dotted-name> <type-arguments>?
+                    | <type-expression> <whitespace> "->" <whitespace> <type-expression>
+                    | <tuple-type>
+                    | <list-type>
+                    | <array-type>
+<type-arguments> ::= "<" <type-expression> ("," <type-expression>)* ">"
+<tuple-type> ::= <type-expression> "*" <type-expression> ("*" <type-expression>)*
+<list-type> ::= <type-expression> "list"
+<array-type> ::= <type-expression> "[" "]"
+
+<expression> ::= <let-expression>
+              | <if-expression>
+              | <match-expression>
+              | <for-expression>
+              | <while-expression>
+              | <try-expression>
+              | <function-expression>
+              | <sequential-expression>
+              | <binary-expression>
+
+<let-expression> ::= "let" <whitespace> <pattern> <type-annotation>? <whitespace> "=" <whitespace> <expression> <whitespace> "in" <whitespace> <expression>
+
+<if-expression> ::= "if" <whitespace> <binary-expression> <whitespace> "then" <whitespace> <expression> <else-branch>?
+<else-branch> ::= "elif" <whitespace> <binary-expression> <whitespace> "then" <whitespace> <expression> <else-branch>?
+               | "else" <whitespace> <expression>
+
+<match-expression> ::= "match" <whitespace> <binary-expression> <whitespace> "with" <match-clauses>
+<match-clauses> ::= "|" <match-clause> <match-clauses>?
+<match-clause> ::= <pattern> <when-guard>? <whitespace> "->" <whitespace> <expression>
+<when-guard> ::= <whitespace> "when" <whitespace> <binary-expression>
+
+<for-expression> ::= "for" <whitespace> <identifier> <whitespace> "=" <whitespace> <binary-expression> <whitespace> "to" <whitespace> <binary-expression> <whitespace> "do" <whitespace> <expression> <whitespace> "done"
+                  | "for" <whitespace> <pattern> <whitespace> "in" <whitespace> <binary-expression> <whitespace> "do" <whitespace> <expression> <whitespace> "done"
+
+<while-expression> ::= "while" <whitespace> <binary-expression> <whitespace> "do" <whitespace> <expression> <whitespace> "done"
+
+<try-expression> ::= "try" <whitespace> <expression> <whitespace> "with" <match-clauses>
+                  | "try" <whitespace> <expression> <whitespace> "finally" <whitespace> <expression>
+
+<function-expression> ::= "fun" <whitespace> <parameters> <whitespace> "->" <whitespace> <expression>
+
+<sequential-expression> ::= <binary-expression> <whitespace> ";" <whitespace> <expression>
+
+<binary-expression> ::= <pipe-expression>
+<pipe-expression> ::= <or-expression> (<whitespace> "|>" <whitespace> <or-expression>)*
+<or-expression> ::= <and-expression> (<whitespace> "||" <whitespace> <and-expression>)*
+<and-expression> ::= <comparison-expression> (<whitespace> "&&" <whitespace> <comparison-expression>)*
+<comparison-expression> ::= <additive-expression> (<comparison-operator> <whitespace>? <additive-expression>)*
+<comparison-operator> ::= "=" | "<" | ">" | "<=" | ">=" | "<>" | "=="
+<additive-expression> ::= <multiplicative-expression> (<additive-operator> <whitespace>? <multiplicative-expression>)*
+<additive-operator> ::= "+" | "-" | "^" | "@"
+<multiplicative-expression> ::= <unary-expression> (<multiplicative-operator> <whitespace>? <unary-expression>)*
+<multiplicative-operator> ::= "*" | "/" | "%"
+<unary-expression> ::= "-" <whitespace>? <unary-expression>
+                    | "not" <whitespace> <unary-expression>
+                    | <primary-expression>
+
+<primary-expression> ::= <literal>
+                      | <identifier>
+                      | <paren-expression>
+                      | <tuple-expression>
+                      | <list-expression>
+                      | <array-expression>
+                      | <record-expression>
+                      | <object-expression>
+                      | <member-access>
+                      | <application-expression>
+                      | <index-expression>
+
+<paren-expression> ::= "(" <expression> ")"
+<tuple-expression> ::= "(" <binary-expression> "," <binary-expression> ("," <binary-expression>)* ")"
+<list-expression> ::= "[" <expression-list>? "]"
+<array-expression> ::= "[|" <expression-list>? "|]"
+<record-expression> ::= "{" <field-init-list> "}"
+<field-init-list> ::= <identifier> <whitespace> "=" <whitespace> <expression> (";" <identifier> <whitespace> "=" <whitespace> <expression>)*
+<expression-list> ::= <expression> ("," <expression>)*
+<object-expression> ::= "{" <new-expression> "with" <member-list> "}"
+
+<member-access> ::= <primary-expression> "." <identifier>
+<application-expression> ::= <primary-expression> <primary-expression>
+<index-expression> ::= <primary-expression> "." "[" <expression> "]"
+<new-expression> ::= "new" <whitespace> <type-expression> <argument-list>?
+
+<argument-list> ::= "(" <expression-list>? ")"
+<parameter-list> ::= <simple-parameter> ("," <simple-parameter>)*
+
+<literal> ::= <bool-literal> | <int32-literal> | <float-literal> | <string-literal> | <char-literal> | <unit-literal> | <null-literal>
+<bool-literal> ::= "true" | "false"
+<int32-literal> ::= /-?[0-9]+/
+<float-literal> ::= /-?[0-9]+\.[0-9]+([eE][+-]?[0-9]+)?/
+<string-literal> ::= /@?"([^"\\]|\\.)*"/
+<char-literal> ::= /'([^'\\]|\\.)'/
+<unit-literal> ::= "()"
+<null-literal> ::= "null"
+
+<identifier> ::= /[_a-zA-Z][_a-zA-Z0-9']*/
+<dotted-name> ::= <identifier> ("." <identifier>)*
+<attributes> ::= <attribute-list> <newline>
+<whitespace> ::= /[ \t]+/
+<newline> ::= /\n|\r\n/

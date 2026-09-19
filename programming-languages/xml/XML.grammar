@@ -1,0 +1,85 @@
+Grammar: XML
+TokenSplitter: Space
+FormatType: EBNF
+
+/*
+ * XML Grammar Definition (XML 1.0, well-formed subset)
+ * Authored from scratch for Minotaur (issue #8); based on
+ * W3C XML 1.0 (Fifth Edition).
+ */
+
+<document> ::= <prolog> <element> <misc>*
+<prolog> ::= <xml-decl>? <misc>* (<doctypedecl> <misc>*)?
+
+<xml-decl> ::= "<?xml" <version-info> <encoding-decl>? <sd-decl>? <s>? "?>"
+<version-info> ::= <s> "version" <eq> ("'" <version-num> "'" | '"' <version-num> '"')
+<version-num> ::= "1.0" | "1.1"
+<encoding-decl> ::= <s> "encoding" <eq> ("'" <enc-name> "'" | '"' <enc-name> '"')
+<enc-name> ::= /[A-Za-z][A-Za-z0-9._-]*/
+<sd-decl> ::= <s> "standalone" <eq> ("'" <yes-or-no> "'" | '"' <yes-or-no> '"')
+<yes-or-no> ::= "yes" | "no"
+
+<doctypedecl> ::= "<!DOCTYPE" <s> <name> (<s> <external-id>)? <s>? ("[" <int-subset> "]" <s>?)? ">"
+<int-subset> ::= (<markup-decl> | <decl-sep>)*
+<markup-decl> ::= <elementdecl> | <attlistdecl> | <entitydecl> | <notationdecl> | <comment> | <pi>
+<elementdecl> ::= "<!ELEMENT" <s> <name> <s> <contentspec> <s>? ">"
+<contentspec> ::= "EMPTY" | "ANY" | <mixed> | <children>
+<children> ::= "(" <s>? <cp> (<s>? ("," | "|") <s>? <cp>)* <s>? ")" <cardinality>?
+<mixed> ::= "(" <s>? "#PCDATA" (<s>? "|" <s>? <name>)* <s>? ")*" | "(" <s>? "#PCDATA" <s>? ")"
+<cardinality> ::= "?" | "*" | "+"
+<attlistdecl> ::= "<!ATTLIST" <s> <name> <attdef>* <s>? ">"
+<attdef> ::= <s> <name> <s> <att-type> <s> <default-decl>
+<att-type> ::= "CDATA" | ("ID" | "IDREF" | "IDREFS" | "ENTITY" | "ENTITIES" | "NMTOKEN" | "NMTOKENS") | <enumerated-type>
+<enumerated-type> ::= <notation-type> | <enumeration>
+<notation-type> ::= "NOTATION" <s> "(" <s>? <name> (<s>? "|" <s>? <name>)* <s>? ")"
+<enumeration> ::= "(" <s>? <nmtoken> (<s>? "|" <s>? <nmtoken>)* <s>? ")"
+<default-decl> ::= "#REQUIRED" | "#IMPLIED" | (("#FIXED" <s>)? <att-value>)
+<entitydecl> ::= <gedecl> | <pedecl>
+<gedecl> ::= "<!ENTITY" <s> <name> <s> <entitydef> <s>? ">"
+<pedecl> ::= "<!ENTITY" <s> "%" <s> <name> <s> <pedef> <s>? ">"
+<entitydef> ::= <entity-value> | <external-id> (<ndatadecl>)?
+<pedef> ::= <entity-value> | <external-id>
+<ndatadecl> ::= <s> "NDATA" <s> <name>
+<external-id> ::= "SYSTEM" <s> <system-literal> | "PUBLIC" <s> <pubid-literal> <s> <system-literal>
+<notationdecl> ::= "<!NOTATION" <s> <name> <s> (<external-id> | <public-id>) <s>? ">"
+<public-id> ::= "PUBLIC" <s> <pubid-literal>
+<decl-sep> ::= <pe-reference> | <s>
+
+<element> ::= <empty-elem-tag> | <stag> <content> <etag>
+<empty-elem-tag> ::= "<" <name> (<s> <attribute>)* <s>? "/>"
+<stag> ::= "<" <name> (<s> <attribute>)* <s>? ">"
+<attribute> ::= <name> <eq> <att-value>
+<att-value> ::= '"' <att-value-content> '"' | "'" <att-value-content> "'"
+<att-value-content> ::= /[^<"]*/
+<etag> ::= "</" <name> <s>? ">"
+<content> ::= (<element> | <char-data> | <reference> | <cd-sect> | <comment> | <pi>)*
+
+<cd-sect> ::= "<![CDATA[" <cdata-content> "]]>"
+<cdata-content> ::= /(?!\]\]>)[\s\S]*/
+<char-data> ::= /[^<&]+/
+<reference> ::= <entity-ref> | <char-ref>
+<entity-ref> ::= "&" <name> ";"
+<char-ref> ::= "&#" /[0-9]+/ ";" | "&#x" /[0-9a-fA-F]+/ ";"
+<pe-reference> ::= "%" <name> ";"
+
+<comment> ::= "<!--" <comment-content> "-->"
+<comment-content> ::= /(?!-->)[\s\S]*/
+<pi> ::= "<?" <pitarget> (<s> <pi-content>)? "?>"
+<pitarget> ::= <name>
+<pi-content> ::= /[^?]*/
+
+<misc> ::= <comment> | <pi> | <s>
+
+<name> ::= <name-start-char> <name-char>*
+<name-start-char> ::= /[A-Za-z_:]/
+<name-char> ::= /[A-Za-z0-9._:-]/
+<nmtoken> ::= <name-char>+
+<entity-value> ::= '"' <entity-value-content> '"' | "'" <entity-value-content> "'"
+<entity-value-content> ::= /[^%&'"]*/
+<system-literal> ::= '"' <system-literal-content> '"' | "'" <system-literal-content> "'"
+<system-literal-content> ::= /[^"]*/
+<pubid-literal> ::= '"' <pubid-char>* '"' | "'" <pubid-char-p>* "'"
+<pubid-char> ::= /[ -#%-;-~]/
+<pubid-char-p> ::= /[ -#%-!(-.0-;=-~]/
+<eq> ::= <s>? "=" <s>?
+<s> ::= /[ \t\r\n]+/

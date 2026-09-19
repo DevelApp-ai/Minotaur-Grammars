@@ -1,0 +1,25 @@
+{
+  "Id": "develapp.typescript",
+  "Name": "TypeScript",
+  "Vendor": "DevelApp",
+  "DisplayName": "TypeScript",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "TypeScript (ES2022 + type system) grammar for the Minotaur parser platform (authored for issue #8).",
+  "License": "MIT",
+  "Tags": [
+    "programming-language",
+    "minotaur",
+    "typescript"
+  ],
+  "MainFile": "TypeScript.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}
