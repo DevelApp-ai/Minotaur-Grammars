@@ -1,0 +1,25 @@
+{
+  "Id": "develapp.swedish",
+  "Name": "Swedish",
+  "Vendor": "DevelApp",
+  "DisplayName": "Swedish",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "Swedish natural-language grammar for the Minotaur parser platform.",
+  "License": "MIT",
+  "Tags": [
+    "natural-language",
+    "minotaur",
+    "optional-download"
+  ],
+  "MainFile": "Swedish.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}
