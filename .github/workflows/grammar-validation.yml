@@ -7,7 +7,7 @@ name: Grammar Validation
 #
 # In addition, every grammar file (not just test-grammars/) is parse-validated
 # through StepLexer/StepParser by GrammarRepositoryParseTests in the ENFA
-# suite (see issue #19): on pull requests only the changed .grammar files are
+# suite (see issue #18): on pull requests only the changed .grammar files are
 # validated (fast path), while pushes to main verify ALL grammars against the
 # recorded baseline (.grammar-parse-baseline.txt). The baseline can be
 # regenerated with a workflow_dispatch run in 'record' mode.
@@ -61,7 +61,7 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
       # Determines which grammars the parse-validation harness (see issue
-      # #19) should validate:
+      # #18) should validate:
       #  - pull_request: only the .grammar files changed in the PR; skip
       #    entirely (mode=none) when no grammar file changed.
       #  - push to main: verify all grammars against the baseline.
@@ -71,16 +71,23 @@ jobs:
           set -euo pipefail
           if [ "${{ github.event_name }}" = "pull_request" ]; then
             base="${{ github.event.pull_request.base.sha }}"
-            files=$(git diff --name-only --diff-filter=ACMR "${base}"..HEAD -- '*.grammar' || true)
-            if [ -n "${files//\n/}" ]; then
+            # Three-dot diff: changes made on the PR branch since it
+            # diverged from the base, regardless of how far the base branch
+            # has advanced since. A failed diff must fail the job loudly -
+            # never silently skip the grammar gate.
+            if ! files=$(git diff --name-only --diff-filter=ACMR "${base}...HEAD" -- '*.grammar'); then
+              echo "Failed to compute changed grammar files against base ${base}" >&2
+              exit 1
+            fi
+            if [ -n "$files" ]; then
               {
                 echo "GRAMMAR_VALIDATION_MODE=changed"
                 echo "GRAMMAR_VALIDATION_FILES<<GRAMMAR_FILES_EOF"
-                echo "${files}"
+                printf '%s\n' "$files"
                 echo "GRAMMAR_FILES_EOF"
               } >> "$GITHUB_ENV"
               echo "Parse-validating changed grammars:"
-              echo "${files}"
+              printf '%s\n' "$files"
             else
               echo "GRAMMAR_VALIDATION_MODE=none" >> "$GITHUB_ENV"
               echo "No grammar files changed - parse validation skipped."
@@ -131,7 +138,7 @@ jobs:
       # .grammar-parse-baseline.txt, ready to be committed.
       - name: Upload recorded grammar parse baseline
         uses: actions/upload-artifact@v4
-        if: always()
+        if: always() && github.event_name == 'workflow_dispatch' && inputs.mode == 'record'
         with:
           name: grammar-parse-baseline
           path: grammar-parse-baseline.new.txt
