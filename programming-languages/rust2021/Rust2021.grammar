@@ -52,8 +52,7 @@ Keywords: as, async, await, break, const, continue, crate, dyn, else, enum, exte
               | as _
 
 /* Use Declarations */
-<use-declaration> ::= use <use-tree> 
-;
+<use-declaration> ::= use <use-tree> ;
 
 <use-tree> ::= <simple-path>? :: *
              | <simple-path>? :: { <use-tree-list>? }
@@ -115,8 +114,7 @@ Keywords: as, async, await, break, const, continue, crate, dyn, else, enum, exte
 
 <enum-items> ::= <enum-item> ( , <enum-item> )* ,?
 
-<enum-item> ::= <outer-attribute>* <visibility
->? <identifier> ( <enum-item-tuple> | <enum-item-struct> )? <enum-item-discriminant>?
+<enum-item> ::= <outer-attribute>* <visibility>? <identifier> ( <enum-item-tuple> | <enum-item-struct> )? <enum-item-discriminant>?
 
 <enum-item-tuple> ::= ( <tuple-fields>? )
 
@@ -168,8 +166,7 @@ Keywords: as, async, await, break, const, continue, crate, dyn, else, enum, exte
 <const-param> ::= const <identifier> : <type> ( = <block-expression> | <identifier> | -? <literal-expression> )?
 
 /* Where Clauses */
-<where-clause> ::= where <where-clause-item> ( , <wh
-ere-clause-item> )* ,?
+<where-clause> ::= where <where-clause-item> ( , <where-clause-item> )* ,?
 
 <where-clause-item> ::= <lifetime-where-clause-item>
                       | <type-bound-where-clause-item>
@@ -231,8 +228,7 @@ ere-clause-item> )* ,?
 
 <function-parameters-maybe-named-variadic> ::= <maybe-named-function-parameters> | <maybe-named-function-parameters-variadic>
 
-<maybe-named-function-parameters> ::= <maybe-named-param> ( , <ma
-ybe-named-param> )* ,?
+<maybe-named-function-parameters> ::= <maybe-named-param> ( , <maybe-named-param> )* ,?
 
 <maybe-named-function-parameters-variadic> ::= ( <maybe-named-param> , )* <maybe-named-param> , ...
 
@@ -295,8 +291,7 @@ ybe-named-param> )* ,?
                           | <rest-pattern>
                           | <reference-pattern>
                           | <struct-pattern>
-                          | <tuple-s
-truct-pattern>
+                          | <tuple-struct-pattern>
                           | <tuple-pattern>
                           | <grouped-pattern>
                           | <slice-pattern>
@@ -349,8 +344,7 @@ truct-pattern>
                               | <identifier> : <pattern>
                               | ref? mut? <identifier>
 
-<struct-pattern-et-cetera> ::= <out
-er-attribute>* ..
+<struct-pattern-et-cetera> ::= <outer-attribute>* ..
 
 <tuple-struct-pattern> ::= <path-in-expression> ( <tuple-struct-items>? )
 
@@ -400,8 +394,7 @@ er-attribute>* ..
 
 <expression-with-block> ::= <outer-attribute>* <expression-with-block-kind>
 
-<expression-wit
-h-block-kind> ::= <block-expression>
+<expression-with-block-kind> ::= <block-expression>
                                | <async-block-expression>
                                | <unsafe-block-expression>
                                | <loop-expression>
@@ -451,8 +444,7 @@ h-block-kind> ::= <block-expression>
 
 <negation-expression> ::= ( ! | - ) <expression>
 
-<arithmetic-or-logical-expression> ::= <expression> ( + | - | * | / | % | & | | | ^ | << | >> ) <e
-xpression>
+<arithmetic-or-logical-expression> ::= <expression> ( + | - | * | / | % | & | | | ^ | << | >> ) <expression>
 
 <comparison-expression> ::= <expression> ( == | != | > | < | >= | <= ) <expression>
 
@@ -512,8 +504,7 @@ xpression>
 <call-params> ::= <expression> ( , <expression> )* ,?
 
 /* Method Call Expression */
-<method-call-expression> ::= <expression> . <pat
-h-expr-segment> ( <inner-attribute>* <call-params>? )
+<method-call-expression> ::= <expression> . <path-expr-segment> ( <inner-attribute>* <call-params>? )
 
 /* Field Expression */
 <field-expression> ::= <expression> . <identifier>
@@ -578,8 +569,7 @@ h-expr-segment> ( <inner-attribute>* <call-params>? )
 <unsafe-block-expression> ::= unsafe <block-expression>
 
 /* Loop Expression */
-<loop-expression> ::= <loop-label>? ( <infinite-loop-expression> | <predica
-te-loop-expression> | <predicate-pattern-loop-expression> | <iterator-loop-expression> )
+<loop-expression> ::= <loop-label>? ( <infinite-loop-expression> | <predicate-loop-expression> | <predicate-pattern-loop-expression> | <iterator-loop-expression> )
 
 <infinite-loop-expression> ::= loop <block-expression>
 
@@ -643,8 +633,7 @@ te-loop-expression> | <predicate-pattern-loop-expression> | <iterator-loop-expre
 <lifetime> ::= <lifetime-or-label>
 
 /* Macros */
-<macro-invoca
-tion> ::= <simple-path> ! <delim-token-tree>
+<macro-invocation> ::= <simple-path> ! <delim-token-tree>
 
 <macro-invocation-semi> ::= <simple-path> ! <delim-token-tree> ;
                           | <simple-path> ! ( <token-tree>* ) ;
@@ -697,8 +686,7 @@ tion> ::= <simple-path> ! <delim-token-tree>
             | <raw-string-literal>
             | <byte-literal>
             | <byte-string-literal>
-       
-     | <raw-byte-string-literal>
+            | <raw-byte-string-literal>
             | <integer-literal>
             | <float-literal>
             | <boolean-literal>
@@ -754,8 +742,7 @@ tion> ::= <simple-path> ! <delim-token-tree>
 
 <hex-digit> ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | a | b | c | d | e | f | A | B | C | D | E | F
 
-<inte
-ger-suffix> ::= u8 | u16 | u32 | u64 | u128 | usize | i8 | i16 | i32 | i64 | i128 | isize
+<integer-suffix> ::= u8 | u16 | u32 | u64 | u128 | usize | i8 | i16 | i32 | i64 | i128 | isize
 
 <float-literal> ::= <decimal-literal> . <decimal-literal> <float-exponent>? <float-suffix>?
                   | <decimal-literal> <float-exponent> <float-suffix>?
@@ -805,8 +792,7 @@ ger-suffix> ::= u8 | u16 | u32 | u64 | u128 | usize | i8 | i16 | i32 | i64 | i12
 
 <printable-ascii> ::= <ascii-letter> | <ascii-digit> | <ascii-punctuation>
 
-<printable-ascii-except-quote-backslash> ::= <ascii-letter> | <ascii-di
-git> | <ascii-punctuation-except-quote-backslash>
+<printable-ascii-except-quote-backslash> ::= <ascii-letter> | <ascii-digit> | <ascii-punctuation-except-quote-backslash>
 
 <ascii-letter> ::= a | b | c | d | e | f | g | h | i | j | k | l | m | n | o | p | q | r | s | t | u | v | w | x | y | z | A | B | C | D | E | F | G | H | I | J | K | L | M | N | O | P | Q | R | S | T | U | V | W | X | Y | Z
 
@@ -853,8 +839,7 @@ git> | <ascii-punctuation-except-quote-backslash>
 
 <unicode-character> ::= <printable-unicode> | <whitespace-unicode>
 
-<printable-unicode> ::= <ascii-letter> | <ascii
--digit> | <unicode-letter> | <unicode-digit> | <unicode-punctuation>
+<printable-unicode> ::= <ascii-letter> | <ascii-digit> | <unicode-letter> | <unicode-digit> | <unicode-punctuation>
 
 <whitespace-unicode> ::= <space> | <tab> | <newline> | <carriage-return> | <unicode-whitespace>
 
@@ -918,8 +903,7 @@ git> | <ascii-punctuation-except-quote-backslash>
 
 <unicode-letter-beyond-ascii> ::= <extended-letter-character>
 
-<unicode-digit-beyond-ascii> ::= <exte
-nded-digit-character>
+<unicode-digit-beyond-ascii> ::= <extended-digit-character>
 
 <unicode-punctuation-beyond-ascii> ::= <extended-punctuation-character>
 
@@ -943,6 +927,17 @@ nded-digit-character>
 
 <any-extended-unicode-letter> ::= <letter>
 
-<any-extended-unicode-digit> 
+<any-extended-unicode-digit> ::= <digit>
 
-... [Content truncated]
+<any-extended-unicode-punctuation> ::= <punctuation>
+
+<any-extended-unicode-whitespace> ::= <whitespace>
+
+<letter> ::= <ascii-letter>
+
+<digit> ::= <ascii-digit>
+
+<punctuation> ::= <ascii-punctuation>
+
+<whitespace> ::= <ascii-whitespace>
+
