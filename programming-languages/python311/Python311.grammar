@@ -51,8 +51,7 @@ Keywords: False, None, True, and, as, assert, async, await, break, class, contin
 
 <simple_stmt> ::= <small_stmt> ( ; <small_stmt> )* ;? NEWLINE
 
-<small_stmt> ::= ( <expr_stmt> | <del_stmt> | <pass_stmt> | <flow_stmt> | <import_stmt> | <global_stm
-t> | <nonlocal_stmt> | <assert_stmt> | <type_stmt> )
+<small_stmt> ::= ( <expr_stmt> | <del_stmt> | <pass_stmt> | <flow_stmt> | <import_stmt> | <global_stmt> | <nonlocal_stmt> | <assert_stmt> | <type_stmt> )
 
 <expr_stmt> ::= <testlist_star_expr> ( <annassign> | <augassign> ( <yield_expr> | <testlist> ) | ( = ( <yield_expr> | <testlist_star_expr> ) )* )
 
@@ -118,8 +117,7 @@ t> | <nonlocal_stmt> | <assert_stmt> | <type_stmt> )
 
 <if_stmt> ::= if <test> : <suite> ( elif <test> : <suite> )* ( else : <suite> )?
 
-<while_stmt> ::= while <test> :
- <suite> ( else : <suite> )?
+<while_stmt> ::= while <test> : <suite> ( else : <suite> )?
 
 <for_stmt> ::= for <exprlist> in <testlist> : <suite> ( else : <suite> )?
 
@@ -178,7 +176,6 @@ t> | <nonlocal_stmt> | <assert_stmt> | <type_stmt> )
 <wildcard_pattern> ::= _
 
 <value_pattern> ::= <attr> | <name_or_attr> . NAME | <name_or_attr> . NAME . NAME
-
 
 <attr> ::= <name_or_attr> . NAME
 
@@ -244,8 +241,7 @@ t> | <nonlocal_stmt> | <assert_stmt> | <type_stmt> )
 
 <xor_expr> ::= <and_expr> ( ^ <and_expr> )*
 
-<and_expr> ::= <shift_expr> ( & <shift_expr
-> )*
+<and_expr> ::= <shift_expr> ( & <shift_expr> )*
 
 <shift_expr> ::= <arith_expr> ( ( << | >> ) <arith_expr> )*
 
@@ -313,8 +309,7 @@ t> | <nonlocal_stmt> | <assert_stmt> | <type_stmt> )
 
 <expression> ::= <conditional_expression> | <lambda_expr>
 
-<lambda_expr> ::= lambda <paramete
-r_list>? : <expression>
+<lambda_expr> ::= lambda <parameter_list>? : <expression>
 
 <conditional_expression> ::= <or_expr> ( if <or_expr> else <expression> )?
 
@@ -384,8 +379,7 @@ r_list>? : <expression>
 
 <shortstringitem> ::= <shortstringchar> | <stringescapeseq>
 
-<longstringitem> ::= <
-longstringchar> | <stringescapeseq>
+<longstringitem> ::= <longstringchar> | <stringescapeseq>
 
 <shortstringchar> ::= <any_source_character_except_backslash_or_newline_or_quote>
 
@@ -457,7 +451,6 @@ longstringchar> | <stringescapeseq>
 
 <starred_list> ::= <starred_item> ( , <starred_item> )* ,?
 
-
 <set_display> ::= { <starred_list> }
 
 <dict_display> ::= { <key_datum_list>? } | { <dict_comprehension> }
@@ -524,8 +517,7 @@ longstringchar> | <stringescapeseq>
 
 <parameter_list> ::= <defparameter> ( , <defparameter> )* ,?
 
-<defparameter> ::= <pa
-rameter> | <parameter> = <expression>
+<defparameter> ::= <parameter> | <parameter> = <expression>
 
 <parameter> ::= <identifier> <annotation>?
 
@@ -591,8 +583,7 @@ rameter> | <parameter> = <expression>
 
 <subject_expr> ::= <star_named_expression> ( , <star_named_expressions> )?
 
-<case_block> :
-:= case <patterns> <guard>? : <block>
+<case_block> ::= case <patterns> <guard>? : <block>
 
 <guard> ::= if <named_expression>
 
@@ -650,8 +641,7 @@ rameter> | <parameter> = <expression>
 
 <star_targets> ::= <star_target> ( , <star_target> )* ,?
 
-<star_target> ::= * ( ! _ ) <star_target> | 
-<target_with_star_atom>
+<star_target> ::= * ( ! _ ) <star_target> | <target_with_star_atom>
 
 <target_with_star_atom> ::= <t_primary> . NAME | <t_primary> [ <slices> ] | <star_atom>
 
@@ -699,8 +689,7 @@ rameter> | <parameter> = <expression>
 
 <lambda_param_with_default> ::= <lambda_param> = <expression> ,
 
-<lambda_param_maybe_default> ::= <lambd
-a_param> ( = <expression> )? ,
+<lambda_param_maybe_default> ::= <lambda_param> ( = <expression> )? ,
 
 <lambda_param> ::= NAME
 
@@ -760,8 +749,7 @@ a_param> ( = <expression> )? ,
 
 <single_target> ::= <single_subscript_attribute_target> | NAME | ( <single_target> )
 
-<single_subscript_attribute_target> ::= <t_primary> . NAME | <t_
-primary> [ <slices> ]
+<single_subscript_attribute_target> ::= <t_primary> . NAME | <t_primary> [ <slices> ]
 
 <t_primary> ::= <t_primary> . NAME | <t_primary> [ <slices> ] | <t_primary> <genexp> | <t_primary> ( <arguments>? ) | <atom>
 

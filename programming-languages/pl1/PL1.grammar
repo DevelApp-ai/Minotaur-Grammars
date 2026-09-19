@@ -57,8 +57,7 @@ FormatType: EBNF
 
 <initialization> ::= "INIT" "(" <initial-value> ")"
 
-<in
-itial-value> ::= <literal> | <expression>
+<initial-value> ::= <literal> | <expression>
 
 <alignment> ::= "ALIGNED" | "UNALIGNED"
 
@@ -130,8 +129,7 @@ itial-value> ::= <literal> | <expression>
  * Expressions
  * ============================================ */
 
-<expression> ::= <arithmetic-expression> | <string-expression> | <boolean-expressio
-n> | <bit-expression>
+<expression> ::= <arithmetic-expression> | <string-expression> | <boolean-expression> | <bit-expression>
 
 <arithmetic-expression> ::= <term> (("+" | "-") <term>)*
 
@@ -192,7 +190,6 @@ n> | <bit-expression>
 <procedure-option> ::= "RECURSIVE" | "REENTRANT" | "ORDER" | "PRIORITY" "=" <integer>
 
 <parameter-list> ::= <parameter> ("," <parameter>)*
-
 
 <parameter> ::= <IDENTIFIER> | <IDENTIFIER> "(" "*" ")"
 
@@ -263,8 +260,7 @@ n> | <bit-expression>
 <null-statement> ::= ";"
 
 /* File I/O */
-<put-statement> ::= "PUT" <file-reference> "(" <expression
--list> ")" ";"
+<put-statement> ::= "PUT" <file-reference> "(" <expression-list> ")" ";"
 
 <get-statement> ::= "GET" <file-reference> "(" <identifier-list> ")" ";"
 
@@ -318,8 +314,7 @@ n> | <bit-expression>
                  | "EOF" | "ERROR" | "EXP" | "FORMAT" | "GRAPHIC" | "HBOUND" | "HIGHEST" 
                  | "INDEX" | "LBOUND" | "LENGTH" | "LOG" | "LOWER" | "MAX" | "MIN" 
                  | "MONTH" | "NULL" | "ONCODE" | "ONLOC" | "ONSOURCE" | "POINTER" | "POS" 
-                 | "POWER" | "RANDOM" | "REAL" | "REPEAT" | "REVERSE" | "SIGN" | "SIZ
-E" 
+                 | "POWER" | "RANDOM" | "REAL" | "REPEAT" | "REVERSE" | "SIGN" | "SIZE" 
                  | "SQRT" | "STORAGE" | "STRING" | "SUBSTR" | "SUM" | "TIME" | "TRACE" 
                  | "TRANSLATE" | "TRIM" | "TRUNC" | "UPPER" | "VERIFY" | "YEAR"
 
@@ -362,8 +357,7 @@ E"
                   | "INPUT" | "INTERVAL" | "INTO" | "KEYED" | "LABEL" | "LIKE" 
                   | "LIST" | "LOCK" | "MODULE" | "NAME" | "NOT" | "OFF" 
                   | "OFFSET" | "ON" | "ONLY" | "OPEN" | "OR" | "ORDER" 
-    
-              | "OTHER" | "OUTPUT" | "OVERFLOW" | "PAGE" | "PARAMETER" | "POINT" 
+                  | "OTHER" | "OUTPUT" | "OVERFLOW" | "PAGE" | "PARAMETER" | "POINT" 
                   | "POINTER" | "PRINT" | "PRIORITY" | "PROC" | "PROCEDURE" | "PROGRAM" 
                   | "PUT" | "READ" | "REAL" | "RECORD" | "RECURSIVE" | "REENTRANT" 
                   | "REPEAT" | "RETURN" | "REVERSE" | "REWIND" | "RUN" | "SCAN" 

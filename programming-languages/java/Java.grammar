@@ -56,8 +56,7 @@ Declarations
 
 <formal parameter> ::= <type> <variable declarator id>
 
-<throws> ::= 
-throws <class type list>
+<throws> ::= throws <class type list>
 
 <class type list> ::= <class type> | <class type list> , <class type>
 
@@ -107,8 +106,7 @@ throws <class type list>
 
 <interface member declaration> ::= <constant declaration> | <abstract method declaration>
 
-<constant declaration> ::= <constant modifiers> <type> <var
-iable declarator>
+<constant declaration> ::= <constant modifiers> <type> <variable declarator>
 
 <constant modifiers> ::= public | static | final
 
@@ -160,8 +158,7 @@ Blocks and Commands
 
 <statement no short if> ::= <statement without trailing substatement> | <labeled statement no short if> | <if then else statement no short if> | <while statement no short if> | <for statement no short if>
 
-<statement without trailing substatement> ::= <block> | <empty statement> | <expression statement> | <switch statement> | <do statement> | <break statement> | <continue statement> | <return statement> | <synchronized statement> 
-| <throws statements> | <try statement>
+<statement without trailing substatement> ::= <block> | <empty statement> | <expression statement> | <switch statement> | <do statement> | <break statement> | <continue statement> | <return statement> | <synchronized statement> | <throws statements> | <try statement>
 
 <empty statement> ::= ;
 
@@ -213,8 +210,7 @@ Blocks and Commands
 
 <return statement> ::= return <expression>? ;
 
-<throws statement> ::= throw <expres
-sion> ;
+<throws statement> ::= throw <expression> ;
 
 <synchronized statement> ::= synchronized ( <expression> ) <block>
 
@@ -255,8 +251,7 @@ Expressions
 
 <relational expression> ::= <shift expression> | <relational expression> < <shift expression> | <relational expression> > <shift expression> | <relational expression> <= <shift expression> | <relational expression> >= <shift expression> | <relational expression> instanceof <reference type>
 
-<shift expression> ::= <additive expression> | <shift expression> << <additive expression> | <shift expression> >> <additive expression> | <shift expression> >>> <additive express
-ion>
+<shift expression> ::= <additive expression> | <shift expression> << <additive expression> | <shift expression> >> <additive expression> | <shift expression> >>> <additive expression>
 
 <additive expression> ::= <multiplicative expression> | <additive expression> + <multiplicative expression> | <additive expression> - <multiplicative expression>
 
@@ -298,8 +293,7 @@ ion>
 
 <dims> ::= [ ] | <dims> [ ]
 
-<array access> ::= <expression name> [ <expression> ]
- | <primary no new array> [ <expression>]
+<array access> ::= <expression name> [ <expression> ] | <primary no new array> [ <expression>]
 
 Tokens
 
@@ -366,8 +360,7 @@ Tokens
 
 <string characters> ::= <string character> | <string characters> <string character>
 
-<s
-tring character> ::= <input character> except " and \ | <escape character>
+<string character> ::= <input character> except " and \ | <escape character>
 
 <null literal> ::= null
 

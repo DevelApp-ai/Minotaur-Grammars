@@ -37,8 +37,7 @@ Keywords: abstract, assert, boolean, break, byte, case, catch, char, class, cons
 
 <normal-class-declaration> ::= <class-modifiers>? class <identifier> <type-parameters>? <superclass>? <superinterfaces>? <class-body>
 
-<cla
-ss-modifiers> ::= <class-modifier>+
+<class-modifiers> ::= <class-modifier>+
 
 <class-modifier> ::= <annotation> | public | protected | private | abstract | static | final | sealed | non-sealed | strictfp
 
@@ -88,8 +87,7 @@ ss-modifiers> ::= <class-modifier>+
 
 <unann-class-or-interface-type> ::= <unann-class-type> | <unann-interface-type>
 
-<unann-class-type> ::= <identifier> <type-arguments>? | <package-name> . <annotations>? <identifier> <type-arg
-uments>? | <unann-class-or-interface-type> . <annotations>? <identifier> <type-arguments>?
+<unann-class-type> ::= <identifier> <type-arguments>? | <package-name> . <annotations>? <identifier> <type-arguments>? | <unann-class-or-interface-type> . <annotations>? <identifier> <type-arguments>?
 
 <unann-interface-type> ::= <unann-class-type>
 
@@ -141,8 +139,7 @@ uments>? | <unann-class-or-interface-type> . <annotations>? <identifier> <type-a
 
 <constructor-body> ::= { <explicit-constructor-invocation>? <block-statements>? }
 
-<explicit-constructor-invocation> ::= <type-arguments>? this ( <argument-list>? ) ; | <type-arguments>? super
- ( <argument-list>? ) ; | <expression-name> . <type-arguments>? super ( <argument-list>? ) ; | <primary> . <type-arguments>? super ( <argument-list>? ) ;
+<explicit-constructor-invocation> ::= <type-arguments>? this ( <argument-list>? ) ; | <type-arguments>? super ( <argument-list>? ) ; | <expression-name> . <type-arguments>? super ( <argument-list>? ) ; | <primary> . <type-arguments>? super ( <argument-list>? ) ;
 
 <enum-declaration> ::= <class-modifiers>? enum <identifier> <superinterfaces>? <enum-body>
 
@@ -188,8 +185,7 @@ uments>? | <unann-class-or-interface-type> . <annotations>? <identifier> <type-a
 
 <type-name-list> ::= <type-name> | <type-name-list> , <type-name>
 
-<interface-body> ::= { <interface-member-
-declaration>* }
+<interface-body> ::= { <interface-member-declaration>* }
 
 <interface-member-declaration> ::= <constant-declaration> | <interface-method-declaration> | <class-declaration> | <interface-declaration> | <record-declaration> | ;
 
@@ -237,8 +233,7 @@ declaration>* }
 
 <marker-annotation> ::= @ <type-name>
 
-<single-element-anno
-tation> ::= @ <type-name> ( <element-value> )
+<single-element-annotation> ::= @ <type-name> ( <element-value> )
 
 <array-initializer> ::= { <variable-initializer-list>? ,? }
 
@@ -278,8 +273,7 @@ tation> ::= @ <type-name> ( <element-value> )
 
 <assert-statement> ::= assert <expression> ; | assert <expression> : <expression> ;
 
-<switch-
-statement> ::= switch ( <expression> ) <switch-block>
+<switch-statement> ::= switch ( <expression> ) <switch-block>
 
 <switch-block> ::= { <switch-rule>* } | { <switch-block-statement-group>* <switch-label>* }
 
@@ -339,8 +333,7 @@ statement> ::= switch ( <expression> ) <switch-block>
 
 <resource-list> ::= <resource> | <resource-list> ; <resource>
 
-<
-resource> ::= <local-variable-declaration> | <variable-access>
+<resource> ::= <local-variable-declaration> | <variable-access>
 
 <variable-access> ::= <expression-name> | <field-access>
 
@@ -368,8 +361,7 @@ resource> ::= <local-variable-declaration> | <variable-access>
 
 <argument-list> ::= <expression> | <argument-list> , <expression>
 
-<method-reference> ::= <expression-name> :: <type-arguments>? <identifier> | <primary> :: <type-arguments>? <identifier> | <reference-ty
-pe> :: <type-arguments>? <identifier> | super :: <type-arguments>? <identifier> | <type-name> . super :: <type-arguments>? <identifier> | <class-type> :: <type-arguments>? new | <array-type> :: new
+<method-reference> ::= <expression-name> :: <type-arguments>? <identifier> | <primary> :: <type-arguments>? <identifier> | <reference-type> :: <type-arguments>? <identifier> | super :: <type-arguments>? <identifier> | <type-name> . super :: <type-arguments>? <identifier> | <class-type> :: <type-arguments>? new | <array-type> :: new
 
 <array-creation-expression> ::= new <primitive-type> <dim-exprs> <dims>? | new <class-or-interface-type> <dim-exprs> <dims>? | new <primitive-type> <dims> <array-initializer> | new <class-or-interface-type> <dims> <array-initializer>
 
@@ -409,8 +401,7 @@ pe> :: <type-arguments>? <identifier> | super :: <type-arguments>? <identifier> 
 
 <exclusive-or-expression> ::= <and-expression> | <exclusive-or-expression> ^ <and-expression>
 
-<and-expression> ::= <equality-expression> | <and-
-expression> & <equality-expression>
+<and-expression> ::= <equality-expression> | <and-expression> & <equality-expression>
 
 <equality-expression> ::= <relational-expression> | <equality-expression> == <relational-expression> | <equality-expression> != <relational-expression>
 
@@ -440,8 +431,7 @@ expression> & <equality-expression>
 
 <switch-expression> ::= switch ( <expression> ) <switch-block>
 
-<co
-nstant-expression> ::= <expression>
+<constant-expression> ::= <expression>
 
 <literal> ::= <integer-literal> | <floating-point-literal> | <boolean-literal> | <character-literal> | <string-literal> | <text-block> | <null-literal>
 
@@ -497,8 +487,7 @@ nstant-expression> ::= <expression>
 
 <ambiguous-name> ::= <identifier> | <ambiguous-name> . <identifier>
 
-<integer-literal> ::= <
-decimal-integer-literal> | <hex-integer-literal> | <octal-integer-literal> | <binary-integer-literal>
+<integer-literal> ::= <decimal-integer-literal> | <hex-integer-literal> | <octal-integer-literal> | <binary-integer-literal>
 
 <decimal-integer-literal> ::= <decimal-numeral> <integer-type-suffix>?
 
@@ -556,8 +545,7 @@ decimal-integer-literal> | <hex-integer-literal> | <octal-integer-literal> | <bi
 
 <floating-point-literal> ::= <decimal-floating-point-literal> | <hexadecimal-floating-point-literal>
 
-<decimal-floating-point-literal> ::= <digits> . <digits>? <exponent-part>? <float-type-suffix>? | . <digits> <exponent-part>? <
-float-type-suffix>? | <digits> <exponent-part> <float-type-suffix>? | <digits> <exponent-part>? <float-type-suffix>
+<decimal-floating-point-literal> ::= <digits> . <digits>? <exponent-part>? <float-type-suffix>? | . <digits> <exponent-part>? <float-type-suffix>? | <digits> <exponent-part> <float-type-suffix>? | <digits> <exponent-part>? <float-type-suffix>
 
 <exponent-part> ::= <exponent-indicator> <signed-integer>
 
@@ -611,8 +599,7 @@ float-type-suffix>? | <digits> <exponent-part> <float-type-suffix>? | <digits> <
 
 <labeled-statement-no-short-if> ::= <identifier> : <statement-no-short-if>
 
-<if-then-else-statement-no-short-if> ::= if ( <expression> ) <stat
-ement-no-short-if> else <statement-no-short-if>
+<if-then-else-statement-no-short-if> ::= if ( <expression> ) <statement-no-short-if> else <statement-no-short-if>
 
 <while-statement-no-short-if> ::= while ( <expression> ) <statement-no-short-if>
 

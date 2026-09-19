@@ -50,8 +50,7 @@ ImportSemantics: true
 <function-body (function-context)> ::= <statement>* => { buildFunctionBody($1); }
 
 # Context-sensitive variable declarations
-<variable-declaration (clas
-s-context)> ::= <IDENTIFIER> <ASSIGN> <expression> <SEMICOLON>
+<variable-declaration (class-context)> ::= <IDENTIFIER> <ASSIGN> <expression> <SEMICOLON>
     => { declareField($1, $3); }
 
 <variable-declaration (function-context)> ::= <IDENTIFIER> <ASSIGN> <expression> <SEMICOLON>
@@ -90,8 +89,7 @@ s-context)> ::= <IDENTIFIER> <ASSIGN> <expression> <SEMICOLON>
 @context(class-context) @projection(IDENTIFIER DOT IDENTIFIER) field_access_pattern => {
     // Triggered when field access pattern is matched in class context
     validateFieldAccess(currentMatch);
-   
- recordFieldUsage(currentMatch);
+    recordFieldUsage(currentMatch);
 }
 
 # Projection for detecting assignment patterns in different contexts

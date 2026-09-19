@@ -67,8 +67,7 @@ FormatType: EBNF
 
 <string-validation> ::= <min-length> | <max-length> | <pattern>
 
-<min-length> ::= "\"minLength\"" ":" <non-n
-egative-integer>
+<min-length> ::= "\"minLength\"" ":" <non-negative-integer>
 
 <max-length> ::= "\"maxLength\"" ":" <non-negative-integer>
 
@@ -130,8 +129,7 @@ egative-integer>
 
 <examples> ::= "\"examples\"" ":" <array>
 
-<meta-schema-keywords> ::= <schema-keyword> | <vocabulary> | <id> 
-| <anchor> | <dynamic-anchor> | <ref> | <dynamic-ref> | <defs> | <comment>
+<meta-schema-keywords> ::= <schema-keyword> | <vocabulary> | <id> | <anchor> | <dynamic-anchor> | <ref> | <dynamic-ref> | <defs> | <comment>
 
 <schema-keyword> ::= "\"$schema\"" ":" <uri>
 
@@ -216,8 +214,7 @@ egative-integer>
 
 <character> ::= /[^"\\]/ | "\\" <escape-character>
 
-<escape-charac
-ter> ::= "\"" | "\\" | "/" | "b" | "f" | "n" | "r" | "t" | "u" <hex-digit> <hex-digit> <hex-digit> <hex-digit>
+<escape-character> ::= "\"" | "\\" | "/" | "b" | "f" | "n" | "r" | "t" | "u" <hex-digit> <hex-digit> <hex-digit> <hex-digit>
 
 <hex-digit> ::= /[0-9A-Fa-f]/
 

@@ -53,8 +53,7 @@ SymbolTableSharing: hierarchical
 
 /* Class Declarations */
 <class-declaration> ::= "class" <whitespace> @SYMBOL[class] <identifier> <class-heritage>? 
-                       "{" <class
--body> "}"
+                       "{" <class-body> "}"
 <class-heritage> ::= "extends" <whitespace> <identifier>
 <class-body> ::= <class-element>*
 <class-element> ::= <method-definition> | <field-definition>
@@ -101,8 +100,7 @@ SymbolTableSharing: hierarchical
 /* Expressions */
 <expression> ::= <assignment-expression>
 
-<as
-signment-expression> ::= <conditional-expression> <assignment-operator-expression>?
+<assignment-expression> ::= <conditional-expression> <assignment-operator-expression>?
 <assignment-operator-expression> ::= <assignment-operator> <assignment-expression>
 <assignment-operator> ::= "=" | "+=" | "-=" | "*=" | "/=" | "%=" | "<<=" | ">>=" | ">>>=" | "&=" | "^=" | "|="
 
@@ -144,8 +142,7 @@ signment-expression> ::= <conditional-expression> <assignment-operator-expressio
 <multiplicative-tail> ::= <multiplicative-operator> <multiplicative-expression>
 <multiplicative-operator> ::= "*" | "/" | "%"
 
-<
-unary-expression> ::= <postfix-expression>
+<unary-expression> ::= <postfix-expression>
                      | <unary-operator> <unary-expression>
                      | "delete" <whitespace> <unary-expression>
                      | "void" <whitespace> <unary-expression>
@@ -192,8 +189,7 @@ unary-expression> ::= <postfix-expression>
                        | <parenthesized-expression>
                        | <dom-function-call>
 
-<pare
-nthesized-expression> ::= "(" <expression> ")"
+<parenthesized-expression> ::= "(" <expression> ")"
 
 /* Literals */
 <literal> ::= <null-literal>
@@ -246,8 +242,7 @@ nthesized-expression> ::= "(" <expression> ")"
 <function-expression> ::= "function" <function-name>? "(" <parameter-list>? ")" <block-statement>
 <function-name> ::= <whitespace> <identifier>
 
-<arrow-function> ::
-= <arrow-parameters> "=>" <arrow-body>
+<arrow-function> ::= <arrow-parameters> "=>" <arrow-body>
 <arrow-parameters> ::= <identifier> | "(" <parameter-list>? ")"
 <arrow-body> ::= <assignment-expression> | <block-statement>
 
@@ -281,8 +276,7 @@ nthesized-expression> ::= "(" <expression> ")"
 
 <safe-string-punctuation> ::= "!" | "#" | "$" | "%" | "&" | "(" | ")" | "*" | "+" | "," | "-" | "."
                              | "/" | ":" | ";" | "<" | "=" | ">" | "?" | "@" | "[" | "]" | "^" | "_"
-                             | "{" | "|" | "
-}" | "~"
+                             | "{" | "|" | "}" | "~"
 
 <escape-sequence> ::= "\\" <escape-char>
 <escape-char> ::= "'" | "\"" | "\\" | "/" | "b" | "f" | "n" | "r" | "t" | "v" | "0"

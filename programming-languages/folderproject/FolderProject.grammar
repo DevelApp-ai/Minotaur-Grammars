@@ -87,8 +87,7 @@ detected_file_type:
     build_file
     ;
 
-sour
-ce_code_file:
+source_code_file:
     extension: file_extension
     grammar: embedded_grammar_reference
     symbols: extracted_symbols*
@@ -164,8 +163,7 @@ config_grammar_map:
     properties -> "Properties.grammar"
     ;
 
-# Symbol extraction for cross-file analys
-is
+# Symbol extraction for cross-file analysis
 extracted_symbols:
     symbol_name: identifier
     symbol_type: ('class' | 'interface' | 'function' | 'variable' | 'constant' | 'type' | 'namespace')
@@ -239,8 +237,7 @@ version_constraint: [0-9]+(\.[0-9]+)*([<>=!~^]+[0-9]+(\.[0-9]+)*)?
 file_path_list: file_path (',' file_path)*
 dependency_list: identifier (',' identifier)*
 parameter_list: parameter (',' parameter)*
-parameter: ident
-ifier ':' type_reference
+parameter: identifier ':' type_reference
 type_reference: qualified_name ('[' ']')?
 generic_parameter_list: '<' identifier (',' identifier)* '>'
 configuration_value: (string_literal | numeric_literal | boolean_literal | array_literal | object_literal)

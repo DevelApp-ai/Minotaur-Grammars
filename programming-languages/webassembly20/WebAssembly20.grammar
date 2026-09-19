@@ -10,9 +10,7 @@
 
 Grammar: CEBNF
 TokenSplitter: Space
-Keywords: module, func, param, result, local, global, table, memory, import, export, start, elem, data, type, mut, i32, i64, f32, f64, v128, funcref, externref, anyref, eqref, i31ref, structref, arrayref, nullref, ref, null, unreachable, nop, block, loop, if, else, end, br, br_if, br_table, return, call, call_indirect, call_ref, return_call, return_call_indirect, return_call_ref, drop, select, local.get, local.set, local.tee, global.get, global.set, table.get, table.set, table.size, table.grow, table.fill, table.copy, table.init, elem.drop, memory.size, memory.grow, memory.fill, memory.copy, memory.init, data.drop, i32.load, i64.load, f32.load, f64.load, i32.load8_s, i32.load8_u, i32.load16_s, i32.load16_u, i64.load8_s, i64.load8_u, i64.load16_s, i64.load16_u, i64.load32_s, i64.load32_u, i32.store, i64.store, f32.store, f64.store, i32.store8, i32.store16, i64.store8, i64.store16, i64.store32, i32.const, i64.const, f32.const, f64.const, i32.eqz, i32.eq, i32.ne, i32.lt_s, i32.lt_u, i32.gt_s, i32.gt_u, i32.le_s, i32.le_u, i32.ge_s, i32.ge_u, i64.eqz, i64.eq, i64.ne, i64.lt_s, i64.lt_u, i64.gt_s, i64.gt_u, i64.le_s, i64.le_u, i64.ge_s, i64.ge_u, f32.eq, f32.ne, f32.lt, f32.gt, f32.le, f32.ge, f64.eq, f64.ne, f64.lt, f64.gt, f64.le, f64.ge, i32.clz, i32.ctz, i32.popcnt, i32.add, i32.sub, i32.mul, i32.div_s,
- i32.div_u, i32.rem_s, i32.rem_u, i32.and, i32.or, i32.xor, i32.shl, i32.shr_s, i32.shr_u, i32.rotl, i32.rotr, i64.clz, i64.ctz, i64.popcnt, i64.add, i64.sub, i64.mul, i64.div_s, i64.div_u, i64.rem_s, i64.rem_u, i64.and, i64.or, i64.xor, i64.shl, i64.shr_s, i64.shr_u, i64.rotl, i64.rotr, f32.abs, f32.neg, f32.ceil, f32.floor, f32.trunc, f32.nearest, f32.sqrt, f32.add, f32.sub, f32.mul, f32.div, f32.min, f32.max, f32.copysign, f64.abs, f64.neg, f64.ceil, f64.floor, f64.trunc, f64.nearest, f64.sqrt, f64.add, f64.sub, f64.mul, f64.div, f64.min, f64.max, f64.copysign, i32.wrap_i64, i32.trunc_f32_s, i32.trunc_f32_u, i32.trunc_f64_s, i32.trunc_f64_u, i64.extend_i32_s, i64.extend_i32_u, i64.trunc_f32_s, i64.trunc_f32_u, i64.trunc_f64_s, i64.trunc_f64_u, f32.convert_i32_s, f32.convert_i32_u, f32.convert_i64_s, f32.convert_i64_u, f32.demote_f64, f64.convert_i32_s, f64.convert_i32_u, f64.convert_i64_s, f64.convert_i64_u, f64.promote_f32, i32.reinterpret_f32, i64.reinterpret_f64, f32.reinterpret_i32, f64.reinterpret_i64, i32.extend8_s, i32.extend16_s, i64.extend8_s, i64.extend16_s, i64.extend32_s, ref.null, ref.is_null, ref.func, ref.as_non_null, ref.eq, ref.test, ref.cast, struct.new, struct.new_default, struct.get, struct.get_s, struct.get_u, struct.set, array.new, array.new_default, array.new_fixed, array.new_data, array.new_elem, array.get, array.get_s, array.get_u, array.set, array.len, array.fill, array.copy, array.init_data, array.init_elem, i31.new, i31.get_s, i31.get_u, extern.internalize, extern.externalize, try, catch, catch_all, delegate, throw, rethrow, v128.load, v128.load8x8_s, v128.load8x8_u, v128.load16x4_s, v128.load16x4_u, v128.load32x2_s, v128.load32x2_u, v128.load8_splat, v128.load16_splat, v128.load32_splat, v128.load64_splat, v128.load32_zero, v128.load64_zero, v128.store, v128.const, i8x16.shuffle, i8x16.swizzle, i8x16.splat, i8x16.extract_lane_s, i8x16.extract_lane_u, i8x16.replace_lane, i16x8.splat, i16x8.extract_lane_s, i16x8.extract_lane_u, i16x8.re
-place_lane, i32x4.splat, i32x4.extract_lane, i32x4.replace_lane, i64x2.splat, i64x2.extract_lane, i64x2.replace_lane, f32x4.splat, f32x4.extract_lane, f32x4.replace_lane, f64x2.splat, f64x2.extract_lane, f64x2.replace_lane
+Keywords: module, func, param, result, local, global, table, memory, import, export, start, elem, data, type, mut, i32, i64, f32, f64, v128, funcref, externref, anyref, eqref, i31ref, structref, arrayref, nullref, ref, null, unreachable, nop, block, loop, if, else, end, br, br_if, br_table, return, call, call_indirect, call_ref, return_call, return_call_indirect, return_call_ref, drop, select, local.get, local.set, local.tee, global.get, global.set, table.get, table.set, table.size, table.grow, table.fill, table.copy, table.init, elem.drop, memory.size, memory.grow, memory.fill, memory.copy, memory.init, data.drop, i32.load, i64.load, f32.load, f64.load, i32.load8_s, i32.load8_u, i32.load16_s, i32.load16_u, i64.load8_s, i64.load8_u, i64.load16_s, i64.load16_u, i64.load32_s, i64.load32_u, i32.store, i64.store, f32.store, f64.store, i32.store8, i32.store16, i64.store8, i64.store16, i64.store32, i32.const, i64.const, f32.const, f64.const, i32.eqz, i32.eq, i32.ne, i32.lt_s, i32.lt_u, i32.gt_s, i32.gt_u, i32.le_s, i32.le_u, i32.ge_s, i32.ge_u, i64.eqz, i64.eq, i64.ne, i64.lt_s, i64.lt_u, i64.gt_s, i64.gt_u, i64.le_s, i64.le_u, i64.ge_s, i64.ge_u, f32.eq, f32.ne, f32.lt, f32.gt, f32.le, f32.ge, f64.eq, f64.ne, f64.lt, f64.gt, f64.le, f64.ge, i32.clz, i32.ctz, i32.popcnt, i32.add, i32.sub, i32.mul, i32.div_s, i32.div_u, i32.rem_s, i32.rem_u, i32.and, i32.or, i32.xor, i32.shl, i32.shr_s, i32.shr_u, i32.rotl, i32.rotr, i64.clz, i64.ctz, i64.popcnt, i64.add, i64.sub, i64.mul, i64.div_s, i64.div_u, i64.rem_s, i64.rem_u, i64.and, i64.or, i64.xor, i64.shl, i64.shr_s, i64.shr_u, i64.rotl, i64.rotr, f32.abs, f32.neg, f32.ceil, f32.floor, f32.trunc, f32.nearest, f32.sqrt, f32.add, f32.sub, f32.mul, f32.div, f32.min, f32.max, f32.copysign, f64.abs, f64.neg, f64.ceil, f64.floor, f64.trunc, f64.nearest, f64.sqrt, f64.add, f64.sub, f64.mul, f64.div, f64.min, f64.max, f64.copysign, i32.wrap_i64, i32.trunc_f32_s, i32.trunc_f32_u, i32.trunc_f64_s, i32.trunc_f64_u, i64.extend_i32_s, i64.extend_i32_u, i64.trunc_f32_s, i64.trunc_f32_u, i64.trunc_f64_s, i64.trunc_f64_u, f32.convert_i32_s, f32.convert_i32_u, f32.convert_i64_s, f32.convert_i64_u, f32.demote_f64, f64.convert_i32_s, f64.convert_i32_u, f64.convert_i64_s, f64.convert_i64_u, f64.promote_f32, i32.reinterpret_f32, i64.reinterpret_f64, f32.reinterpret_i32, f64.reinterpret_i64, i32.extend8_s, i32.extend16_s, i64.extend8_s, i64.extend16_s, i64.extend32_s, ref.null, ref.is_null, ref.func, ref.as_non_null, ref.eq, ref.test, ref.cast, struct.new, struct.new_default, struct.get, struct.get_s, struct.get_u, struct.set, array.new, array.new_default, array.new_fixed, array.new_data, array.new_elem, array.get, array.get_s, array.get_u, array.set, array.len, array.fill, array.copy, array.init_data, array.init_elem, i31.new, i31.get_s, i31.get_u, extern.internalize, extern.externalize, try, catch, catch_all, delegate, throw, rethrow, v128.load, v128.load8x8_s, v128.load8x8_u, v128.load16x4_s, v128.load16x4_u, v128.load32x2_s, v128.load32x2_u, v128.load8_splat, v128.load16_splat, v128.load32_splat, v128.load64_splat, v128.load32_zero, v128.load64_zero, v128.store, v128.const, i8x16.shuffle, i8x16.swizzle, i8x16.splat, i8x16.extract_lane_s, i8x16.extract_lane_u, i8x16.replace_lane, i16x8.splat, i16x8.extract_lane_s, i16x8.extract_lane_u, i16x8.replace_lane, i32x4.splat, i32x4.extract_lane, i32x4.replace_lane, i64x2.splat, i64x2.extract_lane, i64x2.replace_lane, f32x4.splat, f32x4.extract_lane, f32x4.replace_lane, f64x2.splat, f64x2.extract_lane, f64x2.replace_lane
 
 <module> ::= "(" "module" <id>? <modulefield>* ")"
 
@@ -84,7 +82,6 @@ place_lane, i32x4.splat, i32x4.extract_lane, i32x4.replace_lane, i64x2.splat, i6
 /* Tables */
 <table> ::= "(" "table" <id>? <tabletype> ")" | "(" "table" <id>? <reftype> "(" "elem" <expr>* ")" ")"
 
-
 /* Memories */
 <memory> ::= "(" "memory" <id>? <memtype> ")" | "(" "memory" <id>? "(" "data" <datastring>* ")" ")"
 
@@ -148,8 +145,7 @@ place_lane, i32x4.splat, i32x4.extract_lane, i32x4.replace_lane, i64x2.splat, i6
 /* Tail call instructions (WebAssembly 2.0) */
 <return_call> ::= "return_call" <funcidx>
 
-<return_call_indirect> ::= "return_
-call_indirect" <tableidx>? <typeuse>
+<return_call_indirect> ::= "return_call_indirect" <tableidx>? <typeuse>
 
 <return_call_ref> ::= "return_call_ref" <typeidx>
 
@@ -221,8 +217,7 @@ call_indirect" <tableidx>? <typeuse>
 
 <data_drop> ::= "data.drop" <dataidx>
 
-/* Numeric instr
-uctions */
+/* Numeric instructions */
 <numinstr> ::= <const> | <unop> | <binop> | <testop> | <relop> | <cvtop>
 
 <const> ::= <numtype> ".const" <num>
@@ -249,8 +244,7 @@ uctions */
 
 <frelop> ::= "f32.eq" | "f32.ne" | "f32.lt" | "f32.gt" | "f32.le" | "f32.ge" | "f64.eq" | "f64.ne" | "f64.lt" | "f64.gt" | "f64.le" | "f64.ge"
 
-<cvtop> ::= "i32.wrap_i64" | "i32.trunc_f32_s" | "i32.trunc_f32_u" | "i32.trunc_f64_s" | "i32.trunc_f64_u" | "i64.extend_i32_s" | "i64.extend_i32_u" | "i64.trunc_f32_s" | "i64.trunc_f32_u" | "i64.trunc_f64_s" | "i64.trunc_f64_u" | "f32.convert_i32_s" | "f32.convert_i32_u" | "f32.convert_i64_s" | "f32.convert_i64_u" | "f32.demote_f64" | "f64.convert_i32_s" | "f64.convert_i32_u" | "f64.convert_i64_s" | "f64.convert_i64_u" | "f64.promo
-te_f32" | "i32.reinterpret_f32" | "i64.reinterpret_f64" | "f32.reinterpret_i32" | "f64.reinterpret_i64" | "i32.extend8_s" | "i32.extend16_s" | "i64.extend8_s" | "i64.extend16_s" | "i64.extend32_s"
+<cvtop> ::= "i32.wrap_i64" | "i32.trunc_f32_s" | "i32.trunc_f32_u" | "i32.trunc_f64_s" | "i32.trunc_f64_u" | "i64.extend_i32_s" | "i64.extend_i32_u" | "i64.trunc_f32_s" | "i64.trunc_f32_u" | "i64.trunc_f64_s" | "i64.trunc_f64_u" | "f32.convert_i32_s" | "f32.convert_i32_u" | "f32.convert_i64_s" | "f32.convert_i64_u" | "f32.demote_f64" | "f64.convert_i32_s" | "f64.convert_i32_u" | "f64.convert_i64_s" | "f64.convert_i64_u" | "f64.promote_f32" | "i32.reinterpret_f32" | "i64.reinterpret_f64" | "f32.reinterpret_i32" | "f64.reinterpret_i64" | "i32.extend8_s" | "i32.extend16_s" | "i64.extend8_s" | "i64.extend16_s" | "i64.extend32_s"
 
 /* Vector instructions (SIMD - WebAssembly 2.0) */
 <vecinstr> ::= <vload> | <vstore> | <vconst> | <vshuffle> | <vswizzle> | <vsplat> | <vextract> | <vreplace> | <vunop> | <vbinop> | <vtestop> | <vrelop> | <vcvtop>
@@ -293,8 +287,7 @@ te_f32" | "i32.reinterpret_f32" | "i64.reinterpret_f64" | "f32.reinterpret_i32" 
 
 <vcvtop> ::= <shape> "." <vcvtop_name> | <shape> "." <vcvtop_name> "_" <shape>
 
-<vcvtop_name> ::= "convert" | "trunc" | "extend" | "demote" | "promote" | "narrow" | "w
-iden"
+<vcvtop_name> ::= "convert" | "trunc" | "extend" | "demote" | "promote" | "narrow" | "widen"
 
 /* Reference instructions (WebAssembly 2.0) */
 <refinstr> ::= <ref_null> | <ref_is_null> | <ref_func> | <ref_as_non_null> | <ref_eq> | <ref_test> | <ref_cast>
@@ -360,8 +353,7 @@ iden"
 <array_init_elem> ::= "array.init_elem" <typeidx> <elemidx>
 
 /* i31 instructions (Garbage Collection - WebAssembly 2.0) */
-<i31instr> ::= <i31_new> | <i31_g
-et_s> | <i31_get_u>
+<i31instr> ::= <i31_new> | <i31_get_s> | <i31_get_u>
 
 <i31_new> ::= "i31.new"
 
@@ -460,8 +452,7 @@ et_s> | <i31_get_u>
 
 <int> ::= <sign>? <num_val>
 
-<float> ::= <sign>? <num_val> | <sign>? <num_val> "." <num_val>? | <sign>? <num_val> "." <num_val>? <exp> | <sign
->? "inf" | <sign>? "nan" | <sign>? "nan:" <hexnum>
+<float> ::= <sign>? <num_val> | <sign>? <num_val> "." <num_val>? | <sign>? <num_val> "." <num_val>? <exp> | <sign>? "inf" | <sign>? "nan" | <sign>? "nan:" <hexnum>
 
 <sign> ::= "+" | "-"
 
@@ -524,8 +515,7 @@ et_s> | <i31_get_u>
 
 <relaxed_laneselect> ::= <shape> ".relaxed_laneselect"
 
-<relaxed_swizzle> ::= "i8x16.relax
-ed_swizzle"
+<relaxed_swizzle> ::= "i8x16.relaxed_swizzle"
 
 /* Custom annotation syntax (WebAssembly 2.0) */
 <annotation> ::= "(@" <annotation_id> <annotation_body>* ")"
@@ -581,8 +571,7 @@ ed_swizzle"
 
 <store64> ::= <storeop64> <memarg64>
 
-<loadop64> ::= "i64.load" | "i32.load" | "f64.load" | "f32.load" | "i32.load8_s" | "i32.load8_u" | "i32.load16_s" | "i32.load16_u" | "i64.load8_s" | "i64.load8_u" | "i64.load16_s" |
- "i64.load16_u" | "i64.load32_s" | "i64.load32_u"
+<loadop64> ::= "i64.load" | "i32.load" | "f64.load" | "f32.load" | "i32.load8_s" | "i32.load8_u" | "i32.load16_s" | "i32.load16_u" | "i64.load8_s" | "i64.load8_u" | "i64.load16_s" | "i64.load16_u" | "i64.load32_s" | "i64.load32_u"
 
 <storeop64> ::= "i64.store" | "i32.store" | "f64.store" | "f32.store" | "i32.store8" | "i32.store16" | "i64.store8" | "i64.store16" | "i64.store32"
 
@@ -619,8 +608,7 @@ ed_swizzle"
 <nontrapping_cvtop> ::= "i32.trunc_sat_f32_s" | "i32.trunc_sat_f32_u" | "i32.trunc_sat_f64_s" | "i32.trunc_sat_f64_u" | "i64.trunc_sat_f32_s" | "i64.trunc_sat_f32_u" | "i64.trunc_sat_f64_s" | "i64.trunc_sat_f64_u"
 
 /* Sign extension operators (WebAssembly 2.0) */
-<sign_extension> ::= "i32.extend8_s" | "i32.extend16_s" | "i64.e
-xtend8_s" | "i64.extend16_s" | "i64.extend32_s"
+<sign_extension> ::= "i32.extend8_s" | "i32.extend16_s" | "i64.extend8_s" | "i64.extend16_s" | "i64.extend32_s"
 
 /* Component model (WebAssembly 2.0) */
 <component> ::= "(" "component" <id>? <componentfield>* ")"
@@ -673,8 +661,7 @@ xtend8_s" | "i64.extend16_s" | "i64.extend32_s"
 
 <result_type> ::= "(" "result" <component_valtype>? <component_valtype>? ")"
 
-<component_func_body> ::= <component_inst
-r>*
+<component_func_body> ::= <component_instr>*
 
 <component_instr> ::= <component_call> | <component_lift> | <component_lower>
 
@@ -748,8 +735,7 @@ r>*
 
 <wit_func> ::= "(" "func" <wit_func_type> ")"
 
-<wit_func_type> ::= "(" "par
-am" <wit_type>* ")" "(" "result" <wit_type>* ")"
+<wit_func_type> ::= "(" "param" <wit_type>* ")" "(" "result" <wit_type>* ")"
 
 <wit_type> ::= <wit_primitive> | <wit_defined>
 
@@ -815,8 +801,7 @@ am" <wit_type>* ")" "(" "result" <wit_type>* ")"
 <validation_rule> ::= "strict" | "relaxed" | "experimental"
 
 /* Compilation targets */
-<compil
-ation_target> ::= "(" "@target" <target_arch> <target_features>* ")"
+<compilation_target> ::= "(" "@target" <target_arch> <target_features>* ")"
 
 <target_arch> ::= "x86_64" | "aarch64" | "riscv64" | "wasm32" | "wasm64"
 
