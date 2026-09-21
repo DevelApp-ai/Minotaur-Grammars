@@ -21,3 +21,16 @@ group   ::= '{' content '}' ;
 text    ::= [^\n\{}$%\\]+ ;
 identifier ::= [a-zA-Z@]+ ;
 number  ::= [0-9]+ ;
+
+# --- Extended coverage: additional language constructs ---
+heading_cmd ::= ('\\section' | '\\subsection' | '\\chapter' | '\\part') '*'? '{' content '}' ; ;
+tabular_env ::= '\\begin' '{' 'tabular' '}' '{' col_spec '}' row* '\\end' '{' 'tabular' '}' ; ;
+col_spec ::= ('l' | 'c' | 'r' | 'p' '{' text '}' | '|' | '@' text)+ ; ;
+table_row ::= element ('&' element)* '\\\\' ; ;
+figure_env ::= '\\begin' '{' 'figure' '}' '[' identifier ']' '\\includegraphics' ('[' options ']')? '{' text '}' '\\caption' '{' content '}' '\\end' '{' 'figure' '}' ; ;
+label_cmd ::= '\\label' '{' text '}' ; ;
+ref_cmd ::= ('\\ref' | '\\eqref' | '\\pageref' | '\\autoref') '{' text '}' ; ;
+cite_cmd ::= '\\cite' ('[' options ']')? '{' text '}' ; ;
+verbatim_env ::= '\\begin' '{' 'verbatim' '}' [^\\]* '\\end' '{' 'verbatim' '}' ; ;
+bibliography_cmd ::= '\\bibliography' '{' text '}' | '\\bibliographystyle' '{' identifier '}' ; ;
+newtheorem_cmd ::= '\\newtheorem' '{' identifier '}' '{' text '}' ; ;

@@ -2,3 +2,14 @@
 \item First
 \item Second
 \end{itemize}
+
+# --- Extended constructs ---
+\section*{Intro}
+\begin{figure}[h]
+  \includegraphics[width=\textwidth]{plot.png}
+  \caption{Results}
+  \label{fig:plot}
+\end{figure}
+See Figure~\ref{fig:plot} \cite{knuth1984}.
+\begin{tabular}{l|r} a & b \\ c & d \\ \end{tabular}
+

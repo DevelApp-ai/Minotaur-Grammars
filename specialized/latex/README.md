@@ -20,3 +20,7 @@ Hello $x^2 + y^2$.
 - math delimiters are paired
 
 Implements issue #90.
+
+## Extended coverage
+
+Adds starred/heading commands, tabular with column specs, figures with includegraphics, labels and references, verbatim, bibliography, and theorem environments.
