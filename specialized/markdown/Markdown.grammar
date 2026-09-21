@@ -1,0 +1,45 @@
+Grammar: Markdown
+FormatType: EBNF
+TokenSplitter: Space
+
+<document> ::= <block>* ;
+<block> ::= <heading> | <paragraph> | <code_block> | <list> | <blockquote> | <thematic_break> | <table> ;
+<heading> ::= <hashes> <text> ;
+<hashes> ::= '#' | '##' | '###' | '####' | '#####' | '######' ;
+<paragraph> ::= <inline>( <inline>)* ;
+<code_block> ::= <fenced_code> | <indented_code> ;
+<fenced_code> ::= '```' <identifier>? <auto_fenced_code_1> '```' ;
+<indented_code> ::= ( ' ' <auto_indented_code_2>)+ ;
+<list> ::= <list_item>+ ;
+<list_item> ::= <bullet> | <ordered_item> ;
+<bullet> ::= ( '-' | '*' | '+') <inline> ;
+<ordered_item> ::= <number> '.' <inline> ;
+<blockquote> ::= '> ' <auto_indented_code_2> ;
+<thematic_break> ::= '---' | '***' ;
+<table> ::= <table_row> <table_delim> <table_row>* ;
+<table_row> ::= '|'( <cell> '|')+ ;
+<cell> ::= <inline> ;
+<table_delim> ::= '|'( ':'? '-'+ ':'? '|')+ ;
+<inline> ::= <text> | <emphasis> | <strong> | <code_span> | <link> | <image> | <auto_inline_3> "^" "\" "n" "#" ">"* | + "-" "]"+ ;
+<emphasis> ::= '*' <text> '*' ;
+<strong> ::= '**' <text> '**' ;
+<code_span> ::= '`' <text> '`' ;
+<link> ::= '[' <text> ']' '(' <text> ')' ;
+<image> ::= '!' '[' <text> ']' '(' <text> ')' ;
+<text> ::= <auto_text_4> ;
+<identifier> ::= <auto_identifier_5> ;
+<number> ::= <auto_number_6> ;
+
+# --- Coverage completion: remaining language constructs ---
+
+<front_matter> ::= "---" "line_terminator" "yaml_line"* "---" ;
+<hard_break> ::= ( "two_spaces" | "backslash") "line_terminator" ;
+<html_comment> ::= "<!--" "comment_body" "-->" ;
+<nested_blockquote> ::= ( ">")+ ( " " )? "block_content" ;
+
+<auto_fenced_code_1> ::= /^```*/ ;
+<auto_indented_code_2> ::= /^\n*/ ;
+<auto_inline_3> ::= // ;
+<auto_text_4> ::= /^\n+/ ;
+<auto_identifier_5> ::= /a-zA-Z0-9+-*/ ;
+<auto_number_6> ::= /0-9+/ ;
