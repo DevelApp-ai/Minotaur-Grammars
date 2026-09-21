@@ -21,3 +21,12 @@ end
 
 node.default['orders']['port'] = 8080
 include_recipe 'apt::default'
+
+# --- Coverage completion constructs ---
+include_recipe 'apt::default'
+node.default['app']['port'] = 8080
+if platform?('ubuntu')
+  package 'nginx' do
+    action [:install, :enable]
+  end
+end

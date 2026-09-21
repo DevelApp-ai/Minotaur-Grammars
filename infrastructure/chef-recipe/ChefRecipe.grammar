@@ -24,7 +24,8 @@ TokenSplitter: Space
              | <hash-key> ":" <ruby-expr> ","?
 <hash-key> ::= <string> | <ruby-identifier>
 <ruby-symbol> ::= ":" <ruby-identifier> => { buildSymbol($2); }
-<ruby-assignment> ::= <ruby-identifier> " = " <ruby-expr> => { assignVar($1, $3); }
+<ruby-assignment> ::= <ruby-identifier> " = " 
+<ruby-expr> => { assignVar($1, $3); }
 <if-stmt> ::= "if" <ruby-expr> <statement>* "end" => { buildIf($2, $3); }
            | "case" <ruby-expr> <when-clause>+ ("else" <statement>*)? "end" => { buildCase($2, $3); }
 <when-clause> ::= "when" <ruby-expr> <statement>*
@@ -46,3 +47,14 @@ TokenSplitter: Space
 <ruby-identifier> ::= /[a-zA-Z_][a-zA-Z0-9_]*/
 <attr-key> ::= /[a-zA-Z_][a-zA-Z0-9_]*/
 <string> ::= /'[^'\n]*'/ | /"[^"\n]*"/
+
+# --- Coverage completion: remaining language constructs ---
+
+include_recipe ::= "include_recipe" text ;
+node_level ::= "node" "." ("default" | "normal" | "override" | "force_default" | "force_override") "[" text "]" ;
+platform_guard ::= "platform?" "(" args ")" ;
+platform_family_guard ::= "platform_family?" "(" args ")" ;
+action_list ::= "action" "[" ":" identifier ("," ":" identifier)* "]" ;
+notifies_delayed ::= "notifies" ":" identifier "," resource_ref "," ":" ("immediate" | "delayed") ;
+property_def ::= "property" ":" identifier "," "default:" expr ;
+powershell_guard ::= ("powershell_out" | "shell_out") "(" text ")" ;

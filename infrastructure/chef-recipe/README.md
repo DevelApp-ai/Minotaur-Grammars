@@ -19,3 +19,7 @@ end
 - Template source existence in cookbook
 
 Implements issue #41.
+
+## Coverage completion
+
+Completes coverage with include_recipe, node attribute access levels, platform guards, chef_gem/execute resources, powershell helpers, and resource action lists.
