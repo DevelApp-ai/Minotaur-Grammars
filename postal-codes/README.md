@@ -52,7 +52,9 @@ PostalCodes/
 - **Italy_Postal_Code.grammar** - Italy (5-digit CAP)
 - **Spain_Postal_Code.grammar** - Spain (5-digit codigo postal)
 - **Netherlands_Postal_Code.grammar** - Netherlands (1234 AB format)
-- **Belgium_Postal_Code.grammar** - Belgium (4-digit)
+- **Belgium_Postal_Code.grammar** - Belgium (4-digit
+
+)
 - **Switzerland_Postal_Code.grammar** - Switzerland (4-digit PLZ)
 - **Austria_Postal_Code.grammar** - Austria (4-digit PLZ)
 - **Sweden_Postal_Code.grammar** - Sweden (123 45 format)
@@ -93,7 +95,9 @@ PostalCodes/
 - **Kenya_Postal_Code.grammar** - Kenya (5-digit)
 - **Morocco_Postal_Code.grammar** - Morocco (5-digit)
 - **Algeria_Postal_Code.grammar** - Algeria (5-digit)
-- **Ghana_Postal_Code.grammar** - Ghana
+- **Ghana_Po
+s
+tal_Code.grammar** - Ghana
 - **Tunisia_Postal_Code.grammar** - Tunisia
 
 ### South America
@@ -161,7 +165,9 @@ Each postal code grammar can be packaged for the Minotaur Marketplace with the f
 {
   "name": "us-postal-code",
   "vendor": "minotaur-official",
-  "displayName": "United States Postal Code Validator",
+  "di
+sp
+layName": "United States Postal Code Validator",
   "version": "2.0.0",
   "minotaurVersion": ">=1.0.0",
   "description": "Comprehensive validator for US ZIP codes including 5-digit, ZIP+4, military, and PO Box formats",
@@ -241,7 +247,9 @@ ContextSensitive: true
 /*
  * [Postal Authority Name] Grammar
  * 
- * Comprehensive grammar for [Country] postal addresses and postal codes including:
+ * Compr
+ehe
+nsive grammar for [Country] postal addresses and postal codes including:
  * - [Format description]
  * - [Special features]
  * - [Validation rules]
@@ -311,7 +319,9 @@ Each grammar supports color-coded validation results:
 ## 🔗 Related Resources
 
 - [Minotaur Marketplace](https://github.com/DevelApp-ai/Minotaur-Marketplace)
-- [Minotaur Core](https://github.com/DevelApp-ai/Minotaur)
+-
+ [Mi
+notaur Core](https://github.com/DevelApp-ai/Minotaur)
 - [Postal Code Wikipedia](https://en.wikipedia.org/wiki/Postal_code)
 - [Universal Postal Union](https://www.upu.int/)
 
