@@ -26,3 +26,7 @@ contract Counter {
 - state variables have explicit visibility
 
 Implements issue #87.
+
+## Extended coverage
+
+Adds receive/fallback functions, immutable/constant state variables, using…for, unchecked blocks, custom errors, try/catch, constructors with modifiers, and interfaces.
