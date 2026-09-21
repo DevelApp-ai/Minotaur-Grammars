@@ -24,6 +24,13 @@ end
 
 Implements issue #57.
 
-## Extended coverage
+## Coverage completion
 
-Adds begin/rescue/ensure exception handling, unless, case/when, do…end blocks, singleton classes, attr accessors, ranges, safe navigation, ternary, and string interpolation.
+The grammar now also covers the remaining core language constructs:
+
+- Stabby lambdas (`->(x) { ... }`)
+- `refine` blocks for local monkey-patching
+- `alias` / `alias_method` statements
+- Heredocs (`<<~SQL ... SQL`)
+- Percent literals (`%w[]`, `%i()`, `%q{}`, `%r{} `, `%s()`)
+- Safe navigation (`&.`) and `defined?` checks

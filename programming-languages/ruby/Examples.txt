@@ -6,20 +6,13 @@ puts add(1, 2)
 
 names.each { |n| puts n }
 
-# --- Extended constructs ---
-begin
-  risky
-rescue StandardError => e
-  warn e.message
-ensure
-  cleanup
-end
+# --- Coverage completion constructs ---
 
-case x
-when 1..5 then "low"
-else "high"
-end
-
-obj&.method
-attr_accessor :name
-
+double = ->(x) { x * 2 }
+refine String do; def shout; upcase + '!'; end; end
+alias_method :size, :length
+sql = <<~SQL; SELECT * FROM users; SQL
+words = %w[alpha beta gamma]
+syms = %i(a b c)
+value = obj&.property
+defined?(Foo)

@@ -35,16 +35,13 @@ boolean     ::= 'true' | 'false' ;
 text        ::= '"' [^"]* '"' ;
 number      ::= [0-9]+ ;
 
-# --- Extended coverage: additional language constructs ---
-begin_rescue ::= 'begin' stmt* ('rescue' const_id? '=>' identifier? stmt*)* ('else' stmt*)? ('ensure' stmt*)? 'end' ; ;
-unless_stmt ::= 'unless' expr stmt* ('else' stmt*)? 'end' ; ;
-case_stmt ::= 'case' expr? ('when' args stmt*)+ ('else' stmt*)? 'end' ; ;
-do_block ::= 'do' '|' params? '|' stmt* 'end' ; ;
-class_self ::= 'class' '<<' 'self' stmt* 'end' ; ;
-module_function ::= 'module_function' ; ;
-attr_accessor ::= ('attr_accessor' | 'attr_reader' | 'attr_writer') symbol (symbol)* ; ;
-range_lit ::= expr ('..' | '...') expr ; ;
-safe_nav ::= expr '&.' method_name ; ;
-ternary ::= expr '?' expr ':' expr ; ;
-interp ::= '#{' expr '}' ; ;
-require_stmt ::= ('require' | 'require_relative') text ; ;
+# --- Coverage completion: remaining language constructs ---
+
+stabby_lambda ::= "->" [ "(" param_list ")" ] block_body ;
+refinement ::= "refine" class_name ( "do" statement* "end" | "{" statement* "}" ) ;
+alias_statement ::= ( "alias" | "alias_method" ) method_name method_name ;
+heredoc ::= "<<" [ "~" ] ( identifier | quoted_identifier ) line_terminator heredoc_body heredoc_terminator ;
+percent_array ::= "%" ( "w" | "W" | "i" | "I" ) open_delim [ string_list ] close_delim ;
+percent_string ::= "%" ( "q" | "Q" | "r" | "s" ) open_delim string_content close_delim ;
+safe_navigation ::= primary "&." method_name call_arguments ;
+defined_check ::= "defined?" ( "(" expression ")" | expression ) ;
