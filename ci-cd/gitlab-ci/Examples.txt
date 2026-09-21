@@ -5,13 +5,19 @@ build:
   artifacts:
     paths: [ "bin/" ]
 
-# --- Extended constructs ---
-deploy:
-  stage: deploy
-  trigger: { project: ops/deploy, branch: main }
-  resource_group: production
-  retry: { max: 2, when: [ runner_system_failure ] }
-  parallel:
-    matrix: [ { node: [18, 20] } ]
-  id_tokens: { VAULT: { aud: https://vault } }
+# --- Coverage completion constructs ---
+test:
+  services:
+    - name: postgres:16
+      alias: db
+  cache:
+    key: deps
+    paths: [node_modules]
+    policy: pull-push
+  interruptible: true
+pages:
+  script: [ build docs ]
+  artifacts: { paths: [public] }
+release_job:
+  release: { tag_name: v1.0 }
 

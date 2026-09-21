@@ -24,6 +24,6 @@ test-job:
 
 Implements issue #47.
 
-## Extended coverage
+## Coverage completion
 
-Adds trigger jobs, retry, resource_group, id_tokens, parallel matrix, secrets (vault), coverage, and inherit control.
+Completes coverage with cache policies, services with aliases, pages jobs, release blocks, interruptible, coverage regex, and typed pipeline configs.

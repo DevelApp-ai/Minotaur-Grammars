@@ -40,14 +40,12 @@ boolean    ::= 'true' | 'false' ;
 text       ::= '"' [^"]* '"' ;
 number     ::= [0-9]+ ;
 
-# --- Extended coverage: additional language constructs ---
-trigger ::= 'trigger' ':' ('include' ':' include_item+ | 'project' ':' text 'branch' ':' text?) ; ;
-retry ::= 'retry' ':' ('max' ':' number 'when' ':' when_list?) ; ;
-when_list ::= '[' when_val (',' when_val)* ']' ; ;
-resource_group ::= 'resource_group' ':' text ; ;
-id_tokens ::= 'id_tokens' ':' pair (','? pair)* ; ;
-parallel_matrix ::= 'parallel' ':' 'matrix' ':' '[' pair (','? pair)* ']' ; ;
-secrets ::= 'secrets' ':' secret_def (','? secret_def)* ; ;
-secret_def ::= identifier ':' 'vault' ':' pair ; ;
-coverage ::= 'coverage' ':' text ; ;
-inherit ::= 'inherit' ':' 'default' ':' boolean? 'variables' ':' identifier_or_list? ; ;
+# --- Coverage completion: remaining language constructs ---
+cache_full ::= 'cache' ':' 'key' ':' (text | pair)? 'paths' ':' path_list 'policy' ':' ('pull' | 'push' | 'pull-push')? 'untracked' ':' boolean? ; ;
+service_item ::= '-' 'name' ':' text 'alias' ':' text? 'variables' ':' pair (','? pair)*? ; ;
+pages_job ::= 'pages' ':' job_body ; ;
+release_block ::= 'release' ':' ('tag_name' ':' text 'description' ':' text? 'assets' ':' pair?) ; ;
+interruptible_kw ::= 'interruptible' ':' boolean ; ;
+coverage_regex ::= 'coverage' ':' text ; ;
+dast_config ::= 'after_script' ':' script_lines ; ;
+secrets_k8s ::= 'secrets' ':' secret_def (','? secret_def)* ; ;
