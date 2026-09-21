@@ -2,3 +2,13 @@ void main() {
   final items = [1, 2, 3];
   print(items.where((x) => x > 1).length);
 }
+
+# --- Extended constructs ---
+mixin Loggable { void log(String m) => print(m); }
+obj..first()..second();
+var list = [...other, if (c) x];
+factory Point.origin() => Point(0, 0);
+int get x => _x;
+typedef Handler = void Function(int);
+await for (var e in stream) { print(e); }
+

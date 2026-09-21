@@ -20,3 +20,7 @@ class Greeter {
 - => functions are single expressions
 
 Implements issue #65.
+
+## Extended coverage
+
+Adds mixins, cascades, spread operators, null-aware access, factory and named constructors, getters/setters, typedefs, streams, and enhanced enums.

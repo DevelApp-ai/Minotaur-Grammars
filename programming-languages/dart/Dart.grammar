@@ -38,3 +38,17 @@ binop   ::= '+' | '-' | '*' | '/' | '==' | '<' | '>' | '&&' | '||' | '??' ;
 identifier ::= [a-zA-Z_][a-zA-Z0-9_]* ;
 text    ::= '"' [^"]* '"' ;
 number  ::= [0-9]+ ('.' [0-9]+)? ;
+
+# --- Extended coverage: additional language constructs ---
+mixin_decl ::= 'mixin' identifier ('on' type_list)? '{' member* '}' ; ;
+cascade ::= expr '..' identifier ('(' args? ')')? ; ;
+spread_op ::= '...' expr ; ;
+null_aware ::= expr '?.' identifier ; ;
+factory_ctor ::= 'factory' identifier ('.' identifier)? '(' params? ')' ('=>' expr ';' | '{' stmt* '}') ; ;
+named_ctor ::= identifier '.' identifier '(' params? ')' ; ;
+getter ::= type? 'get' identifier ('=>' expr ';' | '{' stmt* '}') ; ;
+setter ::= 'set' identifier '(' param ')' '{' stmt* '}' ; ;
+typedef_decl ::= 'typedef' identifier '=' type ';' ; ;
+stream_loop ::= 'await' 'for' '(' 'var'? identifier 'in' expr ')' block ; ;
+enhanced_enum ::= 'enum' identifier ('implements' type_list)? '{' enum_member (',' enum_member)* ';' member* '}' ; ;
+enum_member ::= identifier ('(' args? ')')? ; ;
