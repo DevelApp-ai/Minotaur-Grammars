@@ -1,0 +1,24 @@
+{
+  "Id": "develapp.nsspec",
+  "Name": "NsSpec",
+  "Vendor": "DevelApp",
+  "DisplayName": "Non-Functional Specification (.ns)",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "Grammar for .ns non-functional specification files (SpecTree): measurable performance budgets, security requirements, scalability/availability SLOs and compliance constraints, bound to components or the whole solution and traceable to ADRs.",
+  "License": "MIT",
+  "Tags": [
+    "specification-first",
+    "spectree"
+  ],
+  "MainFile": "NsSpec.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}

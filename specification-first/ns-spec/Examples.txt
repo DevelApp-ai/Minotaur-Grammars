@@ -1,0 +1,19 @@
+# NFR: OrderPlatform
+## AppliesTo: solution, order-service
+
+### Performance
+- PERF-001 (latency): <= 50ms (p99 order detail reads) adr: ADR-0007
+- PERF-002 (rps): >= 200 rps sustained on order creation
+
+### Scalability
+- SCAL-001 (memory): <= 512 MB per service instance
+- AVAIL-001 (uptime): >= 99.9% monthly
+
+### Security
+- SEC-001: encrypt: TLS1.3 adr: ADR-0002
+- SEC-002: authn: oauth2 adr: ADR-0004
+- SEC-003: classification: confidential
+
+### Compliance
+- NIS2: Order data retention per Art.21(2)
+- DORA: Recovery time objectives per Art.8
