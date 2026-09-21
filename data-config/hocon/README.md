@@ -17,6 +17,6 @@ server { port = 8080, host = ${env.HOST} }
 
 Implements issue #29.
 
-## Extended coverage
+## Coverage completion
 
-Adds substitutions (`${path}` and optional `${?path}`), includes, multiline strings, `null`, and duration/size-suffixed values.
+Completes coverage with array concatenation, += append keys, quoted keys, and comma-separated object values.

@@ -8,9 +8,8 @@ database.url = "postgres://db/example"
 replicas = [1, 2, 3]
 include "base.conf"
 
-# --- Extended constructs ---
-db { host = ${DB_HOST} }
-include "base.conf"
-timeout = 30s
-max = 512MB
+# --- Coverage completion constructs ---
+list = [1, 2] [3]
+items += "four"
+"quoted.key" = 1
 

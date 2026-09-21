@@ -26,10 +26,8 @@ TokenSplitter: Space
 <unquoted-string> ::= /[^$"{}\[\]=:,+#`^?!@*&\\]+/
 <char> ::= /[^"\\]/ | "\\" /./
 
-# --- Extended coverage: additional language constructs ---
-<substitution_opt> ::= "${?" <path> "}" ;
-<include_clause> ::= "include" <text> ;
-<multiline_string> ::= "\"\"\"" [^"]* "\"\"\"" ;
-<null_value> ::= "null" ;
-<duration_value> ::= <number> ("ms" | "s" | "m" | "h") ;
-<size_value> ::= <number> ("B" | "kB" | "MB" | "GB") ;
+# --- Coverage completion: remaining language constructs ---
+<array_concat> ::= <array> <array> ;
+<plus_eq> ::= <path> "+=" <value> ;
+<quoted_key> ::= <text> ":" <value> ;
+<object_merge> ::= <object> ("&" | "|") <object> ;
