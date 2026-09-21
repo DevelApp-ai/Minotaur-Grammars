@@ -1,0 +1,6 @@
+let port : Natural = 8080
+let host = "localhost"
+in  { host = host
+  , port = port
+  , tls = False
+  }

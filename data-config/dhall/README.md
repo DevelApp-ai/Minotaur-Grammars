@@ -1,0 +1,18 @@
+# Dhall
+
+Grammar for the Dhall configuration language: let bindings, lambdas, records, unions, lists, imports and type annotations.
+
+## Syntax sketch
+
+```
+let x : Natural = 1 in { a = x, b = True }
+```
+
+## AST validation goals
+
+- Type annotation consistency
+- Duplicate record labels
+- Unbound let-variables
+- Import path resolution
+
+Implements issue #28.

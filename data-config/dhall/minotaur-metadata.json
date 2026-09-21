@@ -1,0 +1,23 @@
+{
+  "Id": "develapp.dhall",
+  "Name": "Dhall",
+  "Vendor": "DevelApp",
+  "DisplayName": "Dhall",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "Grammar for the Dhall configuration language: let bindings, lambdas, records, unions, lists, imports and type annotations.",
+  "License": "MIT",
+  "Tags": [
+    "data-config"
+  ],
+  "MainFile": "Dhall.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}
