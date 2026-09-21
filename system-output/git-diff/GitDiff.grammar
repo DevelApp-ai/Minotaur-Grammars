@@ -18,3 +18,12 @@ no_newline ::= '\\' 'No' 'newline' 'at' 'end' 'of' 'file' ;
 context_text ::= [^\n]* ;
 path     ::= [^\n]+ ;
 number   ::= [0-9]+ ;
+
+# --- Extended coverage: additional language constructs ---
+new_file_mode ::= 'new' 'file' 'mode' number ; ;
+deleted_file_mode ::= 'deleted' 'file' 'mode' number ; ;
+rename_from ::= 'rename' 'from' path ; ;
+rename_to ::= 'rename' 'to' path ; ;
+similarity_index ::= 'similarity' 'index' number '%' ; ;
+binary_notice ::= 'Binary' 'files' path 'and' path 'differ' ; ;
+mode_line ::= ('old' | 'new') 'mode' number ; ;

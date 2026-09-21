@@ -22,3 +22,7 @@ index 1234567..89abcde 100644
 - each file diff has --- and +++ paths
 
 Implements issue #86.
+
+## Extended coverage
+
+Adds new/deleted file modes, rename detection, binary file notices, and old/new mode lines.

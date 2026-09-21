@@ -2,3 +2,13 @@
 -old line
 +new line
  context
+
+# --- Extended constructs ---
+diff --git a/old.txt b/new.txt
+similarity index 95%
+rename from old.txt
+rename to new.txt
+old mode 100644
+new mode 100755
+Binary files /dev/null and b/img.png differ
+
