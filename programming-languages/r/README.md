@@ -20,6 +20,10 @@ df$norm <- df$value / max(df$value)
 
 Implements issue #68.
 
-## Extended coverage
+## Coverage completion
 
-Adds the native pipe `|>`, `%in%`, repeat loops, switch, tryCatch, S3 class names, the apply family, double-bracket indexing, and `:` sequences.
+The grammar now also covers the remaining core language constructs:
+
+- S4 object system (`setClass`, `setMethod`, `setGeneric`)
+- Two-sided model formulas (`y ~ x`)
+- Raw strings `r"(... )"` and additional pipe forms
