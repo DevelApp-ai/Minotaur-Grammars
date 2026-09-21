@@ -21,6 +21,8 @@ Server --> User: 200 OK
 
 Implements issue #92.
 
-## Extended coverage
+## Coverage completion
 
-Adds sequence alt/loop/opt blocks, activations, dividers, notes over, stereotypes, component and use-case elements, and activity/state extras.
+The grammar now also covers the remaining diagram types:
+
+- Activity, deployment, object, and timing diagrams
