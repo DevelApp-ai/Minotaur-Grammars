@@ -1,0 +1,5 @@
+global
+  log stdout format raw local0
+frontend https
+  bind *:443 ssl crt /certs/site.pem
+  default_backend servers
