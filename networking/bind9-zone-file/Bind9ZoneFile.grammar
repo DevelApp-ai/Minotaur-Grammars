@@ -37,15 +37,12 @@ duration    ::= number ( 's' | 'm' | 'h' | 'd' | 'w' )? ;
 text        ::= '"' [^"]* '"' ;
 number      ::= [0-9]+ ;
 
-# --- Extended coverage: additional language constructs ---
-ttl_directive ::= '$TTL' duration ; ;
-origin_directive ::= '$ORIGIN' domain ; ;
-generate_directive ::= '$GENERATE' gen_range template record ; ;
-gen_range ::= number '-' number ('/' number)? ; ;
-template ::= text ; ;
-zone_comment ::= ';' [^\n]* ; ;
-caa_record ::= owner ttl_class 'CAA' number identifier text ; ;
-sshfp_record ::= owner ttl_class 'SSHFP' number number text ; ;
-tlsa_record ::= owner ttl_class 'TLSA' number number number text ; ;
-dname_record ::= owner ttl_class 'DNAME' domain ; ;
-naptr_record ::= owner ttl_class 'NAPTR' number number text text text text domain ; ;
+# --- Coverage completion: remaining language constructs ---
+include_directive ::= '$INCLUDE' text (origin)? ; ;
+dnskey_record ::= owner ttl_class 'DNSKEY' number number number text ; ;
+rrsig_record ::= owner ttl_class 'RRSIG' identifier number number number number number text domain ; ;
+nsec_record ::= owner ttl_class 'NSEC' domain (identifier)* ; ;
+ds_record ::= owner ttl_class 'DS' number number number text ; ;
+hinfo_record ::= owner ttl_class 'HINFO' text text ; ;
+blank_owner ::= ttl_class rrtype_and_data ; ;
+rrtype_and_data ::= identifier [^;]* ';' ; ;

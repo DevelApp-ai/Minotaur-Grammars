@@ -18,6 +18,6 @@ www 3600 IN A 192.0.2.10
 
 Implements issue #55.
 
-## Extended coverage
+## Coverage completion
 
-Adds $TTL/$ORIGIN directives, $GENERATE, comments, and CAA, SSHFP, TLSA, DNAME, NAPTR record types.
+Completes coverage with $INCLUDE directives, DNSSEC record types (DNSKEY, RRSIG, NSEC, DS), HINFO, and owner-name inheritance with blank-owner lines.

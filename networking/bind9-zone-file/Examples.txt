@@ -2,11 +2,10 @@
 @ IN NS ns1.example.com.
 mail IN A 192.0.2.20
 
-# --- Extended constructs ---
-$TTL 1h
-$ORIGIN example.com.
-; comment
-@ CAA 0 issue "letsencrypt.org"
-_dane TLSA 3 1 1 ABCDEF...
-sub DNAME other.example.com.
+# --- Coverage completion constructs ---
+$INCLUDE db.sub.example.com
+@ DNSKEY 256 3 8 AwEAAc...
+sub DS 12345 8 2 ABCDEF...
+host A 192.0.2.1
+   A 192.0.2.2
 
