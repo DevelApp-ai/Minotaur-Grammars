@@ -23,12 +23,10 @@ TokenSplitter: Space
 <json-array> ::= "[" <json-string>* "]"
 <json-value> ::= /[^[\]{}]+/ | <json-array> | /\{[^{}]*\}/
 
-# --- Extended coverage: additional language constructs ---
-<fixed_decl> ::= "fixed" <identifier> "(" <number> ")" ;
-<logical_type> ::= "logicalType" ":" ("date" | "timestamp-millis" | "timestamp-micros" | "time-millis" | "decimal" | "uuid" | "duration") ;
-<aliases_field> ::= "aliases" ":" [ <text> ("," <text>)* ] ;
-<default_field> ::= "default" ":" <json_value> ;
-<doc_field> ::= "doc" ":" <text> ;
-<union_type> ::= [ <type> ("," <type>)+ ] ;
-<array_type> ::= "array" "{" "items" ":" <type> "}" ;
-<map_type> ::= "map" "{" "values" ":" <type> "}" ;
+# --- Coverage completion: remaining language constructs ---
+<namespace_field> ::= "namespace" ":" <text> ;
+<nested_record> ::= "type" ":" ("record" | "error") "name" ":" <identifier> "fields" ":" [ ] ;
+<bytes_decimal> ::= "type" ":" "bytes" "logicalType" ":" "decimal" "precision" ":" <number> "scale" ":" <number> ;
+<error_type> ::= "type" ":" "error" ;
+<protocol_def> ::= "protocol" ":" <identifier> "messages" ":" <json_value> ;
+<json_value> ::= <text> | <number> | <boolean> | [ <json_value>* ] | { (<text> ":" <json_value>)* } ;

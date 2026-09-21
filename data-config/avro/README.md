@@ -18,6 +18,6 @@ Grammar for Avro schema (avsc) definitions: record types with fields, enums, arr
 
 Implements issue #34.
 
-## Extended coverage
+## Coverage completion
 
-Adds `fixed` declarations, logical types, aliases, field defaults, docs, and union types.
+Completes coverage with namespace, nested record definitions, bytes/decimal with precision and scale, error types, protocol definitions, and a full JSON value rule.

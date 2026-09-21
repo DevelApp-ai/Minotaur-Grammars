@@ -6,8 +6,7 @@
   {"name":"createdAt","type":{"type":"long","logicalType":"timestamp-millis"}}
 ]}
 
-# --- Extended constructs ---
-{"type":"fixed","name":"Hash","size":16}
-{"name":"ts","type":{"type":"long","logicalType":"timestamp-millis"}}
-{"type":["null","string"],"default":null}
+# --- Coverage completion constructs ---
+{"type":"record","name":"P","namespace":"com.example","fields":[]}
+{"type":"bytes","logicalType":"decimal","precision":10,"scale":2}
 
