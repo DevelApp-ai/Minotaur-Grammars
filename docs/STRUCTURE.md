@@ -45,6 +45,7 @@ docs/
 | --- | --- |
 | `<Name>.grammar` | The grammar definition consumed by Minotaur / ENFAStepLexer-StepParser |
 | `minotau
+
 r-metadata.json` | Marketplace package metadata; validates against `schemas/minotaur-metadata.schema.json` |
 | `LICENSE` | Per-grammar license text with an `SPDX-License-Identifier:` line |
 | `*_Examples.txt` | Sample inputs exercising the grammar |
@@ -79,3 +80,19 @@ because OPA validates metadata and licensing, not grammar semantics.
 | `test-grammars/step-parser-tests/<TestClass>/` | `DevelApp.StepParser.Tests` (`TestGrammars.Get`) |
 | `test-grammars/benchmarks/ParserBenchmarks/` | `DevelApp.Benchmarks` |
 | `test-grammars/demo/StepParserDemo/` | `ENFAStepLexer.Demo` |
+
+## Specification-first grammars (SpecTree)
+
+specification-first/           # SpecTree formats for Specification-First
+                               # Development (see umbrella issue #93)
+  ai-spec/                     # .ai component specifications (#94)
+  test-spec/                   # .test test specifications (#95)
+  api-spec/                    # .api interface specifications (#96)
+  model-spec/                  # .model data model specifications (#97)
+  srs-spec/                    # .srs requirements with MoSCoW (#98)
+  ns-spec/                     # .ns non-functional specifications (#99)
+  solution-manifest/           # spec-to-.NET-solution binding (#100)
+  adr-spec/                    # .adr architectural design records (#101)
+
+These follow the same per-grammar layout as the other categories, using the
+normalized sidecar names `README.md` and `Examples.txt`.
