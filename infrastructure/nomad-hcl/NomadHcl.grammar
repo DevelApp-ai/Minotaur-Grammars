@@ -1,0 +1,56 @@
+Grammar: NomadHcl
+FormatType: EBNF
+TokenSplitter: Space
+
+# NomadHcl grammar - core subset
+<file> ::= <job-block> => { buildNomadJob($1); }
+<job-block> ::= "job" <string> "{" <job-attr>* "}" => { declareJob($2, $4); }
+<job-attr> ::= <identifier> "=" <value> => { setJobAttr($1, $3); }
+           | <identifier> "{" <inner-attr>* "}" => { setJobBlock($1, $3); }
+           | <group-block> | <constraint-block> | <affinity-block>
+<group-block> ::= "group" <string> "{" <group-attr>* "}" => { declareGroup($2, $4); }
+<group-attr> ::= <identifier> "=" <value>
+           | <task-block> | <network-block> | <service-block> | <update-block> | <restart-block> | <reschedule-block> | <constraint-block> | <affinity-block> | <volume-block> | <spread-block> | <meta-block>
+<task-block> ::= "task" <string> "{" <task-attr>* "}" => { declareTask($2, $4); }
+<task-attr> ::= "driver" "=" <string> => { setDriver($3); }
+            | "config" "{" <inner-attr>* "}" => { setTaskConfig($3); }
+            | "template" "{" <template-attr>* "}" => { addTemplate($3); }
+            | "resources" "{" <resource-attr>* "}" => { setResources($3); }
+            | "env" "{" <env-attr>* "}"
+            | "service" "{" <service-attr>* "}"
+            | "kill_timeout" "=" <string>
+            | <identifier> "=" <value>
+<resource-attr> ::= "cpu" "=" <number> => { setCpu($3); }
+               | "memory" "=" <number> => { setMemory($3); }
+               | "memory_max" "=" <number>
+<network-block> ::= "network" "{" <network-attr>* "}" => { declareNetwork($3); }
+<network-attr> ::= "port" <string> "{" <port-attr>* "}" => { declarePort($2, $4); }
+                | "mode" "=" <string>
+                | "hostname" "=" <string>
+<port-attr> ::= "static" "=" <number> | "to" "=" <number>
+<service-block> ::= "service" "{" <service-attr>* "}" => { declareService($3); }
+<service-attr> ::= "name" "=" <string> | "port" "=" <string> | "provider" "=" <string>
+                | "check" "{" <check-attr>* "}" => { addCheck($3); }
+                | "tags" "=" <list> | "address_mode" "=" <string>
+<check-attr> ::= <identifier> "=" <value>
+<template-attr> ::= "data" "=" <heredoc> => { setTemplateData($3); }
+                | "destination" "=" <string> => { setTemplateDest($3); }
+                | ("change_mode" | "splay" | "perms" | "env") "=" <value>
+<heredoc> ::= "<<" <heredoc-tag> /[\S\s]*?/ <heredoc-tag>
+<heredoc-tag> ::= /[A-Z]+/
+<constraint-block> ::= ("constraint" | "affinity") "{" <constraint-attr>* "}" => { addConstraint($1, $3); }
+<constraint-attr> ::= ("attribute" | "operator" | "value") "=" <value>
+<update-block> ::= "update" "{" <inner-attr>* "}"
+<restart-block> ::= "restart" "{" <inner-attr>* "}"
+<reschedule-block> ::= "reschedule" "{" <inner-attr>* "}"
+<volume-block> ::= "volume" <string> "{" <inner-attr>* "}"
+<spread-block> ::= "spread" <string> "{" <inner-attr>* "}"
+<meta-block> ::= "meta" "{" <inner-attr>* "}"
+<inner-attr> ::= <identifier> "=" <value> => { setInnerAttr($1, $3); }
+             | <identifier> "{" <inner-attr>* "}"
+<value> ::= <string> | <number> | <boolean> | <list>
+<list> ::= "[" <value>? ("," <value>)* "]"
+<boolean> ::= "true" | "false"
+<number> ::= /[0-9]+/
+<string> ::= /"[^"\n]*"/
+<identifier> ::= /[a-zA-Z_][a-zA-Z0-9_]*/
