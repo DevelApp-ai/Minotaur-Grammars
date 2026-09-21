@@ -1,0 +1,17 @@
+Grammar: Gremlin
+FormatType: EBNF
+TokenSplitter: Space
+
+query   ::= traversal ;
+traversal ::= source_step step* ;
+source_step ::= 'g' '.' ('V' | 'E') '(' args? ')' | 'g' '.' identifier '(' args? ')' ;
+step    ::= '.' step_name '(' args? ')' ;
+step_name ::= 'has' | 'hasLabel' | 'hasId' | 'out' | 'in' | 'both' | 'outE' | 'inE' | 'values' | 'label' | 'id' | 'count' | 'limit' | 'range' | 'order' | 'by' | 'where' | 'filter' | 'map' | 'path' | 'dedup' | 'group' | 'project' | 'select' | 'as' | 'fold' | 'unfold' | 'aggregate' | 'match' | 'choose' | 'coalesce' | 'union' | 'repeat' | 'until' | 'times' | 'emit' ;
+args    ::= arg (',' arg)* ;
+arg     ::= literal | identifier | text | traversal | predicate ;
+predicate ::= ('eq'|'neq'|'lt'|'lte'|'gt'|'gte'|'within'|'without') '(' args? ')' ;
+literal ::= number | text | boolean ;
+boolean ::= 'true' | 'false' ;
+identifier ::= [a-zA-Z_][a-zA-Z0-9_]* ;
+text    ::= '"' [^"]* '"' | '\'' [^\']* '\'' ;
+number  ::= [0-9]+ ;
