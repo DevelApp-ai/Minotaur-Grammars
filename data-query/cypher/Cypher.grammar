@@ -34,12 +34,8 @@ identifier ::= [a-zA-Z_][a-zA-Z0-9_]* ;
 text     ::= '"' [^"]* '"' ;
 number   ::= [0-9]+ ;
 
-# --- Extended coverage: additional language constructs ---
-with_clause ::= 'WITH' 'DISTINCT'? return_item (',' return_item)* where_clause? ; ;
-optional_match ::= 'OPTIONAL' 'MATCH' pattern (',' pattern)* where_clause? ; ;
-remove_stmt ::= 'REMOVE' expr (',' expr)* ; ;
-foreach_stmt ::= 'FOREACH' '(' identifier 'IN' expr '|' statement+ ')' ; ;
-shortest_path ::= 'shortestPath' '(' pattern ')' ; ;
-multi_label ::= (':' label)+ ; ;
-null_test ::= expr 'IS' 'NOT'? 'NULL' ; ;
-pattern_comp ::= '[' expr 'WHERE' expr '|' expr ']' ; ;
+# --- Coverage completion: remaining language constructs ---
+
+call_subquery ::= "CALL" "{" ( "WITH" with_list )? subquery_body "}" ;
+load_csv ::= "LOAD" "CSV" [ "WITH" "HEADERS" ] "FROM" string [ "AS" identifier ] [ field_terminator ] ;
+use_clause ::= "USE" graph_name ;

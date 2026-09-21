@@ -19,6 +19,9 @@ ORDER BY posts DESC LIMIT 10;
 
 Implements issue #79.
 
-## Extended coverage
+## Coverage completion
 
-Adds WITH, OPTIONAL MATCH, REMOVE, FOREACH, shortestPath, multi-labels, IS NULL tests, and pattern comprehensions.
+The grammar now also covers the remaining language constructs:
+
+- Subqueries with `CALL { ... }`
+- `LOAD CSV` and `USE` clause
