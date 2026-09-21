@@ -21,3 +21,7 @@ Minotaur grammar for Clojure, covering the core language subset.
 - maps have an even number of forms
 
 Implements issue #72.
+
+## Extended coverage
+
+Adds destructuring, threading macros (`->`, `->>`), letfn, loop/recur, try/catch/finally, defmulti/defmethod, and metadata.

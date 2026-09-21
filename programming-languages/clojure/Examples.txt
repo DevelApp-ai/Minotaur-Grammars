@@ -1,3 +1,11 @@
 (ns my.core)
 (defn add [a b] (+ a b))
 (let [x 1 y 2] (+ x y))
+
+# --- Extended constructs ---
+(let [{:keys [a b]} m] (+ a b))
+(->> xs (map inc) (filter odd?) (reduce +))
+(letfn [(f [x] (* x 2))] (f 21))
+(loop [i 0] (when (< i 3) (recur (inc i))))
+(try (risky) (catch Exception e (fallback)) (finally (cleanup)))
+
