@@ -16,3 +16,7 @@ server { port = 8080, host = ${env.HOST} }
 - Type consistency across merges
 
 Implements issue #29.
+
+## Extended coverage
+
+Adds substitutions (`${path}` and optional `${?path}`), includes, multiline strings, `null`, and duration/size-suffixed values.

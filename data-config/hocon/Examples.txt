@@ -7,3 +7,10 @@ server {
 database.url = "postgres://db/example"
 replicas = [1, 2, 3]
 include "base.conf"
+
+# --- Extended constructs ---
+db { host = ${DB_HOST} }
+include "base.conf"
+timeout = 30s
+max = 512MB
+

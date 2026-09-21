@@ -25,3 +25,11 @@ TokenSplitter: Space
 <triple-string> ::= '"""' /[^"""]*/ '"""'
 <unquoted-string> ::= /[^$"{}\[\]=:,+#`^?!@*&\\]+/
 <char> ::= /[^"\\]/ | "\\" /./
+
+# --- Extended coverage: additional language constructs ---
+<substitution_opt> ::= "${?" <path> "}" ;
+<include_clause> ::= "include" <text> ;
+<multiline_string> ::= "\"\"\"" [^"]* "\"\"\"" ;
+<null_value> ::= "null" ;
+<duration_value> ::= <number> ("ms" | "s" | "m" | "h") ;
+<size_value> ::= <number> ("B" | "kB" | "MB" | "GB") ;
