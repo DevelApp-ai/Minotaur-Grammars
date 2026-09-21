@@ -4,10 +4,9 @@ server {
   location / { root /var/www/html; }
 }
 
-# --- Extended constructs ---
-upstream backend { server 10.0.0.1:8080; }
-map $http_x_api $api_key { default ''; 'abc' 'k1'; }
-location ~* ^/api/ { proxy_pass http://backend; }
-error_page 404 /404.html;
-if ($request_method = POST) { return 405; }
+# --- Coverage completion constructs ---
+geo $country { default ZZ; 10.0.0.0/8 EU; }
+split_clients "${remote_addr}" $variant { 10% .one; * .two; }
+types { application/json json; }
+upstream app { least_conn; server a:8080 weight=3 max_fails=2 fail_timeout=10s; }
 

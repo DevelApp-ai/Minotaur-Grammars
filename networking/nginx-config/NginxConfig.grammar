@@ -14,15 +14,14 @@ identifier ::= [a-zA-Z_][a-zA-Z0-9_.]* ;
 text      ::= '"' [^"]* '"' ;
 number    ::= [0-9]+ ( 'k' | 'm' | 'g' )? ;
 
-# --- Extended coverage: additional language constructs ---
-upstream ::= 'upstream' identifier '{' directive* '}' ; ;
-location_mod ::= ('=' | '~' | '~*' | '^~') arg ; ;
-if_directive ::= 'if' '(' condition ')' '{' directive* '}' ; ;
-condition ::= var ('=' | '!=' | '~' | '~*') arg | '-f' arg ; ;
-var ::= '$' identifier ; ;
-include_file ::= 'include' arg ';' ; ;
-error_page ::= 'error_page' number+ arg ';' ; ;
-return_dir ::= 'return' number? arg ';' ; ;
-rewrite_dir ::= 'rewrite' regex arg ('permanent' | 'last' | 'break' | 'redirect')? ';' ; ;
-map_block ::= 'map' var var '{' pair (pair)* '}' ; ;
-limit_except ::= 'limit_except' args '{' directive* '}' ; ;
+# --- Coverage completion: remaining language constructs ---
+geo_block ::= 'geo' var? '{' (pair | ip pair)* '}' ; ;
+split_clients ::= 'split_clients' text var '{' number '%' arg ';' (number '%' arg ';')* '}' ; ;
+types_block ::= 'types' '{' pair (pair)* '}' ; ;
+upstream_method ::= ('least_conn' | 'least_time' | 'hash' | 'ip_hash' | 'random') ';' ; ;
+server_params ::= 'server' arg ('weight' '=' number)? ('max_fails' '=' number)? ('fail_timeout' '=' text)? ('backup')? ('down')? ';' ; ;
+health_check ::= 'health_check' ('port' '=' number)? 'interval' '=' text 'fails' '=' number 'passes' '=' number ';' ; ;
+sticky ::= 'sticky' ('cookie' identifier | 'route' identifier | 'learn') ';' ; ;
+access_log_fmt ::= 'log_format' identifier text ';' ; ;
+gzip_block ::= 'gzip' ('on' | 'off') ';' 'gzip_types' args ';' ; ;
+proxy_headers ::= 'proxy_set_header' arg arg ';' ; ;

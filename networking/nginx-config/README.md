@@ -23,6 +23,6 @@ http {
 
 Implements issue #51.
 
-## Extended coverage
+## Coverage completion
 
-Adds upstream blocks, location modifiers, if conditions, variables, error_page/return/rewrite, map blocks, and limit_except.
+Completes coverage with geo and split_clients blocks, types block, upstream load-balancing methods, health checks, and log_format variables.
