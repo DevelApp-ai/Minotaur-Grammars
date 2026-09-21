@@ -4,3 +4,14 @@ build:
   script: [ "dotnet build" ]
   artifacts:
     paths: [ "bin/" ]
+
+# --- Extended constructs ---
+deploy:
+  stage: deploy
+  trigger: { project: ops/deploy, branch: main }
+  resource_group: production
+  retry: { max: 2, when: [ runner_system_failure ] }
+  parallel:
+    matrix: [ { node: [18, 20] } ]
+  id_tokens: { VAULT: { aud: https://vault } }
+

@@ -39,3 +39,15 @@ scalar     ::= text | number | boolean ;
 boolean    ::= 'true' | 'false' ;
 text       ::= '"' [^"]* '"' ;
 number     ::= [0-9]+ ;
+
+# --- Extended coverage: additional language constructs ---
+trigger ::= 'trigger' ':' ('include' ':' include_item+ | 'project' ':' text 'branch' ':' text?) ; ;
+retry ::= 'retry' ':' ('max' ':' number 'when' ':' when_list?) ; ;
+when_list ::= '[' when_val (',' when_val)* ']' ; ;
+resource_group ::= 'resource_group' ':' text ; ;
+id_tokens ::= 'id_tokens' ':' pair (','? pair)* ; ;
+parallel_matrix ::= 'parallel' ':' 'matrix' ':' '[' pair (','? pair)* ']' ; ;
+secrets ::= 'secrets' ':' secret_def (','? secret_def)* ; ;
+secret_def ::= identifier ':' 'vault' ':' pair ; ;
+coverage ::= 'coverage' ':' text ; ;
+inherit ::= 'inherit' ':' 'default' ':' boolean? 'variables' ':' identifier_or_list? ; ;

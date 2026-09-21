@@ -23,3 +23,7 @@ test-job:
 - rules use valid when values
 
 Implements issue #47.
+
+## Extended coverage
+
+Adds trigger jobs, retry, resource_group, id_tokens, parallel matrix, secrets (vault), coverage, and inherit control.
