@@ -1,0 +1,27 @@
+namespace com.develapp.orders;
+
+enum Status : byte { CREATED = 0, PAID = 1, SHIPPED = 2 }
+
+union Payment { Card, Cash }
+
+table Order {
+  id: ulong (key);
+  status: Status = CREATED;
+  items: [Item];
+  payment: Payment;
+}
+
+struct Item {
+  product_id: ulong;
+  quantity: int;
+}
+
+rpc_service OrderService {
+  create(CreateRequest): Order;
+}
+
+# --- Coverage completion constructs ---
+enum Flags : ushort (bit_flags) { None = 0, Read = 1 }
+field:string (deprecated);
+data:[ubyte] (nested_flatbuffer: "Point");
+

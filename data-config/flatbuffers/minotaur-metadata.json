@@ -1,0 +1,23 @@
+{
+  "Id": "develapp.flatbuffers",
+  "Name": "FlatBuffers",
+  "Vendor": "DevelApp",
+  "DisplayName": "FlatBuffers",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "Grammar for FlatBuffers schema definition files: namespaces, tables, structs, enums, unions, attributes and RPC services.",
+  "License": "MIT",
+  "Tags": [
+    "data-config"
+  ],
+  "MainFile": "FlatBuffers.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}
