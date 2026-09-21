@@ -1,0 +1,38 @@
+Grammar: Swift
+FormatType: EBNF
+TokenSplitter: Space
+
+program  ::= import_stmt* decl* ;
+import_stmt ::= 'import' identifier ;
+decl     ::= func_decl | class_decl | struct_decl | enum_decl | var_decl | let_decl ;
+func_decl ::= 'func' identifier '(' params? ')' ('->' type)? '{' stmt* '}' ;
+params   ::= param (',' param)* ;
+param    ::= (identifier ':')? identifier ':' type ('=' expr)? ;
+class_decl ::= 'class' identifier (':' type_list)? '{' decl* '}' ;
+struct_decl ::= 'struct' identifier (':' type_list)? '{' decl* '}' ;
+enum_decl  ::= 'enum' identifier (':' type)? '{' enum_case* '}' ;
+enum_case  ::= 'case' identifier ('(' types? ')')? ;
+types    ::= type (',' type)* ;
+var_decl ::= 'var' identifier ':' type ('=' expr)? ;
+let_decl ::= 'let' identifier (':' type)? '=' expr ;
+stmt     ::= expr_stmt | return_stmt | if_stmt | guard_stmt | for_stmt | while_stmt | decl ;
+expr_stmt ::= expr ;
+return_stmt ::= 'return' expr? ;
+if_stmt  ::= 'if' expr '{' stmt* '}' ('else' 'if' expr '{' stmt* '}')* ('else' '{' stmt* '}')? ;
+guard_stmt ::= 'guard' expr 'else' '{' stmt* '}' ;
+for_stmt ::= 'for' identifier 'in' expr '{' stmt* '}' ;
+while_stmt ::= 'while' expr '{' stmt* '}' ;
+expr     ::= literal | identifier | call | member | expr binop expr | '(' expr ')' | closure ;
+call     ::= expr '(' args? ')' ;
+member   ::= expr '.' identifier ;
+args     ::= arg (',' arg)* ;
+arg      ::= (identifier ':')? expr ;
+closure  ::= '{' (params)? '->' type? 'in' stmt* '}' ;
+type     ::= identifier | '[' type ']' | type '?' | type '!' ;
+type_list ::= type (',' type)* ;
+literal  ::= number | text | boolean | 'nil' ;
+boolean  ::= 'true' | 'false' ;
+binop    ::= '+' | '-' | '*' | '/' | '==' | '<' | '>' | '&&' | '||' | '?.' | '??' ;
+identifier ::= [a-zA-Z_][a-zA-Z0-9_]* ;
+text     ::= '"' [^"]* '"' ;
+number   ::= [0-9]+ ('.' [0-9]+)? ;
