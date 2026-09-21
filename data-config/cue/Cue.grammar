@@ -37,11 +37,11 @@ TokenSplitter: Space
 <identifier> ::= /[a-zA-Z$_][a-zA-
 Z0-9$_]*/ | /[a-zA-Z$_][a-zA-Z0-9$_-]*/
 
-# --- Extended coverage: additional language constructs ---
-<definition_field> ::= "#" <identifier> ":" <struct> ;
-<hidden_field> ::= "_" <identifier> ":" <expr> ;
-<optional_field> ::= <identifier> "?" ":" <expr> ;
-<open_struct> ::= <struct> "..." ;
-<let_clause> ::= "let" <identifier> "=" <expr> ;
-<import_clause> ::= "import" <text> ;
-<string_interp> ::= "\\(" <expr> ")" ;
+# --- Coverage completion: remaining language constructs ---
+<unification> ::= <expr> "&" <expr> ;
+<disj_default> ::= <expr> "|" "*" <expr> ;
+<type_alias> ::= <identifier> "=" <expr> ;
+<embedded_scalar> ::= (string | number | int | float | bool | bytes) ;
+<if_clause> ::= "if" <expr> "{" <field>* "}" ;
+<ellipsis_top> ::= "..." ;
+<bounds_expr> ::= (">" | "<" | ">=" | "<=" | "!=" | "=") <number> ;

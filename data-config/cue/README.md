@@ -18,6 +18,6 @@ Grammar for the CUE configuration language: packages, imports, fields, definitio
 
 Implements issue #37.
 
-## Extended coverage
+## Coverage completion
 
-Adds definitions (`#Name`), hidden (`_field`) and optional (`field?`) fields, comprehensions, open structs (`...`), `let` clauses, imports, and string interpolation.
+Completes coverage with unification and disjunction operators, default disjuncts, type aliases, embedded scalars, if clauses in comprehensions, top-level ellipsis, and bound expressions.

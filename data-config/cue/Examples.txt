@@ -20,11 +20,9 @@ enabled: true
 
 envs: [ for k, v in {prod: 3, dev: 1} {name: k, replicas: v} ]
 
-# --- Extended constructs ---
-import "strings"
-#Person: { name: string, age?: int }
-_hidden: 1
-open: { ... }
-items: [ for x in [1, 2] { x * x } ]
-let msg = "hi \(name)"
+# --- Coverage completion constructs ---
+#Config: { host: string, port: int & >0 }
+#Kind: "a" | "b"
+X = 42
+items: [ for k, v in m if v > 0 { name: k } ]
 
