@@ -16,3 +16,7 @@ Grammar for extensible data notation (EDN): lists, vectors, maps, sets, keywords
 - Tagged-element handler resolution
 
 Implements issue #32.
+
+## Extended coverage
+
+Adds tagged literals (`#inst`, `#uuid`, custom tags), `#_` discard, and namespaced maps.
