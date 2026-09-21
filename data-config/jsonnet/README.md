@@ -17,3 +17,7 @@ local x = 1; { a: x, b: [i for i in x] }
 - self/$ usage outside objects
 
 Implements issue #36.
+
+## Extended coverage
+
+Adds object composition (`+`), `self`/`$` references, local functions in objects, array/object comprehensions, asserts, `error`, text blocks, and named function arguments.
