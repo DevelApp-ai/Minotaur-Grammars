@@ -1,0 +1,33 @@
+---
+id: ADR-0004
+title: Use OAuth2 client-credentials for service-to-service auth
+status: accepted
+date: 2026-02-10
+author: platform-team
+supersedes: [ADR-0002]
+related_requirements: [M-003, S-001]
+---
+# ADR-0004 Use OAuth2 client-credentials for service-to-service auth
+
+## Status
+accepted
+
+## Context
+Services in the OrderPlatform call each other over the internal network.
+The previous bearer-token scheme (ADR-0002) lacks expiry and rotation.
+
+## Decision
+Adopt OAuth2 client-credentials flow with short-lived tokens issued by the platform identity provider.
+
+## Consequences
+- **Positive:** Automatic token rotation and revocation; auditable issuance.
+- **Negative:** Services require a token middleware and identity provider dependency.
+- **Neutral:** Token caching becomes a shared library concern.
+
+## Alternatives
+- Static API keys: simple but no revocation story.
+- mTLS everywhere: strongest model but heavy certificate operations burden.
+
+## Compliance
+- component: OrderService must conform
+- component: InventoryService must conform
