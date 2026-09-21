@@ -20,11 +20,11 @@ comment  ::= '<!--' [^-->]* '-->' ;
 text     ::= [^<]+ ;
 identifier ::= [a-zA-Z][a-zA-Z0-9-]* ;
 
-# --- Extended coverage: additional language constructs ---
-entity ::= '&' identifier ';' | '&#' number ';' ; ;
-script_element ::= '<' 'script' attrs? '>' [^<]* '<' '/script' '>' ; ;
-style_element ::= '<' 'style' attrs? '>' [^<]* '<' '/style' '>' ; ;
-template_element ::= '<' 'template' attrs? '>' content '<' '/template' '>' ; ;
-boolean_attr ::= attr_name ; ;
-data_attr ::= 'data-' identifier ('=' attr_value)? ; ;
-aria_attr ::= 'aria-' identifier ('=' attr_value)? ; ;
+# --- Coverage completion: remaining language constructs ---
+
+custom_element ::= "<" custom_element_name attribute* ( "/>" | ">" content* "</" custom_element_name ">" ) ;
+custom_element_name ::= identifier "-" identifier ( "-" identifier )* ;
+svg_element ::= "<" svg_tag_name attribute* ( "/>" | ">" content* "</" svg_tag_name ">" ) ;
+mathml_element ::= "<" mathml_tag_name attribute* ( "/>" | ">" content* "</" mathml_tag_name ">" ) ;
+template_element ::= "<template" attribute* ">" content* "</template>" ;
+hex_entity ::= "&#x" hex_digit+ ";" ;

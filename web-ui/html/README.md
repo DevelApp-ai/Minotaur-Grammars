@@ -22,6 +22,10 @@ Minotaur grammar for HTML, covering the core language subset.
 
 Implements issue #73.
 
-## Extended coverage
+## Coverage completion
 
-Adds character entities, script/style/template elements with raw content, data-* and aria-* attributes, and boolean attributes.
+The grammar now also covers the remaining language constructs:
+
+- Custom elements (with dashes)
+- Inline SVG and MathML foreign content
+- Hexadecimal character entities
