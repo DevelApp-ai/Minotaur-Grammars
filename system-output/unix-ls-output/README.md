@@ -16,3 +16,7 @@ drwxr-xr-x  2 user  staff    64 Sep 21  2025 docs
 - link count and size are numeric
 
 Implements issue #82.
+
+## Extended coverage
+
+Adds the `total` header line, extended-attribute/ACL/selinux flags, device major/minor numbers, and inode-prefixed entries.
