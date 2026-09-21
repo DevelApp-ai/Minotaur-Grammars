@@ -22,6 +22,10 @@ end
 
 Implements issue #71.
 
-## Extended coverage
+## Coverage completion
 
-Adds alias/use/import, module attributes, structs, with statements, cond, try/rescue, for comprehensions, and protocols with implementations.
+The grammar now also covers the remaining core language constructs:
+
+- Multi-clause anonymous functions (`fn x -> ... end`)
+- Bitstrings and binary comprehensions
+- Sigils (`~s`, `~w`, `~r`, `~D`) and access syntax (`a[:k]`)
