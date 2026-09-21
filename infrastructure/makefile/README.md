@@ -19,3 +19,7 @@ target: prereq
 - Pattern rule stem consistency
 
 Implements issue #45.
+
+## Extended coverage
+
+Adds pattern rules, automatic variables, conditionals (`ifeq`/`ifneq`/`ifdef`), `include`, `export`, `.PHONY`, built-in functions, double-colon rules, `define`/`endef` macros, and `vpath`.

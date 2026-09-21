@@ -33,7 +33,8 @@ TokenSplitter: Space
 <single-char> ::= /@<^*?%+-/
 <conditional> ::= ("ifeq" | "ifneq") "(" <cond-arg> "," <cond-arg> ")" <make-line>* <else-part>? "endif" => { addConditional($1, $4, $6, $7, $9); }
               | ("ifdef" | "ifndef") <var-name> <make-line>* <else-part>? "endif"
-<cond-arg> ::= /"[^"]*"/ | /'[^']*'/ | <var-name> | <variable-ref>
+<cond-arg> ::= /"[^"]*"/ | /'[^']*'/ | <var-
+name> | <variable-ref>
 <else-part> ::= "else" <make-line>* | "else" ("ifeq" | "ifneq") "(" <cond-arg> "," <cond-arg> ")" <make-line>*
 <include-directive> ::= ("include" | "-include" | "sinclude") <file-pattern>+ => { addInclude($2, $3); }
 <file-pattern> ::= /[a-zA-Z0-9_.*\/-]+/
@@ -51,3 +52,15 @@ TokenSplitter: Space
 <comment> ::= "#" /[\S\s]*/ => { skip(); }
 <empty> ::= /[ \t]*/
 <tab> ::= /\t/
+
+# --- Extended coverage: additional language constructs ---
+<pattern_rule> ::= <targets> ":" <prereqs> "\n\t" <recipe> ;
+<automatic_var> ::= ("$@" | "$<" | "$^" | "$?" | "$*") ;
+<ifeq_dir> ::= ("ifeq" | "ifneq" | "ifdef" | "ifndef") "(" <value> "," <value> ")" <lines> "endif" ;
+<include_dir> ::= "include" <files> ;
+<export_var> ::= "export" <var> ("=" <value>)? ;
+<phony_target> ::= ".PHONY" ":" <targets> ;
+<make_func> ::= "$(" ("shell" | "wildcard" | "patsubst" | "foreach" | "filter" | "subst") " " <args> ")" ;
+<double_colon> ::= <targets> "::" <prereqs> "\n\t" <recipe>? ;
+<define_macro> ::= "define" <name> "\n" <body> "\n" "endef" ;
+<vpath_dir> ::= "vpath" <pattern> <dirs>? ;

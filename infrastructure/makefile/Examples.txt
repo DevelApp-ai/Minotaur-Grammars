@@ -19,3 +19,14 @@ clean:
 	@rm -f $(OBJS) $(TARGET)
 
 include config.mk
+
+# --- Extended constructs ---
+.PHONY: all
+all: $(SRCS:.c=.o)
+	$(CC) $^ -o $@
+ifeq ($(OS),Windows_NT)
+EXT = .exe
+endif
+$(OBJDIR)/%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
