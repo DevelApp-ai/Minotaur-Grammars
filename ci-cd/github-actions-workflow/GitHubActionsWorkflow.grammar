@@ -1,0 +1,41 @@
+Grammar: GitHubActionsWorkflow
+FormatType: EBNF
+TokenSplitter: Space
+
+workflow        ::= name? on triggers jobs env? defaults? ;
+name            ::= 'name' ':' text ;
+on              ::= 'on' ':' triggers ;
+triggers        ::= push | pull_request | schedule | workflow_dispatch | event_list ;
+push            ::= 'push' ':' branches? paths? tags? ;
+pull_request    ::= 'pull_request' ':' branches? paths? ;
+schedule        ::= 'schedule' ':' cron_list ;
+cron_list       ::= '[' cron (',' cron)* ']' ;
+cron            ::= 'cron' ':' text ;
+workflow_dispatch ::= 'workflow_dispatch' ':' inputs? ;
+inputs          ::= 'inputs' ':' input_def (','? input_def)* ;
+input_def       ::= identifier ':' input_body ;
+input_body      ::= 'description' ':' text 'required' ':' boolean 'default' ':' scalar? ;
+event_list      ::= identifier (',' identifier)* ;
+jobs            ::= 'jobs' ':' job (job)* ;
+job             ::= job_id ':' job_body ;
+job_id          ::= identifier ;
+job_body        ::= needs? runs_on? steps env? if_expr? strategy? ;
+needs           ::= 'needs' ':' identifier_or_list ;
+runs_on         ::= 'runs-on' ':' runner ;
+runner          ::= text ;
+steps           ::= 'steps' ':' step+ ;
+step            ::= '-' step_body ;
+step_body       ::= (uses_step | run_step) ;
+uses_step       ::= 'uses' ':' text 'with' ':' with_map? 'if' ':' if_expr? ;
+run_step        ::= 'run' ':' text 'shell' ':' text? ;
+with_map        ::= pair (','? pair)* ;
+strategy        ::= 'strategy' ':' 'matrix' ':' matrix_map ;
+matrix_map      ::= pair (','? pair)* ;
+if_expr         ::= text ;
+env             ::= 'env' ':' with_map ;
+defaults        ::= 'defaults' ':' 'run' ':' with_map ;
+identifier      ::= [a-zA-Z_][a-zA-Z0-9_-]* ;
+scalar          ::= text | number | boolean ;
+boolean         ::= 'true' | 'false' ;
+text            ::= '"' [^"]* '"' ;
+number          ::= [0-9]+ ;
