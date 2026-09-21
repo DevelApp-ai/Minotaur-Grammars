@@ -1,0 +1,8 @@
+404: Not Found
+
+# --- Coverage completion: remaining language constructs ---
+
+combined_hunk ::= "@@@" [ combined_range ] "@@@" ;
+combined_line ::= ( "++" | "+" | " " | "-" ) line_content ;
+stat_line ::= file_name "|" change_count change_bar ;
+stat_summary ::= files_changed_line ;

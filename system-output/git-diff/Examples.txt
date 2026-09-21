@@ -1,0 +1,8 @@
+404: Not Found
+
+# --- Coverage completion constructs ---
+
+++<<<<<<< HEAD
+++------- our
+ file1.txt | 12 ++++++------
+ 2 files changed, 18 insertions(+), 7 deletions(-)
