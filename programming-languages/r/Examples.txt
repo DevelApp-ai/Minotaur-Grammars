@@ -2,3 +2,13 @@ library(dplyr)
 data <- c(1, 2, 3)
 mean(data)
 if (mean(data) > 1) { print("big") }
+
+# --- Extended constructs ---
+data |> head(10)
+if ('a' %in% names(x)) cat('yes')
+repeat { if (done()) break }
+sel <- switch(type, a=1, b=2, 0)
+r <- tryCatch(f(x), error=function(e) NULL)
+out <- sapply(1:5, sqrt)
+df[[1]]
+

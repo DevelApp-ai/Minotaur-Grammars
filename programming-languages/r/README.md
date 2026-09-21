@@ -19,3 +19,7 @@ df$norm <- df$value / max(df$value)
 - pipes/formulas preserved as AST nodes
 
 Implements issue #68.
+
+## Extended coverage
+
+Adds the native pipe `|>`, `%in%`, repeat loops, switch, tryCatch, S3 class names, the apply family, double-bracket indexing, and `:` sequences.
