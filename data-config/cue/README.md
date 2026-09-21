@@ -17,3 +17,7 @@ Grammar for the CUE configuration language: packages, imports, fields, definitio
 - Comprehension variable scoping
 
 Implements issue #37.
+
+## Extended coverage
+
+Adds definitions (`#Name`), hidden (`_field`) and optional (`field?`) fields, comprehensions, open structs (`...`), `let` clauses, imports, and string interpolation.

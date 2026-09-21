@@ -34,4 +34,14 @@ TokenSplitter: Space
 <string> ::= '"' <str-char>* '"' | "'" /[^']*/ "'" | /#[^"]+#/ | /"""[\s\S]*?"""/
 <str-char> ::= /[^"\\]/ | "\\" /./
 <qualified-ident> ::= <identifier> ("." <identifier>)*
-<identifier> ::= /[a-zA-Z$_][a-zA-Z0-9$_]*/ | /[a-zA-Z$_][a-zA-Z0-9$_-]*/
+<identifier> ::= /[a-zA-Z$_][a-zA-
+Z0-9$_]*/ | /[a-zA-Z$_][a-zA-Z0-9$_-]*/
+
+# --- Extended coverage: additional language constructs ---
+<definition_field> ::= "#" <identifier> ":" <struct> ;
+<hidden_field> ::= "_" <identifier> ":" <expr> ;
+<optional_field> ::= <identifier> "?" ":" <expr> ;
+<open_struct> ::= <struct> "..." ;
+<let_clause> ::= "let" <identifier> "=" <expr> ;
+<import_clause> ::= "import" <text> ;
+<string_interp> ::= "\\(" <expr> ")" ;
