@@ -1,0 +1,24 @@
+{
+  "Id": "develapp.adrspec",
+  "Name": "AdrSpec",
+  "Vendor": "DevelApp",
+  "DisplayName": "Architectural Design Record (.adr)",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "Grammar for .adr architectural design record files (SpecTree): YAML front-matter with status lifecycle and requirement links, Context/Decision/Consequences/Alternatives sections, and component compliance declarations.",
+  "License": "MIT",
+  "Tags": [
+    "specification-first",
+    "spectree"
+  ],
+  "MainFile": "AdrSpec.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}
