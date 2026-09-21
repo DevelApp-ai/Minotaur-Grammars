@@ -21,3 +21,7 @@ ORDER BY order_count DESC;
 - GROUP BY columns appear in select or aggregates
 
 Implements issue #77.
+
+## Extended coverage
+
+Adds CTEs (WITH), subqueries, UNION, CASE expressions, window functions, views, transactions, EXISTS/IN subqueries, and TRUNCATE.

@@ -31,7 +31,8 @@ assignment_list ::= identifier '=' expr (',' identifier '=' expr)* ;
 delete_stmt ::= 'DELETE' 'FROM' identifier (where_clause)? ';' ;
 create_table ::= 'CREATE' 'TABLE' identifier '(' column_def (',' column_def)* (',' table_constraint)* ')' ';' ;
 column_def ::= identifier data_type ('PRIMARY' 'KEY')? ('NOT' 'NULL')? ('DEFAULT' expr)? ;
-data_type ::= 'INTEGER' | 'INT' | 'BIGINT' | 'TEXT' | 'VARCHAR' '(' number ')' | 'BOOLEAN' | 'DATE' | 'TIMESTAMP' | 'DECIMAL' '(' number ',' number ')' | 'UUID' ;
+data_type ::=
+ 'INTEGER' | 'INT' | 'BIGINT' | 'TEXT' | 'VARCHAR' '(' number ')' | 'BOOLEAN' | 'DATE' | 'TIMESTAMP' | 'DECIMAL' '(' number ',' number ')' | 'UUID' ;
 table_constraint ::= ('PRIMARY' 'KEY' '(' column_list ')' | 'FOREIGN' 'KEY' '(' column_list ')' 'REFERENCES' identifier '(' column_list ')' | 'UNIQUE' '(' column_list ')') ;
 create_index ::= 'CREATE' ('UNIQUE')? 'INDEX' identifier 'ON' identifier '(' column_list ')' ';' ;
 alter_table ::= 'ALTER' 'TABLE' identifier ('ADD' 'COLUMN' column_def | 'DROP' 'COLUMN' identifier | 'RENAME' 'TO' identifier) ';' ;
@@ -39,3 +40,16 @@ drop_stmt ::= 'DROP' ('TABLE'|'INDEX')' identifier ';' ;
 identifier ::= [a-zA-Z_][a-zA-Z0-9_]* ;
 text     ::= '\'' [^\']* '\'' ;
 number   ::= [0-9]+ ('.' [0-9]+)? ;
+
+# --- Extended coverage: additional language constructs ---
+with_cte ::= 'WITH' cte (',' cte)* statement ; ;
+cte ::= identifier ('(' column_list ')')? 'AS' '(' select_stmt ')' ; ;
+subquery ::= '(' select_stmt ')' ; ;
+union_stmt ::= select_stmt ('UNION' 'ALL'? select_stmt)+ ';' ; ;
+case_expr ::= 'CASE' expr? ('WHEN' expr 'THEN' expr)+ ('ELSE' expr)? 'END' ; ;
+window_fn ::= func_name '(' ('*' | column | expr) ')' 'OVER' '(' ('PARTITION' 'BY' column_list)? ('ORDER' 'BY' order_by)? ')' ; ;
+view_def ::= 'CREATE' 'VIEW' identifier 'AS' select_stmt ';' ; ;
+transaction_stmt ::= ('BEGIN' | 'COMMIT' | 'ROLLBACK') ';' ; ;
+exists_pred ::= ('NOT')? 'EXISTS' subquery ; ;
+in_subquery ::= expr 'IN' subquery ; ;
+truncate_stmt ::= 'TRUNCATE' 'TABLE' identifier ';' ; ;
