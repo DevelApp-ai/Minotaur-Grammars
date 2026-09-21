@@ -1,0 +1,23 @@
+{
+  "Id": "develapp.jsonnet",
+  "Name": "Jsonnet",
+  "Vendor": "DevelApp",
+  "DisplayName": "Jsonnet",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "Grammar for the Jsonnet configuration language: object/array comprehensions, local bindings, functions, imports and string interpolation.",
+  "License": "MIT",
+  "Tags": [
+    "data-config"
+  ],
+  "MainFile": "Jsonnet.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}

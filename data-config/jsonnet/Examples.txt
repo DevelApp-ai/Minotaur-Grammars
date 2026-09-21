@@ -1,0 +1,10 @@
+local env = "prod";
+{
+  name: "order-service",
+  replicas: if env == "prod" then 3 else 1,
+  labels+: { tier: "backend" },
+  ports: [8080, 9090],
+  env: [ { name: k, value: v } for k, v in { log: "debug", region: "eu" } ],
+  config: import "config.jsonnet",
+  getPort(i):: self.ports[i],
+}
