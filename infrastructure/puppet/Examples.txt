@@ -1,10 +1,10 @@
 404: Not Found
 
-# --- Extended constructs ---
-class apache ( $port = 80 ) {
-  package { 'httpd': ensure => installed }
-  @service { 'httpd': ensure => running }
+# --- Coverage completion constructs ---
+class nginx::ssl inherits nginx {
+  File['nginx.conf'] { mode => '0600' }
 }
-service { 'httpd': require => Package['httpd'] }
-case $os { debian: { include apt } }
+unless $disabled { include nginx }
+$ports.each |$p| { port { "p${p}": ensure => present } }
+Package['nginx'] ~> Service['nginx']
 

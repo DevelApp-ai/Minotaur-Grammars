@@ -1,5 +1,5 @@
 404: Not Found
 
-## Extended coverage
+## Coverage completion
 
-Adds classes with parameters, defined types, virtual/exported resources, collectors, relationship operators and metaparameters, case statements, selectors, and node definitions.
+Completes coverage with functions (statement + expression), class inheritance with + overriding, unless statements, each loops, chaining arrows with notification (~>), and site profiles.

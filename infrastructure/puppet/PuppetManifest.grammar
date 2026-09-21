@@ -1,13 +1,11 @@
 404: Not Found
 
-# --- Extended coverage: additional language constructs ---
-class_decl ::= "class" identifier "(" params? ")" "{" stmt* "}" ;
-define_decl ::= "define" identifier "(" params? ")" "{" stmt* "}" ;
-virtual_resource ::= "@" resource ;
-exported_resource ::= "@@" resource ;
-collector ::= type "<|" expr? "|>" ;
-relationship_op ::= resource "->" resource ;
-metaparam ::= ("require" | "before" | "notify" | "subscribe") "=>" ref ;
-case_stmt ::= "case" expr "{" case_opt* "}" ;
-selector ::= expr "?" "{" case_opt* "}" ;
-node_def ::= "node" text "{" stmt* "}" ;
+# --- Coverage completion: remaining language constructs ---
+function_def ::= "function" qualified "(" params? ")" "{" stmt* "}" ;
+class_inherit ::= "class" qualified "inherits" qualified "{" stmt* "}" ;
+resource_override ::= type "[" text "]" "{" pair* "}" ;
+unless_stmt ::= "unless" expr "{" stmt* "}" ;
+each_stmt ::= expr "." "each" "|" params "|" "{" stmt* "}" ;
+chained_arrow ::= resource ("~>" | "->") resource ;
+site_def ::= "site" "{" stmt* "}" ;
+apply_def ::= "apply" expr "{" stmt* "}" ;
