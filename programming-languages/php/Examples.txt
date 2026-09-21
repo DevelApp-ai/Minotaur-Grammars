@@ -4,12 +4,12 @@ function greet($name) {
 }
 greet('World');
 
-# --- Extended constructs ---
-<?php
-namespace App;
-interface Loggable { public function log(string $m): void; }
-trait Id { public function id(): int { return $this->id; } }
-try { risky(); } catch (Exception $e) { echo $e; } finally { done(); }
-$result = match($x) { 1 => 'one', default => 'other' };
-$fn = fn($a) => $a * 2;
+# --- Coverage completion constructs ---
 
+enum Suit: string { case Hearts = 'h'; case Spades = 's'; }
+readonly class Point { public function __construct(public int $x, public int $y) {} }
+#[Route('/api', methods: ['GET'])]
+$city = $user?->address?->city;
+$config['debug'] ??= false;
+$fn = strlen(...);
+$result = match($x) { 0 => 'zero', 1, 2 => 'small', default => 'many' };

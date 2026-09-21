@@ -34,17 +34,14 @@ identifier ::= [a-zA-Z_][a-zA-Z0-9_]* ;
 text     ::= '"' [^"]* '"' | '\'' [^\']* '\'' ;
 number   ::= [0-9]+ ;
 
-# --- Extended coverage: additional language constructs ---
-namespace_stmt ::= 'namespace' identifier (';' | '{' stmt* '}') ; ;
-interface_def ::= 'interface' identifier ('extends' identifier (',' identifier)*)? '{' method* '}' ; ;
-trait_def ::= 'trait' identifier '{' member* '}' ; ;
-use_trait ::= 'use' identifier (',' identifier)* ('{' '}')? ';' ; ;
-try_stmt ::= 'try' block ('catch' '(' type_hint variable ')' block)* ('finally' block)? ; ;
-switch_stmt ::= 'switch' '(' expr ')' '{' case_clause* '}' ; ;
-case_clause ::= ('case' expr | 'default') ':' stmt* ; ;
-match_stmt ::= 'match' '(' expr ')' '{' match_arm (',' match_arm)* '}' ; ;
-match_arm ::= expr (',' expr)* '=>' expr ; ;
-arrow_fn ::= 'fn' '(' params? ')' (':' type_hint)? '=>' expr ';' ; ;
-instanceof ::= expr 'instanceof' identifier ; ;
-const_decl ::= 'const' identifier '=' expr ';' ; ;
-static_call ::= 'static' '::' identifier '(' args? ')' ';' ; ;
+# --- Coverage completion: remaining language constructs ---
+
+enum_declaration ::= attribute_list? doc_comment? "enum" identifier [ ":" type ] "{" enum_case* class_member* "}" ;
+enum_case ::= "case" identifier [ "=" expression ] ";" ;
+readonly_class ::= "readonly" class_declaration ;
+readonly_property ::= property_modifier "readonly" type property_name property_default? ";" ;
+attribute ::= "#" "[" attribute_name [ "(" argument_list ")" ] "]" ;
+nullsafe_call ::= primary "?->" method_name call_arguments ;
+null_coalesce_assign ::= lvalue "??=" expression ";" ;
+first_class_callable ::= function_name "(" "..." ")" ;
+match_expression ::= "match" "(" expression ")" "{" match_arm* [ default_arm ] "}" ";"? ;

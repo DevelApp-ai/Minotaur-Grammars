@@ -21,6 +21,13 @@ class Calculator {
 
 Implements issue #58.
 
-## Extended coverage
+## Coverage completion
 
-Adds namespaces, interfaces, traits, try/catch/finally, switch, match expressions, arrow functions, instanceof, and static/const members.
+The grammar now also covers the remaining core language constructs:
+
+- Enums (pure and backed) with cases
+- `readonly` classes and properties
+- Attributes (`#[...]`)
+- Nullsafe operator (`?->`) and null coalescing assignment (`??=`)
+- First-class callable syntax (`strlen(...)`)
+- `match` expressions
