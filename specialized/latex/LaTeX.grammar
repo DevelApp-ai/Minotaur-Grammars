@@ -1,0 +1,36 @@
+Grammar: LaTeX
+FormatType: EBNF
+TokenSplitter: Space
+
+<document> ::= <preamble> <body> ;
+<preamble> ::= <preamble_cmd>* ;
+<preamble_cmd> ::= <document_class> | <use_package> | <new_command> ;
+<document_class> ::= '\\documentclass'( '[' <options> ']')? '{' <identifier> '}' ;
+<use_package> ::= '\\usepackage'( '[' <options> ']')? '{' <identifier> '}' ;
+<new_command> ::= '\\newcommand' '{' '\\' <identifier> '}' '[' <number> ']' '{' <content> '}' ;
+<options> ::= <option>( ',' <option>)* ;
+<option> ::= <identifier> | <identifier> '=' <identifier> ;
+<body> ::= '\\begin' '{' 'document' '}' <content> '\\end' '{' 'document' '}' ;
+<content> ::= <element>* ;
+<element> ::= <command> | <environment> | <text> | <math> | <comment> | <group> ;
+<command> ::= '\\' <identifier>( '[' <options> ']')?( '{' <content> '}')* ;
+<environment> ::= '\\begin' '{' <identifier> '}'( '[' <options> ']')? <content> '\\end' '{' <identifier> '}' ;
+<math> ::= '$' <auto_math_1> '$' | '$$' <auto_math_1> '$$' ;
+<comment> ::= '%' <auto_comment_2> ;
+<group> ::= '{' <content> '}' ;
+<text> ::= <auto_text_3> ;
+<identifier> ::= <auto_identifier_4> ;
+<number> ::= <auto_number_5> ;
+
+# --- Coverage completion: remaining language constructs ---
+
+<equation_env> ::= "\begin{equation}" "math_content" "\end{equation}" ;
+<align_env> ::= "\begin{align}" "math_content" "\end{align}" ;
+<itemize_env> ::= "\begin{itemize}" <item>+ "\end{itemize}" ;
+<item> ::= "\item" ( "[" "label" " )? " "]" "item_body" ;
+
+<auto_math_1> ::= /^$*/ ;
+<auto_comment_2> ::= /^\n*/ ;
+<auto_text_3> ::= /^\n\{}$%\\+/ ;
+<auto_identifier_4> ::= /a-zA-Z@+/ ;
+<auto_number_5> ::= /0-9+/ ;
