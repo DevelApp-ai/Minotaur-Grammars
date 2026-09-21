@@ -18,3 +18,7 @@ end
 - local declarations before use
 
 Implements issue #66.
+
+## Extended coverage
+
+Adds goto/labels, method definitions with `:`, varargs, long bracket strings, integer division and bitwise operators, length operator, and error calls.

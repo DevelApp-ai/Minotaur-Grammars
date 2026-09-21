@@ -2,3 +2,14 @@ local t = { x = 1, y = 2 }
 for k, v in pairs(t) do
   print(k, v)
 end
+
+# --- Extended constructs ---
+::retry::
+do_something()
+if not ok then goto retry end
+local s = [[long
+string]]
+local n = #list
+local q = 7 // 2
+local bits = a & b
+
