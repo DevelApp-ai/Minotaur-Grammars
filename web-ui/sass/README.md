@@ -26,6 +26,10 @@ $primary: #333;
 
 Implements issue #75.
 
-## Extended coverage
+## Coverage completion
 
-Adds @extend with placeholders, @if/@else control flow, @for/@each/@each loops, @use/@forward modules, interpolation, and @function with @return.
+The grammar now also covers the remaining language constructs:
+
+- `@media` conditions and nested queries
+- `@supports` feature queries
+- `!default` and `!global` variable flags

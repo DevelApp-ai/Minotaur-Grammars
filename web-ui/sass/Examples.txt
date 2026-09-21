@@ -3,12 +3,10 @@
   .title { font-weight: bold; }
 }
 
-# --- Extended constructs ---
-%button-base { padding: 8px; }
-.primary { @extend %button-base; }
-@if $dark { color: white; } @else { color: black; }
-@for $i from 1 through 3 { .m-#{$i} { margin: $i * 4px; } }
-@each $name, $c in (warn: #c00, ok: #0c0) { .#{$name} { color: $c; } }
-@function double($x) { @return $x * 2; }
-@use 'reset';
+# --- Coverage completion constructs ---
 
+@media (min-width: 768px) and (orientation: landscape) { .grid { display: flex; } }
+@supports (display: grid) { .layout { display: grid; } }
+$primary: blue !default;
+$count: 5 !global;
+@media screen { @media (min-width: 600px) { .a { color: red; } } }

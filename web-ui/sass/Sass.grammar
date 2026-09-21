@@ -1,0 +1,11 @@
+404: Not Found
+
+# --- Coverage completion: remaining language constructs ---
+
+media_query ::= "@media" media_query_list block ;
+media_feature ::= "(" feature_name ":" feature_value ")" ;
+nested_media ::= media_query block media_query* ;
+supports_query ::= "@supports" supports_condition block ;
+supports_condition ::= supports_negation | supports_operation | "(" declaration ")" ;
+default_flag ::= "!default" ;
+global_flag ::= "!global" ;
