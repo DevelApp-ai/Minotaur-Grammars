@@ -2,9 +2,7 @@ SHELL=/bin/bash
 */15 * * * * /usr/bin/monitor
 0 0 1 1 * echo 'happy new year'
 
-# --- Extended constructs ---
-@daily /usr/bin/backup
-@reboot /usr/bin/init-check
-30 2 * * * root /usr/local/bin/nightly.sh
-0 0/30 * * * * cron-with-seconds
+# --- Coverage completion constructs ---
 
+0 9 * * MON-FRI /usr/bin/backup.sh
+0 0 1 JAN,JUL * /usr/bin/report.sh

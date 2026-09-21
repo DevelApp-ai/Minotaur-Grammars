@@ -18,6 +18,8 @@ Minotaur grammar for Crontab, covering the core language subset.
 
 Implements issue #85.
 
-## Extended coverage
+## Coverage completion
 
-Adds named @entries (reboot, daily, …), the system crontab user field, and the seconds-based 6-field variant.
+The grammar now also covers the remaining language constructs:
+
+- Day and month names (`MON`, `JAN`)
