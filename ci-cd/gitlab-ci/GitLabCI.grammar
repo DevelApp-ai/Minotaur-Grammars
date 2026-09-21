@@ -1,0 +1,41 @@
+Grammar: GitLabCI
+FormatType: EBNF
+TokenSplitter: Space
+
+pipeline   ::= stages? jobs variables? workflow? include? ;
+stages     ::= 'stages' ':' '[' stage_name (',' stage_name)* ']' ;
+stage_name ::= identifier ;
+workflow   ::= 'workflow' ':' rules ;
+include    ::= 'include' ':' include_item (','? include_item)* ;
+include_item ::= 'local' ':' text | 'remote' ':' text | 'template' ':' text | 'project' ':' text ;
+variables  ::= 'variables' ':' pair (','? pair)* ;
+jobs       ::= job+ ;
+job        ::= job_name ':' job_body ;
+job_name   ::= identifier | '.' hidden_job ;
+hidden_job ::= identifier ;
+job_body   ::= stage? script? before_script? after_script? rules? only? except? extends? artifacts? needs? tags? image? ;
+stage      ::= 'stage' ':' stage_name ;
+script     ::= 'script' ':' script_lines ;
+script_lines ::= text (','? text)* ;
+before_script ::= 'before_script' ':' script_lines ;
+after_script  ::= 'after_script' ':' script_lines ;
+rules      ::= 'rules' ':' rule (','? rule)* ;
+rule       ::= 'if' ':' text 'when' ':' when_val? ;
+when_val   ::= 'on_success' | 'on_failure' | 'always' | 'manual' | 'never' | 'delayed' ;
+only       ::= 'only' ':' refs ;
+except     ::= 'except' ':' refs ;
+refs       ::= text (',' text)* ;
+extends    ::= 'extends' ':' identifier_or_list ;
+artifacts  ::= 'artifacts' ':' 'paths' ':' path_list 'expire_in' ':' text? ;
+path_list  ::= text (',' text)* ;
+needs      ::= 'needs' ':' identifier_or_list ;
+tags       ::= 'tags' ':' text_list ;
+text_list  ::= text (',' text)* ;
+image      ::= 'image' ':' text ;
+identifier_or_list ::= identifier | '[' identifier (',' identifier)* ']' ;
+identifier ::= [a-zA-Z_][a-zA-Z0-9_-]* ;
+pair       ::= identifier ':' scalar ;
+scalar     ::= text | number | boolean ;
+boolean    ::= 'true' | 'false' ;
+text       ::= '"' [^"]* '"' ;
+number     ::= [0-9]+ ;
