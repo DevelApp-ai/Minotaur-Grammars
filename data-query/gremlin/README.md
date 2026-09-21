@@ -16,3 +16,7 @@ g.V().hasLabel('person').has('age', gt(30))
 - by modulators follow order/group/project steps
 
 Implements issue #81.
+
+## Extended coverage
+
+Adds sideEffect, inject, barrier, cap, loops, cyclicPath/simplePath, bothE, and elementMap steps.

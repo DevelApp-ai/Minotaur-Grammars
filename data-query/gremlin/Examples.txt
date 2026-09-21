@@ -1,1 +1,10 @@
 g.V().has('person','name','Ada').out('created').values('name')
+
+# --- Extended constructs ---
+g.V().inject('start').hasLabel('person')
+  .sideEffect(System.out.println(it))
+  .out('knows').bothE()
+  .simplePath().cyclicPath()
+  .cap('x').barrier()
+  .elementMap()
+
