@@ -16,3 +16,7 @@ node "arg" prop=value { child-node }
 - Raw-string delimiter balance
 
 Implements issue #31.
+
+## Extended coverage
+
+Adds slashdash comments, multiline and raw strings, unicode escapes, node children blocks, and line/multiline comments.
