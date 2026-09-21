@@ -2,10 +2,6 @@ Grammar: PrismaSchema
 FormatType: EBNF
 TokenSplitter: Space
 
-# --- Extended coverage: additional language constructs ---
-
-# --- Coverage completion: remaining language constructs ---
-
 <schema> ::= <block>* ;
 <block> ::= <datasource> | <generator> | <model> | <enum_block> ;
 <datasource> ::= 'datasource' <identifier> '{' <provider> <url> '}' ;
@@ -32,6 +28,8 @@ TokenSplitter: Space
 <identifier> ::= <auto_identifier_1> <auto_identifier_2> ;
 <text> ::= '"' <auto_text_3> '"' ;
 <number> ::= <auto_number_4> ;
+
+# --- Extended coverage: additional language constructs ---
 <index_attr> ::= '@@' 'index' '(' '[' "column_list" ']' ')'; ;
 <unique_attr> ::= '@@' 'unique' '(' '[' "column_list" ']' ')'; ;
 <map_attr> ::= '@@' 'map' '(' <text> ')'; ;
@@ -40,9 +38,13 @@ TokenSplitter: Space
 <view_def> ::= 'view' <identifier> '{' <field_def>* '}'; ;
 <composite_type> ::= 'type' <identifier> '{' <field_def>* '}'; ;
 <default_now> ::= '@' 'default' '(' 'now' '(' ')' ')'; ;
+
+# --- Coverage completion: remaining language constructs ---
+
 <multi_schema_option> ::= "multiSchema" "=" <boolean> ;
 <preview_features> ::= "previewFeatures" "=" "[" <auto_preview_features_5> "]" ;
 <native_type_attribute> ::= "@db." "native_type_name" ( "(" "native_args" ")" )? ;
+
 <auto_identifier_1> ::= /[a-zA-Z]/ ;
 <auto_identifier_2> ::= /[a-zA-Z0-9_]*/ ;
 <auto_text_3> ::= /[^"]*/ ;

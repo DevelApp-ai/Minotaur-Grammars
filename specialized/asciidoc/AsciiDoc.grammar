@@ -2,8 +2,6 @@ Grammar: AsciiDoc
 FormatType: EBNF
 TokenSplitter: Space
 
-# --- Coverage completion: remaining language constructs ---
-
 <document> ::= <header>? <block>* ;
 <header> ::= '=' <text>( <attr_line>)* ;
 <attr_line> ::= ':' <identifier> ':' <text>? ;
@@ -26,10 +24,14 @@ TokenSplitter: Space
 <text> ::= <auto_text_3> "^" "\" "n" "="* "_" "-" "`" "<" ">" | "]"+ ;
 <identifier> ::= <auto_identifier_4> ;
 <number> ::= <auto_number_5> ;
+
+# --- Coverage completion: remaining language constructs ---
+
 <cols_attribute> ::= "[cols=" "quoted_value" "]" ;
 <source_block> ::= "[source" ( "," "language" )? "]" "delimiter" "block_content" "delimiter" ;
 <open_block> ::= "--" "line_terminator" "block_content" "--" ;
 <page_break> ::= "'" ;
+
 <auto_listing_1> ::= /[^---]*/ ;
 <auto_table_row_2> ::= /[^\n]+/ ;
 <auto_text_3> ::= /[]/ ;

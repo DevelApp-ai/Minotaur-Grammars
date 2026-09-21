@@ -2,10 +2,6 @@ Grammar: MermaidJs
 FormatType: EBNF
 TokenSplitter: Space
 
-# --- Extended coverage: additional language constructs ---
-
-# --- Coverage completion: remaining language constructs ---
-
 <diagram> ::= <flowchart> | <sequence_diagram> | <class_diagram> | <state_diagram> ;
 <flowchart> ::= 'flowchart' 'TD' | 'flowchart' 'LR' <flowchart_body> ;
 <flowchart_body> ::= <flow_stmt>( ';'? <flow_stmt>)* ;
@@ -33,6 +29,8 @@ TokenSplitter: Space
 <identifier> ::= <auto_identifier_1> <auto_identifier_2> ;
 <text> ::= <auto_text_3> ;
 <number> ::= <auto_number_4> ;
+
+# --- Extended coverage: additional language constructs ---
 <subgraph_block> ::= 'subgraph' <identifier>( '[' <text> ']')? <flowchart_body> 'end'; ;
 <er_diagram> ::= 'erDiagram' <er_stmt>+; ;
 <er_stmt> ::= <identifier> '{' <er_attr>+ '}' | <er_relation>; ;
@@ -47,6 +45,9 @@ TokenSplitter: Space
 <journey_diagram> ::= 'journey' 'title' <text> "task_section"+; ;
 <gitgraph_diagram> ::= 'gitGraph' <git_commit>*; ;
 <git_commit> ::= 'commit'( 'id' ':' <text>)?( 'tag' ':' <text>)?; ;
+
+# --- Coverage completion: remaining language constructs ---
+
 <timeline_diagram> ::= "timeline" <timeline_section>+ ;
 <timeline_section> ::= <auto_timeline_section_5> "timeline_event"+ ;
 <quadrant_chart> ::= "quadrantChart" <chart_axis>+ "quadrant_point"* ;
@@ -55,6 +56,7 @@ TokenSplitter: Space
 <mindmap_node> ::= "indent" "node_shape" ;
 <requirement_diagram> ::= "requirementDiagram" <requirement_element>+ ;
 <requirement_element> ::= ( "requirement_block" | "element_block" | "relationship") ;
+
 <auto_identifier_1> ::= /[a-zA-Z_]/ ;
 <auto_identifier_2> ::= /[a-zA-Z0-9_]*/ ;
 <auto_text_3> ::= /[^\]}:;]+/ ;

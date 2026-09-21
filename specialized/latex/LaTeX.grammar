@@ -2,8 +2,6 @@ Grammar: LaTeX
 FormatType: EBNF
 TokenSplitter: Space
 
-# --- Coverage completion: remaining language constructs ---
-
 <document> ::= <preamble> <body> ;
 <preamble> ::= <preamble_cmd>* ;
 <preamble_cmd> ::= <document_class> | <use_package> | <new_command> ;
@@ -23,10 +21,14 @@ TokenSplitter: Space
 <text> ::= <auto_text_3> ;
 <identifier> ::= <auto_identifier_4> ;
 <number> ::= <auto_number_5> ;
+
+# --- Coverage completion: remaining language constructs ---
+
 <equation_env> ::= "\begin{equation}" "math_content" "\end{equation}" ;
 <align_env> ::= "\begin{align}" "math_content" "\end{align}" ;
 <itemize_env> ::= "\begin{itemize}" <item>+ "\end{itemize}" ;
 <item> ::= "\item" ( "[" "label" " )? " "]" "item_body" ;
+
 <auto_math_1> ::= /[^$]*/ ;
 <auto_comment_2> ::= /[^\n]*/ ;
 <auto_text_3> ::= /[^\n\{}$%\\]+/ ;
