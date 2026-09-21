@@ -1,0 +1,7 @@
+"hello"
+|> String.upcase()
+|> String.split()
+
+defmodule Foo do
+  def bar(x) when is_integer(x), do: x + 1
+end

@@ -1,0 +1,34 @@
+Grammar: Elixir
+FormatType: EBNF
+TokenSplitter: Space
+
+program  ::= exprs ;
+exprs    ::= expr+ ;
+expr     ::= def_module | def | defp | assignment | pipe_expr | call | literal | identifier | struct_access | expr binop expr ;
+def_module ::= 'defmodule' alias 'do' exprs 'end' ;
+def      ::= 'def' (call_head | name_and_guard) (',' 'do:' expr | 'do' exprs 'end') ;
+defp     ::= 'defp' call_head (',' 'do:' expr | 'do' exprs 'end') ;
+call_head ::= identifier '(' params? ')' ('when' guard)? ;
+name_and_guard ::= identifier 'when' guard ;
+guard    ::= expr ;
+params   ::= param (',' param)* ;
+param    ::= identifier | '_' | identifier '\' expr ;
+assignment ::= identifier '=' expr ;
+pipe_expr ::= expr ('|>' call)+ ;
+call     ::= (module_ref '.')? identifier '(' args? ')' ( 'do' exprs 'end' )? ;
+module_ref ::= alias ;
+args     ::= expr (',' expr)* ;
+struct_access ::= expr '.' identifier ;
+alias    ::= [A-Z][a-zA-Z0-9_.]* ;
+literal  ::= number | text | atom | boolean | 'nil' | list | tuple | map | keyword ;
+list     ::= '[' args? ']' ;
+tuple    ::= '{' args? '}' ;
+map      ::= '%' '{' map_pair (',' map_pair)* '}' ;
+map_pair ::= expr '=>' expr ;
+keyword  ::= identifier ':' expr ;
+atom     ::= ':' identifier ;
+boolean  ::= 'true' | 'false' ;
+binop    ::= '+' | '-' | '*' | '/' | '==' | '<>' | '<' | '>' | '&&' | '||' | '++' | '|>' ;
+identifier ::= [a-z_][a-zA-Z0-9_]*[?!]? ;
+text     ::= '"' [^"]* '"' ;
+number   ::= [0-9]+ ;
