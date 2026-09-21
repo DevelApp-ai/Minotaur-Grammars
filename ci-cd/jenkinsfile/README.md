@@ -24,6 +24,6 @@ pipeline {
 
 Implements issue #48.
 
-## Extended coverage
+## Coverage completion
 
-Adds matrix builds (axes/stages), input steps, credentials bindings, retry/lock wrappers, and archive/build steps.
+Completes coverage with when conditions, docker agents and registry credentials, shared libraries, stage options, and checkout scm details.

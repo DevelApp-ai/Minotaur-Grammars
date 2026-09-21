@@ -41,15 +41,14 @@ boolean      ::= 'true' | 'false' ;
 text         ::= '"' [^"]* '"' | '\'' [^\']* '\'' ;
 number       ::= [0-9]+ ;
 
-# --- Extended coverage: additional language constructs ---
-matrix ::= 'matrix' '{' axes cell_stages '}' ; ;
-axes ::= 'axes' '{' axis+ '}' ; ;
-axis ::= 'axis' '{' 'name' text 'values' '[' text (',' text)* ']' '}' ; ;
-cell_stages ::= 'stages' '{' stage+ '}' ; ;
-input_step ::= 'input' '(' 'message' ':' text ')' ; ;
-credentials_binding ::= 'withCredentials' '(' '[' credential ']' ')' '{' step* '}' ; ;
-credential ::= identifier '(' pair (',' pair)* ')' ; ;
-retry_step ::= 'retry' '(' number ')' '{' step* '}' ; ;
-lock_step ::= 'lock' '(' pair (',' pair)* ')' '{' step* '}' ; ;
-archive_step ::= 'archiveArtifacts' text ';' ; ;
-build_step ::= 'build' '(' 'job' ':' text ')' ; ;
+# --- Coverage completion: remaining language constructs ---
+when_block ::= 'when' '{' when_cond+ '}' ; ;
+when_cond ::= ('branch' | 'tag' | 'environment' identifier) text | 'expression' '{' groovy_stmt* '}' | 'allOf' '{' when_cond+ '}' | 'anyOf' '{' when_cond+ '}' | 'not' '{' when_cond '}' ; ;
+docker_agent ::= 'docker' '{' 'image' text 'args' text? 'registryUrl' text? 'registryCredentialsId' text? 'label' text? '}' ; ;
+kubernetes_agent ::= 'kubernetes' '{' groovy_stmt* '}' ; ;
+library_stmt ::= '@Library' '(' text (',' text)* ')' identifier ; ;
+library_step ::= 'library' identifier ; ;
+stage_options ::= 'options' '{' option_def+ '}' ; ;
+skip_default_checkout ::= 'skipDefaultCheckout' '(' ')' ; ;
+ws_step ::= 'ws' text '{' step* '}' ; ;
+with_env ::= 'withEnv' '(' '[' text (',' text)* ']' ')' '{' step* '}' ; ;
