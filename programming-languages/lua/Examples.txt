@@ -3,13 +3,12 @@ for k, v in pairs(t) do
   print(k, v)
 end
 
-# --- Extended constructs ---
-::retry::
-do_something()
-if not ok then goto retry end
-local s = [[long
-string]]
-local n = #list
-local q = 7 // 2
-local bits = a & b
+# --- Coverage completion constructs ---
 
+local a, b, c = 1, 2
+local x, y = f()
+return 1, 2, 3
+local n = select('#', ...)
+goto skip ::skip:: print('here')
+local s = "line\nbreak\ttab\"quote\""
+--[==[ long comment ]==]

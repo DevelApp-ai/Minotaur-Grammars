@@ -19,6 +19,10 @@ end
 
 Implements issue #66.
 
-## Extended coverage
+## Coverage completion
 
-Adds goto/labels, method definitions with `:`, varargs, long bracket strings, integer division and bitwise operators, length operator, and error calls.
+The grammar now also covers the remaining core language constructs:
+
+- Multiple assignment and multiple returns
+- `select('#', ...)` for varargs handling
+- `goto`/labels, string escapes, and long (`--[[ ]]`) comments
