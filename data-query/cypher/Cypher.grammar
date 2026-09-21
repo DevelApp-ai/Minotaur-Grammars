@@ -1,0 +1,46 @@
+Grammar: Cypher
+FormatType: EBNF
+TokenSplitter: Space
+
+<query> ::= ( <statement> ';'?)+ ;
+<statement> ::= <match_stmt> | <create_stmt> | <merge_stmt> | <delete_stmt> | <return_stmt> | <set_stmt> ;
+<match_stmt> ::= 'MATCH' <pattern>( ',' <pattern>)*( <where_clause>)? ;
+<pattern> ::= <node_pattern>( <rel_pattern> <node_pattern>)* ;
+<node_pattern> ::= '('( <identifier>)?( ':' <label>)?( <props>)? ')' ;
+<rel_pattern> ::= '-' '['( <identifier>)?( ':' <label>)?( <props>)?( '*' <number>?( '..' <number>)?)? ']' '-' '>'? | '<' '-' '['( <identifier>)? ']' '-' '>' ;
+<props> ::= '{' <pair>( ',' <pair>)* '}' ;
+<pair> ::= <identifier> ':' "scalar" ;
+<label> ::= <identifier> ;
+<where_clause> ::= 'WHERE' <expr> ;
+<create_stmt> ::= 'CREATE' <pattern> ;
+<merge_stmt> ::= 'MERGE' <pattern>( 'ON' 'CREATE' 'SET' <assignment>)?( 'ON' 'MATCH' 'SET' <assignment>)? ;
+<set_stmt> ::= 'SET' <assignment>( ',' <assignment>)* ;
+<assignment> ::= <identifier> '.' <identifier> '=' <expr> ;
+<delete_stmt> ::= 'DETACH'? 'DELETE' <expr_list> ;
+<return_stmt> ::= 'RETURN'( 'DISTINCT')? <return_item>( ',' <return_item>)*( <order_by>)?( <limit_clause>)? ;
+<return_item> ::= <expr>( 'AS' <identifier>)? ;
+<order_by> ::= 'ORDER' 'BY' <expr>( 'ASC' | 'DESC')? ;
+<limit_clause> ::= 'LIMIT' <number>( 'SKIP' <number>)? ;
+<expr_list> ::= <expr>( ',' <expr>)* ;
+<expr> ::= <literal> | <identifier> | <property_access> | <expr> <binop> <expr> | '(' <expr> ')' | <func_call> ;
+<property_access> ::= <identifier> '.' <identifier> ;
+<func_call> ::= <identifier> '(' <args>? ')' ;
+<args> ::= <expr>( ',' <expr>)* ;
+<literal> ::= <number> | <text> | <boolean> | 'NULL' | <list> ;
+<list> ::= '[' <args>? ']' ;
+<boolean> ::= 'true' | 'false' | 'TRUE' | 'FALSE' ;
+<binop> ::= '=' | '<>' | '<' | '>' | '<=' | '>=' | '+' | 'AND' | 'OR' | 'STARTS' 'WITH' | 'CONTAINS' ;
+<identifier> ::= <auto_identifier_1> <auto_identifier_2> ;
+<text> ::= '"' <auto_text_3> '"' ;
+<number> ::= <auto_number_4> ;
+
+# --- Coverage completion: remaining language constructs ---
+
+<call_subquery> ::= "CALL" "{"( "WITH" "with_list")? "subquery_body" "}" ;
+<load_csv> ::= "LOAD" "CSV" ( "WITH" "HEADERS" )? "FROM" "string" ( "AS" <identifier> )? ( "field_terminator" )? ;
+<use_clause> ::= "USE" "graph_name" ;
+
+<auto_identifier_1> ::= /a-zA-Z_/ ;
+<auto_identifier_2> ::= /a-zA-Z0-9_*/ ;
+<auto_text_3> ::= /^"*/ ;
+<auto_number_4> ::= /0-9+/ ;
