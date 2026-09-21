@@ -22,3 +22,10 @@ Implements issue #91.
 ## Extended coverage
 
 Adds subgraphs, ER diagrams, gantt charts, pie charts, journey, and gitGraph diagram types.
+
+## Coverage completion
+
+The grammar now also covers the remaining diagram types:
+
+- `timeline`, `quadrantChart`, and `mindmap` diagrams
+- `requirementDiagram`

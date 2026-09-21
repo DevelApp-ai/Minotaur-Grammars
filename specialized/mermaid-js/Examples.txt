@@ -21,3 +21,22 @@ gantt
   dateFormat YYYY-MM-DD
   Design : d1, 2026-01-01, 10d
 
+# --- Coverage completion constructs ---
+
+timeline
+    History : 2001 : v1
+            : 2026 : v2
+quadrantChart
+    title Reach vs Ease
+    x-axis Low --> High
+    y-axis Easy --> Hard
+    quadrant-1 Deploy
+mindmap
+  root((Plan))
+    a
+      b
+requirementDiagram
+    requirement test_req {
+      id: 1
+      text: the text
+    }
