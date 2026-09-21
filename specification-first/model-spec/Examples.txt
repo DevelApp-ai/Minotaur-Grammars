@@ -1,0 +1,25 @@
+# Model: Orders
+
+### Entities
+- enum OrderStatus
+  - Created: int default=0
+  - Paid: int default=1
+  - Shipped: int default=2
+  - Cancelled: int default=3
+- entity Order extends AggregateRoot
+  - Id: Guid key
+  - CustomerId: Guid required indexed
+  - Status: OrderStatus required
+  - CreatedAt: DateTime immutable
+  - UpdatedAt: DateTime?
+- value-object OrderItem
+  - ProductId: Guid required
+  - Quantity: int required min=1
+
+### Relationships
+- Order 1-* OrderItem
+- Customer 1-* Order
+
+### Invariants
+- INV-001: Order total must match sum of item totals
+- INV-002: Cancelled orders cannot transition to Shipped

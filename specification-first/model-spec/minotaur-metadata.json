@@ -1,0 +1,24 @@
+{
+  "Id": "develapp.modelspec",
+  "Name": "ModelSpec",
+  "Vendor": "DevelApp",
+  "DisplayName": "Data Model Specification (.model)",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "Grammar for .model data model specification files (SpecTree): entities, value objects, enums, relationships with cardinality, invariants and persistence hints mapped to .NET/EF types.",
+  "License": "MIT",
+  "Tags": [
+    "specification-first",
+    "spectree"
+  ],
+  "MainFile": "ModelSpec.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}
