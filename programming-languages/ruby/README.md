@@ -23,3 +23,7 @@ end
 - string interpolation is preserved in AST
 
 Implements issue #57.
+
+## Extended coverage
+
+Adds begin/rescue/ensure exception handling, unless, case/when, do…end blocks, singleton classes, attr accessors, ranges, safe navigation, ternary, and string interpolation.

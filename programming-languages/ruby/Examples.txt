@@ -5,3 +5,21 @@ end
 puts add(1, 2)
 
 names.each { |n| puts n }
+
+# --- Extended constructs ---
+begin
+  risky
+rescue StandardError => e
+  warn e.message
+ensure
+  cleanup
+end
+
+case x
+when 1..5 then "low"
+else "high"
+end
+
+obj&.method
+attr_accessor :name
+
