@@ -31,15 +31,12 @@ identifier ::= [a-zA-Z_][a-zA-Z0-9_]* ;
 text     ::= '"' [^"]* '"' ;
 number   ::= [0-9]+ ;
 
-# --- Extended coverage: additional language constructs ---
-package_stmt ::= 'package' qualified_id ';' ; ;
-bless_call ::= 'bless' ref_expr ',' identifier ';' ; ;
-ref_expr ::= '\\' lvalue | '[' args? ']' | '{' pairs? '}' ; ;
-pairs ::= pair (',' pair)* ; ;
-pair ::= expr '=>' expr ; ;
-arrow_access ::= expr '->' ('[' expr ']' | '{' expr '}' | identifier '(' args? ')') ; ;
-unless_stmt ::= 'unless' '(' expr ')' block ('else' block)? ; ;
-until_stmt ::= 'until' '(' expr ')' block ; ;
-heredoc ::= '<<' identifier [^\n]* identifier ; ;
-pod_block ::= '=' identifier [^=]* '=cut' ; ;
-loop_control ::= ('last' | 'next' | 'redo') identifier? ';' ; ;
+# --- Coverage completion: remaining language constructs ---
+
+ternary_expression ::= expression "?" expression ":" expression ;
+postfix_modifier ::= statement ( "if" | "unless" | "while" | "until" | "for" | "foreach" ) expression ;
+list_slice ::= array_name "[" expression_list "]" ;
+hash_slice ::= hash_name "{" expression_list "}" ;
+regex_binding ::= expression ( "=~" | "!~" ) ( regex_literal | match_operator | substitution | transliteration ) ;
+match_operator ::= "m" delimiter regex_body delimiter [ regex_flags ] ;
+sub_signature ::= "sub" identifier "(" sig_parameter_list ")" block ;

@@ -3,15 +3,12 @@ foreach my $n (@nums) {
   print "$n\n";
 }
 
-# --- Extended constructs ---
-package Animal;
-sub new { my ($class) = @_; return bless {}, $class; }
-my $items = [1, 2, 3];
-print $items->[0];
-my %map = (a => 1);
-print $map{a};
-unless ($dry) { run(); }
-print <<EOT;
-hello
-EOT
+# --- Coverage completion constructs ---
 
+my $grade = $score >= 50 ? 'pass' : 'fail';
+print "$_\n" for @lines;
+next unless defined $x;
+my @first3 = @items[0..2];
+my @vals = %map{'a','b'};
+if ($text =~ m/hello\s+world/) { ... }
+sub add ($x, $y = 1) { return $x + $y }

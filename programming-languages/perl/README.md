@@ -22,6 +22,11 @@ sub greet {
 
 Implements issue #67.
 
-## Extended coverage
+## Coverage completion
 
-Adds packages with bless, references and arrow dereferencing, unless/until, heredocs, POD documentation, and loop control statements.
+The grammar now also covers the remaining core language constructs:
+
+- Ternary conditionals and postfix statement modifiers (`if`/`unless`/`while`/`for`)
+- List and hash slices
+- Regex binding (`=~`, `!~`) with `m//` matches
+- Subroutine signatures
