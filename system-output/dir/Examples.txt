@@ -1,7 +1,0 @@
-404: Not Found
-
-# --- Coverage completion constructs ---
-
-[.]        [..]       file1.txt   file2.doc
-data\src\main.cpp
-output.log
