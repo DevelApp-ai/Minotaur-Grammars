@@ -1,0 +1,24 @@
+# SRS: OrderPlatform
+## Version: 1.0
+## Stakeholders: SalesOps, Fulfillment, Finance
+## Scope: Order capture and fulfilment for the EU region
+
+### Must Have
+- M-001: Orders must persist durably across restarts accept: Order survives a process crash without data loss => order-service.ai
+- M-002: Inventory must be validated before order confirmation => inventory-service.ai
+- M-003: Payment failures must leave the order in a recoverable state => order-service.ai, payment-service.ai
+
+### Should Have
+- S-001: Customers should receive email notifications on status changes => notification-service.ai
+- S-002: Order history should be searchable by date range
+
+### Could Have
+- C-001: Orders could be exported to CSV for finance reconciliation
+
+### Won't Have
+- W-001: Voice-order capture is out of scope for this release
+
+### Traceability
+- M-001 -> order-service.ai
+- M-002 -> inventory-service.ai
+- M-003 -> ADR-0004

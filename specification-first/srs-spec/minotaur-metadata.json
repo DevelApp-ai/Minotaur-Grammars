@@ -1,0 +1,24 @@
+{
+  "Id": "develapp.srsspec",
+  "Name": "SrsSpec",
+  "Vendor": "DevelApp",
+  "DisplayName": "Requirements Specification (.srs, MoSCoW)",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "Grammar for .srs requirements specification files (SpecTree) with MoSCoW prioritization (Must/Should/Could/Won't), stable requirement IDs, acceptance criteria and traceability links to components, ADRs and tests.",
+  "License": "MIT",
+  "Tags": [
+    "specification-first",
+    "spectree"
+  ],
+  "MainFile": "SrsSpec.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}
