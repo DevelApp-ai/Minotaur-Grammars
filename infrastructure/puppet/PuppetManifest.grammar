@@ -1,0 +1,13 @@
+404: Not Found
+
+# --- Extended coverage: additional language constructs ---
+class_decl ::= "class" identifier "(" params? ")" "{" stmt* "}" ;
+define_decl ::= "define" identifier "(" params? ")" "{" stmt* "}" ;
+virtual_resource ::= "@" resource ;
+exported_resource ::= "@@" resource ;
+collector ::= type "<|" expr? "|>" ;
+relationship_op ::= resource "->" resource ;
+metaparam ::= ("require" | "before" | "notify" | "subscribe") "=>" ref ;
+case_stmt ::= "case" expr "{" case_opt* "}" ;
+selector ::= expr "?" "{" case_opt* "}" ;
+node_def ::= "node" text "{" stmt* "}" ;
