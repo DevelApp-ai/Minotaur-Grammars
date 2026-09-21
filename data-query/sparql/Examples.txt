@@ -1,9 +1,9 @@
 SELECT ?s ?o WHERE { ?s <http://example.org/knows> ?o . }
 
-# --- Extended constructs ---
-ASK { ?s ?p ?o }
-CONSTRUCT { ?s ?p ?o } WHERE { ?s ?p ?o }
-SELECT (COUNT(?s) AS ?n) WHERE { ?s ?p ?o } GROUP BY ?p
-BIND(CONCAT(?a, ?b) AS ?c)
-VALUES ?type { :a :b }
+# --- Coverage completion constructs ---
 
+SELECT ?x WHERE { SERVICE <http://remote/sparql> { ?x a :Thing } }
+FILTER NOT EXISTS { ?x :deprecated true }
+SELECT ?o WHERE { GRAPH <http://graph> { ?s :p ?o } }
+?s :knows+ ?o
+?s :parent* ?o

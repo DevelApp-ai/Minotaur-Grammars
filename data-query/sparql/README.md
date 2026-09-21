@@ -20,6 +20,10 @@ SELECT ?name WHERE {
 
 Implements issue #80.
 
-## Extended coverage
+## Coverage completion
 
-Adds ASK/CONSTRUCT/DESCRIBE query forms, VALUES, BIND, MINUS, aggregates, and sub-selects.
+The grammar now also covers the remaining language constructs:
+
+- `SERVICE` federated queries
+- `FILTER NOT EXISTS` / `FILTER EXISTS`
+- `GRAPH` clauses and property paths
