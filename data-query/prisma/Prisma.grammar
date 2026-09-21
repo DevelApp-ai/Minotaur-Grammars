@@ -1,0 +1,7 @@
+404: Not Found
+
+# --- Coverage completion: remaining language constructs ---
+
+multi_schema_option ::= "multiSchema" "=" boolean ;
+preview_features ::= "previewFeatures" "=" "[" [ string ( "," string )* ] "]" ;
+native_type_attribute ::= "@db." native_type_name [ "(" native_args ")" ] ;
