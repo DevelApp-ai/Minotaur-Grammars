@@ -1,0 +1,12 @@
+404: Not Found
+
+# --- Extended coverage: additional language constructs ---
+handlers_block ::= "handlers" ":" task* ;
+roles_block ::= "roles" ":" [ role_item ("," role_item)* ] ;
+role_item ::= text | "{" "role" ":" text "vars" ":" map? "}" ;
+block_rescue ::= "block" ":" [ task* ] "rescue" ":" [ task* ]? "always" ":" [ task* ]? ;
+tags_kw ::= "tags" ":" ( text | [ text ("," text)* ] ) ;
+become_kw ::= "become" ":" boolean ("become_user" ":" text)? ;
+loop_kw ::= "loop" ":" list "loop_var" ":" text? ;
+vars_prompt ::= "vars_prompt" ":" [ prompt_item ] ;
+prompt_item ::= "name" ":" text "prompt" ":" text "private" ":" boolean? ;

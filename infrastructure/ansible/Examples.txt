@@ -1,0 +1,21 @@
+404: Not Found
+
+# --- Extended constructs ---
+- hosts: webservers
+  become: true
+  roles:
+    - { role: nginx, vars: { port: 80 } }
+  tasks:
+    - block:
+        - name: deploy
+          command: ./deploy.sh
+      rescue:
+        - name: rollback
+          command: ./rollback.sh
+      always:
+        - name: notify
+          command: ./notify.sh
+  handlers:
+    - name: restart nginx
+      service: name=nginx state=restarted
+
