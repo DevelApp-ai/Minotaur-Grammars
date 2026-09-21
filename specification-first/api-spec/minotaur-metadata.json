@@ -1,0 +1,24 @@
+{
+  "Id": "develapp.apispec",
+  "Name": "ApiSpec",
+  "Vendor": "DevelApp",
+  "DisplayName": "Interface Specification (.api)",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "Grammar for .api interface specification files (SpecTree): REST endpoint contracts, request/response schemas, validation constraints and error contracts, versioned and bound to .NET routing conventions.",
+  "License": "MIT",
+  "Tags": [
+    "specification-first",
+    "spectree"
+  ],
+  "MainFile": "ApiSpec.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}

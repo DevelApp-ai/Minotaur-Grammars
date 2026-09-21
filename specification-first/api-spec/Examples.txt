@@ -1,0 +1,20 @@
+# Interface: OrdersApi
+## Version: 1.0
+## Authentication: bearer
+## BaseRoute: /api
+
+### Endpoints
+- POST /orders: Creates a new order => 201: OrderResponse
+- GET /orders/{id}: Retrieves order details => 200: OrderResponse
+- PUT /orders/{id}/status: Updates order status => 200: OrderResponse
+- GET /orders/customer/{customerId}: Lists customer orders => 200: OrderResponse[]
+
+### Schemas
+- OrderRequest: CustomerId: Guid required; Items: OrderItem[] required min=1; Notes: string? max=500
+- OrderResponse: Id: Guid readOnly; Status: string required; CreatedAt: DateTime readOnly
+
+### ErrorContracts
+- 400: Invalid order payload code=ORDER_INVALID
+- 404: Order not found code=ORDER_NOT_FOUND
+- 409: Concurrent modification code=ORDER_CONFLICT
+- 422: Inventory unavailable code=INVENTORY_UNAVAILABLE
