@@ -20,3 +20,7 @@ Server --> User: 200 OK
 - class braces are balanced
 
 Implements issue #92.
+
+## Extended coverage
+
+Adds sequence alt/loop/opt blocks, activations, dividers, notes over, stereotypes, component and use-case elements, and activity/state extras.

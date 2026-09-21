@@ -2,3 +2,18 @@
 Alice -> Bob: hello
 Bob --> Alice: hi
 @enduml
+
+# --- Extended constructs ---
+sequenceDiagram
+  activate User
+  alt success
+    User -> Server: ok
+  else failure
+    User -> Server: retry
+  end
+  deactivate User
+  note over User, Server: important
+
+component [Cache] as C
+Database --( C
+

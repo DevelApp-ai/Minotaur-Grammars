@@ -24,3 +24,16 @@ title    ::= 'title' text ;
 identifier ::= [a-zA-Z_][a-zA-Z0-9_]* ;
 text     ::= [^\n{:]+ ;
 number   ::= [0-9]+ ;
+
+# --- Extended coverage: additional language constructs ---
+seq_alt ::= 'alt' text seq_stmt* ('else' text seq_stmt+)* 'end' ; ;
+seq_loop ::= 'loop' text seq_stmt+ 'end' ; ;
+seq_opt ::= 'opt' text seq_stmt+ 'end' ; ;
+activate_stmt ::= ('activate' | 'deactivate') identifier ; ;
+divider_stmt ::= '==' text '==' ; ;
+note_over ::= 'note' 'over' identifier ',' identifier ':' text ; ;
+stereotype ::= '<<' text '>>' ; ;
+component_def ::= '[' text ']' ('as' identifier)? ; ;
+usecase_def ::= ('usecase' | 'actor') '(' text ')' ; ;
+state_choice ::= 'state' identifier '<<choice>>' ; ;
+hide_footbox ::= 'hide' 'footbox' ; ;
