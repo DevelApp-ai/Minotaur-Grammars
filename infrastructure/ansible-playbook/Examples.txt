@@ -1,0 +1,21 @@
+---
+- name: Deploy order service
+  hosts: webservers
+  become: true
+  vars:
+    app_port: 8080
+  roles:
+    - common
+    - { role: deploy, tags: ["app"] }
+  tasks:
+    - name: Install package
+      apt:
+        name: nginx
+        state: present
+      when: ansible_os_family == "Debian"
+      notify: restart nginx
+  handlers:
+    - name: restart nginx
+      service:
+        name: nginx
+        state: restarted
