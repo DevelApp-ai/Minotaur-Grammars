@@ -1,0 +1,24 @@
+Grammar: Crontab
+FormatType: EBNF
+TokenSplitter: Space
+
+crontab  ::= line* ;
+line     ::= entry | variable | comment | empty ;
+comment  ::= '#' [^\n]* ;
+empty    ::= ;
+variable ::= name '=' value ;
+name     ::= identifier ;
+value    ::= [^\n]* ;
+entry    ::= minute hour day_of_month month day_of_week command ;
+minute   ::= field ;
+hour     ::= field ;
+day_of_month ::= field ;
+month    ::= field ;
+day_of_week ::= field ;
+field    ::= '*' | number | range | list | step ;
+range    ::= number '-' number ;
+list     ::= (number|range|'*') (',' (number|range|'*'))* ;
+step     ::= (number|range|'*') '/' number ;
+command  ::= [^\n]+ ;
+identifier ::= [a-zA-Z_][a-zA-Z0-9_]* ;
+number   ::= [0-9]+ ;
