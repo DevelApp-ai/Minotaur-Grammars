@@ -21,3 +21,7 @@ end
 - keyword lists use key: value form
 
 Implements issue #71.
+
+## Extended coverage
+
+Adds alias/use/import, module attributes, structs, with statements, cond, try/rescue, for comprehensions, and protocols with implementations.
