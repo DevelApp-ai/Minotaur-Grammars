@@ -2,8 +2,6 @@ Grammar: Gremlin
 FormatType: EBNF
 TokenSplitter: Space
 
-# --- Coverage completion: remaining language constructs ---
-
 <query> ::= <traversal> ;
 <traversal> ::= <source_step> <step>* ;
 <source_step> ::= 'g' '.'( 'V' | 'E') '(' <args>? ')' | 'g' '.' <identifier> '(' <args>? ')' ;
@@ -17,10 +15,14 @@ TokenSplitter: Space
 <identifier> ::= <auto_identifier_1> <auto_identifier_2> ;
 <text> ::= '"' <auto_text_3> '"' "|" '\'' <auto_text_4> '\'' ;
 <number> ::= <auto_number_5> ;
+
+# --- Coverage completion: remaining language constructs ---
+
 <with_step> ::= "with(" "string" "," "object" ")" ;
 <sack_step> ::= "sack(" <auto_sack_step_6> ")" ;
 <sack_value> ::= ".sack()" ;
 <profile_step> ::= "profile()" ( "(" "string" ")" )? ;
+
 <auto_identifier_1> ::= /[a-zA-Z_]/ ;
 <auto_identifier_2> ::= /[a-zA-Z0-9_]*/ ;
 <auto_text_3> ::= /[^"]*/ ;
