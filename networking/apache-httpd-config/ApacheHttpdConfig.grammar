@@ -17,3 +17,17 @@ arg        ::= text | identifier | number ;
 identifier ::= [a-zA-Z_][a-zA-Z0-9_]* ;
 text       ::= '"' [^"]* '"' ;
 number     ::= [0-9]+ ;
+
+# --- Extended coverage: additional language constructs ---
+if_define ::= '<' 'IfDefine' arg '>' line* '</' 'IfDefine' '>' ; ;
+directory_match ::= '<' 'DirectoryMatch' regex '>' line* '</' 'DirectoryMatch' '>' ; ;
+rewrite_rule ::= 'RewriteRule' regex arg flags? ; ;
+rewrite_cond ::= 'RewriteCond' arg arg flags? ; ;
+flags ::= '[' flag (',' flag)* ']' ; ;
+flag ::= identifier ('=' text)? ; ;
+alias_dir ::= 'Alias' arg arg ; ;
+proxy_pass ::= 'ProxyPass' arg arg ; ;
+proxy_pass_reverse ::= 'ProxyPassReverse' arg arg ; ;
+ssl_engine ::= 'SSLEngine' ('on' | 'off') ; ;
+custom_log ::= 'CustomLog' arg identifier? ; ;
+log_format ::= 'LogFormat' text identifier ; ;

@@ -1,3 +1,12 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
 </IfModule>
+
+# --- Extended constructs ---
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^/old/(.*)$ /new/$1 [R=301,L]
+</IfModule>
+ProxyPass /api http://backend:8080
+CustomLog logs/access combined
+
