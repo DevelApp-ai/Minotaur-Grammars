@@ -1,0 +1,24 @@
+{
+  "Id": "develapp.solutionmanifest",
+  "Name": "SolutionManifest",
+  "Vendor": "DevelApp",
+  "DisplayName": "Solution Manifest (SpecTree binding to .NET)",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "Grammar for the SpecTree solution manifest that binds the specification tree to a .NET solution: spec-to-project mappings, target frameworks, generation targets, and regeneration exclusion rules for hand-written code zones.",
+  "License": "MIT",
+  "Tags": [
+    "specification-first",
+    "spectree"
+  ],
+  "MainFile": "SolutionManifest.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}

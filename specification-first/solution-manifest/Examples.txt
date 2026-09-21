@@ -1,0 +1,16 @@
+Solution: OrderPlatform
+Project: DevelApp.Orders -> src/DevelApp.Orders/DevelApp.Orders.csproj tfm: net8.0
+Project: DevelApp.Orders.Tests -> tests/DevelApp.Orders.Tests/DevelApp.Orders.Tests.csproj tfm: net8.0
+Project: DevelApp.Inventory -> src/DevelApp.Inventory/DevelApp.Inventory.csproj tfm: net8.0
+
+Spec: specifications/orders/order-service.ai -> DevelApp.Orders
+Spec: specifications/orders/order-service.test -> DevelApp.Orders.Tests
+Spec: specifications/orders/orders.model -> DevelApp.Orders
+Spec: specifications/orders/orders.api -> DevelApp.Orders
+Spec: specifications/inventory/inventory-service.ai -> DevelApp.Inventory
+
+Generate: CSharpGenerator for ai -> src/DevelApp.Orders/Generated
+Generate: TestGenerator for test -> tests/DevelApp.Orders.Tests/Generated
+Generate: EfModelGenerator for model -> src/DevelApp.Orders/Models/Generated
+
+Exclude: src/DevelApp.Orders/Mappers/CustomOrderMapper.cs reason: hand-optimized hot path
