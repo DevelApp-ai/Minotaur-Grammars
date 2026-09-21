@@ -22,3 +22,7 @@ http {
 - listen directives have a port argument
 
 Implements issue #51.
+
+## Extended coverage
+
+Adds upstream blocks, location modifiers, if conditions, variables, error_page/return/rewrite, map blocks, and limit_except.
