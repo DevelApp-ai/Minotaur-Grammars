@@ -16,3 +16,7 @@ table Name { field: type = default (attr); }
 - Namespace/type reference resolution
 
 Implements issue #33.
+
+## Extended coverage
+
+Adds unions, RPC services, attribute declarations, `root_type`, `file_identifier`, typed enums, and includes.
