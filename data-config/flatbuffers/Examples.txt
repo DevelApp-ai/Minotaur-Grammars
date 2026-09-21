@@ -1,0 +1,21 @@
+namespace com.develapp.orders;
+
+enum Status : byte { CREATED = 0, PAID = 1, SHIPPED = 2 }
+
+union Payment { Card, Cash }
+
+table Order {
+  id: ulong (key);
+  status: Status = CREATED;
+  items: [Item];
+  payment: Payment;
+}
+
+struct Item {
+  product_id: ulong;
+  quantity: int;
+}
+
+rpc_service OrderService {
+  create(CreateRequest): Order;
+}
