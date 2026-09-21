@@ -24,3 +24,14 @@ xref    ::= '<<' text ','? text? '>>' ;
 text    ::= [^\n=*_-`<>|]+ ;
 identifier ::= [a-zA-Z0-9_-]+ ;
 number  ::= [0-9]+ ;
+
+# --- Extended coverage: additional language constructs ---
+include_dir ::= 'include::' text '[' attrs_inline? ']' ; ;
+attrs_inline ::= identifier '=' text (',' identifier '=' text)* ; ;
+attr_ref ::= '{' identifier '}' ; ;
+example_block ::= '====' [^=]* '====' ; ;
+sidebar_block ::= '****' [^*]* '****' ; ;
+anchor_def ::= '[[' identifier ','? text? ']]' ; ;
+xref_angle ::= '<<' identifier ','? text? '>>' ; ;
+callout ::= '<' number '>' ; ;
+quoted_pass ::= 'pass' ':' '[' [^\]]* ']' ; ;

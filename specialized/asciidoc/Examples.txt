@@ -4,3 +4,16 @@
 . Step two
 
 link:https://example.com[Example]
+
+# --- Extended constructs ---
+:icons: font
+include::chapter1.adoc[leveloffset=+1]
+See <<intro, the introduction>> for details.
+
+.Example
+====
+Delimited example block.
+====
+
+<.> A callout
+

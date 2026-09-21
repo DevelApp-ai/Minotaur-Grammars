@@ -25,3 +25,7 @@ Remember this.
 - attribute entries use :name: form
 
 Implements issue #89.
+
+## Extended coverage
+
+Adds include directives, attribute references, delimited blocks (example/sidebar), anchors, callouts, and cross-references.
