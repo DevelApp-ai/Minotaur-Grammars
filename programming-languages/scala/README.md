@@ -23,6 +23,11 @@ object MathUtils {
 
 Implements issue #64.
 
-## Extended coverage
+## Coverage completion
 
-Adds case classes, for-comprehensions, try/catch/finally, implicit/using parameters, givens, package objects, and type bounds.
+The grammar now also covers the remaining core language constructs:
+
+- `extension` method groups and `export` clauses
+- Union (`|`) and intersection (`&`) types
+- `opaque type` aliases
+- `end` markers and `given ... with` instances
