@@ -2,6 +2,8 @@ Grammar: LESS
 FormatType: EBNF
 TokenSplitter: Space
 
+# --- Coverage completion: remaining language constructs ---
+
 <stylesheet> ::= <statement>* ;
 <statement> ::= <variable_decl> | <nested_rule> | <mixin_decl> | <mixin_call> | <import_stmt> | <property> | <comment> ;
 <variable_decl> ::= '@' <identifier> ':' <value> ';' ;
@@ -22,25 +24,22 @@ TokenSplitter: Space
 <operation> ::= '(' <value> ')' ;
 <function_call> ::= <identifier> '(' <args>? ')' ;
 <comment> ::= '/*' <auto_comment_1> '*/' | '//' <auto_comment_2> ;
-<selector_text> ::= ( "." "#" "&" "a" "-" "zA" "-" "Z" ":" "\" <auto_selector_text_3> "\" "]" "=" "(), ">"+ "~"* "-" )? ;
+<selector_text> ::= <auto_selector_text_3> ;
 <color> ::= '#' <auto_color_4> ;
 <identifier> ::= <auto_identifier_5> <auto_identifier_6> ;
 <text> ::= '"' <auto_text_7> '"' ;
 <number> ::= <auto_number_8>( '.' <auto_number_8>)?( 'px' | 'em' | 'rem' | '%')? ;
-
-# --- Coverage completion: remaining language constructs ---
-
 <merge_syntax> ::= <property> "+"? ":" "value_list" ";" ;
 <property_interpolation> ::= "@{" <identifier> "}" ;
-<parent_selector> ::= "&" ( "combinator" "simple_selector" )? ;
+<parent_selector> ::= "&" <auto_parent_selector_9> ;
 <nested_media> ::= "@media" "media_query_list" "block" ;
 <guarded_mixin> ::= "mixin_name" "(" "parameters" ")" "when" "guard_condition" ";" ;
-
-<auto_comment_1> ::= /^**/ ;
-<auto_comment_2> ::= /^\n*/ ;
-<auto_selector_text_3> ::= // ;
-<auto_color_4> ::= /0-9a-fA-F+/ ;
-<auto_identifier_5> ::= /a-zA-Z-/ ;
-<auto_identifier_6> ::= /a-zA-Z0-9-*/ ;
-<auto_text_7> ::= /^"*/ ;
-<auto_number_8> ::= /0-9+/ ;
+<auto_comment_1> ::= /[^*]*/ ;
+<auto_comment_2> ::= /[^\n]*/ ;
+<auto_selector_text_3> ::= /[.#&a-zA-Z:\[\]=" (),>+~*-]+/ ;
+<auto_color_4> ::= /[0-9a-fA-F]+/ ;
+<auto_identifier_5> ::= /[a-zA-Z-]/ ;
+<auto_identifier_6> ::= /[a-zA-Z0-9-]*/ ;
+<auto_text_7> ::= /[^"]*/ ;
+<auto_number_8> ::= /[0-9]+/ ;
+<auto_parent_selector_9> ::= /[ combinator simple_selector ]/ ;
