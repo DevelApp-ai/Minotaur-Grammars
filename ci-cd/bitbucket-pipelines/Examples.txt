@@ -1,0 +1,5 @@
+pipelines:
+  branches:
+    main:
+      - step:
+          script: [ dotnet test ]
