@@ -24,3 +24,7 @@ Minotaur grammar for LESS, covering the core language subset.
 - arithmetic operations are well-formed
 
 Implements issue #76.
+
+## Extended coverage
+
+Adds :extend, when guards, comparisons, namespaces, imports with options, escapes, and default guards.

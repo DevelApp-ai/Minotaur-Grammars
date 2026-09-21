@@ -2,3 +2,13 @@
   color: #c00;
   .bold-text();
 }
+
+# --- Extended constructs ---
+.base { color: black; }
+.child:extend(.base) { font-weight: bold; }
+.mixin(@a) when (@a > 10) { padding: @a; }
+.mixin(@a) when (default) { padding: 0; }
+#ns { .hidden { display: none; } }
+@import (reference) 'vars.less';
+content: ~"calc(100% - 30px)";
+
