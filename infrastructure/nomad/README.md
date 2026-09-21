@@ -1,5 +1,5 @@
 404: Not Found
 
-## Extended coverage
+## Coverage completion
 
-Adds group/task/constraint/resource stanzas, service checks, templates, update policies, and vault integration.
+Completes coverage with affinity/spread/reschedule/migrate stanzas, network with dynamic ports, CSI volumes, parameterized dispatch jobs, system jobs, and consul/connect integration.
