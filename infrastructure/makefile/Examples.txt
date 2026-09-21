@@ -1,0 +1,21 @@
+CC := gcc
+CFLAGS ?= -Wall -O2
+TARGET := orders
+SRCS := $(wildcard *.c)
+OBJS := $(SRCS:.c=.o)
+
+.PHONY: all clean
+.DEFAULT_GOAL := all
+
+all: $(TARGET)
+
+$(TARGET): $(OBJS)
+	$(CC) $(CFLAGS) -o $@ $^
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+clean:
+	@rm -f $(OBJS) $(TARGET)
+
+include config.mk

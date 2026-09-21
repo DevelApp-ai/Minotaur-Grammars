@@ -1,0 +1,53 @@
+Grammar: Makefile
+FormatType: EBNF
+TokenSplitter: Space
+
+# Makefile grammar - core subset
+<file> ::= <make-line>* => { buildMakefile($1); }
+<make-line> ::= <rule> | <variable-assignment> | <conditional> | <include-directive> | <export-directive> | <phony-decl> | <comment> | <empty>
+<rule> ::= <targets> ":" <prerequisites>? <recipe>? => { addRule($1, $3, $4); }
+        | <targets> ":" <order-only-prereqs> <recipe>?
+        | <pattern-rule> | <static-pattern-rule> | <double-colon-rule>
+<targets> ::= <target> (" " <target>)*
+<target> ::= /[a-zA-Z0-9_.$\/()%+-]+/ | /"[^"]+"/
+<prerequisites> ::= <prereq>+
+<prereq> ::= <normal-prereq> | <order-only-start> <prereq>*
+<normal-prereq> ::= /[a-zA-Z0-9_.$\/%+*-]+/ | <variable-ref>
+<order-only-start> ::= "|"
+<recipe> ::= <recipe-line>+ => { setRecipe($1); }
+<recipe-line> ::= <tab> <recipe-command> => { addRecipeLine($2); }
+              | <tab> "@" <recipe-command> => { addRecipeLine($3); }
+              | <tab> "-" <recipe-command> => { addRecipeLine($3); }
+              | <tab> "+" <recipe-command> => { addRecipeLine($3); }
+<recipe-command> ::= /[\S\s]+/ => { parseCommand($1); }
+<variable-assignment> ::= <var-name> <assign-op> <var-value> => { assignVar($1, $2, $3); }
+                    | "override" <var-name> <assign-op> <var-value>
+                    | "export" <var-name> (<assign-op> <var-value>)?
+                    | "unexport" <var-name>
+<assign-op> ::= "=" | ":=" | "::=" | "?=" | "+="
+<var-name> ::= /[a-zA-Z_][a-zA-Z0-9_]*[^#\n=]*/
+<var-value> ::= /[\S\s]*/ => { parseVarValue($1); }
+<variable-ref> ::= "$" "(" <var-name> ")" => { buildVarRef($3); }
+                | "${" <var-name> "}"
+                | "$" <single-char>
+<single-char> ::= /@<^*?%+-/
+<conditional> ::= ("ifeq" | "ifneq") "(" <cond-arg> "," <cond-arg> ")" <make-line>* <else-part>? "endif" => { addConditional($1, $4, $6, $7, $9); }
+              | ("ifdef" | "ifndef") <var-name> <make-line>* <else-part>? "endif"
+<cond-arg> ::= /"[^"]*"/ | /'[^']*'/ | <var-name> | <variable-ref>
+<else-part> ::= "else" <make-line>* | "else" ("ifeq" | "ifneq") "(" <cond-arg> "," <cond-arg> ")" <make-line>*
+<include-directive> ::= ("include" | "-include" | "sinclude") <file-pattern>+ => { addInclude($2, $3); }
+<file-pattern> ::= /[a-zA-Z0-9_.*\/-]+/
+<export-directive> ::= "export" <var-name>+ | "export" <var-name> <assign-op> <var-value>
+<phony-decl> ::= ".PHONY" ":" <prerequisites> => { setPhony($3); }
+             | ".DEFAULT_GOAL" ":=" <target>
+             | ".SUFFIXES" ":" <prerequisites>?
+             | ".DELETE_ON_ERROR:" 
+<pattern-rule> ::= <pattern-target> ":" <pattern-prereqs>? <recipe>? => { addPatternRule($1, $3, $4); }
+<pattern-target> ::= /%[a-zA-Z0-9._\/-]*/
+<pattern-prereqs> ::= <pattern-prereq>+
+<pattern-prereq> ::= /[a-zA-Z0-9._$\/%-]+/
+<static-pattern-rule> ::= <targets> ":" <pattern-target> ":" <pattern-prereqs>? <recipe>? => { addStaticPattern($1, $3, $5, $6); }
+<double-colon-rule> ::= <targets> "::" <prerequisites>? <recipe>?
+<comment> ::= "#" /[\S\s]*/ => { skip(); }
+<empty> ::= /[ \t]*/
+<tab> ::= /\t/
