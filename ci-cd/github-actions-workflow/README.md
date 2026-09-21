@@ -25,6 +25,6 @@ jobs:
 
 Implements issue #46.
 
-## Extended coverage
+## Coverage completion
 
-Adds concurrency, permissions, environment, timeout-minutes, continue-on-error, service containers, and reusable workflow_call triggers.
+Completes coverage with secrets blocks, job outputs, reusable workflow outputs and secrets, step-level timeout, matrix include/exclude, and expression contexts.

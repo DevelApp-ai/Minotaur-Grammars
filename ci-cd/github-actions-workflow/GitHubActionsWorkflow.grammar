@@ -40,15 +40,15 @@ boolean         ::= 'true' | 'false' ;
 text            ::= '"' [^"]* '"' ;
 number          ::= [0-9]+ ;
 
-# --- Extended coverage: additional language constructs ---
-concurrency ::= 'concurrency' ':' 'group' ':' text 'cancel-in-progress' ':' boolean? ; ;
-permissions_block ::= 'permissions' ':' perm_map ; ;
-perm_map ::= (identifier) ':' ('read' | 'write' | 'none') (perm_map)* ; ;
-environment ::= 'environment' ':' (text | env_map) ; ;
-env_map ::= 'name' ':' text 'url' ':' text? ; ;
-timeout_minutes ::= 'timeout-minutes' ':' number ; ;
-continue_on_error ::= 'continue-on-error' ':' boolean ; ;
-services_block ::= 'services' ':' service_map ; ;
-service_map ::= identifier ':' 'image' ':' text 'ports' ':' port_list? ; ;
-port_list ::= '[' number (',' number)* ']' ; ;
-workflow_call ::= 'workflow_call' ':' inputs? 'secrets'? ; ;
+# --- Coverage completion: remaining language constructs ---
+secrets_block ::= 'secrets' ':' secret_def (secret_def)* ; ;
+secret_def ::= identifier ':' ('required' ':' boolean)? ('description' ':' text)? ; ;
+uses_workflow ::= 'uses' text '@' text 'with' ':' with_map? 'secrets' ':' with_map? ; ;
+job_outputs ::= 'outputs' ':' pair (','? pair)* ; ;
+step_timeout ::= 'timeout-minutes' ':' number ; ;
+matrix_include ::= 'include' ':' '[' with_map (','? with_map)* ']' ; ;
+matrix_exclude ::= 'exclude' ':' '[' with_map (','? with_map)* ']' ; ;
+matrix_fail_fast ::= 'fail-fast' ':' boolean ; ;
+expr_context ::= '${{' (github | env | secrets | matrix | steps | needs | inputs | vars | job) '.' [a-zA-Z0-9_-]+ '}}' ; ;
+step_working_dir ::= 'working-directory' ':' text ; ;
+step_shell_kw ::= 'shell' ':' ('bash' | 'pwsh' | 'python' | 'sh' | 'cmd' | 'powershell') ; ;

@@ -7,19 +7,23 @@ jobs:
       - uses: actions/checkout@v4
       - run: dotnet test
 
-# --- Extended constructs ---
-concurrency:
-  group: ${{ github.ref }}
-  cancel-in-progress: true
-permissions:
-  contents: read
+# --- Coverage completion constructs ---
+on:
+  workflow_call:
+    secrets:
+      token:
+        required: true
 jobs:
+  call:
+    uses: org/repo/.github/workflows/w.yml@v1
+    secrets: { token: ${{ secrets.token }} }
+    with: { mode: fast }
   build:
-    environment: production
-    timeout-minutes: 30
-    continue-on-error: false
-    services:
-      postgres:
-        image: postgres:16
-        ports: [5432]
+    outputs:
+      version: ${{ steps.v.outputs.v }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        include: [{ os: macos-latest, experimental: true }]
+        exclude: [{ os: windows-latest }]
 
