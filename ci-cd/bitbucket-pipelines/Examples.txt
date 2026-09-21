@@ -4,19 +4,16 @@ pipelines:
       - step:
           script: [ dotnet test ]
 
-# --- Extended constructs ---
+# --- Coverage completion constructs ---
 pipelines:
   default:
     - step:
-        name: Test
-        clone: { depth: 1 }
-        script: [ dotnet test ]
-    - parallel:
-        - step: { script: [ make lint ] }
-        - step: { script: [ make test ] }
-  custom:
-    release:
-      - step:
-          trigger: manual
-          deployment: production
+        name: build
+        oidc: true
+        artifacts:
+          paths: [dist/**]
+          download: true
+definitions:
+  caches:
+    npm: { path: node_modules }
 

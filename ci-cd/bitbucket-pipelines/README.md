@@ -22,6 +22,6 @@ pipelines:
 
 Implements issue #50.
 
-## Extended coverage
+## Coverage completion
 
-Adds parallel steps, clone options (depth/lfs), pipeline options (max-time), deployment stages, conditions, pipe steps, and manual triggers.
+Completes coverage with variable anchors, artifacts with expiry, OIDC, run-as-user, size limits, and default settings blocks.

@@ -37,12 +37,11 @@ boolean    ::= 'true' | 'false' ;
 text       ::= '"' [^"]* '"' ;
 number     ::= [0-9]+ ;
 
-# --- Extended coverage: additional language constructs ---
-parallel_steps ::= 'parallel' ':' step (','? step)* ; ;
-clone_opts ::= 'clone' ':' 'depth' ':' number? 'lfs' ':' boolean? ; ;
-options_block ::= 'options' ':' 'max-time' ':' number? 'docker' ':' pair? ; ;
-deployment ::= 'deployment' ':' ('test' | 'staging' | 'production' | text) ; ;
-condition_block ::= 'condition' ':' 'changesets' ':' pair ; ;
-pipe_step ::= 'pipe' ':' text 'variables' ':' pair? ; ;
-trigger_kw ::= 'trigger' ':' ('manual' | 'automatic') ; ;
-max_time ::= 'max-time' ':' number ; ;
+# --- Coverage completion: remaining language constructs ---
+var_anchor ::= &identifier ; ;
+artifacts_full ::= 'artifacts' ':' 'paths' ':' path_list 'download' ':' boolean? 'expiry' ':' text? ; ;
+oidc_kw ::= 'oidc' ':' boolean ; ;
+run_as_user ::= 'run-as-user' ':' text ; ;
+size_limit ::= 'size' ':' ('1x' | '2x' | '4x' | '8x') ; ;
+default_settings ::= 'default' ':' pair (','? pair)* ; ;
+git_push_step ::= 'script' ':' '[' (text 'git push origin ' text) ']' ; ;
