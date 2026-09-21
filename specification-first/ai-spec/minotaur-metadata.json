@@ -1,0 +1,24 @@
+{
+  "Id": "develapp.aispec",
+  "Name": "AiSpec",
+  "Vendor": "DevelApp",
+  "DisplayName": "AI Component Specification (.ai)",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "Grammar for hierarchical .ai component specification files (SpecTree): component identity, dependencies, requirements, API endpoints, data model references and ADR compliance. Used by Specification-First Development to drive .NET code generation.",
+  "License": "MIT",
+  "Tags": [
+    "specification-first",
+    "spectree"
+  ],
+  "MainFile": "AiSpec.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}

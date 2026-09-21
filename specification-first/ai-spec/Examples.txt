@@ -1,0 +1,27 @@
+# Component: OrderService
+## Namespace: DevelApp.Orders.Services
+## Version: 1.2.0
+## Description: Manages order creation, processing, and fulfillment
+## Dependencies: PaymentService, InventoryService, NotificationService
+
+### Requirements
+- REQ-001: Must support creation of orders with multiple items
+- REQ-002: Must validate inventory availability before order confirmation
+- REQ-003: Should send notifications on order status changes
+
+### API Endpoints
+- POST /api/orders: Creates a new order
+- GET /api/orders/{id}: Retrieves order details
+- PUT /api/orders/{id}/status: Updates order status
+- GET /api/orders/customer/{customerId}: Lists customer orders
+
+### Data Model
+- Order
+  - Id: Guid
+  - CustomerId: Guid
+  - Items: OrderItem[]
+  - Status: Enum
+
+### Compliance
+- complies-with ADR-0004
+- satisfies REQ-001
