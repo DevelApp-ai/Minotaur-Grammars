@@ -36,3 +36,13 @@ scalar     ::= text | number | boolean ;
 boolean    ::= 'true' | 'false' ;
 text       ::= '"' [^"]* '"' ;
 number     ::= [0-9]+ ;
+
+# --- Extended coverage: additional language constructs ---
+parallel_steps ::= 'parallel' ':' step (','? step)* ; ;
+clone_opts ::= 'clone' ':' 'depth' ':' number? 'lfs' ':' boolean? ; ;
+options_block ::= 'options' ':' 'max-time' ':' number? 'docker' ':' pair? ; ;
+deployment ::= 'deployment' ':' ('test' | 'staging' | 'production' | text) ; ;
+condition_block ::= 'condition' ':' 'changesets' ':' pair ; ;
+pipe_step ::= 'pipe' ':' text 'variables' ':' pair? ; ;
+trigger_kw ::= 'trigger' ':' ('manual' | 'automatic') ; ;
+max_time ::= 'max-time' ':' number ; ;

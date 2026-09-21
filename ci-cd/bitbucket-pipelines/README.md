@@ -21,3 +21,7 @@ pipelines:
 - every step has a script
 
 Implements issue #50.
+
+## Extended coverage
+
+Adds parallel steps, clone options (depth/lfs), pipeline options (max-time), deployment stages, conditions, pipe steps, and manual triggers.

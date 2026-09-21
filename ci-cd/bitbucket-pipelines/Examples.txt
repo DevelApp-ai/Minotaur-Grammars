@@ -3,3 +3,20 @@ pipelines:
     main:
       - step:
           script: [ dotnet test ]
+
+# --- Extended constructs ---
+pipelines:
+  default:
+    - step:
+        name: Test
+        clone: { depth: 1 }
+        script: [ dotnet test ]
+    - parallel:
+        - step: { script: [ make lint ] }
+        - step: { script: [ make test ] }
+  custom:
+    release:
+      - step:
+          trigger: manual
+          deployment: production
+
