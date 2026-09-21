@@ -1,0 +1,37 @@
+Grammar: Haskell
+FormatType: EBNF
+TokenSplitter: Space
+
+module  ::= module_decl? import_stmt* top_decl* ;
+module_decl ::= 'module' identifier '(' export_list? ')' 'where' ;
+export_list ::= identifier (',' identifier)* ;
+import_stmt ::= 'import' ('qualified')? qualified_id ('(' import_list? ')')? ;
+import_list ::= identifier (',' identifier)* ;
+top_decl ::= data_decl | type_decl | func_decl | signature ;
+data_decl ::= 'data' identifier type_vars? '=' constructor ('|' constructor)* 'deriving' identifier_list? ;
+type_vars ::= identifier+ ;
+constructor ::= identifier ('{' field* '}')? type* ;
+field   ::= identifier '::' type ;
+type_decl ::= 'type' identifier type_vars? '=' type ;
+signature ::= identifier '::' type ;
+func_decl ::= identifier pattern* '=' expr | identifier pattern* guards ;
+guards  ::= ('|' expr '=' expr)+ ;
+pattern ::= identifier | literal | '_' | '(' pattern ',' pattern ')' ;
+expr    ::= literal | identifier | call | lambda | expr binop expr | '(' expr ')' | let_expr | case_expr | do_block ;
+call    ::= expr expr ;
+lambda  ::= '\\' pattern+ '->' expr ;
+let_expr ::= 'let' decls 'in' expr ;
+decls   ::= func_decl (';' func_decl)* ;
+case_expr ::= 'case' expr 'of' case_alt+ ;
+case_alt ::= pattern '->' expr ;
+do_block ::= 'do' stmt+ ;
+stmt    ::= identifier '<-' expr | 'let' decls | expr ;
+type    ::= identifier | '[' type ']' | '(' type '->' type ')' | type '->' type ;
+literal ::= number | text | char ;
+binop   ::= '+' | '-' | '*' | '/' | '==' | '/=' | '<' | '>' | ':' | '++' | '>>=' | '<$>' ;
+qualified_id ::= identifier ('.' identifier)* ;
+identifier_list ::= identifier (',' identifier)* ;
+identifier ::= [a-zA-Z_][a-zA-Z0-9_']* ;
+char    ::= '\'' [^\']* '\'' ;
+text    ::= '"' [^"]* '"' ;
+number  ::= [0-9]+ ;
