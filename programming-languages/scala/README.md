@@ -22,3 +22,7 @@ object MathUtils {
 - case patterns bind identifiers
 
 Implements issue #64.
+
+## Extended coverage
+
+Adds case classes, for-comprehensions, try/catch/finally, implicit/using parameters, givens, package objects, and type bounds.

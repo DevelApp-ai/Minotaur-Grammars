@@ -1,1 +1,10 @@
 val doubled = List(1, 2, 3).map(x => x * 2)
+
+# --- Extended constructs ---
+case class Point(x: Int, y: Int)
+for { i <- List(1,2); if i > 1 } yield i
+try { risky } catch { case _: Exception => 0 } finally { done }
+def greet(implicit name: String) = s"hi $name"
+given Ordering[Int] = _._1
+def add(using a: Int) = a + 1
+
