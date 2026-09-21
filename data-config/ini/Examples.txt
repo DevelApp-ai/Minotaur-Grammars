@@ -1,0 +1,9 @@
+; Database settings
+[database]
+host = localhost
+port = 5432
+debug : true
+
+[paths]
+# data directory
+data_dir = /var/lib/app

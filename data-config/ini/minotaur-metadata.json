@@ -1,0 +1,23 @@
+{
+  "Id": "develapp.ini",
+  "Name": "INI",
+  "Vendor": "DevelApp",
+  "DisplayName": "INI",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "Grammar for INI configuration files: sections, key-value pairs, comments and inline values.",
+  "License": "MIT",
+  "Tags": [
+    "data-config"
+  ],
+  "MainFile": "INI.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}
