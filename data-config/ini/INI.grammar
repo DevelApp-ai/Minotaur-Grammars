@@ -14,10 +14,8 @@ TokenSplitter: Space
 <comment> ::= (";" | "#") /[\S\s]*/ => { skip(); }
 <empty> ::= /[ \t]*/
 
-# --- Extended coverage: additional language constructs ---
-<comment_line> ::= (";" | "#") [^\n]* ;
-<dotted_key> ::= <key> ("." <key>)+ ;
-<quoted_value> ::= "\"" [^"]* "\"" ;
-<escape_seq> ::= "\\" . ;
-<line_continuation> ::= <value> ("\\\n" <value>)* ;
-<valueless_key> ::= <key> [ \t]* "\n" ;
+# --- Coverage completion: remaining language constructs ---
+<sub_section> ::= <key> " " <text> ;
+<trailing_comment> ::= ('#' | ';') [^\n]* ;
+<list_value> ::= <value> ("," <value>)+ ;
+<empty_line> ::= [ \t]* "\n" ;

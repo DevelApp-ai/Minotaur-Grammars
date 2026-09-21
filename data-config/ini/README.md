@@ -18,6 +18,6 @@ key = value
 
 Implements issue #30.
 
-## Extended coverage
+## Coverage completion
 
-Adds comments, dotted (nested) keys, quoted values with escape sequences, line continuations, and value-less keys.
+Completes coverage with subsection syntax (GitHub-style scope sections), trailing comments, list values, and blank lines.

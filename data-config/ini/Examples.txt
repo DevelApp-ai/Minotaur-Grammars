@@ -8,11 +8,9 @@ debug : true
 # data directory
 data_dir = /var/lib/app
 
-# --- Extended constructs ---
-; comment
-database.pool.max = 10
-path = "C:\\tmp"
-long = first \\
-  second
-flag
+# --- Coverage completion constructs ---
+[scope "sub"]
+key = value ; trailing comment
+[tool.dotcover]
+coverage = xml
 
