@@ -1,6 +1,0 @@
-404: Not Found
-
-# --- Coverage completion constructs ---
-
-generator client { provider = "prisma-client-js" previewFeatures = ["views"] multiSchema = true }
-model Event { id Int @id @db.BigInt ts DateTime @db.Timestamptz(6) name String @db.VarChar(255) }
