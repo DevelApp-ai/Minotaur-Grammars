@@ -17,3 +17,7 @@ key = value
 - Value type inference (number/bool/string)
 
 Implements issue #30.
+
+## Extended coverage
+
+Adds comments, dotted (nested) keys, quoted values with escape sequences, line continuations, and value-less keys.

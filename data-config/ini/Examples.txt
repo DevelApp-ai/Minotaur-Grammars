@@ -7,3 +7,12 @@ debug : true
 [paths]
 # data directory
 data_dir = /var/lib/app
+
+# --- Extended constructs ---
+; comment
+database.pool.max = 10
+path = "C:\\tmp"
+long = first \\
+  second
+flag
+
