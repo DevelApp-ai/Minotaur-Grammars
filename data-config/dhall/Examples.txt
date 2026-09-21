@@ -5,8 +5,9 @@ in  { host = host
   , tls = False
   }
 
-# --- Extended constructs ---
-let x = Some 1
-let y = toMap { a = 1 }
-let z = @expr@ with a = 2
+# --- Coverage completion constructs ---
+{ name, age }
+{ Tag.Left = 1 }
+x @ f y
+[1, 2] # [3]
 

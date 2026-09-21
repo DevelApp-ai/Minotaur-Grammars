@@ -27,14 +27,12 @@ TokenSplitter: Space
 <path-chars> ::= /[^ \t\n]+/
 <file-path> ::= /[.\/][a-zA-Z0-9_.\/-]*/
 
-# --- Extended coverage: additional language constructs ---
-<toMap> ::= "toMap" <record> ;
-<assert> ::= "assert" ":" <expr> ;
-<with_expr> ::= <expr> "with" <label> "=" <expr> ;
-<env_import> ::= "env:" <label> ;
-<remote_import> ::= "https://" <path> ;
-<local_import> ::= ("." | ".." | "~" | "/") <path> ;
-<some_expr> ::= "Some" <expr> ;
-<none_expr> ::= "None" <type> ;
-<builtin_func> ::= ("List/fold" | "List/length" | "List/head" | "Optional/fold" | "Text/show" | "Natural/show" | "Integer/toDouble") <expr> ;
-<double_lit> ::= [0-9]+ "." [0-9]+ ;
+# --- Coverage completion: remaining language constructs ---
+<record_punning> ::= <label> ("," <label>)* ;
+<union_punning> ::= "=" <label> ("," <label>)* ;
+<apply_op> ::= <expr> "@" <expr> ;
+<list_append> ::= <expr> "#" <expr> ;
+<builtin_ext> ::= ("List/map" | "List/filter" | "List/concat" | "List/replicate" | "Text/replace" | "Natural/subtract" | "Optional/unwrap" | "Bool" | "Optional") <expr>* ;
+<nan_inf> ::= ("NaN" | "Infinity") ;
+<double_lit_exp> ::= [0-9]+ "e" [0-9]+ ;
+<path_component> ::= ("." | ".." | "~") ;
