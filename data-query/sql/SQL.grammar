@@ -41,15 +41,16 @@ identifier ::= [a-zA-Z_][a-zA-Z0-9_]* ;
 text     ::= '\'' [^\']* '\'' ;
 number   ::= [0-9]+ ('.' [0-9]+)? ;
 
-# --- Extended coverage: additional language constructs ---
-with_cte ::= 'WITH' cte (',' cte)* statement ; ;
-cte ::= identifier ('(' column_list ')')? 'AS' '(' select_stmt ')' ; ;
-subquery ::= '(' select_stmt ')' ; ;
-union_stmt ::= select_stmt ('UNION' 'ALL'? select_stmt)+ ';' ; ;
-case_expr ::= 'CASE' expr? ('WHEN' expr 'THEN' expr)+ ('ELSE' expr)? 'END' ; ;
-window_fn ::= func_name '(' ('*' | column | expr) ')' 'OVER' '(' ('PARTITION' 'BY' column_list)? ('ORDER' 'BY' order_by)? ')' ; ;
-view_def ::= 'CREATE' 'VIEW' identifier 'AS' select_stmt ';' ; ;
-transaction_stmt ::= ('BEGIN' | 'COMMIT' | 'ROLLBACK') ';' ; ;
-exists_pred ::= ('NOT')? 'EXISTS' subquery ; ;
-in_subquery ::= expr 'IN' subquery ; ;
-truncate_stmt ::= 'TRUNCATE' 'TABLE' identifier ';' ; ;
+# --- Coverage completion: remaining language constructs ---
+
+on_conflict_clause ::= "ON" "CONFLICT" [ "(" column_list ")" ] ( "DO" "NOTHING" | "DO" "UPDATE" "SET" set_clause_list ) ;
+merge_statement ::= "MERGE" "INTO" table_ref "USING" table_ref "ON" condition merge_when+ ;
+dml_with_clause ::= "WITH" [ "RECURSIVE" ] cte_definition ( "," cte_definition )* dml_statement ;
+create_procedure ::= "CREATE" [ "OR" "REPLACE" ] "PROCEDURE" routine_name "(" routine_params ")" routine_body ;
+create_trigger ::= "CREATE" [ "OR" "REPLACE" ] "TRIGGER" trigger_name trigger_timing trigger_event "ON" table_ref "FOR" "EACH" ( "ROW" | "STATEMENT" ) "EXECUTE" ( "FUNCTION" | "PROCEDURE" ) routine_name "(" args? ")" ";" ;
+grant_statement ::= "GRANT" privilege_list "ON" object_name "TO" grantee_list [ "WITH" "GRANT" "OPTION" ] ";" ;
+revoke_statement ::= "REVOKE" [ "GRANT" "OPTION" "FOR" ] privilege_list "ON" object_name "FROM" grantee_list [ "CASCADE" | "RESTRICT" ] ";" ;
+json_operator ::= expression ( "->" | "->>" | "#>" | "#>>" | "@>" | "<@" | "?" | "?|" | "?&" ) json_path ;
+lateral_join ::= ","? "LATERAL" "(" select_statement ")" [ alias ] ;
+named_window ::= "WINDOW" window_name "AS" "(" window_spec ")" ;
+window_frame ::= ( "ROWS" | "RANGE" | "GROUPS" ) frame_extent ;

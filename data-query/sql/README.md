@@ -22,6 +22,11 @@ ORDER BY order_count DESC;
 
 Implements issue #77.
 
-## Extended coverage
+## Coverage completion
 
-Adds CTEs (WITH), subqueries, UNION, CASE expressions, window functions, views, transactions, EXISTS/IN subqueries, and TRUNCATE.
+The grammar now also covers the remaining language constructs:
+
+- Upserts (`INSERT ... ON CONFLICT`, `MERGE INTO`) and CTEs in DML
+- Stored procedures, triggers, and `GRANT`/`REVOKE`
+- JSON operators and `LATERAL` joins
+- Named window frames (`ROWS BETWEEN ...`)
