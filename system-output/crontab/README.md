@@ -17,3 +17,7 @@ Minotaur grammar for Crontab, covering the core language subset.
 - step values are positive
 
 Implements issue #85.
+
+## Extended coverage
+
+Adds named @entries (reboot, daily, …), the system crontab user field, and the seconds-based 6-field variant.
