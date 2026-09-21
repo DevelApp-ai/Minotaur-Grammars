@@ -2,6 +2,10 @@ Grammar: SASS
 FormatType: EBNF
 TokenSplitter: Space
 
+# --- Extended coverage: additional language constructs ---
+
+# --- Coverage completion: remaining language constructs ---
+
 <stylesheet> ::= <statement>* ;
 <statement> ::= <variable_decl> | <nested_rule> | <mixin_decl> | <include> | <import_stmt> | <property> | <comment> ;
 <variable_decl> ::= '$' <identifier> ':' <value> ';' ;
@@ -19,13 +23,11 @@ TokenSplitter: Space
 <function_call> ::= <identifier> '(' <args>? ')' ;
 <flag> ::= 'important' ;
 <comment> ::= '/*' <auto_comment_1> '*/' | '//' <auto_comment_2> ;
-<selector_text> ::= ( "." "#" "&" "a" "-" "zA" "-" "Z" ":" "\" <auto_selector_text_3> "\" "]" "=" "(), ">"+ "~"* "-" )? ;
+<selector_text> ::= <auto_selector_text_3> ;
 <color> ::= '#' <auto_color_4> ;
 <identifier> ::= <auto_identifier_5> <auto_identifier_6> ;
 <text> ::= '"' <auto_text_7> '"' ;
 <number> ::= <auto_number_8>( '.' <auto_number_8>)?( 'px' | 'em' | 'rem' | '%')? ;
-
-# --- Extended coverage: additional language constructs ---
 <extend_stmt> ::= '@extend' <selector> ';'; ;
 <placeholder_sel> ::= '%' <identifier>; ;
 <control_if> ::= '@if' "condition" '{' <statement>* '}'( '@else' 'if' "condition" '{' <statement>* '}')*( '@else' '{' <statement>* '}')?; ;
@@ -37,9 +39,6 @@ TokenSplitter: Space
 <interpolation> ::= '#{' <value> '}'; ;
 <function_def> ::= '@function' <identifier> '(' <params>? ')' '{' <statement>* '}'; ;
 <return_stmt> ::= '@return' <value> ';'; ;
-
-# --- Coverage completion: remaining language constructs ---
-
 <media_query> ::= "@media" "media_query_list" "block" ;
 <media_feature> ::= "(" "feature_name" ":" "feature_value" ")" ;
 <nested_media> ::= <media_query> "block" <media_query>* ;
@@ -47,12 +46,11 @@ TokenSplitter: Space
 <supports_condition> ::= "supports_negation" | "supports_operation" | "(" "declaration" ")" ;
 <default_flag> ::= "!default" ;
 <global_flag> ::= "!global" ;
-
-<auto_comment_1> ::= /^**/ ;
-<auto_comment_2> ::= /^\n*/ ;
-<auto_selector_text_3> ::= // ;
-<auto_color_4> ::= /0-9a-fA-F+/ ;
-<auto_identifier_5> ::= /a-zA-Z-/ ;
-<auto_identifier_6> ::= /a-zA-Z0-9-*/ ;
-<auto_text_7> ::= /^"*/ ;
-<auto_number_8> ::= /0-9+/ ;
+<auto_comment_1> ::= /[^*]*/ ;
+<auto_comment_2> ::= /[^\n]*/ ;
+<auto_selector_text_3> ::= /[.#&a-zA-Z:\[\]=" (),>+~*-]+/ ;
+<auto_color_4> ::= /[0-9a-fA-F]+/ ;
+<auto_identifier_5> ::= /[a-zA-Z-]/ ;
+<auto_identifier_6> ::= /[a-zA-Z0-9-]*/ ;
+<auto_text_7> ::= /[^"]*/ ;
+<auto_number_8> ::= /[0-9]+/ ;
