@@ -1,12 +1,16 @@
 404: Not Found
 
-# --- Extended coverage: additional language constructs ---
-handlers_block ::= "handlers" ":" task* ;
-roles_block ::= "roles" ":" [ role_item ("," role_item)* ] ;
-role_item ::= text | "{" "role" ":" text "vars" ":" map? "}" ;
-block_rescue ::= "block" ":" [ task* ] "rescue" ":" [ task* ]? "always" ":" [ task* ]? ;
-tags_kw ::= "tags" ":" ( text | [ text ("," text)* ] ) ;
-become_kw ::= "become" ":" boolean ("become_user" ":" text)? ;
-loop_kw ::= "loop" ":" list "loop_var" ":" text? ;
-vars_prompt ::= "vars_prompt" ":" [ prompt_item ] ;
-prompt_item ::= "name" ":" text "prompt" ":" text "private" ":" boolean? ;
+# --- Coverage completion: remaining language constructs ---
+collections_block ::= "collections" ":" [ text ("," text)* ] ;
+module_defaults ::= "module_defaults" ":" map ;
+pre_tasks ::= "pre_tasks" ":" [ task* ] ;
+post_tasks ::= "post_tasks" ":" [ task* ] ;
+strategy_kw ::= "strategy" ":" ("linear" | "free" | "host_pinned" | "debug") ;
+any_errors_fatal ::= "any_errors_fatal" ":" boolean ;
+max_fail_pct ::= "max_fail_percentage" ":" number ;
+fqc_module ::= text "." text "." text ;
+delegate_to ::= "delegate_to" ":" text ;
+delegate_facts ::= "delegate_facts" ":" boolean ;
+run_once ::= "run_once" ":" boolean ;
+failed_when ::= "failed_when" ":" expr ;
+changed_when ::= "changed_when" ":" expr ;

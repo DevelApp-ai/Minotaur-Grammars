@@ -1,5 +1,5 @@
 404: Not Found
 
-## Extended coverage
+## Coverage completion
 
-Adds handlers, roles (with vars), block/rescue/always error sections, tags, become escalation, loops with loop_var, and vars_prompt.
+Completes coverage with collections declarations, module_defaults, pre_tasks/post_tasks, strategy and error-control keywords, FQCN module names, and delegation.
