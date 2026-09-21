@@ -1,0 +1,4 @@
+library(dplyr)
+data <- c(1, 2, 3)
+mean(data)
+if (mean(data) > 1) { print("big") }
