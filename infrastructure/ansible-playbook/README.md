@@ -20,3 +20,7 @@ Grammar for Ansible playbooks: plays with hosts and roles, task lists with modul
 - register/when variable references
 
 Implements issue #38.
+
+## Coverage completion
+
+Completes coverage with collections declarations, module_defaults, pre_tasks/post_tasks, strategy and error-control keywords, FQCN module names, and delegation.

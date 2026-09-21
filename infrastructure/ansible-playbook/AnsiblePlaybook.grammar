@@ -37,7 +37,8 @@ TokenSplitter: Space
              | "tags:" <value>
              | "become:" <boolean>
              | "become_user:" <identifier>
-<value> ::= <scalar> | <list-value> | <map-value> | <jinja-expr>
+<value> ::= <scalar> | <list-value> | <map-value> | 
+<jinja-expr>
 <scalar> ::= <boolean> | <number> | <string> | "null"
 <boolean> ::= "true" | "false" | "yes" | "no"
 <number> ::= /[+-]?[0-9]+(\.[0-9]+)?/
@@ -50,3 +51,19 @@ TokenSplitter: Space
 <free-text> ::= /[^\n]+/
 <indent> ::= /[ \t]+/
 <indent2> ::= /[ \t][ \t]+/
+
+# --- Coverage completion: remaining language constructs ---
+
+collections_block ::= "collections" ":" [ text ("," text)* ] ;
+module_defaults ::= "module_defaults" ":" map ;
+pre_tasks ::= "pre_tasks" ":" [ task* ] ;
+post_tasks ::= "post_tasks" ":" [ task* ] ;
+strategy_kw ::= "strategy" ":" ("linear" | "free" | "host_pinned" | "debug") ;
+any_errors_fatal ::= "any_errors_fatal" ":" boolean ;
+max_fail_pct ::= "max_fail_percentage" ":" number ;
+fqc_module ::= text "." text "." text ;
+delegate_to ::= "delegate_to" ":" text ;
+delegate_facts ::= "delegate_facts" ":" boolean ;
+run_once ::= "run_once" ":" boolean ;
+failed_when ::= "failed_when" ":" expr ;
+changed_when ::= "changed_when" ":" expr ;
