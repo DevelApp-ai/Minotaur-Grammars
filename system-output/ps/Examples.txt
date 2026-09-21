@@ -1,8 +1,0 @@
-404: Not Found
-
-# --- Coverage completion constructs ---
-
-USER  PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
-root     1  0.0  0.1 169364 12224 ?        Ss   09:00   0:02 /sbin/init
-  PID COMMAND
-12345 /usr/bin/python3
