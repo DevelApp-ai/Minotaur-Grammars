@@ -1,7 +1,0 @@
-404: Not Found
-
-# --- Coverage completion constructs ---
-
--rw-r--r--  1 user group  4096 2026-09-21 10:15 notes.txt
--rw-r--r--  1 user group  1.2K Sep 21 10:15 data.bin
-drwxr-xr-x  2 user group  4.0K Sep 21 09:00 subdir
