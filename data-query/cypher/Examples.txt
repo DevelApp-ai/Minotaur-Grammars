@@ -1,2 +1,11 @@
 CREATE (n:Person { name: 'Ada' })
 MATCH (n:Person) RETURN n.name;
+
+# --- Extended constructs ---
+MATCH (u:User)
+WITH u, count(u) AS c
+OPTIONAL MATCH (u)-[:KNOWS]->(f:Person:Admin)
+WHERE f.name IS NOT NULL
+FOREACH (n IN [f] | SET n.seen = true)
+REMOVE u.temp
+

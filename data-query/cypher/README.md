@@ -18,3 +18,7 @@ ORDER BY posts DESC LIMIT 10;
 - SET assignments target bound variables
 
 Implements issue #79.
+
+## Extended coverage
+
+Adds WITH, OPTIONAL MATCH, REMOVE, FOREACH, shortestPath, multi-labels, IS NULL tests, and pattern comprehensions.
