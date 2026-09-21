@@ -2,58 +2,64 @@ Grammar: MermaidJs
 FormatType: EBNF
 TokenSplitter: Space
 
-diagram   ::= flowchart | sequence_diagram | class_diagram | state_diagram ;
-flowchart ::= 'flowchart' 'TD' | 'flowchart' 'LR' flowchart_body ;
-flowchart_body ::= flow_stmt (';'? flow_stmt)* ;
-flow_stmt ::= node_decl | edge ;
-node_decl ::= node_id ('[' text ']' | '(' text ')' | '{' text '}' | '([' text '])')? ;
-node_id   ::= identifier ;
-edge     ::= node_id edge_op node_id ;
-edge_op  ::= '-->' | '---' | '-.->' | '==>' | '--' text '-->' ;
-sequence_diagram ::= 'sequenceDiagram' seq_stmt+ ;
-seq_stmt ::= participant | message | activation ;
-participant ::= 'participant' identifier 'as' text ;
-message  ::= identifier arrow identifier ':' text ;
-arrow    ::= '->>' | '-->> | '-)' | '--)' ;
-activation ::= ('activate'|'deactivate') identifier ;
-class_diagram ::= 'classDiagram' class_stmt+ ;
-class_stmt ::= class_def | relation ;
-class_def ::= 'class' identifier '{' member* '}' ;
-member   ::= (visibility)? identifier '(' ')' identifier? ;
-visibility ::= '+' | '-' | '#' ;
-relation ::= identifier ('<|--'|'-->|'|'*--'|'o--'|'<|--') identifier ;
-state_diagram ::= 'stateDiagram-v2' state_stmt+ ;
-state_stmt ::= transition | state_def ;
-transition ::= identifier '-->' identifier ':' text? ;
-state_def ::= 'state' identifier ;
-identifier ::= [a-zA-Z_][a-zA-Z0-9_]* ;
-text     ::= [^\]}:;]+ ;
-number   ::= [0-9]+ ;
+<diagram> ::= <flowchart> | <sequence_diagram> | <class_diagram> | <state_diagram> ;
+<flowchart> ::= 'flowchart' 'TD' | 'flowchart' 'LR' <flowchart_body> ;
+<flowchart_body> ::= <flow_stmt>( ';'? <flow_stmt>)* ;
+<flow_stmt> ::= <node_decl> | <edge> ;
+<node_decl> ::= <node_id>( '[' <text> ']' | '(' <text> ')' | '{' <text> '}' | '([' <text> '])')? ;
+<node_id> ::= <identifier> ;
+<edge> ::= <node_id> <edge_op> <node_id> ;
+<edge_op> ::= '-->' | '---' | '-.->' | '==>' | '--' <text> '-->' ;
+<sequence_diagram> ::= 'sequenceDiagram' <seq_stmt>+ ;
+<seq_stmt> ::= <participant> | <message> | <activation> ;
+<participant> ::= 'participant' <identifier> 'as' <text> ;
+<message> ::= <identifier> <arrow> <identifier> ':' <text> ;
+<arrow> ::= '->>' | '-->> | ' "-") ' | ' "-" "-") ' ;
+<activation> ::= ( 'activate' | 'deactivate') <identifier> ;
+<class_diagram> ::= 'classDiagram' <class_stmt>+ ;
+<class_stmt> ::= <class_def> | <relation> ;
+<class_def> ::= 'class' <identifier> '{' <member>* '}' ;
+<member> ::= ( <visibility>)? <identifier> '(' ')' <identifier>? ;
+<visibility> ::= '+' | '-' | '#' ;
+<relation> ::= <identifier>( '<|--' | '-->|' | '*--' | 'o--' | '<|--') <identifier> ;
+<state_diagram> ::= 'stateDiagram-v2' <state_stmt>+ ;
+<state_stmt> ::= <transition> | <state_def> ;
+<transition> ::= <identifier> '-->' <identifier> ':' <text>? ;
+<state_def> ::= 'state' <identifier> ;
+<identifier> ::= <auto_identifier_1> <auto_identifier_2> ;
+<text> ::= <auto_text_3> ;
+<number> ::= <auto_number_4> ;
 
 # --- Extended coverage: additional language constructs ---
-subgraph_block ::= 'subgraph' identifier ('[' text ']')? flowchart_body 'end' ; ;
-er_diagram ::= 'erDiagram' er_stmt+ ; ;
-er_stmt ::= identifier '{' er_attr+ '}' | er_relation ; ;
-er_attr ::= identifier identifier ('PK' | 'FK' | 'UK')? text? ; ;
-er_relation ::= identifier er_card identifier ':' text ; ;
-er_card ::= ('||' | 'o|' | '}o' | '}|') ('--' | 'o--' | '|--') ('||' | 'o|' | 'o{' | '|{') ; ;
-gantt_diagram ::= 'gantt' gantt_stmt+ ; ;
-gantt_stmt ::= ('title' | 'dateFormat' | 'section' | 'axisFormat') text | gantt_task ; ;
-gantt_task ::= text ':' (',' text)*
+<subgraph_block> ::= 'subgraph' <identifier>( '[' <text> ']')? <flowchart_body> 'end'; ;
+<er_diagram> ::= 'erDiagram' <er_stmt>+; ;
+<er_stmt> ::= <identifier> '{' <er_attr>+ '}' | <er_relation>; ;
+<er_attr> ::= <identifier> <identifier>( 'PK' | 'FK' | 'UK')? <text>?; ;
+<er_relation> ::= <identifier> <er_card> <identifier> ':' <text>; ;
+<er_card> ::= ( '||' | 'o|' | '}o' | '}|')( '--' | 'o--' | '|--')( '||' | 'o|' | 'o{' | '|{'); ;
+<gantt_diagram> ::= 'gantt' <gantt_stmt>+; ;
+<gantt_stmt> ::= ( 'title' | 'dateFormat' | 'section' | 'axisFormat') <text> | <gantt_task>; ;
+<gantt_task> ::= <text> ':'( ',' <text>)* ;
+
  ':' text ; ;
-pie_diagram ::= 'pie' 'title'? text? pie_slice+ ; ;
-pie_slice ::= text ':' number ; ;
-journey_diagram ::= 'journey' 'title' text task_section+ ; ;
-gitgraph_diagram ::= 'gitGraph' git_commit* ; ;
-git_commit ::= 'commit' ('id' ':' text)? ('tag' ':' text)? ; ;
+<pie_diagram> ::= 'pie' 'title'? <text>? <pie_slice>+; ;
+<pie_slice> ::= <text> ':' <number>; ;
+<journey_diagram> ::= 'journey' 'title' <text> "task_section"+; ;
+<gitgraph_diagram> ::= 'gitGraph' <git_commit>*; ;
+<git_commit> ::= 'commit'( 'id' ':' <text>)?( 'tag' ':' <text>)?; ;
 
 # --- Coverage completion: remaining language constructs ---
 
-timeline_diagram ::= "timeline" timeline_section+ ;
-timeline_section ::= [ title_line ] timeline_event+ ;
-quadrant_chart ::= "quadrantChart" chart_axis+ quadrant_point* ;
-chart_axis ::= ( "x-axis" | "y-axis" ) label "-->" label ;
-mindmap_diagram ::= "mindmap" mindmap_node+ ;
-mindmap_node ::= indent node_shape ;
-requirement_diagram ::= "requirementDiagram" requirement_element+ ;
-requirement_element ::= ( requirement_block | element_block | relationship ) ;
+<timeline_diagram> ::= "timeline" <timeline_section>+ ;
+<timeline_section> ::= ( "title_line" )? "timeline_event"+ ;
+<quadrant_chart> ::= "quadrantChart" <chart_axis>+ "quadrant_point"* ;
+<chart_axis> ::= ( "x-axis" | "y-axis") "label" "-->" "label" ;
+<mindmap_diagram> ::= "mindmap" <mindmap_node>+ ;
+<mindmap_node> ::= "indent" "node_shape" ;
+<requirement_diagram> ::= "requirementDiagram" <requirement_element>+ ;
+<requirement_element> ::= ( "requirement_block" | "element_block" | "relationship") ;
+
+<auto_identifier_1> ::= /a-zA-Z_/ ;
+<auto_identifier_2> ::= /a-zA-Z0-9_*/ ;
+<auto_text_3> ::= /^\]}:;+/ ;
+<auto_number_4> ::= /0-9+/ ;
