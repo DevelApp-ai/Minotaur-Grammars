@@ -20,3 +20,7 @@ fun main() {
 - lambda parameters match usage
 
 Implements issue #63.
+
+## Extended coverage
+
+Adds interfaces, sealed classes, companion objects, lateinit, value classes, suspend functions, subject-less when, annotations, and labeled breaks.
