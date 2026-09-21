@@ -25,3 +25,7 @@ $primary: #333;
 - nested selectors use & parent references correctly
 
 Implements issue #75.
+
+## Extended coverage
+
+Adds @extend with placeholders, @if/@else control flow, @for/@each/@each loops, @use/@forward modules, interpolation, and @function with @return.

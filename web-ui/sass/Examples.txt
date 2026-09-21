@@ -2,3 +2,13 @@
   padding: 16px;
   .title { font-weight: bold; }
 }
+
+# --- Extended constructs ---
+%button-base { padding: 8px; }
+.primary { @extend %button-base; }
+@if $dark { color: white; } @else { color: black; }
+@for $i from 1 through 3 { .m-#{$i} { margin: $i * 4px; } }
+@each $name, $c in (warn: #c00, ok: #0c0) { .#{$name} { color: $c; } }
+@function double($x) { @return $x * 2; }
+@use 'reset';
+
