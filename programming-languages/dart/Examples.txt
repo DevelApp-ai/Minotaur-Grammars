@@ -3,12 +3,14 @@ void main() {
   print(items.where((x) => x > 1).length);
 }
 
-# --- Extended constructs ---
-mixin Loggable { void log(String m) => print(m); }
-obj..first()..second();
-var list = [...other, if (c) x];
-factory Point.origin() => Point(0, 0);
-int get x => _x;
-typedef Handler = void Function(int);
-await for (var e in stream) { print(e); }
+# --- Coverage completion constructs ---
 
+extension StringX on String { String get shout => toUpperCase() + '!'; }
+(int, String) pair = (1, 'one');
+final (a, b) = (1, 2);
+switch (obj) { case int x when x > 0: print(x); case [var first, ...]: print(first); default: }
+sealed class Shape {}
+Stream<int> tick() async* { yield 1; yield 2; }
+late final result = compute();
+part 'src/util.dart';
+part of 'library.dart';

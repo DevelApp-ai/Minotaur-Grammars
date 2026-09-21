@@ -21,6 +21,11 @@ class Greeter {
 
 Implements issue #65.
 
-## Extended coverage
+## Coverage completion
 
-Adds mixins, cascades, spread operators, null-aware access, factory and named constructors, getters/setters, typedefs, streams, and enhanced enums.
+The grammar now also covers the remaining core language constructs:
+
+- `extension` declarations
+- Record types and record literals
+- Pattern `switch` statements and `sealed` classes
+- `async*` generators, `late` declarations, and `part` / `part of` directives
