@@ -22,6 +22,6 @@ Minotaur grammar for Apache HTTP Server Configuration, covering the core languag
 
 Implements issue #52.
 
-## Extended coverage
+## Coverage completion
 
-Adds IfDefine/DirectoryMatch sections, RewriteRule with flags, Alias/ProxyPass directives, SSL and logging directives.
+Completes coverage with Options directives, AllowOverride, SetEnv, Header edits, DirectoryIndex, SSL certificate directives, and ProxyPassMatch.

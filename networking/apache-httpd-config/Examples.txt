@@ -2,11 +2,12 @@
   RewriteEngine On
 </IfModule>
 
-# --- Extended constructs ---
-<IfModule mod_rewrite.c>
-  RewriteEngine On
-  RewriteRule ^/old/(.*)$ /new/$1 [R=301,L]
-</IfModule>
-ProxyPass /api http://backend:8080
-CustomLog logs/access combined
+# --- Coverage completion constructs ---
+Options -Indexes +FollowSymLinks
+AllowOverride None
+SetEnv APP_ENV production
+Header always set X-Frame-Options DENY
+DirectoryIndex index.php index.html
+SSLCertificateFile /certs/site.crt
+ProxyPassMatch ^/(.*)$ unix:/run/app.sock|http://localhost/$1
 
