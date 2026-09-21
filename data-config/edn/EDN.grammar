@@ -1,0 +1,22 @@
+Grammar: EDN
+FormatType: EBNF
+TokenSplitter: Space
+
+# EDN grammar - core language subset
+<file> ::= <edn-value>* => { buildEdn($1); }
+<edn-value> ::= <list> | <vector> | <map> | <set> | <tagged> | <scalar>
+<list> ::= "(" <edn-value>* ")" => { buildList($2); }
+<vector> ::= "[" <edn-value>* "]" => { buildVector($2); }
+<map> ::= "{" <edn-value>* "}" => { buildMap($2); }
+<set> ::= "#{" <edn-value>* "}" => { buildSet($2); }
+<tagged> ::= "#" <symbol> <edn-value> => { buildTagged($2, $3); }
+<scalar> ::= <keyword> | <symbol> | <string> | <character> | <number> | <boolean> | "nil"
+<keyword> ::= ":" <symbol-chars> => { buildKeyword($1); }
+          | "::" <symbol-chars> => { buildResolvedKeyword($1); }
+<symbol> ::= <symbol-chars>
+<symbol-chars> ::= /[a-zA-Z*+!_?<>=./-][a-zA-Z0-9*+!_?<>=./#-]*/
+<string> ::= '"' <char>* '"'
+<character> ::= "\\" /./ | "\\" /[a-zA-Z]+/ | "\\u" /[0-9a-fA-F]{4}/ | "\\space" | "\\newline" | "\\tab"
+<number> ::= /[+-]?[0-9]+/ | /[+-]?[0-9]+\.[0-9]+/ | /[+-]?[0-9]+\/[0-9]+/ | /[0-9]+N/ | /[0-9]+\.[0-9]+M/
+<boolean> ::= "true" | "false"
+<char> ::= /[^"\\]/ | "\\" /./
