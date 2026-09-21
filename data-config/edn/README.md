@@ -17,6 +17,6 @@ Grammar for extensible data notation (EDN): lists, vectors, maps, sets, keywords
 
 Implements issue #32.
 
-## Extended coverage
+## Coverage completion
 
-Adds tagged literals (`#inst`, `#uuid`, custom tags), `#_` discard, and namespaced maps.
+Completes coverage with namespaced keywords/symbols, char literals, and set literals.

@@ -21,8 +21,8 @@ TokenSplitter: Space
 <boolean> ::= "true" | "false"
 <char> ::= /[^"\\]/ | "\\" /./
 
-# --- Extended coverage: additional language constructs ---
-<tagged_elem> ::= "#" <symbol> <form> ;
-<discard> ::= "#_" <form> ;
-<namespaced_map> ::= "#:" <symbol> <map> ;
-<comment_line> ::= ";" [^\n]* ;
+# --- Coverage completion: remaining language constructs ---
+<namespaced_keyword> ::= ":" <symbol> "/" <symbol> ;
+<namespaced_symbol> ::= <symbol> "/" <symbol> ;
+<char_lit> ::= "\\" [a-zA-Z0-9] ;
+<set_literal> ::= "#{" <form>* "}" ;
