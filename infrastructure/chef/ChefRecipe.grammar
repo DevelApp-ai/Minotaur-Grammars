@@ -1,0 +1,11 @@
+404: Not Found
+
+# --- Extended coverage: additional language constructs ---
+guard ::= ("only_if" | "not_if") ruby_expr ;
+notification ::= ("notifies" | "subscribes") action "," resource_ref "," ":" action ("," text)? ;
+resource_ref ::= "'" type "[" text "]'" ;
+ruby_block_res ::= "ruby_block" text "do" block_body "end" ;
+block_body ::= ruby_expr* ;
+data_bag_call ::= "data_bag_item(" text "," text ")" ;
+lazy_attr ::= "lazy" "{" ruby_expr "}" ;
+common_resource ::= ("template" | "package" | "service" | "execute" | "cookbook_file" | "directory" | "remote_file") text "do" block_body "end" ;
