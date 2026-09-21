@@ -1,0 +1,23 @@
+# Test: OrderService
+## Target: DevelApp.Orders.Services.OrderService.cs
+## Coverage: 100% requirement-coverage, must-level
+
+### Test Scenarios
+- Given a valid customer When creating an order with multiple items Then the order is created with all items
+- Given an out-of-stock item When creating an order Then the order is rejected
+- Should update order status correctly
+- Should retrieve customer orders correctly
+- Should handle concurrent order processing
+
+### Edge Cases
+- Given an empty cart When creating an order Then the order is rejected
+- Given a payment failure When confirming an order Then the order stays in Created state
+
+### Performance Tests
+- Should handle 100 concurrent order creations under 500ms
+- Should retrieve order details under 50ms
+- Should sustain at least 200 rps with at most 1% errors
+
+### RequirementCoverage
+- Covers REQ-001
+- Covers REQ-002

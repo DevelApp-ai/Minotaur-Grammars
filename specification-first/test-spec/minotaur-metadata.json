@@ -1,0 +1,24 @@
+{
+  "Id": "develapp.testspec",
+  "Name": "TestSpec",
+  "Vendor": "DevelApp",
+  "DisplayName": "Test Specification (.test)",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "Grammar for .test test specification files (SpecTree): target component binding, Given/When/Then scenarios, edge cases, coverage requirements and performance thresholds. Drives automated test generation for Specification-First Development.",
+  "License": "MIT",
+  "Tags": [
+    "specification-first",
+    "spectree"
+  ],
+  "MainFile": "TestSpec.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}
