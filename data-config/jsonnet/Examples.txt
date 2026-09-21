@@ -9,10 +9,10 @@ local env = "prod";
   getPort(i):: self.ports[i],
 }
 
-# --- Extended constructs ---
-local base = { a: 1 };
-base + { b: self.a + 1 }
-[ x * 2 for x in [1, 2, 3] if x > 1 ]
-assert 1 + 1 == 2 : "math is broken";
-function(a, b=2) a + b
+# --- Coverage completion constructs ---
+{ base + override: super.a, assert self.n > 0 }
+std.format("%s!", "hi")
+local x = 1; x + 1
+arr[1:3]
+-1
 

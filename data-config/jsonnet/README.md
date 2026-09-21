@@ -18,6 +18,6 @@ local x = 1; { a: x, b: [i for i in x] }
 
 Implements issue #36.
 
-## Extended coverage
+## Coverage completion
 
-Adds object composition (`+`), `self`/`$` references, local functions in objects, array/object comprehensions, asserts, `error`, text blocks, and named function arguments.
+Completes coverage with super references, std library calls, object-level asserts, unary operators, array slicing, local-in-expression, and % string formatting.

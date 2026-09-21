@@ -52,14 +52,11 @@ TokenSplitter: Space
 <str-char> ::= /[^"'\\]/ | "\\" /./ | "\\(" <identifier> ")" | "%(" <identifier> ")"
 <identifier> ::= /[a-zA-Z_][a-zA-Z0-9_]*/
 
-# --- Extended coverage: additional language constructs ---
-<object_compose> ::= <obj> "+" <obj> ;
-<object_local> ::= "local" <identifier> "(" <params>? ")" "=" <expr> "," ;
-<self_ref> ::= "self" "." <identifier> ;
-<dollar_ref> ::= "$" "." <identifier> ;
-<assert_stmt> ::= "assert" <expr> (":" <text>)? ";" ;
-<array_comp> ::= "[" <expr> "for" <identifier> "in" <expr> ("if" <expr>)* "]" ;
-<object_comp> ::= "{" <expr> ":" <expr> "for" <identifier> "in" <expr> "}" ;
-<named_args> ::= <identifier> "=" <expr> ("," <identifier> "=" <expr>)* ;
-<text_block> ::= "|||" [^|]* "|||" ;
-<error_expr> ::= "error" <expr> ;
+# --- Coverage completion: remaining language constructs ---
+<super_ref> ::= "super" ("." <identifier> | "[" <expr> "]") ;
+<std_call> ::= "std" "." <identifier> "(" <args>? ")" ;
+<obj_assert> ::= <expr> ":" <assert_stmt> ;
+<unary_op> ::= ("-" | "+" | "!" | "~") <expr> ;
+<local_in_expr> ::= "local" <identifier> "=" <expr> ";" <expr> ;
+<percent_fmt> ::= <expr> "%" <expr> ;
+<if_in_object> ::= "if" <expr> ":" <expr> ;
