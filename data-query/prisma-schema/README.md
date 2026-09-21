@@ -1,0 +1,21 @@
+# Prisma Schema
+
+Minotaur grammar for Prisma Schema, covering the core language subset.
+
+## Syntax sketch
+
+```
+model User {
+  id    Int    @id @default(autoincrement())
+  email String @unique
+  posts Post[]
+}
+```
+
+## AST validation goals
+
+- exactly one @id per model
+- relation fields have counterpart relation on target model
+- @default values match field type
+
+Implements issue #78.
