@@ -2,8 +2,6 @@ Grammar: SQL
 FormatType: EBNF
 TokenSplitter: Space
 
-# --- Coverage completion: remaining language constructs ---
-
 <script> ::= <statement>* ;
 <statement> ::= <select_stmt> | <insert_stmt> | <update_stmt> | <delete_stmt> | <create_table> | <create_index> | <alter_table> | <drop_stmt> ;
 <select_stmt> ::= 'SELECT' <select_list> 'FROM' <table_ref>( <join_clause>)*( <where_clause>)?( <group_by>)?( <having_clause>)?( <order_by>)?( <limit_clause>)? ';' ;
@@ -41,6 +39,9 @@ TokenSplitter: Space
 <identifier> ::= <auto_identifier_1> <auto_identifier_2> ;
 <text> ::= '\'' <auto_text_3> '\'' ;
 <number> ::= <auto_number_4>( '.' <auto_number_4>)? ;
+
+# --- Coverage completion: remaining language constructs ---
+
 <on_conflict_clause> ::= "ON" "CONFLICT" ( "(" <column_list> ")" )?( "DO" "NOTHING" | "DO" "UPDATE" "SET" "set_clause_list") ;
 <merge_statement> ::= "MERGE" "INTO" <table_ref> "USING" <table_ref> "ON" <condition> "merge_when"+ ;
 <dml_with_clause> ::= "WITH" ( "RECURSIVE" )? "cte_definition"( "," "cte_definition")* "dml_statement" ;
@@ -52,6 +53,7 @@ TokenSplitter: Space
 <lateral_join> ::= ","? "LATERAL" "(" "select_statement" ")" <auto_lateral_join_6> ;
 <named_window> ::= "WINDOW" "window_name" "AS" "(" "window_spec" ")" ;
 <window_frame> ::= ( "ROWS" | "RANGE" | "GROUPS") "frame_extent" ;
+
 <auto_identifier_1> ::= /[a-zA-Z_]/ ;
 <auto_identifier_2> ::= /[a-zA-Z0-9_]*/ ;
 <auto_text_3> ::= /[^\']*/ ;
