@@ -18,14 +18,13 @@ char     ::= '\\' [a-zA-Z] ;
 text     ::= '"' [^"]* '"' ;
 number   ::= [0-9]+ ('.' [0-9]+)? ;
 
-# --- Extended coverage: additional language constructs ---
-destruct_map ::= '{' (':' plain_symbol plain_symbol)* '}' ; ;
-destruct_rest ::= '&' plain_symbol ; ;
-thread_first ::= '(->' form+ ')' ; ;
-thread_last ::= '(->>' form+ ')' ; ;
-let_fn ::= '(letfn' '[' ( '(' plain_symbol vector form+ ')' )* ']' form* ')' ; ;
-loop_recur ::= '(loop' '[' (form form)* ']' form* ('(recur' form* ')')? ')' ; ;
-try_catch ::= '(try' form* ('(catch' plain_symbol plain_symbol form+ ')')* ('(finally' form+ ')')? ')' ; ;
-def_multi ::= '(defmulti' plain_symbol form* ')' ; ;
-def_method ::= '(defmethod' plain_symbol form form+ ')' ; ;
-metadata_form ::= '^' map form ; ;
+# --- Coverage completion: remaining language constructs ---
+
+atom_creation ::= "(" "def" identifier "(" "atom" expression ")" ")" ;
+atom_update ::= "(" ( "swap!" | "reset!" | "compare-and-set!" ) expression expression* ")" ;
+deref_expression ::= ( "@" form | "(" "deref" form ")" ) ;
+defrecord ::= "(" "defrecord" symbol [ "[" field_list "]" ] body* ")" ;
+deftype ::= "(" "deftype" symbol [ "[" field_list "]" ] implementation* ")" ;
+ns_clause ::= "(" "ns" symbol ns_options* ")" ;
+var_quote ::= "#'" symbol ;
+syntax_quote ::= "`" form ;

@@ -22,6 +22,11 @@ Minotaur grammar for Clojure, covering the core language subset.
 
 Implements issue #72.
 
-## Extended coverage
+## Coverage completion
 
-Adds destructuring, threading macros (`->`, `->>`), letfn, loop/recur, try/catch/finally, defmulti/defmethod, and metadata.
+The grammar now also covers the remaining core language constructs:
+
+- Atoms with `swap!`/`reset!`, dereferencing (`@`, `deref`)
+- `defrecord` / `deftype` with protocols
+- Rich `ns` clauses (`:require`, `:import`, `:refer`)
+- Var quote (`#'var`) and syntax quote

@@ -2,10 +2,14 @@
 (defn add [a b] (+ a b))
 (let [x 1 y 2] (+ x y))
 
-# --- Extended constructs ---
-(let [{:keys [a b]} m] (+ a b))
-(->> xs (map inc) (filter odd?) (reduce +))
-(letfn [(f [x] (* x 2))] (f 21))
-(loop [i 0] (when (< i 3) (recur (inc i))))
-(try (risky) (catch Exception e (fallback)) (finally (cleanup)))
+# --- Coverage completion constructs ---
 
+(def counter (atom 0))
+(swap! counter inc)
+(reset! counter 10)
+(deref (future 42))
+(defrecord Pt [x y])
+(deftype FastQ [] clojure.lang.IFn (invoke [_] 1))
+(ns app.core (:require [clojure.string :as str :refer [join]]))
+#'app.core/fn
+`(+ 1 2)
