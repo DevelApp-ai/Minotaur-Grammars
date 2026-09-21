@@ -1,0 +1,23 @@
+{
+  "Id": "develapp.edn",
+  "Name": "EDN",
+  "Vendor": "DevelApp",
+  "DisplayName": "EDN",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "Grammar for extensible data notation (EDN): lists, vectors, maps, sets, keywords, symbols, tags and scalar literals.",
+  "License": "MIT",
+  "Tags": [
+    "data-config"
+  ],
+  "MainFile": "EDN.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}

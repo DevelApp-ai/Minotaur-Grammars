@@ -1,0 +1,12 @@
+{:name "order-service"
+ :replicas 3
+ :tags #{:api :critical}
+ :limits {:cpu 2.0 :memory "512Mi"}
+ :items [1 2 3]
+ :meta #inst "2026-01-15T00:00:00.000-00:00"}
+
+# --- Coverage completion constructs ---
+:person/name
+foo.core/bar
+\a \newline
+
