@@ -1,0 +1,4 @@
+my @nums = (1, 2, 3);
+foreach my $n (@nums) {
+  print "$n\n";
+}
