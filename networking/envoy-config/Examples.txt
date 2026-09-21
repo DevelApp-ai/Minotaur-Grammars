@@ -1,13 +1,14 @@
 admin:
   address: { socket_address: { address: 127.0.0.1, port_value: 9901 } }
 
-# --- Extended constructs ---
-route_config:
-  name: local
-  virtual_hosts:
-  - name: service
-    domains: ['*']
-    routes:
-    - match: { prefix: '/api' }
-      route: { cluster: api }
+# --- Coverage completion constructs ---
+clusters:
+- name: api
+  health_checks:
+  - timeout: 1s
+    interval: 5s
+    http_health_check: { path: /health }
+  circuit_breakers: { thresholds: [ { max_connections: 100 } ] }
+  outlier_detection: { consecutive_5xx: 5 }
+  common_http_protocol_options: { idle_timeout: 30s }
 

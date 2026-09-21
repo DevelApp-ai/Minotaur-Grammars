@@ -21,6 +21,6 @@ static_resources:
 
 Implements issue #54.
 
-## Extended coverage
+## Coverage completion
 
-Adds route configs with virtual hosts and route matching, TLS contexts, circuit breakers, access logs, and overload management.
+Completes coverage with health checks, listener filters, overload manager, dynamic resources (ADS), retry policies, and outlier detection.

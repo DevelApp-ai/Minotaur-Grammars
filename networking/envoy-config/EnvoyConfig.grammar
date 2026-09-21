@@ -29,14 +29,14 @@ boolean      ::= 'true' | 'false' ;
 text         ::= '"' [^"]* '"' ;
 number       ::= [0-9]+ ;
 
-# --- Extended coverage: additional language constructs ---
-route_config ::= 'route_config' ':' 'name' ':' text virtual_hosts ; ;
-virtual_hosts ::= 'virtual_hosts' ':' vhost (','? vhost)* ; ;
-vhost ::= 'name' ':' text 'domains' ':' text_list 'routes' ':' route (','? route)* ; ;
-route ::= 'match' ':' pair 'route' ':' pair ; ;
-tls_context ::= 'tls_context' ':' 'common_tls_context' ':' pair ; ;
-circuit_breakers ::= 'circuit_breakers' ':' pair ; ;
-access_log ::= 'access_log' ':' log (','? log)* ; ;
-log_entry ::= 'name' ':' text 'filter' ':' pair ; ;
-overload_manager ::= 'overload_manager' ':' pair ; ;
-stats_flush_interval ::= 'stats_flush_interval' ':' text ; ;
+# --- Coverage completion: remaining language constructs ---
+health_checks ::= 'health_checks' ':' check (','? check)* ; ;
+check ::= 'timeout' ':' text 'interval' ':' text ('http_health_check' ':' pair)? ('tcp_health_check' ':' pair)? ; ;
+listener_filters ::= 'listener_filters' ':' filter (','? filter)* ; ;
+overload_manager ::= 'overload_manager' ':' 'refresh_interval' ':' text 'resource_monitors' ':' pair 'actions' ':' pair ; ;
+dynamic_resources ::= 'dynamic_resources' ':' 'cds_config' ':' pair 'lds_config' ':' pair ; ;
+retry_policy ::= 'retry_policy' ':' 'retry_on' ':' text 'num_retries' ':' number ; ;
+outlier_detection ::= 'outlier_detection' ':' pair ; ;
+common_lb_config ::= 'common_lb_config' ':' pair ; ;
+load_balancing_policy ::= 'load_balancing_policy' ':' pair ; ;
+http_protocol_options ::= 'common_http_protocol_options' ':' pair ; ;
