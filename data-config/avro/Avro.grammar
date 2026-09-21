@@ -1,0 +1,32 @@
+Grammar: Avro
+FormatType: EBNF
+TokenSplitter: Space
+
+# Avro grammar - core language subset
+<file> ::= <schema> => { buildAvroSchema($1); }
+<schema> ::= <record-schema> | <named-type-decl> | <primitive> | <complex-type>
+<record-schema> ::= "{" "\"type\"" ":" "\"record\"" "," "\"name\"" ":" <json-string> ("," "\"namespace\"" ":" <json-string>)? "," "\"fields\"" ":" "[" <field-decl>* "]" <extra-prop>* "}" => { declareRecord($6, $9, $12); }
+<field-decl> ::= "{" "\"name\"" ":" <json-string> "," "\"type\"" ":" <field-type> ("," "\"default\"" ":" <json-value>)? <extra-prop>* "}" => { declareField($3, $6, $9); }
+<field-type> ::= <primitive-token> | <complex-type> | <type-array>
+<type-array> ::= "[" (<primitive-token> | <complex-type> | <json-string>)+ "]"
+<complex-type> ::= <enum-schema> | <array-schema> | <map-schema> | <fixed-schema>
+<enum-schema> ::= "{" "\"type\"" ":" "\"enum\"" "," "\"name\"" ":" <json-string> "," "\"symbols\"" ":" <json-array> <extra-prop>* "}" => { declareEnum($6, $9); }
+<array-schema> ::= "{" "\"type\"" ":" "\"array\"" "," "\"items\"" ":" <field-type> "}" => { declareArray($6); }
+<map-schema> ::= "{" "\"type\"" ":" "\"map\"" "," "\"values\"" ":" <field-type> "}" => { declareMap($6); }
+<fixed-schema> ::= "{" "\"type\"" ":" "\"fixed\"" "," "\"name\"" ":" <json-string> "," "\"size\"" ":" <json-number> "}" => { declareFixed($6, $9); }
+<named-type-decl> ::= <primitive>
+<primitive> ::= <primitive-token> | <json-string>
+<primitive-token> ::= "\"null\"" | "\"boolean\"" | "\"int\"" | "\"long\"" | "\"float\"" | "\"double\"" | "\"bytes\"" | "\"string\""
+<extra-prop> ::= <json-string> ":" <json-value>
+<json-string> ::= /"[^"\\]*"/
+<json-number> ::= /[0-9]+/
+<json-array> ::= "[" <json-string>* "]"
+<json-value> ::= /[^[\]{}]+/ | <json-array> | /\{[^{}]*\}/
+
+# --- Coverage completion: remaining language constructs ---
+<namespace_field> ::= "namespace" ":" <text> ;
+<nested_record> ::= "type" ":" ("record" | "error") "name" ":" <identifier> "fields" ":" [ ] ;
+<bytes_decimal> ::= "type" ":" "bytes" "logicalType" ":" "decimal" "precision" ":" <number> "scale" ":" <number> ;
+<error_type> ::= "type" ":" "error" ;
+<protocol_def> ::= "protocol" ":" <identifier> "messages" ":" <json_value> ;
+<json_value> ::= <text> | <number> | <boolean> | [ <json_value>* ] | { (<text> ":" <json_value>)* } ;

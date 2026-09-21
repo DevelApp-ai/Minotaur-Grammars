@@ -1,0 +1,23 @@
+{
+  "Id": "develapp.avro",
+  "Name": "Avro",
+  "Vendor": "DevelApp",
+  "DisplayName": "Avro",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "Grammar for Avro schema (avsc) definitions: record types with fields, enums, arrays, maps, fixed types, logical types and default values.",
+  "License": "MIT",
+  "Tags": [
+    "data-config"
+  ],
+  "MainFile": "Avro.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}
