@@ -26,6 +26,10 @@ Remember this.
 
 Implements issue #89.
 
-## Extended coverage
+## Coverage completion
 
-Adds include directives, attribute references, delimited blocks (example/sidebar), anchors, callouts, and cross-references.
+The grammar now also covers the remaining language constructs:
+
+- Table column specs and cells
+- Source blocks
+- Open blocks and page breaks (`'''")

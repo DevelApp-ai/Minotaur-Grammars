@@ -25,13 +25,9 @@ text    ::= [^\n=*_-`<>|]+ ;
 identifier ::= [a-zA-Z0-9_-]+ ;
 number  ::= [0-9]+ ;
 
-# --- Extended coverage: additional language constructs ---
-include_dir ::= 'include::' text '[' attrs_inline? ']' ; ;
-attrs_inline ::= identifier '=' text (',' identifier '=' text)* ; ;
-attr_ref ::= '{' identifier '}' ; ;
-example_block ::= '====' [^=]* '====' ; ;
-sidebar_block ::= '****' [^*]* '****' ; ;
-anchor_def ::= '[[' identifier ','? text? ']]' ; ;
-xref_angle ::= '<<' identifier ','? text? '>>' ; ;
-callout ::= '<' number '>' ; ;
-quoted_pass ::= 'pass' ':' '[' [^\]]* ']' ; ;
+# --- Coverage completion: remaining language constructs ---
+
+cols_attribute ::= "[cols=" quoted_value "]" ;
+source_block ::= "[source" [ "," language ] "]" delimiter block_content delimiter ;
+open_block ::= "--" line_terminator block_content "--" ;
+page_break ::= "'''" ;

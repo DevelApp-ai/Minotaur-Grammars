@@ -5,15 +5,17 @@
 
 link:https://example.com[Example]
 
-# --- Extended constructs ---
-:icons: font
-include::chapter1.adoc[leveloffset=+1]
-See <<intro, the introduction>> for details.
+# --- Coverage completion constructs ---
 
-.Example
-====
-Delimited example block.
-====
-
-<.> A callout
-
+[cols="1,2,3"]
+|===
+| a | b | c
+|===
+[source,ruby]
+----
+puts 'hi'
+----
+--
+open block content
+--
+'''
