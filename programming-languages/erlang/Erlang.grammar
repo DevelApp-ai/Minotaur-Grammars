@@ -1,0 +1,36 @@
+Grammar: Erlang
+FormatType: EBNF
+TokenSplitter: Space
+
+module   ::= attribute* form* ;
+attribute ::= '-' ('module' | 'export' | 'import' | 'behaviour') '(' attr_args ')' '.' ;
+attr_args ::= atom | '(' export_fns? ')' ;
+export_fns ::= export_fn (',' export_fn)* ;
+export_fn ::= atom '/' number ;
+form     ::= function_clauses '.' ;
+function_clauses ::= function_clause (';' function_clause)* ;
+function_clause ::= atom '(' args? ')' ('when' guard)? '->' exprs ;
+guard   ::= guard_expr (',' guard_expr)* ;
+guard_expr ::= expr ;
+args    ::= expr (',' expr)* ;
+exprs   ::= expr (',' expr)* ;
+expr    ::= literal | var | call | tuple | list | map | binary | case_expr | fun_expr | receive_expr | expr binop expr ;
+call    ::= (module_ref ':')? atom '(' args? ')' ;
+module_ref ::= atom | var ;
+tuple   ::= '{' args? '}' ;
+list    ::= '[' args? ']' ;
+map     ::= '#' '{' map_pair (',' map_pair)* '}' ;
+map_pair ::= expr '=>' expr ;
+binary  ::= '<<' '>>' ;
+case_expr ::= 'case' expr 'of' clause+ 'end' ;
+clause  ::= pattern ('when' guard)? '->' exprs ';' ;
+pattern ::= var | literal | tuple | list ;
+fun_expr ::= 'fun' (atom '/' number | '(' params? ')' '->' exprs 'end') ;
+params  ::= var (',' var)* ;
+receive_expr ::= 'receive' clause+ 'end' ;
+var     ::= ('_'|[A-Z])[a-zA-Z0-9_]* ;
+atom    ::= [a-z][a-zA-Z0-9_@]* ;
+literal ::= number | text | atom ;
+binop   ::= '+' | '-' | '*' | '/' | '==' | '=:=' | '=/=' | '<' | '>' | 'andalso' | 'orelse' | '++' ;
+text    ::= '"' [^"]* '"' ;
+number  ::= [0-9]+ ;

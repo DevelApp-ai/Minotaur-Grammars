@@ -1,0 +1,4 @@
+-module(counter).
+-export([start/0]).
+start() -> 0.
+inc(N) -> N + 1.
