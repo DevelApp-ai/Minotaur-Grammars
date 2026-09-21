@@ -19,3 +19,12 @@ attr_value ::= '"' [^"]* '"' | '\'' [^\']* '\'' ;
 comment  ::= '<!--' [^-->]* '-->' ;
 text     ::= [^<]+ ;
 identifier ::= [a-zA-Z][a-zA-Z0-9-]* ;
+
+# --- Extended coverage: additional language constructs ---
+entity ::= '&' identifier ';' | '&#' number ';' ; ;
+script_element ::= '<' 'script' attrs? '>' [^<]* '<' '/script' '>' ; ;
+style_element ::= '<' 'style' attrs? '>' [^<]* '<' '/style' '>' ; ;
+template_element ::= '<' 'template' attrs? '>' content '<' '/template' '>' ; ;
+boolean_attr ::= attr_name ; ;
+data_attr ::= 'data-' identifier ('=' attr_value)? ; ;
+aria_attr ::= 'aria-' identifier ('=' attr_value)? ; ;

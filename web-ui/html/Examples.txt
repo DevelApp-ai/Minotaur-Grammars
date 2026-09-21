@@ -2,3 +2,10 @@
   <p>Some text</p>
   <br/>
 </div>
+
+# --- Extended constructs ---
+&amp;&nbsp;
+<script type="module">import x from './x.js'</script>
+<template><slot></slot></template>
+<button data-id="1" aria-label="Close" disabled>X</button>
+

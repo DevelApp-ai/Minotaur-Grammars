@@ -21,3 +21,7 @@ Minotaur grammar for HTML, covering the core language subset.
 - document has a single html root
 
 Implements issue #73.
+
+## Extended coverage
+
+Adds character entities, script/style/template elements with raw content, data-* and aria-* attributes, and boolean attributes.
