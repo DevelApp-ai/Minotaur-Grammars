@@ -3,3 +3,13 @@ function greet($name) {
   echo "Hello $name";
 }
 greet('World');
+
+# --- Extended constructs ---
+<?php
+namespace App;
+interface Loggable { public function log(string $m): void; }
+trait Id { public function id(): int { return $this->id; } }
+try { risky(); } catch (Exception $e) { echo $e; } finally { done(); }
+$result = match($x) { 1 => 'one', default => 'other' };
+$fn = fn($a) => $a * 2;
+

@@ -20,3 +20,7 @@ class Calculator {
 - type hints are valid identifiers
 
 Implements issue #58.
+
+## Extended coverage
+
+Adds namespaces, interfaces, traits, try/catch/finally, switch, match expressions, arrow functions, instanceof, and static/const members.
