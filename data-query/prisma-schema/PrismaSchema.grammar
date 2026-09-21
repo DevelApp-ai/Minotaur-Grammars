@@ -2,45 +2,50 @@ Grammar: PrismaSchema
 FormatType: EBNF
 TokenSplitter: Space
 
-schema    ::= block* ;
-block     ::= datasource | generator | model | enum_block ;
-datasource ::= 'datasource' identifier '{' provider url '}' ;
-provider  ::= 'provider' '=' text ;
-url       ::= 'url' '=' (text | 'env' '(' text ')') ;
-generator ::= 'generator' identifier '{' gen_provider output? '}' ;
-gen_provider ::= 'provider' '=' text ;
-output    ::= 'output' '=' text ;
-model     ::= 'model' identifier '{' field_def* (model_attr)* '}' ;
-field_def ::= field_name type modifiers? attrs? ;
-field_name ::= identifier ;
-type      ::= identifier ;
-modifiers ::= '?' | '[' ']' ;
-attrs     ::= attribute (attribute)* ;
-attribute ::= '@' identifier ('(' args? ')')? ;
-model_attr ::= '@@' identifier ('(' args? ')')? ;
-args      ::= arg (',' arg)* ;
-arg       ::= identifier ':' scalar | scalar ;
-enum_block ::= 'enum' identifier '{' enum_value* '}' ;
-enum_value ::= identifier ;
-scalar    ::= text | number | boolean | '[' scalars ']' ;
-scalars   ::= scalar (',' scalar)* ;
-boolean   ::= 'true' | 'false' ;
-identifier ::= [a-zA-Z][a-zA-Z0-9_]* ;
-text      ::= '"' [^"]* '"' ;
-number    ::= [0-9]+ ;
+<schema> ::= <block>* ;
+<block> ::= <datasource> | <generator> | <model> | <enum_block> ;
+<datasource> ::= 'datasource' <identifier> '{' <provider> <url> '}' ;
+<provider> ::= 'provider' '=' <text> ;
+<url> ::= 'url' '='( <text> | 'env' '(' <text> ')') ;
+<generator> ::= 'generator' <identifier> '{' <gen_provider> <output>? '}' ;
+<gen_provider> ::= 'provider' '=' <text> ;
+<output> ::= 'output' '=' <text> ;
+<model> ::= 'model' <identifier> '{' <field_def>*( <model_attr>)* '}' ;
+<field_def> ::= <field_name> <type> <modifiers>? <attrs>? ;
+<field_name> ::= <identifier> ;
+<type> ::= <identifier> ;
+<modifiers> ::= '?' | '[' ']' ;
+<attrs> ::= <attribute>( <attribute>)* ;
+<attribute> ::= '@' <identifier>( '(' <args>? ')')? ;
+<model_attr> ::= '@@' <identifier>( '(' <args>? ')')? ;
+<args> ::= <arg>( ',' <arg>)* ;
+<arg> ::= <identifier> ':' <scalar> | <scalar> ;
+<enum_block> ::= 'enum' <identifier> '{' <enum_value>* '}' ;
+<enum_value> ::= <identifier> ;
+<scalar> ::= <text> | <number> | <boolean> | '[' <scalars> ']' ;
+<scalars> ::= <scalar>( ',' <scalar>)* ;
+<boolean> ::= 'true' | 'false' ;
+<identifier> ::= <auto_identifier_1> <auto_identifier_2> ;
+<text> ::= '"' <auto_text_3> '"' ;
+<number> ::= <auto_number_4> ;
 
 # --- Extended coverage: additional language constructs ---
-index_attr ::= '@@' 'index' '(' '[' column_list ']' ')' ; ;
-unique_attr ::= '@@' 'unique' '(' '[' column_list ']' ')' ; ;
-map_attr ::= '@@' 'map' '(' text ')' ; ;
-relation_attr ::= '@' 'relation' '(' 'fields' ':' '[' column_list ']' ',' 'references' ':' '[' column_list ']' (',' on_delete)? ')' ; ;
-on_delete ::= 'onDelete' ':' ('Cascade' | 'SetNull' | 'Restrict' | 'NoAction' | 'SetDefault') ; ;
-view_def ::= 'view' identifier '{' field_def* '}' ; ;
-composite_type ::= 'type' identifier '{' field_def* '}' ; ;
-default_now ::= '@' 'default' '(' 'now' '(' ')' ')' ; ;
+<index_attr> ::= '@@' 'index' '(' '[' "column_list" ']' ')'; ;
+<unique_attr> ::= '@@' 'unique' '(' '[' "column_list" ']' ')'; ;
+<map_attr> ::= '@@' 'map' '(' <text> ')'; ;
+<relation_attr> ::= '@' 'relation' '(' 'fields' ':' '[' "column_list" ']' ',' 'references' ':' '[' "column_list" ']'( ',' <on_delete>)? ')'; ;
+<on_delete> ::= 'onDelete' ':'( 'Cascade' | 'SetNull' | 'Restrict' | 'NoAction' | 'SetDefault'); ;
+<view_def> ::= 'view' <identifier> '{' <field_def>* '}'; ;
+<composite_type> ::= 'type' <identifier> '{' <field_def>* '}'; ;
+<default_now> ::= '@' 'default' '(' 'now' '(' ')' ')'; ;
 
 # --- Coverage completion: remaining language constructs ---
 
-multi_schema_option ::= "multiSchema" "=" boolean ;
-preview_features ::= "previewFeatures" "=" "[" [ string ( "," string )* ] "]" ;
-native_type_attribute ::= "@db." native_type_name [ "(" native_args ")" ] ;
+<multi_schema_option> ::= "multiSchema" "=" <boolean> ;
+<preview_features> ::= "previewFeatures" "=" "[" ( "string"( "," "string")* )? "]" ;
+<native_type_attribute> ::= "@db." "native_type_name" ( "(" "native_args" ")" )? ;
+
+<auto_identifier_1> ::= /a-zA-Z/ ;
+<auto_identifier_2> ::= /a-zA-Z0-9_*/ ;
+<auto_text_3> ::= /^"*/ ;
+<auto_number_4> ::= /0-9+/ ;
