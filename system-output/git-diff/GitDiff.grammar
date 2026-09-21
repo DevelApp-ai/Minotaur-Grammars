@@ -1,0 +1,20 @@
+Grammar: GitDiff
+FormatType: EBNF
+TokenSplitter: Space
+
+diff     ::= file_diff* ;
+file_diff ::= diff_header ('index' line_hash)? ('---' source_path)? ('+++' target_path)? hunk* ;
+diff_header ::= 'diff' '--git' path path ;
+line_hash ::= [a-zA-Z0-9.]+ ;
+source_path ::= path ;
+target_path ::= path ;
+hunk     ::= hunk_header body_line* ;
+hunk_header ::= '@@' ('-' number (',' number)?) ('+' number (',' number)?) '@@' context_text? ;
+body_line ::= context_line | added_line | removed_line | no_newline ;
+context_line ::= ' ' [^\n]* ;
+added_line ::= '+' [^\n]* ;
+removed_line ::= '-' [^\n]* ;
+no_newline ::= '\\' 'No' 'newline' 'at' 'end' 'of' 'file' ;
+context_text ::= [^\n]* ;
+path     ::= [^\n]+ ;
+number   ::= [0-9]+ ;
