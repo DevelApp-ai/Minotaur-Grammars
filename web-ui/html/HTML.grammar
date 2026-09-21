@@ -2,8 +2,6 @@ Grammar: HTML
 FormatType: EBNF
 TokenSplitter: Space
 
-# --- Coverage completion: remaining language constructs ---
-
 <document> ::= <doctype>? <html_elem> ;
 <doctype> ::= '<!DOCTYPE' 'html' '>' ;
 <html_elem> ::= '<html' <attrs>? '>' <content> '<' '/html' '>' ;
@@ -21,12 +19,16 @@ TokenSplitter: Space
 <comment> ::= '<!--' <auto_comment_3> '-->' ;
 <text> ::= <auto_text_4> ;
 <identifier> ::= <auto_identifier_5> <auto_identifier_6> ;
+
+# --- Coverage completion: remaining language constructs ---
+
 <custom_element> ::= "<" <custom_element_name> "attribute"*( "/>" | ">" <content>* "</" <custom_element_name> ">") ;
 <custom_element_name> ::= <identifier> "-" <identifier>( "-" <identifier>)* ;
 <svg_element> ::= "<" "svg_tag_name" "attribute"*( "/>" | ">" <content>* "</" "svg_tag_name" ">") ;
 <mathml_element> ::= "<" "mathml_tag_name" "attribute"*( "/>" | ">" <content>* "</" "mathml_tag_name" ">") ;
 <template_element> ::= "<template" "attribute"* ">" <content>* "</template>" ;
 <hex_entity> ::= "&#x" "hex_digit"+ ";" ;
+
 <auto_attr_value_1> ::= /[^"]*/ ;
 <auto_attr_value_2> ::= /[^\']*/ ;
 <auto_comment_3> ::= /[^-->]*/ ;
