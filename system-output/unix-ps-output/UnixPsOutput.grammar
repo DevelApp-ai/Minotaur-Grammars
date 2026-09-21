@@ -2,24 +2,28 @@ Grammar: UnixPsOutput
 FormatType: EBNF
 TokenSplitter: Space
 
-output   ::= header? process+ ;
-header   ::= 'PID' 'TTY' 'TIME' 'CMD' ;
-process  ::= pid tty time cmd ;
-pid      ::= number ;
-tty      ::= '?' | 'ttys' number | 'pts' '/' number ;
-time     ::= number ':' number ':' number ;
-cmd      ::= [^\n]+ ;
-number   ::= [0-9]+ ;
+<output> ::= <header>? <process>+ ;
+<header> ::= 'PID' 'TTY' 'TIME' 'CMD' ;
+<process> ::= <pid> <tty> <time> <cmd> ;
+<pid> ::= <number> ;
+<tty> ::= '?' | 'ttys' <number> | 'pts' '/' <number> ;
+<time> ::= <number> ':' <number> ':' <number> ;
+<cmd> ::= <auto_cmd_1> ;
+<number> ::= <auto_number_2> ;
 
 # --- Extended coverage: additional language constructs ---
-state_code ::= ('R' | 'S' | 'D' | 'T' | 'Z' | 'I') ('+' | '<' | 'N' | 's' | 'l' | 'm')* ; ;
-percent ::= number '.' number '%' ; ;
-rss_size ::= number ; ;
-kernel_thread ::= '[' [^\]]+ ']' ; ;
-ps_sysv_row ::= identifier pid number identifier time tty time cmd ; ;
+<state_code> ::= ( 'R' | 'S' | 'D' | 'T' | 'Z' | 'I')( '+' | '<' | 'N' | 's' | 'l' | 'm')*; ;
+<percent> ::= <number> '.' <number> '%'; ;
+<rss_size> ::= <number>; ;
+<kernel_thread> ::= '[' <auto_kernel_thread_3> ']'; ;
+<ps_sysv_row> ::= "identifier" <pid> <number> "identifier" <time> <tty> <time> <cmd>; ;
 
 # --- Coverage completion: remaining language constructs ---
 
-bsd_header ::= "USER" ws+ "PID" ws+ "%CPU" ws+ "%MEM" ws+ "VSZ" ws+ "RSS" ws+ "TTY" ws+ "STAT" ws+ "START" ws+ "TIME" ws+ "COMMAND" ;
-bsd_row ::= username ws+ pid ws+ cpu_pct ws+ mem_pct ws+ vsz ws+ rss ws+ tty ws+ stat ws+ start ws+ time ws+ command ;
-custom_format_row ::= column_value ( ws+ column_value )+ ;
+<bsd_header> ::= "USER" "ws"+ "PID" "ws"+ "%CPU" "ws"+ "%MEM" "ws"+ "VSZ" "ws"+ "RSS" "ws"+ "TTY" "ws"+ "STAT" "ws"+ "START" "ws"+ "TIME" "ws"+ "COMMAND" ;
+<bsd_row> ::= "username" "ws"+ <pid> "ws"+ "cpu_pct" "ws"+ "mem_pct" "ws"+ "vsz" "ws"+ "rss" "ws"+ <tty> "ws"+ "stat" "ws"+ "start" "ws"+ <time> "ws"+ "command" ;
+<custom_format_row> ::= "column_value"( "ws"+ "column_value")+ ;
+
+<auto_cmd_1> ::= /^\n+/ ;
+<auto_number_2> ::= /0-9+/ ;
+<auto_kernel_thread_3> ::= /^\]+/ ;
