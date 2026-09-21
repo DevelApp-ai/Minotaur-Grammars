@@ -20,6 +20,6 @@ target: prereq
 
 Implements issue #45.
 
-## Extended coverage
+## Coverage completion
 
-Adds pattern rules, automatic variables, conditionals (`ifeq`/`ifneq`/`ifdef`), `include`, `export`, `.PHONY`, built-in functions, double-colon rules, `define`/`endef` macros, and `vpath`.
+Completes coverage with := and != assignment operators, override/undefine, .DEFAULT_GOAL, environment overrides, order-only prerequisites, secondary expansion, and per-target variables.

@@ -20,13 +20,12 @@ clean:
 
 include config.mk
 
-# --- Extended constructs ---
-.PHONY: all
-all: $(SRCS:.c=.o)
+# --- Coverage completion constructs ---
+CC := gcc
+NOW != date +%s
+override DEBUG = 1
+.DEFAULT_GOAL := all
+$(BINARY): $(OBJS) | $(DIR)
 	$(CC) $^ -o $@
-ifeq ($(OS),Windows_NT)
-EXT = .exe
-endif
-$(OBJDIR)/%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+target: VAR := value
 

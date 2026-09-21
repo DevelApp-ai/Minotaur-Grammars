@@ -53,14 +53,15 @@ name> | <variable-ref>
 <empty> ::= /[ \t]*/
 <tab> ::= /\t/
 
-# --- Extended coverage: additional language constructs ---
-<pattern_rule> ::= <targets> ":" <prereqs> "\n\t" <recipe> ;
-<automatic_var> ::= ("$@" | "$<" | "$^" | "$?" | "$*") ;
-<ifeq_dir> ::= ("ifeq" | "ifneq" | "ifdef" | "ifndef") "(" <value> "," <value> ")" <lines> "endif" ;
-<include_dir> ::= "include" <files> ;
-<export_var> ::= "export" <var> ("=" <value>)? ;
-<phony_target> ::= ".PHONY" ":" <targets> ;
-<make_func> ::= "$(" ("shell" | "wildcard" | "patsubst" | "foreach" | "filter" | "subst") " " <args> ")" ;
-<double_colon> ::= <targets> "::" <prereqs> "\n\t" <recipe>? ;
-<define_macro> ::= "define" <name> "\n" <body> "\n" "endef" ;
-<vpath_dir> ::= "vpath" <pattern> <dirs>? ;
+# --- Coverage completion: remaining language constructs ---
+<assign_immediate> ::= <name> ":=" <value> ;
+<assign_shell> ::= <name> "!=" <value> ;
+<assign_conditional> ::= <name> "?=" <value> ;
+<append_op> ::= <name> "+=" <value> ;
+<override_dir> ::= "override" <assignment> ;
+<undefine_dir> ::= "undefine" <name> ;
+<default_goal> ::= ".DEFAULT_GOAL" ":=" <target> ;
+<order_only_prereq> ::= "|" <prereqs> ;
+<target_var> ::= <target> ":" ("=" | ":=" | "+=") <value> ;
+<export_env> ::= "export" <name> ("=" <value>)? "#" "environment" ;
+<make_flags> ::= "MAKEFLAGS" "+=" <text> ;
