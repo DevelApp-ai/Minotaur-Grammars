@@ -1,0 +1,11 @@
+404: Not Found
+
+# --- Extended coverage: additional language constructs ---
+provider_block ::= "config.vm.provider" text "do" |vb_settings| "end" ;
+provisioner ::= "config.vm.provision" (text | provision_type) ("," provision_opts)* ("do" |provision_opts| "end")? ;
+provision_type ::= ("shell" | "ansible" | "chef_solo" | "puppet") ;
+forwarded_port ::= "config.vm.network" ":forwarded_port" "," "guest:" number "," "host:" number ;
+private_network ::= "config.vm.network" ":private_network" "," "ip:" text ;
+synced_folder ::= "config.vm.synced_folder" text "," text ("," provision_opts)* ;
+machine_define ::= "config.vm.define" text "do" |config| "end" ;
+disk_config ::= "config.vm.disk" ":disk" "," "size:" text "," "primary:" boolean ;
