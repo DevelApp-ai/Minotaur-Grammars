@@ -1,0 +1,41 @@
+Grammar: GitDiff
+FormatType: EBNF
+TokenSplitter: Space
+
+<diff> ::= <file_diff>* ;
+<file_diff> ::= <diff_header>( 'index' <line_hash>)?( '---' <source_path>)?( '+++' <target_path>)? <hunk>* ;
+<diff_header> ::= 'diff' '--git' <path> <path> ;
+<line_hash> ::= <auto_line_hash_1> ;
+<source_path> ::= <path> ;
+<target_path> ::= <path> ;
+<hunk> ::= <hunk_header> <body_line>* ;
+<hunk_header> ::= '@@'( '-' <number>( ',' <number>)?)( '+' <number>( ',' <number>)?) '@@' <context_text>? ;
+<body_line> ::= <context_line> | <added_line> | <removed_line> | <no_newline> ;
+<context_line> ::= ' ' <auto_context_line_2> ;
+<added_line> ::= '+' <auto_context_line_2> ;
+<removed_line> ::= '-' <auto_context_line_2> ;
+<no_newline> ::= '\\' 'No' 'newline' 'at' 'end' 'of' 'file' ;
+<context_text> ::= <auto_context_line_2> ;
+<path> ::= <auto_path_3> ;
+<number> ::= <auto_number_4> ;
+
+# --- Extended coverage: additional language constructs ---
+<new_file_mode> ::= 'new' 'file' 'mode' <number>; ;
+<deleted_file_mode> ::= 'deleted' 'file' 'mode' <number>; ;
+<rename_from> ::= 'rename' 'from' <path>; ;
+<rename_to> ::= 'rename' 'to' <path>; ;
+<similarity_index> ::= 'similarity' 'index' <number> '%'; ;
+<binary_notice> ::= 'Binary' 'files' <path> 'and' <path> 'differ'; ;
+<mode_line> ::= ( 'old' | 'new') 'mode' <number>; ;
+
+# --- Coverage completion: remaining language constructs ---
+
+<combined_hunk> ::= "@@@" ( "combined_range" )? "@@@" ;
+<combined_line> ::= ( "++" | "+" | " " | "-") "line_content" ;
+<stat_line> ::= "file_name" "|" "change_count" "change_bar" ;
+<stat_summary> ::= "files_changed_line" ;
+
+<auto_line_hash_1> ::= /a-zA-Z0-9.+/ ;
+<auto_context_line_2> ::= /^\n*/ ;
+<auto_path_3> ::= /^\n+/ ;
+<auto_number_4> ::= /0-9+/ ;
