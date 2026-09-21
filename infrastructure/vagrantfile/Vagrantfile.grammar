@@ -29,7 +29,8 @@ TokenSplitter: Space
 <provision-stmt> ::= <ruby-identifier> " = " <ruby-value> => { setProvisionerOpt($1, $3); }
                   | <ruby-identifier> " " <ruby-value>
 <params> ::= "config" | <ruby-identifier> ("." <ruby-identifier>)*
-<define-block> ::= <params> ".vm.define" " " <string> <define-opts>? "do" " |" <ruby-identifier> "|" <statement>* "end" => { defineMachine($3, $7); }
+<define-block> ::= <params> ".vm.define" " " <string> <define-opts>? "do" " |" <ruby-identifier> "|" <statement>* "end" => { de
+fineMachine($3, $7); }
 <define-opts> ::= "," <kwarg>+
 <provider-block> ::= <params> ".vm.provider" " " <string> "do" " |" <ruby-identifier> "|" <statement>* "end" => { configureProvider($3, $7); }
 <if-stmt> ::= "if" <ruby-expr> <statement>* "end"
@@ -44,3 +45,15 @@ TokenSplitter: Space
 <number> ::= /[0-9]+/
 <string> ::= /"[^"\n]*"/ | /'[^'\n]*'/
 <ruby-identifier> ::= /[a-zA-Z_][a-zA-Z0-9_]*/
+
+# --- Coverage completion: remaining language constructs ---
+
+provider_type ::= (:virtualbox | :hyperv | :vmware | :aws | :libvirt | :docker) ;
+communicator ::= config.vm.communicator = (:ssh | :winrm) ;
+winrm_settings ::= config.winrm.username = text | config.winrm.password = text | config.winrm.port = number ;
+post_up_message ::= "config.vm.post_up_message" "=" text ;
+box_check_update ::= "config.vm.box_check_update" "=" boolean ;
+box_version ::= "config.vm.box_version" "=" text ;
+hostname_setting ::= "config.vm.hostname" "=" text ;
+guest_setting ::= "config.vm.guest" "=" ":" identifier ;
+push_definition ::= "config.push.define" text "do" |block| "end" ;
