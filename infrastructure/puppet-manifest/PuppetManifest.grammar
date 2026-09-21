@@ -1,0 +1,68 @@
+Grammar: PuppetManifest
+FormatType: EBNF
+TokenSplitter: Space
+
+# PuppetManifest grammar - core subset
+<file> ::= <statement>* => { buildManifest($1); }
+<statement> ::= <class-decl> | <define-decl> | <node-def> | <resource-decl> | <var-assignment> | <if-stmt> | <include-stmt> | <function-call-stmt>
+<class-decl> ::= "class" <class-name> <param-list>? <class-body> => { declareClass($2, $3, $4); }
+<class-name> ::= <identifier> ("::" <identifier>)*
+<param-list> ::= "(" <param>? ("," <param>)* ")"
+<param> ::= <variable> ("=" <expr>)? => { addParam($1, $3); }
+<class-body> ::= "{" <statement>* "}"
+<define-decl> ::= "define" <identifier> <param-list>? <class-body> => { defineType($2, $3, $4); }
+<node-def> ::= "node" <node-name> ("," <node-name>)* <class-body> => { defineNode($2, $4); }
+<node-name> ::= <string> | /\*?[a-zA-Z0-9.*-]+/
+<resource-decl> ::= <resource-type> "{" <resource-title> ":" <attribute-list> "}" => { declareResource($1, $3, $5); }
+<resource-type> ::= "file" | "package" | "service" | "user" | "group" | "exec" | "cron" | "notify" | "augeas" | "host" | "mount" | <identifier>
+<resource-title> ::= <string> | <variable> | <array-lit>
+<attribute-list> ::= <attribute> ("," <attribute>)*
+<attribute> ::= <attr-name> ":" <attr-value> => { setAttribute($1, $3); }
+            | "require" ":" <ref-list> => { setRequire($2); }
+            | "subscribe" ":" <ref-list>
+            | "notify" ":" <ref-list>
+            | "before" ":" <ref-list>
+            | "ensure" ":" <attr-value>
+<attr-name> ::= /[a-zA-Z_][a-zA-Z0-9_]*/
+<ref-list> ::= "[" <resource-ref>? ("," <resource-ref>)* "]" | <resource-ref>
+<resource-ref> ::= "Resource" "[" <resource-title> "]" | <resource-type> "[" <resource-title> "]" => { buildRef($1, $3); }
+<attr-value> ::= <expr> | <selector>
+<selector> ::= <expr> "?" "{" <selector-case>+ "}" => { buildSelector($1, $4); }
+<selector-case> ::= <selector-value> ":" <expr> ","?
+<selector-value> ::= <string> | "default"
+<var-assignment> ::= <variable> "=" <expr> =>
+ { assignVar($1, $3); }
+<variable> ::= "$" <identifier> => { buildVariable($2); }
+            | "$" /[0-9]+/
+<if-stmt> ::= "if" <expr> <block> ("elsif" <expr> <block>)* ("else" <block>)? => { buildIf($2, $3, $5, $7); }
+          | "unless" <expr> <block>
+<include-stmt> ::= ("include" | "contain" | "require") <class-name>+ => { includeClass($2, $3); }
+<block> ::= "{" <statement>* "}"
+<function-call-stmt> ::= <function-call>
+<function-call> ::= <identifier> "(" <arg-list>? ")" => { buildCall($1, $3); }
+<arg-list> ::= <expr>? ("," <expr>)*
+<expr> ::= <binary-expr> | <comparison> | <regex-match> | <operand>
+<binary-expr> ::= <expr> ("+" | "-" | "*" | "/") <expr>
+<comparison> ::= <expr> ("==" | "!=" | "<" | ">" | "<=" | ">=" | "in") <expr>
+<regex-match> ::= <expr> ("=~" | "!~") <regex>
+<operand> ::= <literal> | <variable> | <function-call> | <array-lit> | <hash-lit> | "(" <expr> ")"
+<array-lit> ::= "[" <expr>* "]"
+<hash-lit> ::= "{" <hash-entry>* "}"
+<hash-entry> ::= <expr> ":" <expr>
+<literal> ::= <string> | <number> | <boolean> | "undef" | <regex>
+<regex> ::= /\/[^\/\n]+\//
+<boolean> ::= "true" | "false"
+<number> ::= /[+-]?[0-9]+(\.[0-9]+)?/
+<string> ::= /'[^'\n]*'/ | /"[^"\n]*"/
+<identifier> ::= /[a-zA-Z_][a-zA-Z0-9_]*/
+
+# --- Coverage completion: remaining language constructs ---
+
+function_def ::= "function" qualified "(" params? ")" "{" stmt* "}" ;
+class_inherit ::= "class" qualified "inherits" qualified "{" stmt* "}" ;
+resource_override ::= type "[" text "]" "{" pair* "}" ;
+unless_stmt ::= "unless" expr "{" stmt* "}" ;
+each_stmt ::= expr "." "each" "|" params "|" "{" stmt* "}" ;
+chained_arrow ::= resource ("~>" | "->") resource ;
+site_def ::= "site" "{" stmt* "}" ;
+apply_def ::= "apply" expr "{" stmt* "}" ;
