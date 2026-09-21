@@ -1,0 +1,47 @@
+Grammar: CircleCIConfig
+FormatType: EBNF
+TokenSplitter: Space
+
+config      ::= version jobs? workflows? orbs? commands? executors? ;
+version     ::= 'version' ':' number ;
+orbs        ::= 'orbs' ':' orb_pair (','? orb_pair)* ;
+orb_pair    ::= identifier ':' orb_ref ;
+orb_ref     ::= text | namespace_orb ;
+namespace_orb ::= identifier '/' identifier '@' text ;
+executors   ::= 'executors' ':' executor (executor)* ;
+executor    ::= identifier ':' executor_body ;
+executor_body ::= 'docker' ':' image_list 'resource_class' ':' text? ;
+image_list  ::= '[' image (',' image)* ']' ;
+image       ::= 'image' ':' text ;
+jobs        ::= 'jobs' ':' job (job)* ;
+job         ::= job_name ':' job_body ;
+job_name    ::= identifier ;
+job_body    ::= (executor_ref | executor_body) steps parameters? ;
+executor_ref ::= 'executor' ':' identifier ;
+parameters  ::= 'parameters' ':' param (','? param)* ;
+param       ::= identifier ':' 'type' ':' param_type 'default' ':' scalar? ;
+param_type  ::= 'string' | 'boolean' | 'integer' | 'enum' | 'executor' ;
+steps       ::= 'steps' ':' step (','? step)* ;
+step        ::= run | checkout | command_ref | when_step ;
+run         ::= 'run' ':' run_body | 'run' text ;
+run_body    ::= 'command' ':' text 'name' ':' text? 'shell' ':' text? ;
+checkout    ::= 'checkout' ;
+command_ref ::= identifier ;
+when_step   ::= 'when' ':' 'condition' ':' text 'steps' ':' steps_inline ;
+steps_inline ::= '[' step (',' step)* ']' ;
+commands    ::= 'commands' ':' command (','? command)* ;
+command     ::= identifier ':' 'steps' ':' steps_inline 'description' ':' text? ;
+workflows   ::= 'workflows' ':' workflow (','? workflow)* ;
+workflow    ::= identifier ':' 'jobs' ':' workflow_jobs ;
+workflow_jobs ::= '[' wfjob (',' wfjob)* ']' ;
+wfjob       ::= identifier | job_map ;
+job_map     ::= identifier ':' 'requires' ':' req_list 'filters' ':' filter_map? 'context' ':' text? ;
+req_list    ::= '[' identifier (',' identifier)* ']' ;
+filter_map  ::= 'branches' ':' filter_body 'tags' ':' filter_body ;
+filter_body ::= 'only' ':' text_list 'ignore' ':' text_list? ;
+text_list   ::= '[' text (',' text)* ']' ;
+identifier  ::= [a-zA-Z_][a-zA-Z0-9_-]* ;
+scalar      ::= text | number | boolean ;
+boolean     ::= 'true' | 'false' ;
+text        ::= '"' [^"]* '"' ;
+number      ::= [0-9]+ ;
