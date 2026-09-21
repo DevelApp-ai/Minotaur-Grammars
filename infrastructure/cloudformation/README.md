@@ -21,6 +21,6 @@ Resources:
 
 Implements issue #39.
 
-## Extended coverage
+## Coverage completion
 
-Adds intrinsic functions (`!Ref`, `!GetAtt`, `!Sub`, `!Join`), Mappings, Conditions, Outputs, DependsOn, DeletionPolicy, Metadata, and SSM dynamic references.
+Completes coverage with long-form Fn:: functions, Fn::If, Transform (SAM), Rules and Hooks sections, Parameters with AllowedValues patterns, and stack policy tags.

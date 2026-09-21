@@ -26,12 +26,12 @@ Outputs:
     Export:
       Name: !Sub "${AWS::StackName}-TableName"
 
-# --- Extended constructs ---
-Outputs:
-  BucketArn:
-    Value: !GetAtt MyBucket.Arn
-Mappings:
-  RegionMap: { eu-west-1: { ami: "ami-123" } }
-Conditions:
-  IsProd: !Equals [ !Ref Environment, production ]
+# --- Coverage completion constructs ---
+Fn::If: [ IsProd, prodValue, devValue]
+Transform: AWS::Serverless-2016-10-31
+Parameters:
+  Env:
+    Type: String
+    AllowedValues: [dev, prod]
+    Default: dev
 

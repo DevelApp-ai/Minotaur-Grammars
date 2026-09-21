@@ -48,11 +48,11 @@ alue>)+
 <indent2> ::= /[ \t][ \t]+/
 <indent3> ::= /[ \t][ \t][ \t]+/
 
-# --- Extended coverage: additional language constructs ---
-<mappings_block> ::= "Mappings" ":" <map> ;
-<conditions_block> ::= "Conditions" ":" <map> ;
-<outputs_block> ::= "Outputs" ":" <map> ;
-<depends_on> ::= "DependsOn" ":" ( <text> | [ <text> ("," <text>)* ] ) ;
-<deletion_policy> ::= "DeletionPolicy" ":" ("Delete" | "Retain" | "RetainExceptOnCreate" | "Snapshot") ;
-<metadata_block> ::= "Metadata" ":" <map> ;
-<ssm_reference> ::= "{{resolve:ssm:" <text> "}}" ;
+# --- Coverage completion: remaining language constructs ---
+<fn_long> ::= "Fn:" ("Ref" | "GetAtt" | "Sub" | "Join" | "FindInMap" | "ImportValue" | "Select" | "Split" | "GetAZs" | "Cidr" | "Base64" | "Transform") ":" <args> ;
+<fn_if> ::= "Fn::If" ":" [ <text> , <json_value> , <json_value> ] ;
+<transform_block> ::= "Transform" ":" (<text> | [ <text>+ ]) ;
+<rules_block> ::= "Rules" ":" <map> ;
+<hooks_block> ::= "Hooks" ":" <map> ;
+<param_constraints> ::= ("AllowedValues" | "AllowedPattern" | "MaxLength" | "MinLength" | "MaxValue" | "MinValue" | "NoEcho" | "Description") ":" <json_value> ;
+<aws_partition> ::= "AWS::Partition" | "AWS::Region" | "AWS::AccountId" | "AWS::StackName" | "AWS::URLSuffix" ;
