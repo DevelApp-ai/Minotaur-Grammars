@@ -14,6 +14,6 @@ ns_symbol ::= plain_symbol '/' plain_symbol ;
 plain_symbol ::= [a-zA-Z*+!_?<>=./-][a-zA-Z0-9*+!_?<>=./-]* ;
 keyword  ::= ':' (plain_symbol | ns_symbol) ;
 literal  ::= number | text | char | 'nil' | 'true' | 'false' ;
-char     := '\\' [a-zA-Z] ;
+char     ::= '\\' [a-zA-Z] ;
 text     ::= '"' [^"]* '"' ;
 number   ::= [0-9]+ ('.' [0-9]+)? ;
