@@ -1,5 +1,5 @@
 404: Not Found
 
-## Extended coverage
+## Coverage completion
 
-Adds guard clauses (`only_if`/`not_if`), notifications, `ruby_block`, `data_bag_item` lookups, lazy attributes, and common resources with blocks.
+Completes coverage with include_recipe, node attribute access levels, platform guards, chef_gem/execute resources, powerShell helpers, and resource action lists.
