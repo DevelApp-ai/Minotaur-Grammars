@@ -1,6 +1,0 @@
-404: Not Found
-
-# --- Coverage completion: remaining language constructs ---
-
-wide_line ::= entry ( column_gap entry )* ;
-bare_entry ::= path_ish ( line_terminator path_ish )* ;
