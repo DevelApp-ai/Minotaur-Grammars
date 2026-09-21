@@ -3,11 +3,13 @@
 start() -> 0.
 inc(N) -> N + 1.
 
-# --- Extended constructs ---
--record(user, {name, age = 0}).
--define(SERVER, ?MODULE).
-User = #user{name = "Ada"}.
-U2 = User#user{age = 36}.
-Xs = [X || X <- lists:seq(1,10), X rem 2 =:= 0].
-try risky() catch error:R -> {err, R} after cleanup() end.
+# --- Coverage completion constructs ---
 
+<<Len:8/big, Payload:Len/binary, _Rest/binary>> = Packet
+case Map of #{id := Id, tag := done} -> Id end
+-spec length(list()) -> non_neg_integer().
+-type tree(A) :: leaf | {node, A, tree(A), tree(A)}.
+-ifdef(TEST). -include_lib("eunit/include/eunit.hrl"). -endif.
+-define(MAX, 100).
+catch gen_server:call(Srv, msg)
+try X() catch error:Reason -> {error, Reason} end

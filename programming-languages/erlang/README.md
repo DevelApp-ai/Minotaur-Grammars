@@ -23,6 +23,10 @@ classify(_) -> negative.
 
 Implements issue #70.
 
-## Extended coverage
+## Coverage completion
 
-Adds record declarations and usage, macros, list comprehensions, try/catch/after, behaviour declarations, map updates, and receive…after.
+The grammar now also covers the remaining core language constructs:
+
+- Bit syntax (`<<A:8, B/binary>>`) and map patterns
+- Function specs and type declarations
+- Preprocessor directives (`-ifdef`, `-define`, `-include`) and `catch`/`try` handling

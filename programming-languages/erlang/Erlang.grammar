@@ -35,16 +35,14 @@ binop   ::= '+' | '-' | '*' | '/' | '==' | '=:=' | '=/=' | '<' | '>' | 'andalso'
 text    ::= '"' [^"]* '"' ;
 number  ::= [0-9]+ ;
 
-# --- Extended coverage: additional language constructs ---
-record_decl ::= '-record' '(' atom ',' '{' field_defs? '}' ')' '.' ; ;
-field_defs ::= field_def (',' field_def)* ; ;
-field_def ::= atom ('=' expr)? ; ;
-record_use ::= '#' atom '{' record_fields? '}' ; ;
-record_fields ::= atom '=' expr (',' atom '=' expr)* ; ;
-record_update ::= expr '#' atom '{' record_fields '}' ; ;
-macro_use ::= '?' atom ; ;
-list_comp ::= '[' expr '||' generator (',' generator)* ']' ; ;
-generator ::= pattern '<-' expr ; ;
-try_expr ::= 'try' exprs ('catch' clause+)? ('after' exprs)? 'end' ; ;
-behaviour_decl ::= '-behaviour' '(' atom ')' '.' ; ;
-receive_after ::= 'receive' clause+ 'after' expr '->' exprs 'end' ; ;
+# --- Coverage completion: remaining language constructs ---
+
+bitstring ::= "<<" [ bit_segment ( "," bit_segment )* ] ">>" ;
+bit_segment ::= expression [ ":" bit_size ] [ "/" bit_type_list ] ;
+map_pattern ::= "#{" [ map_assoc ( "," map_assoc )* ] "}" ;
+map_exact_assoc ::= key_pattern ":=" value_pattern ;
+function_spec ::= "-spec" function_name "(" type_list ")" "->" type "." ;
+type_declaration ::= "-type" type_name "(" type_vars ")" "::" type "." ;
+ifdef_directive ::= "-ifdef" "(" identifier ")" "." ;
+define_directive ::= "-define" "(" identifier [ "(" params ")" ] "," tokens ")" "." ;
+catch_expression ::= "catch" expression ;
