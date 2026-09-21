@@ -1,1 +1,9 @@
 SELECT ?s ?o WHERE { ?s <http://example.org/knows> ?o . }
+
+# --- Extended constructs ---
+ASK { ?s ?p ?o }
+CONSTRUCT { ?s ?p ?o } WHERE { ?s ?p ?o }
+SELECT (COUNT(?s) AS ?n) WHERE { ?s ?p ?o } GROUP BY ?p
+BIND(CONCAT(?a, ?b) AS ?c)
+VALUES ?type { :a :b }
+

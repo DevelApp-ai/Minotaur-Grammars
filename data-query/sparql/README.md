@@ -19,3 +19,7 @@ SELECT ?name WHERE {
 - prefixed names use declared prefixes
 
 Implements issue #80.
+
+## Extended coverage
+
+Adds ASK/CONSTRUCT/DESCRIBE query forms, VALUES, BIND, MINUS, aggregates, and sub-selects.
