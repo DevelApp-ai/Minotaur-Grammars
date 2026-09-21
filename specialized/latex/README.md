@@ -21,6 +21,9 @@ Hello $x^2 + y^2$.
 
 Implements issue #90.
 
-## Extended coverage
+## Coverage completion
 
-Adds starred/heading commands, tabular with column specs, figures with includegraphics, labels and references, verbatim, bibliography, and theorem environments.
+The grammar now also covers the remaining language constructs:
+
+- `equation` and `align` math environments
+- `itemize` items
