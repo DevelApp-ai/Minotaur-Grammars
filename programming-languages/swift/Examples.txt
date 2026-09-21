@@ -3,12 +3,14 @@ func greet(name: String) -> String {
 }
 let msg = greet(name: "Ada")
 
-# --- Extended constructs ---
-protocol Drawable { func draw() }
-extension Point: Drawable { func draw() { } }
-var count: Int { get { 1 } set { } }
-defer { cleanup() }
-func parse(_ s: String) throws -> Int
-do { try parse("1") } catch let e { print(e) }
-if let v = maybe { print(v) }
+# --- Coverage completion constructs ---
 
+actor Counter { var value = 0; func incr() -> Int { value += 1; return value } }
+let t = await task.value
+func load() async throws -> Data { try await fetch() }
+@Wrapper var cached: Int
+@ViewBuilder var body: some View { Text("hi") }
+deinit { cleanup() }
+required init(from decoder: Decoder) throws {}
+lazy var heavy = build()
+func swap(_ a: inout Int, _ b: inout Int) {}

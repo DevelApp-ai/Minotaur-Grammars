@@ -23,6 +23,11 @@ struct Point {
 
 Implements issue #62.
 
-## Extended coverage
+## Coverage completion
 
-Adds protocols, extensions, access control, computed properties and observers, defer, throwing functions with try/catch, generic where clauses, subscripts, and optional binding.
+The grammar now also covers the remaining core language constructs:
+
+- Actors and `async`/`await`/`throws` concurrency
+- Property wrappers and result builders
+- `deinit` blocks, `required` initializers
+- `lazy` stored properties and `inout` parameters
