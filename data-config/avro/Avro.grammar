@@ -22,3 +22,13 @@ TokenSplitter: Space
 <json-number> ::= /[0-9]+/
 <json-array> ::= "[" <json-string>* "]"
 <json-value> ::= /[^[\]{}]+/ | <json-array> | /\{[^{}]*\}/
+
+# --- Extended coverage: additional language constructs ---
+<fixed_decl> ::= "fixed" <identifier> "(" <number> ")" ;
+<logical_type> ::= "logicalType" ":" ("date" | "timestamp-millis" | "timestamp-micros" | "time-millis" | "decimal" | "uuid" | "duration") ;
+<aliases_field> ::= "aliases" ":" [ <text> ("," <text>)* ] ;
+<default_field> ::= "default" ":" <json_value> ;
+<doc_field> ::= "doc" ":" <text> ;
+<union_type> ::= [ <type> ("," <type>)+ ] ;
+<array_type> ::= "array" "{" "items" ":" <type> "}" ;
+<map_type> ::= "map" "{" "values" ":" <type> "}" ;

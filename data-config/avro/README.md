@@ -17,3 +17,7 @@ Grammar for Avro schema (avsc) definitions: record types with fields, enums, arr
 - Fixed size positive integer
 
 Implements issue #34.
+
+## Extended coverage
+
+Adds `fixed` declarations, logical types, aliases, field defaults, docs, and union types.

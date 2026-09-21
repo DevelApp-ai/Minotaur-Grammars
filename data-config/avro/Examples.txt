@@ -5,3 +5,9 @@
   {"name":"meta","type":{"type":"map","values":"string"}},
   {"name":"createdAt","type":{"type":"long","logicalType":"timestamp-millis"}}
 ]}
+
+# --- Extended constructs ---
+{"type":"fixed","name":"Hash","size":16}
+{"name":"ts","type":{"type":"long","logicalType":"timestamp-millis"}}
+{"type":["null","string"],"default":null}
+
