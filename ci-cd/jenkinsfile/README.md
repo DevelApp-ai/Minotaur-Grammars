@@ -23,3 +23,7 @@ pipeline {
 - stage names are unique
 
 Implements issue #48.
+
+## Extended coverage
+
+Adds matrix builds (axes/stages), input steps, credentials bindings, retry/lock wrappers, and archive/build steps.

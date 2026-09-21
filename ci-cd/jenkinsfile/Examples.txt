@@ -6,3 +6,17 @@ pipeline {
     }
   }
 }
+
+# --- Extended constructs ---
+pipeline {
+  agent any
+  stages {
+    stage('Matrix') {
+      matrix {
+        axes { axis { name 'JDK' values '17', '21' } }
+        stages { stage('Build') { steps { sh 'java -version' } } }
+      }
+    }
+  }
+}
+
