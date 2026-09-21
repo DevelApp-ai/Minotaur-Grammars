@@ -17,3 +17,7 @@ message M { repeated string name = 1; }
 - oneof fields without labels
 
 Implements issue #35.
+
+## Extended coverage
+
+Adds `oneof`, `map` fields, `reserved`, services with streaming RPCs, nested messages, import modifiers, and package declarations.
