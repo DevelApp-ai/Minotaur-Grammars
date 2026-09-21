@@ -1,0 +1,4 @@
+.alert {
+  color: #c00;
+  .bold-text();
+}
