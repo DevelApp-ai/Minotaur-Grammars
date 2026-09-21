@@ -3,12 +3,10 @@
   .bold-text();
 }
 
-# --- Extended constructs ---
-.base { color: black; }
-.child:extend(.base) { font-weight: bold; }
-.mixin(@a) when (@a > 10) { padding: @a; }
-.mixin(@a) when (default) { padding: 0; }
-#ns { .hidden { display: none; } }
-@import (reference) 'vars.less';
-content: ~"calc(100% - 30px)";
+# --- Coverage completion constructs ---
 
+.mixin() { box-shadow+: 0 0 2px black; }
+.card { box-shadow+: 1px 1px 4px gray; }
+@prop: color; .d { @{prop}: red; }
+.btn {&:hover { color: red; } & + & { margin-left: 8px; } }
+@media print { .hide { .nested { display: none; } } }

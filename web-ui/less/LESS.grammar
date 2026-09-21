@@ -28,12 +28,10 @@ identifier ::= [a-zA-Z-][a-zA-Z0-9-]* ;
 text      ::= '"' [^"]* '"' ;
 number    ::= [0-9]+ ('.' [0-9]+)? ('px'|'em'|'rem'|'%')? ;
 
-# --- Extended coverage: additional language constructs ---
-extend_less ::= ':extend' '(' selector ')' ; ;
-when_guard ::= '&' 'when' '(' condition ')' '{' statement* '}' ; ;
-condition ::= term (('and' | 'or')? term)* ; ;
-comparison ::= term ('=' | '>' | '<' | '>=' | '<=') term ; ;
-default_guard ::= '(' 'default' ')' ; ;
-namespace_block ::= '#' identifier '{' statement* '}' ; ;
-import_options ::= '@import' '(' identifier ')' text ';' ; ;
-escaped_value ::= '~' text ; ;
+# --- Coverage completion: remaining language constructs ---
+
+merge_syntax ::= property "+"? ":" value_list ";" ;
+property_interpolation ::= "@{" identifier "}" ;
+parent_selector ::= "&" [ combinator simple_selector ] ;
+nested_media ::= "@media" media_query_list block ;
+guarded_mixin ::= mixin_name "(" parameters ")" when guard_condition ";" ;

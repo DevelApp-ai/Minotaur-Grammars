@@ -25,6 +25,10 @@ Minotaur grammar for LESS, covering the core language subset.
 
 Implements issue #76.
 
-## Extended coverage
+## Coverage completion
 
-Adds :extend, when guards, comparisons, namespaces, imports with options, escapes, and default guards.
+The grammar now also covers the remaining language constructs:
+
+- Property merging with `+`
+- Property-name interpolation with `@{var}`
+- Parent selectors (`&`) and `@media` nesting
