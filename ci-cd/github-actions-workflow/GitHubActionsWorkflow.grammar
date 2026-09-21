@@ -39,3 +39,16 @@ scalar          ::= text | number | boolean ;
 boolean         ::= 'true' | 'false' ;
 text            ::= '"' [^"]* '"' ;
 number          ::= [0-9]+ ;
+
+# --- Extended coverage: additional language constructs ---
+concurrency ::= 'concurrency' ':' 'group' ':' text 'cancel-in-progress' ':' boolean? ; ;
+permissions_block ::= 'permissions' ':' perm_map ; ;
+perm_map ::= (identifier) ':' ('read' | 'write' | 'none') (perm_map)* ; ;
+environment ::= 'environment' ':' (text | env_map) ; ;
+env_map ::= 'name' ':' text 'url' ':' text? ; ;
+timeout_minutes ::= 'timeout-minutes' ':' number ; ;
+continue_on_error ::= 'continue-on-error' ':' boolean ; ;
+services_block ::= 'services' ':' service_map ; ;
+service_map ::= identifier ':' 'image' ':' text 'ports' ':' port_list? ; ;
+port_list ::= '[' number (',' number)* ']' ; ;
+workflow_call ::= 'workflow_call' ':' inputs? 'secrets'? ; ;

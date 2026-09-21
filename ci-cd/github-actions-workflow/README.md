@@ -24,3 +24,7 @@ jobs:
 - Matrix strategy references declared variables
 
 Implements issue #46.
+
+## Extended coverage
+
+Adds concurrency, permissions, environment, timeout-minutes, continue-on-error, service containers, and reusable workflow_call triggers.
