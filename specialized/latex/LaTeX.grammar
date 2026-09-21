@@ -1,0 +1,23 @@
+Grammar: LaTeX
+FormatType: EBNF
+TokenSplitter: Space
+
+document ::= preamble body ;
+preamble ::= preamble_cmd* ;
+preamble_cmd ::= document_class | use_package | new_command ;
+document_class ::= '\\documentclass' ('[' options ']')? '{' identifier '}' ;
+use_package ::= '\\usepackage' ('[' options ']')? '{' identifier '}' ;
+new_command ::= '\\newcommand' '{' '\\' identifier '}' '[' number ']' '{' content '}' ;
+options   ::= option (',' option)* ;
+option    ::= identifier | identifier '=' identifier ;
+body      ::= '\\begin' '{' 'document' '}' content '\\end' '{' 'document' '}' ;
+content   ::= element* ;
+element   ::= command | environment | text | math | comment | group ;
+command   ::= '\\' identifier ('[' options ']')? ('{' content '}')* ;
+environment ::= '\\begin' '{' identifier '}' ('[' options ']')? content '\\end' '{' identifier '}' ;
+math    ::= '$' [^$]* '$' | '$$' [^$]* '$$' ;
+comment ::= '%' [^\n]* ;
+group   ::= '{' content '}' ;
+text    ::= [^\n\{}$%\\]+ ;
+identifier ::= [a-zA-Z@]+ ;
+number  ::= [0-9]+ ;
