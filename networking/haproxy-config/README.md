@@ -22,6 +22,6 @@ backend app
 
 Implements issue #53.
 
-## Extended coverage
+## Coverage completion
 
-Adds ACLs with use_backend conditions, http-request rules, timeouts, balance algorithms, stick tables, httpchk options, and default-server.
+Completes coverage with resolvers sections, http-response rules, redirect actions, server cookies and check paths, log-format, and tcp-request inspection.
