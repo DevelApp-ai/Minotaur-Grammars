@@ -18,6 +18,6 @@ message M { repeated string name = 1; }
 
 Implements issue #35.
 
-## Extended coverage
+## Coverage completion
 
-Adds `oneof`, `map` fields, `reserved`, services with streaming RPCs, nested messages, import modifiers, and package declarations.
+Completes coverage with proto2 labels and defaults, field options, extension ranges and usage, extend blocks, and stream declarations.

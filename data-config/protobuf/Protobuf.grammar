@@ -38,11 +38,11 @@ TokenSplitter: Space
 <number> ::= /[+-]?[0-9]+(\.[0-9]+)?/
 <string> ::= /"[^"\n]*"/ | /'[^'\n]*'/
 
-# --- Extended coverage: additional language constructs ---
-<map_field> ::= "map" "<" <type> "," <type> ">" <identifier> "=" <number> ";" ;
-<service_decl> ::= "service" <identifier> "{" <rpc>* "}" ;
-<rpc> ::= "rpc" <identifier> "(" "stream"? <type> ")" "returns" "(" "stream"? <type> ")" ("{" <option>* "}" | ";") ;
-<nested_message> ::= "message" <identifier> "{" <element>* "}" ;
-<import_modifier> ::= "import" ("public" | "weak") <text> ";" ;
-<package_decl> ::= "package" <qualified> ";" ;
-<allow_alias> ::= "option" "allow_alias" "=" "true" ";" ;
+# --- Coverage completion: remaining language constructs ---
+<field_label> ::= ("optional" | "required" | "repeated") ;
+<field_options> ::= "[" <option_pair> ("," <option_pair>)* "]" ;
+<option_pair> ::= <qualified> "=" <constant> ;
+<extension_range> ::= "extensions" <number> ("to" (<number> | "max"))? ("," <number> ("to" (<number> | "max"))?)* ";" ;
+<extensions_use> ::= "extensions" <identifier> ("," <identifier>)* ";" ;
+<extend_block> ::= "extend" <type> "{" <field>* "}" ;
+<stream_decl> ::= "stream" <identifier> "{" <option>* "}" ;

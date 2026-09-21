@@ -34,17 +34,12 @@ service OrderService {
   rpc WatchOrders(GetOrderRequest) returns (stream Order);
 }
 
-# --- Extended constructs ---
-syntax = "proto3";
-package com.develapp;
-import public "common.proto";
-message Outer {
-  oneof payload { string text = 1; bytes blob = 2; }
-  map<string, int32> counts = 3;
-  reserved 4, 5;
-  reserved "legacy";
+# --- Coverage completion constructs ---
+syntax = "proto2";
+message M {
+  optional string name = 1 [default = "x", deprecated = true];
+  required int32 id = 2;
+  extensions 100 to 199;
 }
-service Demo {
-  rpc Stream (Outer) returns (stream Outer);
-}
+extend M { optional int32 extra = 150; }
 
