@@ -1,0 +1,28 @@
+package config
+
+import "strings"
+
+#Service: {
+  name:    string
+  port:    int & >0 & <65536
+  replicas: int | *1
+  labels?: [string]: string
+}
+
+service: #Service & {
+  name:    "orders"
+  port:    8080
+  replicas: 3
+}
+
+@if(strings.Contains(service.name, "order"))
+enabled: true
+
+envs: [ for k, v in {prod: 3, dev: 1} {name: k, replicas: v} ]
+
+# --- Coverage completion constructs ---
+#Config: { host: string, port: int & >0 }
+#Kind: "a" | "b"
+X = 42
+items: [ for k, v in m if v > 0 { name: k } ]
+

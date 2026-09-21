@@ -1,0 +1,47 @@
+Grammar: Cue
+FormatType: EBNF
+TokenSplitter: Space
+
+# Cue grammar - core language subset
+<file> ::= <package-clause>? <import-decl>* <declaration>* => { buildCue($1, $2, $3); }
+<package-clause> ::= "package" <identifier>
+<import-decl> ::= "import" ("(" <import-spec>* ")" | <import-spec>)
+<import-spec> ::= [<alias> ":"]? <string>
+<declaration> ::= <field> | <let-clause> | <attribute> | <ellipsis> | <embed-decl>
+<field> ::= <label> <multi>? ":" <expr>? => { addField($1, $3, $5); }
+<label> ::= <identifier> | <simple-name> | <string> | <dynamic-label>
+<simple-name> ::= /#[a-zA-Z_][a-zA-Z0-9_]*/ | /_[a-zA-Z0-9_]*/ | /[a-zA-Z_$][a-zA-Z0-9_$]*/
+<dynamic-label> ::= "(" <expr> ")"
+<multi> ::= ":"
+<let-clause> ::= "let" <identifier> "=" <expr> => { addLet($2, $4); }
+<attribute> ::= "@" <identifier> "(" <attr-body> ")"
+<ellipsis> ::= "..." <type>?
+<embed-decl> ::= <expr>
+<expr> ::= <unary-expr> | <binary-expr> | <primary>
+<primary> ::= <literal> | <operand-name> | <struct-lit> | <list-lit> | <disjunction> | <comprehension> | "(" <expr> ")"
+<operand-name> ::= <qualified-ident> | <selector-expr>
+<selector-expr> ::= <primary> "." <label>
+<struct-lit> ::= "{" <declaration>* "}" => { buildStruct($2); }
+<list-lit> ::= "[" <expr>* "]" => { buildList($2); }
+<disjunction> ::= <expr> ("|" <expr>)+ => { buildDisjunction($1, $3); }
+<comprehension> ::= <clause>+ <struct-lit> => { buildComprehension($1, $2); }
+<clause> ::= <for-clause> | <if-clause> | <let-clause>
+<for-clause> ::= "for" <identifier> ("," <identifier>)? "in" <expr> => { addFor($2, $4, $6); }
+<if-clause> ::= "if" <expr> => { addIf($2); }
+<literal> ::= <number> | <string> | "true" | "false" | "null" | <bottom>
+<bottom> ::= "_" | "⊥"
+<number> ::= /[0-9]+(\.[0-9]+)?([KMGTP]?i?|[kKmM]?)/ | /[0-9]+(\.[0-9]+)?([eE][+-]?[0-9]+)?/
+<string> ::= '"' <str-char>* '"' | "'" /[^']*/ "'" | /#[^"]+#/ | /"""[\s\S]*?"""/
+<str-char> ::= /[^"\\]/ | "\\" /./
+<qualified-ident> ::= <identifier> ("." <identifier>)*
+<identifier> ::= /[a-zA-Z$_][a-zA-
+Z0-9$_]*/ | /[a-zA-Z$_][a-zA-Z0-9$_-]*/
+
+# --- Coverage completion: remaining language constructs ---
+<unification> ::= <expr> "&" <expr> ;
+<disj_default> ::= <expr> "|" "*" <expr> ;
+<type_alias> ::= <identifier> "=" <expr> ;
+<embedded_scalar> ::= (string | number | int | float | bool | bytes) ;
+<if_clause> ::= "if" <expr> "{" <field>* "}" ;
+<ellipsis_top> ::= "..." ;
+<bounds_expr> ::= (">" | "<" | ">=" | "<=" | "!=" | "=") <number> ;
