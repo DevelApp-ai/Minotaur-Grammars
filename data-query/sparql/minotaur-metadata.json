@@ -1,0 +1,17 @@
+{
+  "Id": "develapp.sparql",
+  "Name": "SPARQL",
+  "Description": "Minotaur grammar for SPARQL covering the core language subset.",
+  "MinotaurVersion": "*",
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free",
+  "Tags": [
+    "data-query"
+  ]
+}

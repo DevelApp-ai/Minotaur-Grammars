@@ -1,0 +1,37 @@
+Grammar: SPARQL
+FormatType: EBNF
+TokenSplitter: Space
+
+query     ::= prologue select_query ;
+prologue  ::= prefix_decl* ;
+prefix_decl ::= 'PREFIX' pname_ns iriref ;
+pname_ns  ::= identifier ':' ;
+select_query ::= 'SELECT' ('DISTINCT')? ('*'|var_list) 'WHERE'? group_graph_pattern (solution_modifier)* ;
+var_list  ::= var (var)* ;
+var       ::= '?' identifier | '$' identifier ;
+group_graph_pattern ::= '{' triples_block? (graph_pattern_node '.'? triples_block?)* '}' ;
+graph_pattern_node ::= optional_block | filter_block | union_block ;
+optional_block ::= 'OPTIONAL' group_graph_pattern ;
+filter_block ::= 'FILTER' '(' expr ')' ;
+union_block ::= group_graph_pattern 'UNION' group_graph_pattern ;
+triples_block ::= triples_same_subject ('.' triples_same_subject?)* ;
+triples_same_subject ::= var_or_term property_list ;
+property_list ::= verb object_list (';' (verb object_list)?)* ;
+object_list ::= object (',' object)* ;
+verb      ::= iri | 'a' ;
+object    ::= var_or_term ;
+var_or_term ::= var | iri | literal | blank_node ;
+blank_node ::= '_:' identifier ;
+iri       ::= iriref | prefixed_name ;
+iriref    ::= '<' [^>]* '>' ;
+prefixed_name ::= (identifier)? ':' identifier? ;
+literal   ::= text ('^^' iri | '@' identifier)? ;
+expr      ::= var_or_term | expr binop expr | '(' expr ')' | func_call ;
+func_call ::= (iri | 'BOUND' | 'STR' | 'REGEX' | 'STRLEN') '(' args? ')' ;
+args      ::= expr (',' expr)* ;
+binop     ::= '=' | '!=' | '<' | '>' | '&&' | '||' ;
+solution_modifier ::= ('ORDER' 'BY' order_cond+ | 'LIMIT' number | 'OFFSET' number | 'GROUP' 'BY' var+) ;
+order_cond ::= ('ASC'|'DESC') '(' expr ')' | var ;
+identifier ::= [a-zA-Z_][a-zA-Z0-9_.-]* ;
+text      ::= '"' [^"]* '"' ;
+number    ::= [0-9]+ ;
