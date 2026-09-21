@@ -17,6 +17,6 @@ table Name { field: type = default (attr); }
 
 Implements issue #33.
 
-## Extended coverage
+## Coverage completion
 
-Adds unions, RPC services, attribute declarations, `root_type`, `file_identifier`, typed enums, and includes.
+Completes coverage with bit_flags enums, field attributes, deprecated fields, nested_flatbuffer, original_namespace, native_include, and streaming RPCs.

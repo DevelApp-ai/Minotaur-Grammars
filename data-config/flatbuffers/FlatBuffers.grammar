@@ -32,14 +32,11 @@ teger> ::= /[+-]?[0-9]+/
 <string> ::= '"' /[^"]*/ '"'
 <string-or-id> ::= <string> | <identifier>
 
-# --- Extended coverage: additional language constructs ---
-<union_decl> ::= "union" <identifier> "{" <union_member>* "}" ;
-<union_member> ::= <identifier> (":" <type>)? ";" ;
-<rpc_service> ::= "rpc_service" <identifier> "{" <rpc_method>* "}" ;
-<rpc_method> ::= <identifier> "(" <type> ")" ":" <type> ";" ;
-<attribute_decl> ::= "attribute" <text> ";" ;
-<root_decl> ::= "root_type" <identifier> ";" ;
-<file_identifier> ::= "file_identifier" <text> ";" ;
-<typed_enum> ::= "enum" <identifier> ":" <scalar_type> "{" <enum_field>* "}" ;
-<enum_field> ::= <identifier> "=" <integer> ","? ;
-<include_decl> ::= "include" <text> ";" ;
+# --- Coverage completion: remaining language constructs ---
+<bitmask_enum> ::= "enum" <identifier> ":" <scalar_type> "(" "bit_flags" ")" "{" <enum_field>* "}" ;
+<field_attr> ::= "(" <identifier> (":" <value>)? ")" ;
+<deprecated_field> ::= <identifier> ":" <type> "=" <integer> ("(deprecated)")? ";" ;
+<nested_flatbuffer> ::= "(nested_flatbuffer:" <text> ")" ;
+<original_namespace> ::= "original_namespace" <qualified> ";" ;
+<native_include> ::= "native_include" <text> ";" ;
+<rpc_streaming> ::= <identifier> "(" <type> ")" ":" <type> "(streaming)" ";" ;

@@ -20,11 +20,8 @@ rpc_service OrderService {
   create(CreateRequest): Order;
 }
 
-# --- Extended constructs ---
-namespace com.develapp;
-attribute "priority";
-union Shape { Circle, Square }
-rpc_service Geometry { Area(Shape):float; }
-root_type Shape;
-file_identifier "GEO1";
+# --- Coverage completion constructs ---
+enum Flags : ushort (bit_flags) { None = 0, Read = 1 }
+field:string (deprecated);
+data:[ubyte] (nested_flatbuffer: "Point");
 
