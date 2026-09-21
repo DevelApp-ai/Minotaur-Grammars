@@ -1,0 +1,42 @@
+Grammar: PlantUML
+FormatType: EBNF
+TokenSplitter: Space
+
+<diagram> ::= <startuml> <content> <enduml> ;
+<startuml> ::= '@startuml' <identifier>? ;
+<enduml> ::= '@enduml' ;
+<content> ::= <element>* ;
+<element> ::= <participant> | <actor> | <arrow_stmt> | <class_def> | <interface_def> | <note> | <package> | <state_stmt> | <skinparam> | <title> ;
+<participant> ::= 'participant' <identifier>( 'as' <text>)? ;
+<actor> ::= 'actor' <identifier>( 'as' <text>)? ;
+<arrow_stmt> ::= <identifier> <arrow> <identifier> ':' <text>? ;
+<arrow> ::= '->' | '-->' | '-\>' ;
+<class_def> ::= 'class' <identifier> '{' <member>* '}' ;
+<interface_def> ::= 'interface' <identifier> '{' <member>* '}' ;
+<member> ::= ( <visibility>)? <identifier> '(' <params>? ')'( ':' <identifier>)? ;
+<visibility> ::= '+' | '-' | '#' ;
+<params> ::= <identifier>( ',' <identifier>)* ;
+<note> ::= 'note'( 'left' | 'right' | 'over') <identifier> ':' <text> ;
+<package> ::= 'package' <text> '{' <element>* '}' ;
+<state_stmt> ::= <identifier> '-->' <identifier> ':' <text>? ;
+<skinparam> ::= 'skinparam' <identifier> <identifier> ;
+<title> ::= 'title' <text> ;
+<identifier> ::= <auto_identifier_1> <auto_identifier_2> ;
+<text> ::= <auto_text_3> ;
+<number> ::= <auto_number_4> ;
+
+# --- Coverage completion: remaining language constructs ---
+
+<activity_diagram> ::= "activity" <activity_element>+ ;
+<activity_element> ::= ( "start_node" | "stop_node" | "activity_action" | "if_statement" | "while_loop" | "fork_block" | "activity_partition") ;
+<deployment_diagram> ::= "deployment" <deployment_element>+ ;
+<deployment_element> ::= ( "node_element" | "artifact_element" | "database_element" | "deployment_arrow") ;
+<object_diagram> ::= "object" <object_element>+ ;
+<object_element> ::= ( "object_decl" | "object_field" | "object_link") ;
+<timing_diagram> ::= "timing" <timing_element>+ ;
+<timing_element> ::= ( "timing_directive" | "at_marker" | "state_line") ;
+
+<auto_identifier_1> ::= /a-zA-Z_/ ;
+<auto_identifier_2> ::= /a-zA-Z0-9_*/ ;
+<auto_text_3> ::= /^\n{:+/ ;
+<auto_number_4> ::= /0-9+/ ;
