@@ -1,2 +1,13 @@
 admin:
   address: { socket_address: { address: 127.0.0.1, port_value: 9901 } }
+
+# --- Extended constructs ---
+route_config:
+  name: local
+  virtual_hosts:
+  - name: service
+    domains: ['*']
+    routes:
+    - match: { prefix: '/api' }
+      route: { cluster: api }
+

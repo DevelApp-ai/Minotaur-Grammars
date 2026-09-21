@@ -28,3 +28,15 @@ scalar       ::= text | number | boolean ;
 boolean      ::= 'true' | 'false' ;
 text         ::= '"' [^"]* '"' ;
 number       ::= [0-9]+ ;
+
+# --- Extended coverage: additional language constructs ---
+route_config ::= 'route_config' ':' 'name' ':' text virtual_hosts ; ;
+virtual_hosts ::= 'virtual_hosts' ':' vhost (','? vhost)* ; ;
+vhost ::= 'name' ':' text 'domains' ':' text_list 'routes' ':' route (','? route)* ; ;
+route ::= 'match' ':' pair 'route' ':' pair ; ;
+tls_context ::= 'tls_context' ':' 'common_tls_context' ':' pair ; ;
+circuit_breakers ::= 'circuit_breakers' ':' pair ; ;
+access_log ::= 'access_log' ':' log (','? log)* ; ;
+log_entry ::= 'name' ':' text 'filter' ':' pair ; ;
+overload_manager ::= 'overload_manager' ':' pair ; ;
+stats_flush_interval ::= 'stats_flush_interval' ':' text ; ;

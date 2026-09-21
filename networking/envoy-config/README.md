@@ -20,3 +20,7 @@ static_resources:
 - port_value is in 0-65535
 
 Implements issue #54.
+
+## Extended coverage
+
+Adds route configs with virtual hosts and route matching, TLS contexts, circuit breakers, access logs, and overload management.
