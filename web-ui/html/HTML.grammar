@@ -1,0 +1,21 @@
+Grammar: HTML
+FormatType: EBNF
+TokenSplitter: Space
+
+document ::= doctype? html_elem ;
+doctype  ::= '<!DOCTYPE' 'html' '>' ;
+html_elem ::= '<html' attrs? '>' content '<' '/html' '>' ;
+content  ::= node* ;
+node     ::= element | text | comment ;
+element  ::= open_tag content? close_tag | void_tag ;
+open_tag ::= '<' tag_name attrs? '>' ;
+close_tag ::= '<' '/' tag_name '>' ;
+void_tag ::= '<' tag_name attrs? '/'? '>' ;
+tag_name ::= identifier ;
+attrs    ::= attr (attr)* ;
+attr     ::= attr_name ('=' attr_value)? ;
+attr_name ::= identifier ;
+attr_value ::= '"' [^"]* '"' | '\'' [^\']* '\'' ;
+comment  ::= '<!--' [^-->]* '-->' ;
+text     ::= [^<]+ ;
+identifier ::= [a-zA-Z][a-zA-Z0-9-]* ;
