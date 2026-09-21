@@ -6,3 +6,8 @@
 09/21/2026  10:15 AM    <JUNCTION>     links [C:\real]
    2 File(s)  1,048,576 bytes
 
+# --- Coverage completion constructs ---
+
+[.]        [..]       file1.txt   file2.doc
+data\src\main.cpp
+output.log

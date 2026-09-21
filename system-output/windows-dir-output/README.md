@@ -22,3 +22,9 @@ Implements issue #83.
 ## Extended coverage
 
 Adds junction/symlink markers, volume serial numbers, comma-grouped numbers, and ISO-style dates.
+
+## Coverage completion
+
+The grammar now also covers the remaining output forms:
+
+- Wide format (`/w`) and bare format (`/b`)

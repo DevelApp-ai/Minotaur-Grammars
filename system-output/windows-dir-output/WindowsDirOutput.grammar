@@ -24,3 +24,8 @@ volume_serial ::= 'Volume' 'Serial' 'Number' 'is' identifier ; ;
 comma_number ::= number (',' number)* ; ;
 iso_date ::= number '-' number '-' number ; ;
 entry_ext ::= (date | iso_date) time (junction_marker | size) name ; ;
+
+# --- Coverage completion: remaining language constructs ---
+
+wide_line ::= entry ( column_gap entry )* ;
+bare_entry ::= path_ish ( line_terminator path_ish )* ;
