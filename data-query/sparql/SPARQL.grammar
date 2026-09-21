@@ -2,10 +2,6 @@ Grammar: SPARQL
 FormatType: EBNF
 TokenSplitter: Space
 
-# --- Coverage completion: remaining language constructs ---
-
-prop
-
 <query> ::= <prologue> <select_query> ;
 <prologue> ::= <prefix_decl>* ;
 <prefix_decl> ::= 'PREFIX' <pname_ns> <iriref> ;
@@ -39,12 +35,17 @@ prop
 <identifier> ::= <auto_identifier_2> <auto_identifier_3> ;
 <text> ::= '"' <auto_text_4> '"' ;
 <number> ::= <auto_number_5> ;
+
+# --- Coverage completion: remaining language constructs ---
+
 <service_pattern> ::= "SERVICE" ( "SILENT" )? "var_or_iri" <group_graph_pattern> ;
 <filter_exists> ::= "FILTER"( "EXISTS" | "NOT" "EXISTS") <group_graph_pattern> ;
 <graph_pattern> ::= "GRAPH"( <var> | <iri>) <group_graph_pattern> ;
+prop
 <erty_path> ::= "path_alternative" ;
 <path_element> ::= "path_primary" <path_modifier> ;
 <path_modifier> ::= "*" | "+" | "?" | "{" "integer"( "," "integer"?)? "}" ;
+
 <auto_iriref_1> ::= /[^>]*/ ;
 <auto_identifier_2> ::= /[a-zA-Z_]/ ;
 <auto_identifier_3> ::= /[a-zA-Z0-9_.-]*/ ;
