@@ -1,0 +1,41 @@
+Grammar: SQL
+FormatType: EBNF
+TokenSplitter: Space
+
+script   ::= statement* ;
+statement ::= select_stmt | insert_stmt | update_stmt | delete_stmt | create_table | create_index | alter_table | drop_stmt ;
+select_stmt ::= 'SELECT' select_list 'FROM' table_ref (join_clause)* (where_clause)? (group_by)? (having_clause)? (order_by)? (limit_clause)? ';' ;
+select_list ::= '*' | column (',' column)* ;
+column   ::= qualified_column | identifier | aggregate ;
+qualified_column ::= identifier '.' identifier ;
+aggregate ::= func_name '(' ('*' | column | expr) ')' ;
+func_name ::= 'COUNT' | 'SUM' | 'AVG' | 'MIN' | 'MAX' ;
+table_ref ::= identifier | identifier 'AS' identifier ;
+join_clause ::= ('INNER'|'LEFT'|'RIGHT'|'FULL')? 'JOIN' table_ref 'ON' condition ;
+where_clause ::= 'WHERE' condition ;
+group_by ::= 'GROUP' 'BY' column (',' column)* ;
+having_clause ::= 'HAVING' condition ;
+order_by ::= 'ORDER' 'BY' column ('ASC'|'DESC')? (',' column ('ASC'|'DESC')?)* ;
+limit_clause ::= 'LIMIT' number ('OFFSET' number)? ;
+condition ::= predicate (bool_op predicate)* ;
+predicate ::= expr ('=' | '!=' | '<>' | '<' | '>' | '<=' | '>=' | 'LIKE' | 'IN' | 'BETWEEN') expr | expr 'IS' ('NOT')? 'NULL' ;
+bool_op  ::= 'AND' | 'OR' ;
+expr     ::= term (('+'|'-') term)* ;
+term     ::= factor (('*'|'/') factor)* ;
+factor   ::= number | text | column | aggregate | '(' condition ')' ;
+insert_stmt ::= 'INSERT' 'INTO' identifier '(' column_list ')' 'VALUES' '(' value_list ')' (',' '(' value_list ')')* ';' ;
+column_list ::= identifier (',' identifier)* ;
+value_list ::= expr (',' expr)* ;
+update_stmt ::= 'UPDATE' identifier 'SET' assignment_list (where_clause)? ';' ;
+assignment_list ::= identifier '=' expr (',' identifier '=' expr)* ;
+delete_stmt ::= 'DELETE' 'FROM' identifier (where_clause)? ';' ;
+create_table ::= 'CREATE' 'TABLE' identifier '(' column_def (',' column_def)* (',' table_constraint)* ')' ';' ;
+column_def ::= identifier data_type ('PRIMARY' 'KEY')? ('NOT' 'NULL')? ('DEFAULT' expr)? ;
+data_type ::= 'INTEGER' | 'INT' | 'BIGINT' | 'TEXT' | 'VARCHAR' '(' number ')' | 'BOOLEAN' | 'DATE' | 'TIMESTAMP' | 'DECIMAL' '(' number ',' number ')' | 'UUID' ;
+table_constraint ::= ('PRIMARY' 'KEY' '(' column_list ')' | 'FOREIGN' 'KEY' '(' column_list ')' 'REFERENCES' identifier '(' column_list ')' | 'UNIQUE' '(' column_list ')') ;
+create_index ::= 'CREATE' ('UNIQUE')? 'INDEX' identifier 'ON' identifier '(' column_list ')' ';' ;
+alter_table ::= 'ALTER' 'TABLE' identifier ('ADD' 'COLUMN' column_def | 'DROP' 'COLUMN' identifier | 'RENAME' 'TO' identifier) ';' ;
+drop_stmt ::= 'DROP' ('TABLE'|'INDEX')' identifier ';' ;
+identifier ::= [a-zA-Z_][a-zA-Z0-9_]* ;
+text     ::= '\'' [^\']* '\'' ;
+number   ::= [0-9]+ ('.' [0-9]+)? ;
