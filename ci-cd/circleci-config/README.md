@@ -23,6 +23,6 @@ workflows:
 
 Implements issue #49.
 
-## Extended coverage
+## Coverage completion
 
-Adds matrix configs, contexts, workspace persistence/attachment, artifact and test-result storage, and tag filters.
+Completes coverage with setup workflows (continuation), Windows/macOS/ARM executors, resource_class, orbs inline definitions, and pre/post steps.

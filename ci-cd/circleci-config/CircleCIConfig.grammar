@@ -47,12 +47,14 @@ boolean     ::= 'true' | 'false' ;
 text        ::= '"' [^"]* '"' ;
 number      ::= [0-9]+ ;
 
-# --- Extended coverage: additional language constructs ---
-matrix_config ::= 'matrix' ':' 'parameters' ':' pair (','? pair)* 'alias' ':' text? ; ;
-context_kw ::= 'context' ':' (text | text_list) ; ;
-persist_workspace ::= 'persist_to_workspace' ':' 'paths' ':' path_list ; ;
-attach_workspace ::= 'attach_workspace' ':' 'at' ':' text ; ;
-store_artifacts ::= 'store_artifacts' ':' 'path' ':' text ; ;
-store_test_results ::= 'store_test_results' ':' 'path' ':' text ; ;
-tags_filter ::= 'tags' ':' 'only' ':' text_list ; ;
-requires_kw ::= 'requires' ':' req_list ; ;
+# --- Coverage completion: remaining language constructs ---
+setup_true ::= 'setup' ':' boolean ; ;
+continuation_call ::= 'run' ':' 'command' ':' text 'continuation' ':' '...' ; ;
+machine_executor ::= 'machine' ':' 'image' ':' text ; ;
+macos_executor ::= 'macos' ':' 'xcode' ':' text ; ;
+windows_executor ::= 'executor' ':' 'win/default' ; ;
+resource_class_kw ::= 'resource_class' ':' (text | 'large' | 'medium' | 'xlarge' | 'arm.medium') ; ;
+inline_orb ::= 'orbs' ':' identifier ':' 'jobs' ':' job (','? job)* ; ;
+pre_steps ::= 'pre-steps' ':' steps_inline ; ;
+post_steps ::= 'post-steps' ':' steps_inline ; ;
+when_cond ::= 'when' ':' 'condition' ':' text ; ;
