@@ -24,3 +24,7 @@ print('hi')
 - heading level decreases by at most one
 
 Implements issue #88.
+
+## Extended coverage
+
+Adds setext headings, footnotes, task lists, reference links and definitions, autolinks, escapes, HTML blocks, and indented nested lists.

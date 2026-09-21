@@ -29,3 +29,15 @@ image   ::= '!' '[' text ']' '(' text ')' ;
 text    ::= [^\n]+ ;
 identifier ::= [a-zA-Z0-9+-]* ;
 number  ::= [0-9]+ ;
+
+# --- Extended coverage: additional language constructs ---
+setext_heading ::= inline ('=' | '-')+ ; ;
+footnote_def ::= '[^' identifier ']:' [^\n]* ; ;
+footnote_ref ::= '[^' identifier ']' ; ;
+task_item ::= bullet '[' (' ' | 'x' | 'X') ']' inline ; ;
+ref_link ::= '[' text ']' '[' identifier ']' ; ;
+ref_def ::= '[' identifier ']:' text ('"' text '"')? ; ;
+autolink ::= '<' [^>]+ '>' ; ;
+escape_seq ::= '\\' [\\`*_{}\[\]()#+.!-] ; ;
+html_block ::= '<' identifier [^\n>]* '>' [^<]* ; ;
+nested_list ::= ('  ' | '\t') list ; ;
