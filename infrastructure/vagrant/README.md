@@ -1,5 +1,5 @@
 404: Not Found
 
-## Extended coverage
+## Coverage completion
 
-Adds provider blocks, provisioners (shell/ansible), networking (forwarded_port, private_network), synced folders, multi-machine definitions, and disks.
+Completes coverage with other providers (hyperv/vmware/aws), winrm communicator, post-up messages, push definitions, box_check_update, and disk customization.

@@ -1,11 +1,12 @@
 404: Not Found
 
-# --- Extended coverage: additional language constructs ---
-provider_block ::= "config.vm.provider" text "do" |vb_settings| "end" ;
-provisioner ::= "config.vm.provision" (text | provision_type) ("," provision_opts)* ("do" |provision_opts| "end")? ;
-provision_type ::= ("shell" | "ansible" | "chef_solo" | "puppet") ;
-forwarded_port ::= "config.vm.network" ":forwarded_port" "," "guest:" number "," "host:" number ;
-private_network ::= "config.vm.network" ":private_network" "," "ip:" text ;
-synced_folder ::= "config.vm.synced_folder" text "," text ("," provision_opts)* ;
-machine_define ::= "config.vm.define" text "do" |config| "end" ;
-disk_config ::= "config.vm.disk" ":disk" "," "size:" text "," "primary:" boolean ;
+# --- Coverage completion: remaining language constructs ---
+provider_type ::= (:virtualbox | :hyperv | :vmware | :aws | :libvirt | :docker) ;
+communicator ::= config.vm.communicator = (:ssh | :winrm) ;
+winrm_settings ::= config.winrm.username = text | config.winrm.password = text | config.winrm.port = number ;
+post_up_message ::= "config.vm.post_up_message" "=" text ;
+box_check_update ::= "config.vm.box_check_update" "=" boolean ;
+box_version ::= "config.vm.box_version" "=" text ;
+hostname_setting ::= "config.vm.hostname" "=" text ;
+guest_setting ::= "config.vm.guest" "=" ":" identifier ;
+push_definition ::= "config.push.define" text "do" |block| "end" ;

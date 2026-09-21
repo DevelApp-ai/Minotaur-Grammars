@@ -1,15 +1,11 @@
 404: Not Found
 
-# --- Extended constructs ---
-Vagrant.configure("2") do |config|
-  config.vm.box = "ubuntu/jammy64"
-  config.vm.network :forwarded_port, guest: 80, host: 8080
-  config.vm.synced_folder "./src", "/srv"
-  config.vm.provision "shell", inline: "apt-get update"
-  config.vm.define "web" do |web|
-    web.vm.provider "virtualbox" do |vb|
-      vb.memory = 2048
-    end
-  end
+# --- Coverage completion constructs ---
+config.vm.box_check_update = false
+config.vm.communicator = :winrm
+config.winrm.username = "vagrant"
+config.vm.post_up_message = "Ready!"
+config.vm.provider :hyperv do |h|
+  h.memory = 2048
 end
 
