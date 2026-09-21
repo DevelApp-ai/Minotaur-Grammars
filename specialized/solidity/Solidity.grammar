@@ -49,16 +49,11 @@ identifier ::= [a-zA-Z_][a-zA-Z0-9_]* ;
 text    ::= '"' [^"]* '"' ;
 number  ::= [0-9]+ ;
 
-# --- Extended coverage: additional language constructs ---
-receive_fn ::= 'receive' '(' ')' 'external' 'payable' '{' stmt* '}' ; ;
-fallback_fn ::= 'fallback' '(' ')' 'external' 'payable'? '{' stmt* '}' ; ;
-immutable_var ::= type 'immutable' identifier ';' ; ;
-constant_var ::= type 'constant' identifier '=' expr ';' ; ;
-using_for ::= 'using' identifier 'for' type 'global'? ';' ; ;
-unchecked_block ::= 'unchecked' '{' stmt* '}' ; ;
-custom_error ::= 'error' identifier '(' params? ')' ';' ; ;
-revert_custom ::= 'revert' identifier '(' args? ')' ';' ; ;
-try_stmt ::= 'try' expr ('returns' '(' params? ')')? block ('catch' identifier? '(' params? ')' block)* ; ;
-constructor_fn ::= 'constructor' '(' params? ')' modifier_invocation* '{' stmt* '}' ; ;
-modifier_invocation ::= identifier ('(' args? ')')? ; ;
-interface_def ::= 'interface' identifier ('is' inheritance_list)? '{' function* '}' ; ;
+# --- Coverage completion: remaining language constructs ---
+
+assembly_block ::= "assembly" [ "(" string ")" ] "{" yul_statement* "}" ;
+yul_statement ::= ( yul_assign | yul_call | yul_if | yul_switch | yul_for | yul_block | yul_let | yul_break | yul_continue ) ;
+yul_assign ::= yul_identifier ( "," yul_identifier )* ":=" yul_expression ;
+yul_let ::= "let" yul_identifier ( "," yul_identifier )* [ ":=" yul_expression ] ;
+anonymous_event ::= "event" identifier event_params "anonymous" ";" ;
+abi_decode ::= "abi.decode" "(" expression "," "(" type_list ")" ")" ;

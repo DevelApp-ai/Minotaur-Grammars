@@ -27,6 +27,9 @@ contract Counter {
 
 Implements issue #87.
 
-## Extended coverage
+## Coverage completion
 
-Adds receive/fallback functions, immutable/constant state variables, using…for, unchecked blocks, custom errors, try/catch, constructors with modifiers, and interfaces.
+The grammar now also covers the remaining language constructs:
+
+- Inline assembly (Yul) blocks
+- Anonymous events and `abi.decode`

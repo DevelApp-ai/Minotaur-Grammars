@@ -3,18 +3,8 @@ contract Token {
   function transfer(address to, uint256 amount) public { balances[to] += amount; }
 }
 
-# --- Extended constructs ---
-contract Vault {
-  using SafeMath for uint256;
-  uint256 public constant FEE = 3;
-  address public immutable owner;
-  error Unauthorized();
-  constructor() payable { owner = msg.sender; }
-  receive() external payable {}
-  fallback() external payable {}
-  function withdraw(uint256 a) external {
-    if (msg.sender != owner) revert Unauthorized();
-    unchecked { a += 1; }
-  }
-}
+# --- Coverage completion constructs ---
 
+assembly { let x := add(a, 1) sstore(0, x) }
+event Transfer(address indexed from, address indexed to) anonymous;
+(uint a, bool b) = abi.decode(data, (uint, bool));
