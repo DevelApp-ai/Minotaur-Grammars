@@ -22,3 +22,7 @@ sumList (x:xs) = x + sumList xs
 - do-blocks bind with <-
 
 Implements issue #69.
+
+## Extended coverage
+
+Adds type classes with functional dependencies, instances, newtype, where clauses, record constructors, hiding imports, operator sections, if/then/else, and list comprehensions.

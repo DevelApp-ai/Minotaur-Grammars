@@ -35,3 +35,16 @@ identifier ::= [a-zA-Z_][a-zA-Z0-9_']* ;
 char    ::= '\'' [^\']* '\'' ;
 text    ::= '"' [^"]* '"' ;
 number  ::= [0-9]+ ;
+
+# --- Extended coverage: additional language constructs ---
+class_decl ::= 'class' identifier type_vars? ('|' fundep)? 'where' signature* ; ;
+fundep ::= identifier '->' identifier ; ;
+instance_decl ::= 'instance' qualified_id type+ 'where' func_decl* ; ;
+newtype_decl ::= 'newtype' identifier type_vars? '=' constructor ; ;
+where_clause ::= 'where' func_decl+ ; ;
+record_ctor ::= identifier '{' field (',' field)* '}' ; ;
+import_hiding ::= 'import' 'qualified'? qualified_id 'hiding' '(' import_list? ')' ; ;
+operator_section ::= '(' binop expr ')' | '(' expr binop ')' ; ;
+if_then_else ::= 'if' expr 'then' expr 'else' expr ; ;
+list_comp ::= '[' expr '|' qualifier (',' qualifier)* ']' ; ;
+qualifier ::= identifier '<-' expr | expr ; ;

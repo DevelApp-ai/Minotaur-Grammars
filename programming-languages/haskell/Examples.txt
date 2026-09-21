@@ -5,3 +5,14 @@ main :: IO ()
 main = do
   let z = add 1 2
   print z
+
+# --- Extended constructs ---
+class Container c where
+  empty :: c
+instance Container [] where
+  empty = []
+newtype Age = Age Int
+sumTo n | n <= 0 = 0
+         | otherwise = n + sumTo (n - 1)
+[x * x | x <- [1..10], even x]
+
