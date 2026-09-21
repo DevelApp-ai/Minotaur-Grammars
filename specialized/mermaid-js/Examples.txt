@@ -1,0 +1,4 @@
+sequenceDiagram
+  participant U as User
+  U->>S: request
+  S-->>U: response
