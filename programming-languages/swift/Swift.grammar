@@ -36,3 +36,19 @@ binop    ::= '+' | '-' | '*' | '/' | '==' | '<' | '>' | '&&' | '||' | '?.' | '??
 identifier ::= [a-zA-Z_][a-zA-Z0-9_]* ;
 text     ::= '"' [^"]* '"' ;
 number   ::= [0-9]+ ('.' [0-9]+)? ;
+
+# --- Extended coverage: additional language constructs ---
+protocol_decl ::= 'protocol' identifier (':' type_list)? '{' proto_member* '}' ; ;
+proto_member ::= func_decl | var_decl ; ;
+extension_decl ::= 'extension' identifier (':' type_list)? '{' decl* '}' ; ;
+access_mod ::= ('public' | 'internal' | 'private' | 'fileprivate' | 'open' | 'final') ; ;
+computed_prop ::= var_decl '{' 'get' '{' stmt* '}' ('set' '{' stmt* '}')? '}' ; ;
+observer ::= ('willSet' | 'didSet') '{' stmt* '}' ; ;
+defer_stmt ::= 'defer' '{' stmt* '}' ; ;
+throw_stmt ::= 'throw' expr ; ;
+do_try ::= 'do' '{' stmt* '}' 'catch' identifier? '{' stmt* '}' ; ;
+try_expr ::= 'try' '?'? expr ; ;
+generic_where ::= 'where' constraint (',' constraint)* ; ;
+constraint ::= type ':' type ; ;
+subscript_decl ::= 'subscript' '(' params? ')' '->' type '{' stmt* '}' ; ;
+optional_binding ::= 'if' 'let' identifier '=' expr '{' stmt* '}' ; ;

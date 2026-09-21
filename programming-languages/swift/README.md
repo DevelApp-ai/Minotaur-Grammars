@@ -22,3 +22,7 @@ struct Point {
 - closures bind declared parameters
 
 Implements issue #62.
+
+## Extended coverage
+
+Adds protocols, extensions, access control, computed properties and observers, defer, throwing functions with try/catch, generic where clauses, subscripts, and optional binding.

@@ -2,3 +2,13 @@ func greet(name: String) -> String {
   return "Hello, \(name)"
 }
 let msg = greet(name: "Ada")
+
+# --- Extended constructs ---
+protocol Drawable { func draw() }
+extension Point: Drawable { func draw() { } }
+var count: Int { get { 1 } set { } }
+defer { cleanup() }
+func parse(_ s: String) throws -> Int
+do { try parse("1") } catch let e { print(e) }
+if let v = maybe { print(v) }
+
