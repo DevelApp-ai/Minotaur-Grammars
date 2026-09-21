@@ -1,0 +1,23 @@
+{
+  "Id": "develapp.dockerfile",
+  "Name": "Dockerfile",
+  "Vendor": "DevelApp",
+  "DisplayName": "Dockerfile",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "Grammar for Dockerfiles: FROM with stages and names, RUN/CMD/ENTRYPOINT with shell or exec form, ENV/ARG/LABEL/COPY/ADD/EXPOSE/VOLUME/USER/WORKDIR and build-stage references.",
+  "License": "MIT",
+  "Tags": [
+    "infrastructure"
+  ],
+  "MainFile": "Dockerfile.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}
