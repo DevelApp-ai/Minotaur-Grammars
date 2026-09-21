@@ -1,0 +1,12 @@
+Grammar: UnixPsOutput
+FormatType: EBNF
+TokenSplitter: Space
+
+output   ::= header? process+ ;
+header   ::= 'PID' 'TTY' 'TIME' 'CMD' ;
+process  ::= pid tty time cmd ;
+pid      ::= number ;
+tty      ::= '?' | 'ttys' number | 'pts' '/' number ;
+time     ::= number ':' number ':' number ;
+cmd      ::= [^\n]+ ;
+number   ::= [0-9]+ ;
