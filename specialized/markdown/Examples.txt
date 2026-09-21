@@ -9,18 +9,13 @@
 |---|---|
 | 1 | 2 |
 
-# --- Extended constructs ---
-Title
-=====
+# --- Coverage completion constructs ---
 
-Some text[^1] and a [ref link][r1].
+---
+title: Post
+---
 
-[^1]: A footnote.
-[r1]: https://example.com "Title"
-
-- [x] done task
-- [ ] open task
-  - nested item
-
-<https://example.com>
-
+First line,  
+second line after hard break
+<!-- hidden comment -->
+>>> nested deep quote

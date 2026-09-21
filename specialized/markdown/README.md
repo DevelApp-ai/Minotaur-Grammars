@@ -25,6 +25,10 @@ print('hi')
 
 Implements issue #88.
 
-## Extended coverage
+## Coverage completion
 
-Adds setext headings, footnotes, task lists, reference links and definitions, autolinks, escapes, HTML blocks, and indented nested lists.
+The grammar now also covers the remaining language constructs:
+
+- YAML front matter
+- Hard line breaks and HTML comments
+- Nested blockquotes
