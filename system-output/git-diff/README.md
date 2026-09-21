@@ -26,3 +26,10 @@ Implements issue #86.
 ## Extended coverage
 
 Adds new/deleted file modes, rename detection, binary file notices, and old/new mode lines.
+
+## Coverage completion
+
+The grammar now also covers the remaining output forms:
+
+- Combined merge diffs
+- `--stat` output

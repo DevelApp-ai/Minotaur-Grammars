@@ -27,3 +27,10 @@ rename_to ::= 'rename' 'to' path ; ;
 similarity_index ::= 'similarity' 'index' number '%' ; ;
 binary_notice ::= 'Binary' 'files' path 'and' path 'differ' ; ;
 mode_line ::= ('old' | 'new') 'mode' number ; ;
+
+# --- Coverage completion: remaining language constructs ---
+
+combined_hunk ::= "@@@" [ combined_range ] "@@@" ;
+combined_line ::= ( "++" | "+" | " " | "-" ) line_content ;
+stat_line ::= file_name "|" change_count change_bar ;
+stat_summary ::= files_changed_line ;
