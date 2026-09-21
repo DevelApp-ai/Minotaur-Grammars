@@ -1,0 +1,13 @@
+let port : Natural = 8080
+let host = "localhost"
+in  { host = host
+  , port = port
+  , tls = False
+  }
+
+# --- Coverage completion constructs ---
+{ name, age }
+{ Tag.Left = 1 }
+x @ f y
+[1, 2] # [3]
+
