@@ -20,6 +20,6 @@ COPY --from=stage /src /dst
 
 Implements issue #44.
 
-## Extended coverage
+## Coverage completion
 
-Adds multi-stage builds (`AS`), `HEALTHCHECK`, `ARG`, `ONBUILD`, `STOPSIGNAL`, `SHELL`, `COPY --from`, network modes, and `--mount` run flags.
+Completes coverage with COPY --chown/--chmod, ADD with checksum and git URLs, RUN heredocs, LABEL metadata, and build-kit secrets.

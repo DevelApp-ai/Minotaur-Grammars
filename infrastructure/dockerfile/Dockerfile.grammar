@@ -65,14 +65,16 @@ TokenSplitter: Space
 <free-text> ::= /[\S\s]+/
 <number> ::= /[0-9]+/
 
-# --- Extended coverage: additional language constructs ---
-<stage_build> ::= "FROM" <image> "AS" <stage> ;
-<copy_from> ::= "COPY" "--from=" <stage> <src>+ <dst> ;
-<healthcheck> ::= "HEALTHCHECK" ("NONE" | ("--interval=" <duration>)? ("--timeout=" <duration>)? ("--retries=" <number>)? <cmd>) ;
-<arg_decl> ::= "ARG" <identifier> ("=" <text>)? ;
-<onbuild> ::= "ONBUILD" <instruction> ;
-<stopsignal> ::= "STOPSIGNAL" <signal> ;
-<shell_form> ::= "SHELL" [ <text> ("," <text>)* ] ;
-<run_network> ::= "RUN" "--network=" <mode> <cmd> ;
-<run_mount> ::= "RUN" "--mount=type=" <text> ("," <text>)* <cmd> ;
-<add_url> ::= "ADD" <url> <dst> ;
+# --- Coverage completion: remaining language constructs ---
+<copy_chown> ::= "COPY" "--chown=" <user> ":"? <group>? <src>+ <dst> ;
+<copy_chmod> ::= "COPY" "--chmod=" <octal> <src>+ <dst> ;
+<octal> ::= [0-7]{3} ;
+<add_checksum> ::= "ADD" "--checksum=sha256:" <hash> <src> <dst> ;
+<hash> ::= [a-f0-9]+ ;
+<add_git> ::= "ADD" "git@" <host> ":" <path> "#" <ref> <dst> ;
+<heredoc_run> ::= "RUN" "<<" <heredoc_tag> "\n" <cmd>* "\n" <heredoc_tag> ;
+<heredoc_tag> ::= [A-Z]+ ;
+<label_multi> ::= "LABEL" <label_pair> ( <label_pair>)* ;
+<label_pair> ::= <identifier> "=" <text> ;
+<secret_mount> ::= "--mount=type=secret,id=" <identifier> ("," <identifier> "=" <text>)* ;
+<ssh_mount> ::= "--mount=type=ssh" ;
