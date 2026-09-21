@@ -2,3 +2,16 @@ my @nums = (1, 2, 3);
 foreach my $n (@nums) {
   print "$n\n";
 }
+
+# --- Extended constructs ---
+package Animal;
+sub new { my ($class) = @_; return bless {}, $class; }
+my $items = [1, 2, 3];
+print $items->[0];
+my %map = (a => 1);
+print $map{a};
+unless ($dry) { run(); }
+print <<EOT;
+hello
+EOT
+

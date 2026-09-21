@@ -21,3 +21,7 @@ sub greet {
 - subroutine calls reference defined subs
 
 Implements issue #67.
+
+## Extended coverage
+
+Adds packages with bless, references and arrow dereferencing, unless/until, heredocs, POD documentation, and loop control statements.
