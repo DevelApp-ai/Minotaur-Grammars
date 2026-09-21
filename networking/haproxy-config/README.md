@@ -21,3 +21,7 @@ backend app
 - backend servers use valid address:port
 
 Implements issue #53.
+
+## Extended coverage
+
+Adds ACLs with use_backend conditions, http-request rules, timeouts, balance algorithms, stick tables, httpchk options, and default-server.

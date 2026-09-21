@@ -3,3 +3,15 @@ global
 frontend https
   bind *:443 ssl crt /certs/site.pem
   default_backend servers
+
+# --- Extended constructs ---
+frontend web
+  acl is_api path_beg /api
+  use_backend api if is_api
+  http-request deny if { src 10.0.0.0/8 }
+backend api
+  balance leastconn
+  option httpchk GET /health
+  default-server inter 2s rise 3 fall 2
+  stick-table type ip size 100k
+
