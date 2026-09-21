@@ -2,3 +2,22 @@ sequenceDiagram
   participant U as User
   U->>S: request
   S-->>U: response
+
+# --- Extended constructs ---
+flowchart TD
+  subgraph cluster [Group]
+    A --> B
+  end
+
+erDiagram
+  USER ||--o{ ORDER : places
+
+pie
+  "A" : 60
+  "B" : 40
+
+gantt
+  title Plan
+  dateFormat YYYY-MM-DD
+  Design : d1, 2026-01-01, 10d
+

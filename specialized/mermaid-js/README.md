@@ -18,3 +18,7 @@ flowchart TD
 - sequence arrows use valid arrow forms
 
 Implements issue #91.
+
+## Extended coverage
+
+Adds subgraphs, ER diagrams, gantt charts, pie charts, journey, and gitGraph diagram types.
