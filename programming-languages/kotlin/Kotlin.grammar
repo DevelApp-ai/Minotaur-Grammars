@@ -38,15 +38,14 @@ identifier ::= [a-zA-Z_][a-zA-Z0-9_]* ;
 text     ::= '"' [^"]* '"' ;
 number   ::= [0-9]+ ('.' [0-9]+)? ;
 
-# --- Extended coverage: additional language constructs ---
-interface_decl ::= 'interface' identifier '{' decl* '}' ; ;
-sealed_class ::= 'sealed' ('class' | 'interface') identifier ; ;
-companion_object ::= 'companion' 'object' ('{' decl* '}')? ; ;
-lateinit_var ::= 'lateinit' 'var' identifier ':' type ; ;
-value_class ::= 'value' 'class' identifier '(' param ')' ; ;
-suspend_fun ::= 'suspend' fun_decl ; ;
-when_subjectless ::= 'when' '{' when_entry+ '}' ; ;
-when_cond ::= ('in' | 'is') expr ; ;
-annotation ::= '@' qualified_id ('(' args? ')')? ; ;
-labeled_jump ::= identifier '@' ('break' | 'continue') ; ;
-generic_constraint ::= 'where' identifier ':' type (',' identifier ':' type)* ; ;
+# --- Coverage completion: remaining language constructs ---
+
+inline_function ::= modifier_list? "inline" fun_declaration ;
+reified_type_parameter ::= "reified" [ "in" | "out" ] type_name [ ":" type_bound ] ;
+crossinline_parameter ::= "crossinline" lambda_parameter ;
+vararg_parameter ::= "vararg" parameter_name ":" type [ "=" expression ] ;
+operator_function ::= "operator" fun_declaration ;
+infix_function ::= "infix" fun_declaration ;
+tailrec_function ::= "tailrec" fun_declaration ;
+data_object ::= "data" "object" identifier [ ":" delegation_list ] class_body? ;
+implicit_lambda ::= "{" statement* "}" ;

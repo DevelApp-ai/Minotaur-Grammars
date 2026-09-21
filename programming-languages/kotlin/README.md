@@ -21,6 +21,11 @@ fun main() {
 
 Implements issue #63.
 
-## Extended coverage
+## Coverage completion
 
-Adds interfaces, sealed classes, companion objects, lateinit, value classes, suspend functions, subject-less when, annotations, and labeled breaks.
+The grammar now also covers the remaining core language constructs:
+
+- `inline` functions with `reified` and `crossinline` type parameters
+- `vararg`, `operator`, `infix`, and `tailrec` function modifiers
+- `data object` declarations
+- Implicit `it` lambdas
