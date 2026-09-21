@@ -1,0 +1,15 @@
+404: Not Found
+
+# --- Extended constructs ---
+job "web" {
+  group "frontend" {
+    count = 2
+    task "server" {
+      driver = "docker"
+      config { image = "nginx:latest" }
+      resources { cpu = 500, memory = 256 }
+      template { data = "{{ env \"CONF\" }}", destination = "local/conf" }
+    }
+  }
+}
+

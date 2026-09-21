@@ -1,0 +1,14 @@
+404: Not Found
+
+# --- Extended coverage: additional language constructs ---
+group_stanza ::= "group" identifier "{" group_body "}" ;
+group_body ::= task_stanza* constraint_stanza? update_stanza? ;
+task_stanza ::= "task" identifier "{" task_body "}" ;
+task_body ::= "driver" ":" text task_opt* ;
+task_opt ::= ("config" | "env" | "meta") "{" pair* "}" ;
+constraint_stanza ::= "constraint" "{" pair* "}" ;
+resources_stanza ::= "resources" "{" ("cpu" ":" number)? ("memory" ":" number)? "}" ;
+service_check ::= "check" "{" ("type" ":" text)? ("interval" ":" text)? "}" ;
+template_stanza ::= "template" "{" pair* "}" ;
+update_stanza ::= "update" "{" pair* "}" ;
+vault_stanza ::= "vault" "{" pair* "}" ;
