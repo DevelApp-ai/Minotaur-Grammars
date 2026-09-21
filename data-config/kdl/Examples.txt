@@ -1,0 +1,14 @@
+author "Alex" {
+  name "Alex"
+  email="alex@example.com"
+}
+window width=800 height=600 {
+  title "My App"
+}
+numbers 1 2 3
+
+# --- Coverage completion constructs ---
+/-node /-"arg" /-{ child }
++spread-node
+flag = true
+
