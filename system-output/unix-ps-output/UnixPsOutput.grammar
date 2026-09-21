@@ -17,3 +17,9 @@ percent ::= number '.' number '%' ; ;
 rss_size ::= number ; ;
 kernel_thread ::= '[' [^\]]+ ']' ; ;
 ps_sysv_row ::= identifier pid number identifier time tty time cmd ; ;
+
+# --- Coverage completion: remaining language constructs ---
+
+bsd_header ::= "USER" ws+ "PID" ws+ "%CPU" ws+ "%MEM" ws+ "VSZ" ws+ "RSS" ws+ "TTY" ws+ "STAT" ws+ "START" ws+ "TIME" ws+ "COMMAND" ;
+bsd_row ::= username ws+ pid ws+ cpu_pct ws+ mem_pct ws+ vsz ws+ rss ws+ tty ws+ stat ws+ start ws+ time ws+ command ;
+custom_format_row ::= column_value ( ws+ column_value )+ ;

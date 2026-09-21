@@ -21,3 +21,10 @@ Implements issue #84.
 ## Extended coverage
 
 Adds BSD-style STAT codes, %CPU/%MEM columns, RSS/VSZ sizes, bracketed kernel threads, and SysV column layout.
+
+## Coverage completion
+
+The grammar now also covers the remaining output forms:
+
+- `ps aux` (BSD) output
+- Custom `-o` column ordering
