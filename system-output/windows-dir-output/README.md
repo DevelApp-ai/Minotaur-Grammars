@@ -18,3 +18,7 @@ Minotaur grammar for Windows dir Output, covering the core language subset.
 - paths use drive-letter form
 
 Implements issue #83.
+
+## Extended coverage
+
+Adds junction/symlink markers, volume serial numbers, comma-grouped numbers, and ISO-style dates.
