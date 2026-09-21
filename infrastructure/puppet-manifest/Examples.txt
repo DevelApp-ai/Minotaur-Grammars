@@ -20,3 +20,11 @@ class order_service (
 node 'web01.example.com' {
   include order_service
 }
+
+# --- Coverage completion constructs ---
+class nginx::ssl inherits nginx {
+  File['nginx.conf'] { mode => '0600' }
+}
+unless $disabled { include nginx }
+$ports.each |$p| { port { "p${p}": ensure => present } }
+Package['nginx'] ~> Service['nginx']
