@@ -4,3 +4,9 @@ in  { host = host
   , port = port
   , tls = False
   }
+
+# --- Extended constructs ---
+let x = Some 1
+let y = toMap { a = 1 }
+let z = @expr@ with a = 2
+

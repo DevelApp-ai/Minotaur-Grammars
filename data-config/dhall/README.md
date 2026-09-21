@@ -16,3 +16,7 @@ let x : Natural = 1 in { a = x, b = True }
 - Import path resolution
 
 Implements issue #28.
+
+## Extended coverage
+
+Adds `toMap`, `assert`, `with` expressions, `Some`/`None` optional literals, builtin functions, double literals, and environment/remote/local imports.
