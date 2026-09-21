@@ -20,3 +20,7 @@ Resources:
 - Output exports unique
 
 Implements issue #39.
+
+## Extended coverage
+
+Adds intrinsic functions (`!Ref`, `!GetAtt`, `!Sub`, `!Join`), Mappings, Conditions, Outputs, DependsOn, DeletionPolicy, Metadata, and SSM dynamic references.
