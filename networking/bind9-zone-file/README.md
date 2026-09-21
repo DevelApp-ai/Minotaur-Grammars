@@ -17,3 +17,7 @@ www 3600 IN A 192.0.2.10
 - SOA serial is monotonically increasing across edits
 
 Implements issue #55.
+
+## Extended coverage
+
+Adds $TTL/$ORIGIN directives, $GENERATE, comments, and CAA, SSHFP, TLSA, DNAME, NAPTR record types.

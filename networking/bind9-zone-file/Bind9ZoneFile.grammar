@@ -36,3 +36,16 @@ ip6         ::= [0-9a-fA-F:]+ ;
 duration    ::= number ( 's' | 'm' | 'h' | 'd' | 'w' )? ;
 text        ::= '"' [^"]* '"' ;
 number      ::= [0-9]+ ;
+
+# --- Extended coverage: additional language constructs ---
+ttl_directive ::= '$TTL' duration ; ;
+origin_directive ::= '$ORIGIN' domain ; ;
+generate_directive ::= '$GENERATE' gen_range template record ; ;
+gen_range ::= number '-' number ('/' number)? ; ;
+template ::= text ; ;
+zone_comment ::= ';' [^\n]* ; ;
+caa_record ::= owner ttl_class 'CAA' number identifier text ; ;
+sshfp_record ::= owner ttl_class 'SSHFP' number number text ; ;
+tlsa_record ::= owner ttl_class 'TLSA' number number number text ; ;
+dname_record ::= owner ttl_class 'DNAME' domain ; ;
+naptr_record ::= owner ttl_class 'NAPTR' number number text text text text domain ; ;
