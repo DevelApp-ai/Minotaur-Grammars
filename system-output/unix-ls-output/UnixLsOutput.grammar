@@ -29,3 +29,8 @@ attr_flag ::= ('@' | '+' | '.' | '*')? ; ;
 device_num ::= number ',' number ; ;
 inode_entry ::= number name_entry ; ;
 long_entry_ext ::= perms attr_flag link_count owner group (size | device_num) month day time_or_year name ; ;
+
+# --- Coverage completion: remaining language constructs ---
+
+iso_timestamp ::= year "-" month "-" day space hour ":" minute [ ":" second ] ;
+human_size ::= number [ "." number ] [ "B" | "K" | "M" | "G" | "T" ] ;
