@@ -1,0 +1,23 @@
+{
+  "Id": "develapp.cue",
+  "Name": "Cue",
+  "Vendor": "DevelApp",
+  "DisplayName": "Cue",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "Grammar for the CUE configuration language: packages, imports, fields, definitions, constraints, disjunctions and comprehensions.",
+  "License": "MIT",
+  "Tags": [
+    "data-config"
+  ],
+  "MainFile": "Cue.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}
