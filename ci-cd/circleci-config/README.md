@@ -22,3 +22,7 @@ workflows:
 - version is present and numeric
 
 Implements issue #49.
+
+## Extended coverage
+
+Adds matrix configs, contexts, workspace persistence/attachment, artifact and test-result storage, and tag filters.

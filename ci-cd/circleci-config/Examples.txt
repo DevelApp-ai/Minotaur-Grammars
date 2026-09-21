@@ -6,3 +6,19 @@ jobs:
 workflows:
   ci:
     jobs: [ test ]
+
+# --- Extended constructs ---
+jobs:
+  build:
+    steps:
+      - checkout
+      - persist_to_workspace: { paths: [dist] }
+  test:
+    steps:
+      - attach_workspace: { at: /tmp/ws }
+      - store_test_results: { path: results }
+workflows:
+  tagged:
+    jobs:
+      - build: { filters: { tags: { only: '/v.*/' } }, context: [org-global] }
+
