@@ -1,0 +1,23 @@
+package 'nginx' do
+  action :install
+end
+
+template '/etc/nginx/conf.d/orders.conf' do
+  source 'orders.nginx.conf.erb'
+  owner 'root'
+  group 'root'
+  mode '0644'
+  variables(
+    port: 8080,
+    server_name: 'orders.example.com'
+  )
+  notifies :restart, 'service[nginx]', :delayed
+end
+
+service 'nginx' do
+  action [:enable, :start]
+  only_if { File.exist?('/etc/nginx/nginx.conf') }
+end
+
+node.default['orders']['port'] = 8080
+include_recipe 'apt::default'
