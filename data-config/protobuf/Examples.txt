@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package orders.v1;
+
+import "google/protobuf/timestamp.proto";
+
+option csharp_namespace = "DevelApp.Orders.V1";
+
+message Order {
+  string id = 1;
+  Status status = 2;
+  repeated Item items = 3;
+  map<string, string> labels = 4;
+  reserved 5, 9 to 11;
+  reserved "legacy_field";
+  message Item {
+    string product_id = 1;
+    int32 quantity = 2;
+  }
+  oneof payment {
+    Card card = 6;
+    string voucher = 7;
+  }
+}
+
+enum Status {
+  STATUS_UNSPECIFIED = 0;
+  CREATED = 1;
+  PAID = 2;
+}
+
+service OrderService {
+  rpc GetOrder(GetOrderRequest) returns (Order);
+  rpc WatchOrders(GetOrderRequest) returns (stream Order);
+}
+
+# --- Coverage completion constructs ---
+syntax = "proto2";
+message M {
+  optional string name = 1 [default = "x", deprecated = true];
+  required int32 id = 2;
+  extensions 100 to 199;
+}
+extend M { optional int32 extra = 150; }
+
