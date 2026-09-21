@@ -19,3 +19,7 @@ COPY --from=stage /src /dst
 - EXPOSE port range
 
 Implements issue #44.
+
+## Extended coverage
+
+Adds multi-stage builds (`AS`), `HEALTHCHECK`, `ARG`, `ONBUILD`, `STOPSIGNAL`, `SHELL`, `COPY --from`, network modes, and `--mount` run flags.
