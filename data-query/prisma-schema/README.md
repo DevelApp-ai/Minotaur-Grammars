@@ -23,3 +23,10 @@ Implements issue #78.
 ## Extended coverage
 
 Adds composite @@index/@@unique/@@map attributes, @relation with fields/references, views, composite types, and onDelete actions.
+
+## Coverage completion
+
+The grammar now also covers the remaining language constructs:
+
+- `multiSchema` and `previewFeatures` generator options
+- `@db.*` native database type attributes
