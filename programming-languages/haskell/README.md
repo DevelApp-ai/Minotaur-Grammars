@@ -23,6 +23,10 @@ sumList (x:xs) = x + sumList xs
 
 Implements issue #69.
 
-## Extended coverage
+## Coverage completion
 
-Adds type classes with functional dependencies, instances, newtype, where clauses, record constructors, hiding imports, operator sections, if/then/else, and list comprehensions.
+The grammar now also covers the remaining core language constructs:
+
+- `MultiWayIf`, `LambdaCase`, and `RecordWildCards` extensions
+- Tuple sections and bang patterns
+- Template Haskell splices and quasiquotes
