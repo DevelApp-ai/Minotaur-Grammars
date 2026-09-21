@@ -1,3 +1,10 @@
 PID TTY TIME CMD
 1 ? 00:01:02 systemd
 42 pts/0 00:00:05 bash
+
+# --- Extended constructs ---
+STAT  %CPU %MEM COMMAND
+Ss     0.0  0.1 -zsh
+R+     1.5  2.0 [kworker/0:2]
+UID PID PPID C STIME TTY TIME COMMAND
+

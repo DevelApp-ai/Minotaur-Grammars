@@ -10,3 +10,10 @@ tty      ::= '?' | 'ttys' number | 'pts' '/' number ;
 time     ::= number ':' number ':' number ;
 cmd      ::= [^\n]+ ;
 number   ::= [0-9]+ ;
+
+# --- Extended coverage: additional language constructs ---
+state_code ::= ('R' | 'S' | 'D' | 'T' | 'Z' | 'I') ('+' | '<' | 'N' | 's' | 'l' | 'm')* ; ;
+percent ::= number '.' number '%' ; ;
+rss_size ::= number ; ;
+kernel_thread ::= '[' [^\]]+ ']' ; ;
+ps_sysv_row ::= identifier pid number identifier time tty time cmd ; ;

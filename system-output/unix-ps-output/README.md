@@ -17,3 +17,7 @@ Minotaur grammar for Unix ps Output, covering the core language subset.
 - CMD is the remainder of the line
 
 Implements issue #84.
+
+## Extended coverage
+
+Adds BSD-style STAT codes, %CPU/%MEM columns, RSS/VSZ sizes, bracketed kernel threads, and SysV column layout.
