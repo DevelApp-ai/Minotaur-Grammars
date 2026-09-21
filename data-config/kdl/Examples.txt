@@ -7,10 +7,8 @@ window width=800 height=600 {
 }
 numbers 1 2 3
 
-# --- Extended constructs ---
-/-disabled node
-node "multi\"\"\"line\"\"\""
-parent {
-  child 1
-}
+# --- Coverage completion constructs ---
+/-node /-"arg" /-{ child }
++spread-node
+flag = true
 

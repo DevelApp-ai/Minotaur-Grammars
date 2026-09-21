@@ -17,6 +17,6 @@ node "arg" prop=value { child-node }
 
 Implements issue #31.
 
-## Extended coverage
+## Coverage completion
 
-Adds slashdash comments, multiline and raw strings, unicode escapes, node children blocks, and line/multiline comments.
+Completes coverage with slash-dashed arguments and child blocks, +-prefixed (spread) nodes, keyword literals, and escape characters.

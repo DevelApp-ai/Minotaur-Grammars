@@ -19,11 +19,9 @@ TokenSplitter: Space
 <identifier> ::= /\"?[^\"{}\[\]()/=;\n]+\"?/ | /[a-zA-Z_][a-zA-Z0-9_.-]*/
 <char> ::= /[^"\\]/ | "\\" /./ | "\\u{" /[0-9a-fA-F]+/ "}"
 
-# --- Extended coverage: additional language constructs ---
-<slashdash> ::= "/-" <node> ;
-<multiline_string> ::= "\"\"\"" [^"]* "\"\"\"" ;
-<raw_string> ::= "r""" [^"]* """ ;
-<unicode_escape> ::= "\\u{" [0-9a-fA-F]+ "}" ;
-<node_children> ::= <node> "{" <node>* "}" ;
-<line_comment> ::= "//" [^\n]* ;
-<multiline_comment> ::= "/*" [^*]* "*/" ;
+# --- Coverage completion: remaining language constructs ---
+<slashdash_arg> ::= "/-" <value> ;
+<slashdash_children> ::= "/-" "{" <node>* "}" ;
+<spread_node> ::= "+" <node> ;
+<kw_literal> ::= "true" | "false" | "null" | "inf" | "-inf" | "nan" ;
+<esc_char> ::= "\\" ('n' | 't' | 'r' | '"' | '\\' | 's') ;
