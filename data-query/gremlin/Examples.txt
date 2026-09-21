@@ -1,10 +1,7 @@
 g.V().has('person','name','Ada').out('created').values('name')
 
-# --- Extended constructs ---
-g.V().inject('start').hasLabel('person')
-  .sideEffect(System.out.println(it))
-  .out('knows').bothE()
-  .simplePath().cyclicPath()
-  .cap('x').barrier()
-  .elementMap()
+# --- Coverage completion constructs ---
 
+g.V().with('~tinkergraph.readOnly', true).out('knows')
+g.withSack(1.0d).V().sack(mult).by('weight').sack().sum()
+g.V().out().profile()

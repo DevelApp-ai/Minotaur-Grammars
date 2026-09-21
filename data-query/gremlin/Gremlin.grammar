@@ -16,13 +16,9 @@ identifier ::= [a-zA-Z_][a-zA-Z0-9_]* ;
 text    ::= '"' [^"]* '"' | '\'' [^\']* '\'' ;
 number  ::= [0-9]+ ;
 
-# --- Extended coverage: additional language constructs ---
-side_effect_step ::= '.' 'sideEffect' '(' arg ')' ; ;
-inject_step ::= '.' 'inject' '(' args ')' ; ;
-barrier_step ::= '.' 'barrier' '(' ')' ; ;
-cap_step ::= '.' 'cap' '(' arg ')' ; ;
-loops_step ::= '.' 'loops' '(' ')' ; ;
-cyclic_path_step ::= '.' 'cyclicPath' '(' ')' ; ;
-simple_path_step ::= '.' 'simplePath' '(' ')' ; ;
-both_e_step ::= '.' 'bothE' '(' args? ')' ; ;
-element_map_step ::= '.' 'elementMap' '(' ')' ; ;
+# --- Coverage completion: remaining language constructs ---
+
+with_step ::= "with(" string "," object ")" ;
+sack_step ::= "sack(" [ operator ] ")" ;
+sack_value ::= ".sack()" ;
+profile_step ::= "profile()" [ "(" string ")" ] ;

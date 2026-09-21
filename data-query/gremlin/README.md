@@ -17,6 +17,9 @@ g.V().hasLabel('person').has('age', gt(30))
 
 Implements issue #81.
 
-## Extended coverage
+## Coverage completion
 
-Adds sideEffect, inject, barrier, cap, loops, cyclicPath/simplePath, bothE, and elementMap steps.
+The grammar now also covers the remaining language constructs:
+
+- `with()` configuration steps and `sack()`
+- `profile()` step
