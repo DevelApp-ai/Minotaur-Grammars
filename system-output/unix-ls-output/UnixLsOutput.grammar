@@ -1,0 +1,40 @@
+Grammar: UnixLsOutput
+FormatType: EBNF
+TokenSplitter: Space
+
+<output> ::= <entry>* ;
+<entry> ::= <long_entry> | <name_entry> ;
+<long_entry> ::= <perms> <link_count> <owner> <group> <size> <month> <day> <time_or_year> "name" ;
+<perms> ::= <file_type> <perms_triplet> ;
+<file_type> ::= '-' | 'd' | 'l' | 'c' | 'b' | 's' | 'p' ;
+<perms_triplet> ::= <perm>( <perm> <perm>) ;
+<perm> ::= 'r' | 'w' | 'x' | 's' | 'S' | 't' | 'T' | '-' ;
+<link_count> ::= <number> ;
+<owner> ::= <identifier> ;
+<group> ::= <identifier> ;
+<size> ::= <number> ;
+<month> ::= 'Jan' | 'Feb' | 'Mar' | 'Apr' | 'May' | 'Jun' | 'Jul' | 'Aug' | 'Sep' | 'Oct' | 'Nov' | 'Dec' ;
+<day> ::= <number> ;
+<time_or_year> ::= <time> | <year> ;
+<time> ::= <number> ':' <number> ;
+<year> ::= <number> ;
+<name_entry> ::= <filename> ;
+<filename> ::= ( "^" )? ;
+<identifier> ::= <auto_identifier_1> ;
+<number> ::= <auto_number_2> ;
+
+# --- Extended coverage: additional language constructs ---
+<total_line> ::= 'total' <number>; ;
+<attr_flag> ::= ( '@' | '+' | '.' | '*')?; ;
+<device_num> ::= <number> ',' <number>; ;
+<inode_entry> ::= <number> <name_entry>; ;
+<long_entry_ext> ::= <perms> <attr_flag> <link_count> <owner> <group>( <size> | <device_num>) <month> <day> <time_or_year> "name"; ;
+
+# --- Coverage completion: remaining language constructs ---
+
+<iso_timestamp> ::= <year> "-" <month> "-" <day> "space" "hour" ":" "minute" ( ":" "second" )? ;
+<human_size> ::= <number> ( "." <number> )? <auto_human_size_3> "B" | "K" | "M" | "G" | "T" "]" ;
+
+<auto_identifier_1> ::= /a-zA-Z0-9_.-+/ ;
+<auto_number_2> ::= /0-9+/ ;
+<auto_human_size_3> ::= // ;
