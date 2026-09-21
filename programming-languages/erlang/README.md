@@ -22,3 +22,7 @@ classify(_) -> negative.
 - case clauses are ordered with a catch-all or are exhaustive
 
 Implements issue #70.
+
+## Extended coverage
+
+Adds record declarations and usage, macros, list comprehensions, try/catch/after, behaviour declarations, map updates, and receive…after.

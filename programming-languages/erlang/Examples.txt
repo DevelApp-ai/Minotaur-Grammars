@@ -2,3 +2,12 @@
 -export([start/0]).
 start() -> 0.
 inc(N) -> N + 1.
+
+# --- Extended constructs ---
+-record(user, {name, age = 0}).
+-define(SERVER, ?MODULE).
+User = #user{name = "Ada"}.
+U2 = User#user{age = 36}.
+Xs = [X || X <- lists:seq(1,10), X rem 2 =:= 0].
+try risky() catch error:R -> {err, R} after cleanup() end.
+
