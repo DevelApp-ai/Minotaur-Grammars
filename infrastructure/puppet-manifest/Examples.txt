@@ -1,0 +1,22 @@
+class order_service (
+  String $version = 'latest',
+  Integer $port = 8080,
+) {
+  package { 'nginx':
+    ensure => installed,
+  }
+  file { '/etc/nginx/conf.d/orders.conf':
+    ensure  => file,
+    content => template('orders/nginx.conf.erb'),
+    require => Package['nginx'],
+    notify  => Service['nginx'],
+  }
+  service { 'nginx':
+    ensure  => running,
+    enable  => true,
+  }
+}
+
+node 'web01.example.com' {
+  include order_service
+}

@@ -1,0 +1,23 @@
+{
+  "Id": "develapp.puppetmanifest",
+  "Name": "PuppetManifest",
+  "Vendor": "DevelApp",
+  "DisplayName": "Puppet Manifest",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "Grammar for Puppet manifests: class and defined-type declarations, resource declarations with attributes, variables, node definitions and expressions.",
+  "License": "MIT",
+  "Tags": [
+    "infrastructure"
+  ],
+  "MainFile": "PuppetManifest.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}
