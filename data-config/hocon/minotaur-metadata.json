@@ -1,0 +1,23 @@
+{
+  "Id": "develapp.hocon",
+  "Name": "HOCON",
+  "Vendor": "DevelApp",
+  "DisplayName": "HOCON",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "Grammar for HOCON (Human-Optimized Config Object Notation): nested objects, key-value pairs, substitutions, arrays and includes.",
+  "License": "MIT",
+  "Tags": [
+    "data-config"
+  ],
+  "MainFile": "HOCON.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}
