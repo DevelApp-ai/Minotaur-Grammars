@@ -1,0 +1,27 @@
+Grammar: HOCON
+FormatType: EBNF
+TokenSplitter: Space
+
+# HOCON grammar - core language subset
+<file> ::= <root> => { buildHocon($1); }
+<root> ::= <object> | <value>*
+<object> ::= "{" <field>* "}" => { buildObject($2); }
+<field> ::= <key> <separator> <value> => { addField($1, $3); }
+        | <key> "{" <field>* "}" => { addNestedObject($1, $3); }
+<key> ::= <simple-key> | <path-expression>
+<path-expression> ::= <simple-key> ("." <simple-key>)* => { buildPath($1, $3); }
+<simple-key> ::= <quoted-string> | <unquoted-string>
+<separator> ::= ":" | "="
+<value> ::= <object> | <array> | <substitution> | <primitive>
+<array> ::= "[" <value>* "]" => { buildArray($2); }
+<substitution> ::= "${" <path-expression> "}" => { buildSubstitution($2); }
+                | "${?" <path-expression> "}" => { buildOptionalSubstitution($2); }
+<include> ::= "include" ("file(" <quoted-string> ")" | <quoted-string>) => { addInclude($2); }
+<primitive> ::= <number> | <boolean> | <null> | <quoted-string> | <triple-string> | <unquoted-string>
+<boolean> ::= "true" | "false" | "on" | "off"
+<null> ::= "null"
+<number> ::= /[+-]?[0-9]+(\.[0-9]+)?([eE][+-]?[0-9]+)?/
+<quoted-string> ::= '"' <char>* '"'
+<triple-string> ::= '"""' /[^"""]*/ '"""'
+<unquoted-string> ::= /[^$"{}\[\]=:,+#`^?!@*&\\]+/
+<char> ::= /[^"\\]/ | "\\" /./

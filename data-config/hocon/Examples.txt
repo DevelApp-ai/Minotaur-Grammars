@@ -1,0 +1,9 @@
+name = "my-service"
+server {
+  port = 8080
+  host = ${env.HOST}
+  timeout = 30s
+}
+database.url = "postgres://db/example"
+replicas = [1, 2, 3]
+include "base.conf"
