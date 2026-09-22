@@ -1,0 +1,23 @@
+{
+  "Id": "develapp.ansibleplaybook",
+  "Name": "AnsiblePlaybook",
+  "Vendor": "DevelApp",
+  "DisplayName": "Ansible Playbook",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "Grammar for Ansible playbooks: plays with hosts and roles, task lists with modules, variables, handlers and Jinja2 templated values.",
+  "License": "MIT",
+  "Tags": [
+    "infrastructure"
+  ],
+  "MainFile": "AnsiblePlaybook.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}

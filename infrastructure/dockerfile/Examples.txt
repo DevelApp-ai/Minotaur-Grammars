@@ -1,0 +1,27 @@
+# syntax=docker/dockerfile:1
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /src
+COPY *.csproj ./
+RUN dotnet restore
+COPY . .
+RUN dotnet publish -c Release -o /app
+
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
+WORKDIR /app
+COPY --from=build /app .
+ENV ASPNETCORE_ENVIRONMENT=Production
+EXPOSE 8080/tcp
+USER appuser
+HEALTHCHECK --interval=30s --timeout=3s CMD curl -f http://localhost:8080/health || exit 1
+ENTRYPOINT ["dotnet", "Orders.dll"]
+
+# --- Coverage completion constructs ---
+FROM alpine:3.20
+LABEL maintainer="ops@develapp.ai" version="1.0"
+COPY --chown=app:app --chmod=644 src/ /app/
+RUN <<EOF
+  apk add --no-cache curl
+  curl -s https://example.com/health
+EOF
+RUN --mount=type=secret,id=npmrc cp /run/secrets/npmrc /root/.npmrc
+

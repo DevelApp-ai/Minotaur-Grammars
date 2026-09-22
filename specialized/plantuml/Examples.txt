@@ -1,0 +1,33 @@
+@startuml
+Alice -> Bob: hello
+Bob --> Alice: hi
+@enduml
+
+# --- Coverage completion constructs ---
+
+@startuml
+activity
+:start;
+if (ok?) then (yes)
+:done;
+endif
+stop
+@enduml
+@startuml
+deployment
+node web
+database db
+web --> db
+@enduml
+@startuml
+object o1
+o1 : id = 3
+@enduml
+@startuml
+timing
+compact
+@0
+Alice is Idle
+@10
+Alice is Busy
+@enduml

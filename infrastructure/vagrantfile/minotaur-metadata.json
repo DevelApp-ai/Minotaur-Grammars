@@ -1,0 +1,23 @@
+{
+  "Id": "develapp.vagrantfile",
+  "Name": "Vagrantfile",
+  "Vendor": "DevelApp",
+  "DisplayName": "Vagrantfile",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "Grammar for Vagrantfiles: machine definitions with providers and provisioners, box settings, networking, synced folders and shared variables.",
+  "License": "MIT",
+  "Tags": [
+    "infrastructure"
+  ],
+  "MainFile": "Vagrantfile.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}
