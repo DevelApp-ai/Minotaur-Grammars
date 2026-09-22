@@ -2,35 +2,35 @@ Grammar: WindowsDirOutput
 FormatType: EBNF
 TokenSplitter: Space
 
-<output> ::= <header> <entry>* <footer> ;
-<header> ::= 'Volume' 'in' 'drive' <identifier> 'is' "text" 'Directory' 'of' <path> ;
-<entry> ::= <date> <time>( '<DIR>' | <size>) <name> ;
+<output> ::= <header> <volume_serial>? <entry>+ <footer> ;
+<header> ::= 'Volume' 'in' 'drive' <identifier> 'is' <name> 'Directory' 'of' <path> ;
+<entry> ::= <simple_entry> | <entry_ext> | <wide_line> | <bare_entry> ;
+<simple_entry> ::= <date> <time> ( '<DIR>' | <junction_marker> | <size> ) <name> ;
 <date> ::= <number> '/' <number> '/' <number> ;
-<time> ::= <number> ':'( 'AM' | 'PM') ;
-<size> ::= <number> ;
+<time> ::= <number> ':' ( 'AM' | 'PM' ) ;
+<size> ::= <number> | <comma_number> ;
 <name> ::= <auto_name_1> ;
 <footer> ::= <file_count> <byte_count> <dir_count> <free_bytes> ;
-<file_count> ::= 'File' '(s)' <number> 'bytes' ;
-<byte_count> ::= <number> ;
-<dir_count> ::= 'Dir' '(s)' <number> 'bytes' ;
-<free_bytes> ::= <number> 'bytes' 'free' ;
-<path> ::= <auto_path_2> ":"( '\\' <identifier>)* ;
+<file_count> ::= 'File' '(s)' <comma_number> ;
+<byte_count> ::= <comma_number> ;
+<dir_count> ::= 'Dir' '(s)' <comma_number> ;
+<free_bytes> ::= <comma_number> 'bytes' 'free' ;
+<path> ::= <auto_path_2> ':' ( '\' <identifier> )* ;
 <identifier> ::= <auto_identifier_3> ;
 <number> ::= <auto_number_4> ;
 
 # --- Extended coverage: additional language constructs ---
-<junction_marker> ::= ( '<JUNCTION>' | '<SYMLINKD>' | '<SYMLINK>'); ;
-<volume_serial> ::= 'Volume' 'Serial' 'Number' 'is' <identifier>; ;
-<comma_number> ::= <number>( ',' <number>)*; ;
-<iso_date> ::= <number> '-' <number> '-' <number>; ;
-<entry_ext> ::= ( <date> | <iso_date>) <time>( <junction_marker> | <size>) <name>; ;
+<junction_marker> ::= '<JUNCTION>' | '<SYMLINKD>' | '<SYMLINK>' ;
+<volume_serial> ::= 'Volume' 'Serial' 'Number' 'is' <identifier> ;
+<comma_number> ::= <number> ( ',' <number> )* ;
+<iso_date> ::= <number> '-' <number> '-' <number> ;
+<entry_ext> ::= ( <date> | <iso_date> ) <time> ( '<DIR>' | <junction_marker> | <size> ) <name> ;
 
 # --- Coverage completion: remaining language constructs ---
+<wide_line> ::= <simple_entry>+ ;
+<bare_entry> ::= <name>+ ;
 
-<wide_line> ::= <entry>( "column_gap" <entry>)* ;
-<bare_entry> ::= "path_ish"( "line_terminator" "path_ish")* ;
-
-<auto_name_1> ::= /^\n+/ ;
-<auto_path_2> ::= /a-zA-Z/ ;
-<auto_identifier_3> ::= /a-zA-Z0-9_.-+/ ;
-<auto_number_4> ::= /0-9+/ ;
+<auto_name_1> ::= /[^\n]+/ ;
+<auto_path_2> ::= /[a-zA-Z]/ ;
+<auto_identifier_3> ::= /[a-zA-Z0-9_.-]+/ ;
+<auto_number_4> ::= /[0-9]+/ ;
