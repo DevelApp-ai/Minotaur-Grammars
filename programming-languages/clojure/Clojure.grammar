@@ -1,0 +1,52 @@
+Grammar: Clojure
+FormatType: EBNF
+TokenSplitter: Space
+
+<program> ::= <form>* ;
+<form> ::= <list> | <vector> | <map> | <set> | <literal> | <symbol> | <keyword> | <quote> ;
+<quote> ::= '\'' <form> ;
+<list> ::= '(' <form>* ')' ;
+<vector> ::= '[' <form>* ']' ;
+<map> ::= '{' (<form> <form>)* '}' ;
+<set> ::= '#{' <form>* '}' ;
+<symbol> ::= <ns_symbol> | <plain_symbol> ;
+<ns_symbol> ::= <plain_symbol> '/' <plain_symbol> ;
+<plain_symbol> ::= /[a-zA-Z*+!_?<>=.\/-][a-zA-Z0-9*+!_?<>=.\/-]*/ ;
+<keyword> ::= ':' (<plain_symbol> | <ns_symbol>) ;
+<literal> ::= <number> | <text> | <char> | 'nil' | 'true' | 'false' ;
+<char> ::= '\\' <auto_char_0> ;
+<text> ::= /'"'[^"]*'"'/ ;
+<number> ::= /[0-9]+('.'[0-9]+)?/ ;
+
+# --- Coverage completion: remaining language constructs ---
+
+<atom_creation> ::= "(" "def" <identifier> "(" "atom" <expression> ")" ")" ;
+<atom_update> ::= "(" ( "swap!" | "reset!" | "compare-and-set!" ) <expression> <expression>* ")" ;
+<deref_expression> ::= ( "@" <form> | "(" "deref" <form> ")" ) ;
+<defrecord> ::= "(" "defrecord" <symbol> <auto_defrecord_0><auto_defrecord_1> body* ")" ;
+<deftype> ::= "(" "deftype" <symbol> <auto_deftype_0><auto_deftype_1> implementation* ")" ;
+<ns_clause> ::= "(" "ns" <symbol> ns_options* ")" ;
+<var_quote> ::= "#'" <symbol> ;
+<syntax_quote> ::= "`" <form> ;
+
+<expression> ::= <literal> | <symbol> | <keyword> | <list> | <vector> | <map> | <set> ;
+<pair> ::= <expression> <expression> ;
+<identifier> ::= <symbol_text> ;
+<string> ::= <string_text> ;
+<nil> ::= 'nil' ;
+<true> ::= 'true' ;
+<false> ::= 'false' ;
+<symbol_text> ::= /<auto_symbol_text_0><auto_symbol_text_1>/ ;
+<number_text> ::= /<auto_number_text_0><auto_number_text_1>(\.<auto_number_text_2>)?/ ;
+<string_text> ::= /"[^"]*"/ ;
+
+<auto_char_0> ::= /[a-zA-Z]/ ;
+<auto_defrecord_0> ::= /[ "[" field_list "]/ ;
+<auto_defrecord_1> ::= /" ]/ ;
+<auto_deftype_0> ::= /[ "[" field_list "]/ ;
+<auto_deftype_1> ::= /" ]/ ;
+<auto_symbol_text_0> ::= /[a-zA-Z*+!?_<>=\-\/]/ ;
+<auto_symbol_text_1> ::= /[a-zA-Z0-9*+!?_<>=\-\\/]*/ ;
+<auto_number_text_0> ::= /[+-]?/ ;
+<auto_number_text_1> ::= /[0-9]+/ ;
+<auto_number_text_2> ::= /[0-9]+/ ;

@@ -1,0 +1,15 @@
+(ns my.core)
+(defn add [a b] (+ a b))
+(let [x 1 y 2] (+ x y))
+
+# --- Coverage completion constructs ---
+
+(def counter (atom 0))
+(swap! counter inc)
+(reset! counter 10)
+(deref (future 42))
+(defrecord Pt [x y])
+(deftype FastQ [] clojure.lang.IFn (invoke [_] 1))
+(ns app.core (:require [clojure.string :as str :refer [join]]))
+#'app.core/fn
+`(+ 1 2)
