@@ -1,0 +1,51 @@
+Grammar: Bind9ZoneFile
+FormatType: EBNF
+TokenSplitter: Space
+
+<zone_file> ::= <soa_record> <record>* ;
+<soa_record> ::= <origin> <ttl_class> 'SOA' <mname> <rname> '(' <soa_values> ')' ;
+<origin> ::= '@' | <domain> ;
+<ttl_class> ::= (<number> 'IN'?)? ;
+<mname> ::= <domain> ;
+<rname> ::= <domain> ;
+<soa_values> ::= <serial> <refresh> <retry> <expire> <minimum> ;
+<serial> ::= <number> ;
+<refresh> ::= <duration> ;
+<retry> ::= <duration> ;
+<expire> ::= <duration> ;
+<minimum> ::= <duration> ;
+<record> ::= <a_record> | <aaaa_record> | <cname_record> | <mx_record> | <ns_record> | <txt_record> | <ptr_record> | <srv_record> ;
+<a_record> ::= <owner> <ttl_class> 'A' <ip4> ;
+<aaaa_record> ::= <owner> <ttl_class> 'AAAA' <ip6> ;
+<cname_record> ::= <owner> <ttl_class> 'CNAME' <domain> ;
+<mx_record> ::= <owner> <ttl_class> 'MX' <preference> <domain> ;
+<preference> ::= <number> ;
+<ns_record> ::= <owner> <ttl_class> 'NS' <domain> ;
+<txt_record> ::= <owner> <ttl_class> 'TXT' <text> (<text>)* ;
+<ptr_record> ::= <owner> <ttl_class> 'PTR' <domain> ;
+<srv_record> ::= <owner> <ttl_class> 'SRV' <priority> <weight> <port> <target> ;
+<priority> ::= <number> ;
+<weight> ::= <number> ;
+<port> ::= <number> ;
+<target> ::= <domain> ;
+<owner> ::= <domain> | '@' ;
+<domain> ::= <label> ('.' <label>)* '.'? ;
+<label> ::= /[a-zA-Z0-9_-]+/ ;
+<ip4> ::= /[0-9]+'.'[0-9]+'.'[0-9]+'.'[0-9]+/ ;
+<ip6> ::= /[0-9a-fA-F:]+/ ;
+<duration> ::= <number> ( 's' | 'm' | 'h' | 'd' | 'w' )? ;
+<text> ::= /'"'[^"]*'"'/ ;
+<number> ::= /[0-9]+/ ;
+
+# --- Coverage completion: remaining language constructs ---
+<include_directive> ::= '$INCLUDE' <text> (<origin>)? ;
+<dnskey_record> ::= <owner> <ttl_class> 'DNSKEY' <number> <number> <number> <text> ;
+<rrsig_record> ::= <owner> <ttl_class> 'RRSIG' identifier <number> <number> <number> <number> <number> <text> <domain> ;
+<nsec_record> ::= <owner> <ttl_class> 'NSEC' <domain> (identifier)* ;
+<ds_record> ::= <owner> <ttl_class> 'DS' <number> <number> <number> <text> ;
+<hinfo_record> ::= <owner> <ttl_class> 'HINFO' <text> <text> ;
+<blank_owner> ::= <ttl_class> <rrtype_and_data> ;
+<rrtype_and_data> ::= identifier <auto_rrtype_and_data_0> ';' ;
+
+
+<auto_rrtype_and_data_0> ::= /[^;]*/ ;

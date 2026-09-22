@@ -1,0 +1,17 @@
+{
+  "Id": "develapp.bind9zonefile",
+  "Name": "Bind9ZoneFile",
+  "Description": "Minotaur grammar for Bind9ZoneFile covering the core language subset.",
+  "MinotaurVersion": "*",
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free",
+  "Tags": [
+    "networking"
+  ]
+}

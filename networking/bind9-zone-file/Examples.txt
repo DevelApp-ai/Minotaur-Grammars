@@ -1,0 +1,11 @@
+@ IN SOA ns1.example.com. hostmaster.example.com. ( 1 3600 600 604800 300 )
+@ IN NS ns1.example.com.
+mail IN A 192.0.2.20
+
+# --- Coverage completion constructs ---
+$INCLUDE db.sub.example.com
+@ DNSKEY 256 3 8 AwEAAc...
+sub DS 12345 8 2 ABCDEF...
+host A 192.0.2.1
+   A 192.0.2.2
+
