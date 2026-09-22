@@ -1,0 +1,18 @@
+add :: Int -> Int -> Int
+add x y = x + y
+
+main :: IO ()
+main = do
+  let z = add 1 2
+  print z
+
+# --- Coverage completion constructs ---
+
+if | x < 0 -> 'neg' | x == 0 -> 'zero' | otherwise -> 'pos'
+\case Left e -> e; Right v -> v
+data P = P { px, py :: Double }; norm P{..} = px + py
+curry3 f = \(a, b, c) -> f a b c
+map (, True) xs
+f !x = x + 1
+$(deriveJSON defaultOptions ''Person)
+[qq| raw string here |]
