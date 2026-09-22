@@ -1,0 +1,22 @@
+version: 2.1
+jobs:
+  test:
+    docker: [ image: mcr.microsoft.com/dotnet/sdk:8.0 ]
+    steps: [ checkout ]
+workflows:
+  ci:
+    jobs: [ test ]
+
+# --- Coverage completion constructs ---
+version: 2.1
+setup: true
+orbs:
+  node: circleci/node@5.1
+deploy:
+  executor: { name: machine, image: ubuntu-2204:2024.01 }
+  resource_class: large
+  steps:
+    - run:
+        pre-steps: [ checkout ]
+        command: deploy.sh
+
