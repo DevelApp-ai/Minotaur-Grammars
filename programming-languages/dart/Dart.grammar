@@ -2,51 +2,57 @@ Grammar: Dart
 FormatType: EBNF
 TokenSplitter: Space
 
-library ::= import_stmt* decl* ;
-import_stmt ::= 'import' text ('as' identifier)? ';' ;
-decl    ::= class_decl | func_decl | var_decl | const_decl ;
-class_decl ::= ('abstract' 'class' | 'class') identifier ('<' type_params? '>')? ('extends' type)? ('implements' type_list)? ('with' type_list)? '{' member* '}' ;
-type_params ::= identifier (',' identifier)* ;
-func_decl ::= type? identifier '(' params? ')' ('async')? ('{' stmt* '}' | '=>' expr ';') ;
-member  ::= func_decl | var_decl | const_decl | constructor ;
-constructor ::= identifier ('.' identifier)? '(' params? ')' (':' 'this' '.' identifier)? '{' stmt* '}' ;
-params  ::= param (',' param)* ;
-param   ::= ('this' '.')? identifier (':' type)? ('=' expr)? ;
-var_decl ::= 'var' identifier ('=' expr)? ';' ;
-const_decl ::= ('const'|'final') type? identifier '=' expr ';' ;
-stmt    ::= expr_stmt | return_stmt | if_stmt | for_stmt | while_stmt | decl ;
-expr_stmt ::= expr ';' ;
-return_stmt ::= 'return' expr? ';' ;
-if_stmt ::= 'if' '(' expr ')' block ('else' 'if' '(' expr ')' block)* ('else' block)? ;
-for_stmt ::= 'for' '(' 'var' identifier 'in' expr ')' block ;
-while_stmt ::= 'while' '(' expr ')' block ;
-block   ::= '{' stmt* '}' ;
-expr    ::= literal | identifier | call | member | expr binop expr | '(' expr ')' | 'await' expr ;
-call    ::= expr '(' args? ')' ;
-member  ::= expr '.' identifier ;
-args    ::= expr (',' expr)* ;
-type    ::= identifier ('<' types '>')? type_null ;
-type_null ::= '?'? ;
-types   ::= type (',' type)* ;
-type_list ::= type (',' type)* ;
-literal ::= number | text | boolean | 'null' | list | map ;
-list    ::= '[' args? ']' ;
-map     ::= '{' map_entry (',' map_entry)* '}' ;
-map_entry ::= expr ':' expr ;
-boolean ::= 'true' | 'false' ;
-binop   ::= '+' | '-' | '*' | '/' | '==' | '<' | '>' | '&&' | '||' | '??' ;
-identifier ::= [a-zA-Z_][a-zA-Z0-9_]* ;
-text    ::= '"' [^"]* '"' ;
-number  ::= [0-9]+ ('.' [0-9]+)? ;
+<library> ::= <import_stmt>* <decl>* ;
+<import_stmt> ::= 'import' <text> ('as' <identifier>)? ';' ;
+<decl> ::= <class_decl> | <func_decl> | <var_decl> | <const_decl> ;
+<class_decl> ::= ('abstract' 'class' | 'class') <identifier> ('<' <type_params>? '>')? ('extends' <type>)? ('implements' <type_list>)? ('with' <type_list>)? '{' <member>* '}' ;
+<type_params> ::= <identifier> (',' <identifier>)* ;
+<func_decl> ::= <type>? <identifier> '(' <params>? ')' ('async')? ('{' <stmt>* '}' | '=>' <expr> ';') ;
+<member> ::= <func_decl> | <var_decl> | <const_decl> | <constructor> | <expr> '.' <identifier> ;
+<constructor> ::= <identifier> ('.' <identifier>)? '(' <params>? ')' (':' 'this' '.' <identifier>)? '{' <stmt>* '}' ;
+<params> ::= <param> (',' <param>)* ;
+<param> ::= ('this' '.')? <identifier> (':' <type>)? ('=' <expr>)? ;
+<var_decl> ::= 'var' <identifier> ('=' <expr>)? ';' ;
+<const_decl> ::= ('const' | 'final') <type>? <identifier> '=' <expr> ';' ;
+<stmt> ::= <expr_stmt> | <return_stmt> | <if_stmt> | <for_stmt> | <while_stmt> | <decl> ;
+<expr_stmt> ::= <expr> ';' ;
+<return_stmt> ::= 'return' <expr>? ';' ;
+<if_stmt> ::= 'if' '(' <expr> ')' <block> ('else' 'if' '(' <expr> ')' <block>)* ('else' <block>)? ;
+<for_stmt> ::= 'for' '(' 'var' <identifier> 'in' <expr> ')' <block> ;
+<while_stmt> ::= 'while' '(' <expr> ')' <block> ;
+<block> ::= '{' <stmt>* '}' ;
+<expr> ::= <literal> | <identifier> | <call> | <member> | <expr> <binop> <expr> | '(' <expr> ')' | 'await' <expr> ;
+<call> ::= <expr> '(' <args>? ')' ;
+<args> ::= <expr> (',' <expr>)* ;
+<type> ::= <identifier> ('<' <types> '>')? <type_null> ;
+<type_null> ::= /'?'?/ ;
+<types> ::= <type> (',' <type>)* ;
+<type_list> ::= <type> (',' <type>)* ;
+<literal> ::= <number> | <text> | <boolean> | 'null' | <list> | <map> ;
+<list> ::= '[' <args>? ']' ;
+<map> ::= '{' <map_entry> (',' <map_entry>)* '}' ;
+<map_entry> ::= <expr> ':' <expr> ;
+<boolean> ::= 'true' | 'false' ;
+<binop> ::= '+' | '-' | '*' | '/' | '==' | '<' | '>' | '&&' | ' |  | ' | '??' ;
+<identifier> ::= /[a-zA-Z_][a-zA-Z0-9_]*/ ;
+<text> ::= /'"'[^"]*'"'/ ;
+<number> ::= /[0-9]+('.'[0-9]+)?/ ;
 
-# --- Coverage completion: remaining language constructs ---
+# --- Coverage completion: remaining languag
+# e constructs ---
 
-extension_declaration ::= "extension" [ "on" type ]? identifier? [ "on" type ] "{" class_member* "}" ;
-record_type ::= "(" [ record_field ( "," record_field )* ] ")" ;
-record_literal ::= "(" expression ( "," expression )+ [ ":" named_field ] ")" ;
-pattern_switch ::= "switch" "(" expression ")" "{" pattern_case* [ default_case ] "}" ;
-sealed_class ::= "sealed" class_declaration ;
-async_generator ::= "async" "*" function_body ;
-late_declaration ::= "late" [ "final" ] variable_declaration ;
-part_directive ::= "part" string_literal ";" ;
-part_of_directive ::= "part" "of" ( string_literal | dotted_identifier ) ";" ;
+<extension_declaration> ::= "extension" <auto_extension_declaration_0> <identifier>? <auto_extension_declaration_1> "{" class_member* "}" ;
+<record_type> ::= /"("[record_field(","record_field)*]")"/ ;
+<record_literal> ::= "(" expression ( "," expression )+ <auto_record_literal_0> ")" ;
+<pattern_switch> ::= "switch" "(" expression ")" "{" pattern_case* <auto_pattern_switch_0> "}" ;
+<sealed_class> ::= "sealed" class_declaration ;
+<async_generator> ::= "async" "*" function_body ;
+<late_declaration> ::= "late" <auto_late_declaration_0> variable_declaration ;
+<part_directive> ::= "part" string_literal ";" ;
+<part_of_directive> ::= "part" "of" ( string_literal | dotted_identifier ) ";" ;
+
+<auto_extension_declaration_0> ::= /[ "on" type ]?/ ;
+<auto_extension_declaration_1> ::= /[ "on" type ]/ ;
+<auto_record_literal_0> ::= /[ ":" named_field ]/ ;
+<auto_pattern_switch_0> ::= /[ default_case ]/ ;
+<auto_late_declaration_0> ::= /[ "final" ]/ ;
