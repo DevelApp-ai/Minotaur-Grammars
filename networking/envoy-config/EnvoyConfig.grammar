@@ -1,0 +1,43 @@
+Grammar: EnvoyConfig
+FormatType: EBNF
+TokenSplitter: Space
+
+<config> ::= <node>? <static_resources>? <admin>? <listeners_list>? <clusters_list>? ;
+<node> ::= 'node' ':' <node_body> ;
+<node_body> ::= 'id' ':' <text> 'cluster' ':' <text> ;
+<admin> ::= 'admin' ':' 'access_log_path' ':' <text> 'address' ':' <address> ;
+<static_resources> ::= 'static_resources' ':' <listeners_list> <clusters_list> ;
+<listeners_list> ::= 'listeners' ':' <listener> (','? <listener>)* ;
+<listener> ::= 'name' ':' <text> 'address' ':' <address> <filter_chains> ;
+<address> ::= <socket_address> ;
+<socket_address> ::= 'socket_address' ':' 'address' ':' <text> 'port_value' ':' <number> ;
+<filter_chains> ::= 'filter_chains' ':' <filter_chain> (','? <filter_chain>)* ;
+<filter_chain> ::= 'filters' ':' <filter> (','? <filter>)* ;
+<filter> ::= 'name' ':' <text> 'typed_config' ':' <pair_map>? ;
+<clusters_list> ::= 'clusters' ':' <cluster> (','? <cluster>)* ;
+<cluster> ::= 'name' ':' <text> 'type' ':' <cluster_type> 'connect_timeout' ':' <text> <load_assignment>? ;
+<cluster_type> ::= 'STATIC' | 'STRICT_DNS' | 'LOGICAL_DNS' | 'EDS' ;
+<load_assignment> ::= 'load_assignment' ':' 'cluster_name' ':' <text> 'endpoints' ':' <endpoint_list> ;
+<endpoint_list> ::= 'endpoints' ':' <endpoint> (','? <endpoint>)* ;
+<endpoint> ::= 'lb_endpoints' ':' <lb_endpoint> (','? <lb_endpoint>)* ;
+<lb_endpoint> ::= 'endpoint' ':' 'address' ':' <address> ;
+<pair_map> ::= <pair> (','? <pair>)* ;
+<pair> ::= <identifier> ':' <scalar> ;
+<identifier> ::= /[a-zA-Z_][a-zA-Z0-9_]*/ ;
+<scalar> ::= <text> | <number> | <boolean> ;
+<boolean> ::= 'true' | 'false' ;
+<text> ::= /'"'[^"]*'"'/ ;
+<number> ::= /[0-9]+/ ;
+
+# --- Coverage completion: remaining language constructs ---
+<health_checks> ::= 'health_checks' ':' <check> (','? <check>)* ;
+<check> ::= 'timeout' ':' <text> 'interval' ':' <text> ('http_health_check' ':' <pair>)? ('tcp_health_check' ':' <pair>)? ;
+<listener_filters> ::= 'listener_filters' ':' <filter> (','? <filter>)* ;
+<overload_manager> ::= 'overload_manager' ':' 'refresh_interval' ':' <text> 'resource_monitors' ':' <pair> 'actions' ':' <pair> ;
+<dynamic_resources> ::= 'dynamic_resources' ':' 'cds_config' ':' <pair> 'lds_config' ':' <pair> ;
+<retry_policy> ::= 'retry_policy' ':' 'retry_on' ':' <text> 'num_retries' ':' <number> ;
+<outlier_detection> ::= 'outlier_detection' ':' <pair> ;
+<common_lb_config> ::= 'common_lb_config' ':' <pair> ;
+<load_balancing_policy> ::= 'load_balancing_policy' ':' <pair> ;
+<http_protocol_options> ::= 'common_http_protocol_options' ':' <pair> ;
+
