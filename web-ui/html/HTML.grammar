@@ -7,7 +7,7 @@ TokenSplitter: Space
 <html_elem> ::= '<html' <attrs>? '>' <content> '<' '/html' '>' ;
 <content> ::= <node>* ;
 <node> ::= <element> | <text> | <comment> ;
-<element> ::= <open_tag> <content>? <close_tag> | <void_tag> ;
+<element> ::= <open_tag> <content>? <close_tag> | <void_tag>  | <custom_element>  | <svg_element>  | <mathml_element>  | <template_element> ;
 <open_tag> ::= '<' <tag_name> <attrs>? '>' ;
 <close_tag> ::= '<' '/' <tag_name> '>' ;
 <void_tag> ::= '<' <tag_name> <attrs>? '/'? '>' ;
@@ -15,9 +15,9 @@ TokenSplitter: Space
 <attrs> ::= <attr>( <attr>)* ;
 <attr> ::= <attr_name>( '=' <attr_value>)? ;
 <attr_name> ::= <identifier> ;
-<attr_value> ::= '"' <auto_attr_value_1> '"' "|" '\'' <auto_attr_value_2> '\'' ;
+<attr_value> ::= '"' <auto_attr_value_1> '"' | <auto_attr_value_2> ;
 <comment> ::= '<!--' <auto_comment_3> '-->' ;
-<text> ::= <auto_text_4> ;
+<text> ::= <auto_text_4>  | <hex_entity> ;
 <identifier> ::= <auto_identifier_5> <auto_identifier_6> ;
 
 # --- Coverage completion: remaining language constructs ---
