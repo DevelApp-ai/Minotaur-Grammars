@@ -2,9 +2,9 @@ Grammar: MermaidJs
 FormatType: EBNF
 TokenSplitter: Space
 
-<diagram> ::= <flowchart> | <sequence_diagram> | <class_diagram> | <state_diagram> ;
+<diagram> ::= <flowchart> | <sequence_diagram> | <class_diagram> | <state_diagram>  | <er_diagram>  | <gantt_diagram>  | <pie_diagram>  | <journey_diagram>  | <gitgraph_diagram>  | <timeline_diagram>  | <quadrant_chart>  | <mindmap_diagram>  | <requirement_diagram> ;
 <flowchart> ::= 'flowchart' 'TD' | 'flowchart' 'LR' <flowchart_body> ;
-<flowchart_body> ::= <flow_stmt>( ';'? <flow_stmt>)* ;
+<flowchart_body> ::= <flow_stmt>( ';'? <flow_stmt>)*  | <subgraph_block> ;
 <flow_stmt> ::= <node_decl> | <edge> ;
 <node_decl> ::= <node_id>( '[' <text> ']' | '(' <text> ')' | '{' <text> '}' | '([' <text> '])')? ;
 <node_id> ::= <identifier> ;
@@ -27,7 +27,7 @@ TokenSplitter: Space
 <transition> ::= <identifier> '-->' <identifier> ':' <text>? ;
 <state_def> ::= 'state' <identifier> ;
 <identifier> ::= <auto_identifier_1> <auto_identifier_2> ;
-<text> ::= <auto_text_3> ;
+<text> ::= <auto_text_3>  | <number> ;
 <number> ::= <auto_number_4> ;
 
 # --- Extended coverage: additional language constructs ---
@@ -36,7 +36,8 @@ TokenSplitter: Space
 <er_stmt> ::= <identifier> '{' <er_attr>+ '}' | <er_relation>; ;
 <er_attr> ::= <identifier> <identifier>( 'PK' | 'FK' | 'UK')? <text>?; ;
 <er_relation> ::= <identifier> <er_card> <identifier> ':' <text>; ;
-<er_card> ::= ( '||' | 'o|' | '}o' | '}|')( '--' | 'o--' | '|--')( '||' | 'o|' | 'o{' | '|{'); ;
+<er_card> ::= ( '||' | 'o|' | '}o' | '}|')( '--'
+ | 'o--' | '|--')( '||' | 'o|' | 'o{' | '|{'); ;
 <gantt_diagram> ::= 'gantt' <gantt_stmt>+; ;
 <gantt_stmt> ::= ( 'title' | 'dateFormat' | 'section' | 'axisFormat') <text> | <gantt_task>; ;
 <gantt_task> ::= <text> ':'( ',' <text>)* ':' <text>; ;

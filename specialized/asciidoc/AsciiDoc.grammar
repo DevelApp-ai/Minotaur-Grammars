@@ -5,7 +5,7 @@ TokenSplitter: Space
 <document> ::= <header>? <block>* ;
 <header> ::= '=' <text>( <attr_line>)* ;
 <attr_line> ::= ':' <identifier> ':' <text>? ;
-<block> ::= <section> | <paragraph> | <listing> | <list> | <admonition> | <table> ;
+<block> ::= <section> | <paragraph> | <listing> | <list> | <admonition> | <table>  | <source_block>  | <open_block>  | <page_break> ;
 <section> ::= '='+ <text> ;
 <paragraph> ::= <inline>+ ;
 <listing> ::= '---' <auto_listing_1> '---' ;
@@ -13,7 +13,7 @@ TokenSplitter: Space
 <bullet_item> ::= ( '*' | '-') <inline> ;
 <ordered_item> ::= <number> '.' <inline> ;
 <admonition> ::= ( 'NOTE:' | 'TIP:' | 'WARNING:' | 'IMPORTANT:' | 'CAUTION:') <inline> ;
-<table> ::= '|===' <table_row>* '|===' ;
+<table> ::= '|===' <table_row>* '|==='  | <cols_attribute> ;
 <table_row> ::= <auto_table_row_2> ;
 <inline> ::= <text> | <bold> | <italic> | <mono> | <link> | <xref> ;
 <bold> ::= '*' <text> '*' ;

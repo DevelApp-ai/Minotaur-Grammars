@@ -2,7 +2,7 @@ Grammar: PlantUML
 FormatType: EBNF
 TokenSplitter: Space
 
-<diagram> ::= <startuml> <content> <enduml> ;
+<diagram> ::= <startuml> <content> <enduml>  | <activity_diagram>  | <deployment_diagram>  | <object_diagram>  | <timing_diagram> ;
 <startuml> ::= '@startuml' <identifier>? ;
 <enduml> ::= '@enduml' ;
 <content> ::= <element>* ;
@@ -22,7 +22,7 @@ TokenSplitter: Space
 <skinparam> ::= 'skinparam' <identifier> <identifier> ;
 <title> ::= 'title' <text> ;
 <identifier> ::= <auto_identifier_1> <auto_identifier_2> ;
-<text> ::= <auto_text_3> ;
+<text> ::= <auto_text_3>  | <number> ;
 <number> ::= <auto_number_4> ;
 
 # --- Coverage completion: remaining language constructs ---
@@ -38,5 +38,6 @@ TokenSplitter: Space
 
 <auto_identifier_1> ::= /[a-zA-Z_]/ ;
 <auto_identifier_2> ::= /[a-zA-Z0-9_]*/ ;
-<auto_text_3> ::= /[^\n{:]+/ ;
+<aut
+o_text_3> ::= /[^\n{:]+/ ;
 <auto_number_4> ::= /[0-9]+/ ;

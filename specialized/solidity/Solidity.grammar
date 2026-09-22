@@ -11,17 +11,17 @@ TokenSplitter: Space
 <member> ::= <state_var> | <function> | <modifier_def> | <event_def> | <struct_def> | <enum_def> ;
 <state_var> ::= <visibility>? <type> <identifier>( '=' <expr>)? ';' ;
 <visibility> ::= 'public' | 'private' | 'internal' | 'external' ;
-<function> ::= 'function' <identifier> '(' <params>? ')' <visibility>? <mutability>?( 'returns' '(' <params>? ')')?( ';' | '{' <stmt>* '}') ;
+<function> ::= 'function' <identifier> '(' <params>? ')' <visibility>? <mutability>?( 'returns' '(' <params>? ')')?( ';' | '{' <stmt>* '}')  | <block> ;
 <params> ::= <param>( ',' <param>)* ;
 <param> ::= <type> 'memory'? 'calldata'? 'storage'? <identifier>? ;
 <mutability> ::= 'pure' | 'view' | 'payable' | 'constant' ;
 <modifier_def> ::= 'modifier' <identifier>( '(' <params>? ')')? '{' <stmt>* '}' ;
-<event_def> ::= 'event' <identifier> '(' <event_params>? ')' ';' ;
+<event_def> ::= 'event' <identifier> '(' <event_params>? ')' ';'  | <anonymous_event> ;
 <event_params> ::= <type> 'indexed'? <identifier>?( ',' <type> 'indexed'? <identifier>?)* ;
 <struct_def> ::= 'struct' <identifier> '{' <struct_field>* '}' ;
 <struct_field> ::= <type> <identifier> ';' ;
 <enum_def> ::= 'enum' <identifier> '{' <identifier>( ',' <identifier>)* '}' ;
-<stmt> ::= <var_decl> | <expr_stmt> | <return_stmt> | <if_stmt> | <for_stmt> | <while_stmt> | <emit_stmt> | <revert_stmt> ;
+<stmt> ::= <var_decl> | <expr_stmt> | <return_stmt> | <if_stmt> | <for_stmt> | <while_stmt> | <emit_stmt> | <revert_stmt>  | <assembly_block> ;
 <var_decl> ::= <type> 'memory'? <identifier>( '=' <expr>)? ';' ;
 <expr_stmt> ::= <expr> ';' ;
 <return_stmt> ::= 'return' <expr>? ';' ;
@@ -31,14 +31,15 @@ TokenSplitter: Space
 <cond> ::= <expr> | ';' ;
 <update> ::= <expr> ;
 <while_stmt> ::= 'while' '(' <expr> ')' <block> ;
-<emit_stmt> ::= 'emit' <identifier> '(' <args>? ')' ';' ;
+<emit_stmt> ::= 'emit' <identifier> '('
+ <args>? ')' ';' ;
 <revert_stmt> ::= 'revert'( <identifier> '(' <args>? ')')? ';' ;
 <block> ::= '{' <stmt>* '}' ;
-<expr> ::= <literal> | <identifier> | <call> | <member> | <expr> <binop> <expr> | '(' <expr> ')' ;
-<call> ::= <expr> '(' "ar" ;
+<expr> ::= <literal> | <identifier> | <call> | <member> | <expr> <binop> <expr> | '(' <expr> ')'  | <abi_decode> ;
+<call> ::= <expr> '(' "ar"  | <args> ;
 
 gs? ')' ;
-<member> ::= <expr> '.' <identifier> ;
+<member> ::= <expr> '.' <identifier>  | <state_var>  | <function>  | <modifier_def>  | <event_def>  | <struct_def>  | <enum_def> ;
 <args> ::= <arg>( ',' <arg>)* ;
 <arg> ::= ( <identifier> '=')? <expr> ;
 <type> ::= <elementary> | 'mapping' '(' <type> '=>' <type> ')' | <identifier> | <type> '[' ']' ;

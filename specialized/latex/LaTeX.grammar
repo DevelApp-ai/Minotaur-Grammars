@@ -14,7 +14,7 @@ TokenSplitter: Space
 <content> ::= <element>* ;
 <element> ::= <command> | <environment> | <text> | <math> | <comment> | <group> ;
 <command> ::= '\\' <identifier>( '[' <options> ']')?( '{' <content> '}')* ;
-<environment> ::= '\\begin' '{' <identifier> '}'( '[' <options> ']')? <content> '\\end' '{' <identifier> '}' ;
+<environment> ::= '\\begin' '{' <identifier> '}'( '[' <options> ']')? <content> '\\end' '{' <identifier> '}'  | <equation_env>  | <align_env>  | <itemize_env> ;
 <math> ::= '$' <auto_math_1> '$' | '$$' <auto_math_1> '$$' ;
 <comment> ::= '%' <auto_comment_2> ;
 <group> ::= '{' <content> '}' ;

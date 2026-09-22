@@ -3,11 +3,11 @@ FormatType: EBNF
 TokenSplitter: Space
 
 <schema> ::= <block>* ;
-<block> ::= <datasource> | <generator> | <model> | <enum_block> ;
+<block> ::= <datasource> | <generator> | <model> | <enum_block>  | <view_def>  | <composite_type> ;
 <datasource> ::= 'datasource' <identifier> '{' <provider> <url> '}' ;
 <provider> ::= 'provider' '=' <text> ;
 <url> ::= 'url' '='( <text> | 'env' '(' <text> ')') ;
-<generator> ::= 'generator' <identifier> '{' <gen_provider> <output>? '}' ;
+<generator> ::= 'generator' <identifier> '{' <gen_provider> <output>? '}'  | <preview_features> ;
 <gen_provider> ::= 'provider' '=' <text> ;
 <output> ::= 'output' '=' <text> ;
 <model> ::= 'model' <identifier> '{' <field_def>*( <model_attr>)* '}' ;
@@ -16,10 +16,10 @@ TokenSplitter: Space
 <type> ::= <identifier> ;
 <modifiers> ::= '?' | '[' ']' ;
 <attrs> ::= <attribute>( <attribute>)* ;
-<attribute> ::= '@' <identifier>( '(' <args>? ')')? ;
+<attribute> ::= '@' <identifier>( '(' <args>? ')')?  | <index_attr>  | <unique_attr>  | <map_attr>  | <relation_attr>  | <native_type_attribute> ;
 <model_attr> ::= '@@' <identifier>( '(' <args>? ')')? ;
 <args> ::= <arg>( ',' <arg>)* ;
-<arg> ::= <identifier> ':' <scalar> | <scalar> ;
+<arg> ::= <identifier> ':' <scalar> | <scalar>  | <default_now> ;
 <enum_block> ::= 'enum' <identifier> '{' <enum_value>* '}' ;
 <enum_value> ::= <identifier> ;
 <scalar> ::= <text> | <number> | <boolean> | '[' <scalars> ']' ;
@@ -41,7 +41,8 @@ TokenSplitter: Space
 
 # --- Coverage completion: remaining language constructs ---
 
-<multi_schema_option> ::= "multiSchema" "=" <boolean> ;
+<m
+ulti_schema_option> ::= "multiSchema" "=" <boolean> ;
 <preview_features> ::= "previewFeatures" "=" "[" <auto_preview_features_5> "]" ;
 <native_type_attribute> ::= "@db." "native_type_name" ( "(" "native_args" ")" )? ;
 
