@@ -1,0 +1,29 @@
+name: Build
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: dotnet test
+
+# --- Coverage completion constructs ---
+on:
+  workflow_call:
+    secrets:
+      token:
+        required: true
+jobs:
+  call:
+    uses: org/repo/.github/workflows/w.yml@v1
+    secrets: { token: ${{ secrets.token }} }
+    with: { mode: fast }
+  build:
+    outputs:
+      version: ${{ steps.v.outputs.v }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        include: [{ os: macos-latest, experimental: true }]
+        exclude: [{ os: windows-latest }]
+
