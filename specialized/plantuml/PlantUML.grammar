@@ -34,10 +34,10 @@ TokenSplitter: Space
 <object_diagram> ::= "object" <object_element>+ ;
 <object_element> ::= ( "object_decl" | "object_field" | "object_link") ;
 <timing_diagram> ::= "timing" <timing_element>+ ;
-<timing_element> ::= ( "timing_directive" | "at_marker" | "state_line") ;
+<timing_element> ::= ( "timing_directive" | "at_marker" | "st
+ate_line") ;
 
 <auto_identifier_1> ::= /[a-zA-Z_]/ ;
 <auto_identifier_2> ::= /[a-zA-Z0-9_]*/ ;
-<aut
-o_text_3> ::= /[^\n{:]+/ ;
+<auto_text_3> ::= /[^\n{:]+/ ;
 <auto_number_4> ::= /[0-9]+/ ;

@@ -34,8 +34,8 @@ TokenSplitter: Space
 <text> ::= '"' <auto_text_3> '"' ;
 <number> ::= <auto_number_4> ;
 
-# --- Coverage completion: remaining language co
-nstructs ---
+
+# --- Coverage completion: remaining language conguage constructs ---
 
 <call_subquery> ::= "CALL" "{"( "WITH" "with_list")? "subquery_body" "}" ;
 <load_csv> ::= "LOAD" "CSV" ( "WITH" "HEADERS" )? "FROM" "string" ( "AS" <identifier> )? ( "field_terminator" )? ;

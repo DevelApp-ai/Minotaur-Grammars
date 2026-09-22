@@ -7,7 +7,7 @@ TokenSplitter: Space
 <datasource> ::= 'datasource' <identifier> '{' <provider> <url> '}' ;
 <provider> ::= 'provider' '=' <text> ;
 <url> ::= 'url' '='( <text> | 'env' '(' <text> ')') ;
-<generator> ::= 'generator' <identifier> '{' <gen_provider> <output>? '}'  | <preview_features> ;
+<generator> ::= 'generator' <identifier> '{' <gen_provider> <output>? '}'  | <preview_features>  | <multi_schema_option> ;
 <gen_provider> ::= 'provider' '=' <text> ;
 <output> ::= 'output' '=' <text> ;
 <model> ::= 'model' <identifier> '{' <field_def>*( <model_attr>)* '}' ;
@@ -36,13 +36,13 @@ TokenSplitter: Space
 <relation_attr> ::= '@' 'relation' '(' 'fields' ':' '[' "column_list" ']' ',' 'references' ':' '[' "column_list" ']'( ',' <on_delete>)? ')'; ;
 <on_delete> ::= 'onDelete' ':'( 'Cascade' | 'SetNull' | 'Restrict' | 'NoAction' | 'SetDefault'); ;
 <view_def> ::= 'view' <identifier> '{' <field_def>* '}'; ;
-<composite_type> ::= 'type' <identifier> '{' <field_def>* '}'; ;
+<composite_type> ::= 
+'type' <identifier> '{' <field_def>* '}'; ;
 <default_now> ::= '@' 'default' '(' 'now' '(' ')' ')'; ;
 
 # --- Coverage completion: remaining language constructs ---
 
-<m
-ulti_schema_option> ::= "multiSchema" "=" <boolean> ;
+<multi_schema_option> ::= "multiSchema" "=" <boolean> ;
 <preview_features> ::= "previewFeatures" "=" "[" <auto_preview_features_5> "]" ;
 <native_type_attribute> ::= "@db." "native_type_name" ( "(" "native_args" ")" )? ;
 

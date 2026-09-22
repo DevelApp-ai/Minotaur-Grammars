@@ -36,9 +36,7 @@ TokenSplitter: Space
 <revert_stmt> ::= 'revert'( <identifier> '(' <args>? ')')? ';' ;
 <block> ::= '{' <stmt>* '}' ;
 <expr> ::= <literal> | <identifier> | <call> | <member_access> | <expr> <binop> <expr> | '(' <expr> ')'  | <abi_decode> ;
-<call> ::= <expr> '(' "ar" ;
-
-gs? ')' ;
+<call> ::= <expr> '(' <args>? ')' ;
 <member_access> ::= <expr> '.' <identifier> ;
 <args> ::= <arg>( ',' <arg>)* ;
 <arg> ::= ( <identifier> '=')? <expr> ;
@@ -60,8 +58,8 @@ gs? ')' ;
 <anonymous_event> ::= "event" <identifier> <event_params> "anonymous" ";" ;
 <abi_decode> ::= "abi.decode" "(" "expression" "," "(" "type_list" ")" ")" ;
 
-<auto_version_spec_1> ::= /^;+/ ;
-<auto_identifier_2> ::= /a-zA-Z_/ ;
-<auto_identifier_3> ::= /a-zA-Z0-9_*/ ;
-<auto_text_4> ::= /^"*/ ;
-<auto_number_5> ::= /0-9+/ ;
+<auto_version_spec_1> ::= /[^;]+/ ;
+<auto_identifier_2> ::= /[a-zA-Z_]/ ;
+<auto_identifier_3> ::= /[a-zA-Z0-9_]*/ ;
+<auto_text_4> ::= /[^"]*/ ;
+<auto_number_5> ::= /[0-9]+/ ;
