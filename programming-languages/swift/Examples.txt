@@ -1,0 +1,16 @@
+func greet(name: String) -> String {
+  return "Hello, \(name)"
+}
+let msg = greet(name: "Ada")
+
+# --- Coverage completion constructs ---
+
+actor Counter { var value = 0; func incr() -> Int { value += 1; return value } }
+let t = await task.value
+func load() async throws -> Data { try await fetch() }
+@Wrapper var cached: Int
+@ViewBuilder var body: some View { Text("hi") }
+deinit { cleanup() }
+required init(from decoder: Decoder) throws {}
+lazy var heavy = build()
+func swap(_ a: inout Int, _ b: inout Int) {}
