@@ -3,18 +3,18 @@ FormatType: EBNF
 TokenSplitter: Space
 
 <stylesheet> ::= <statement>* ;
-<statement> ::= <variable_decl> | <nested_rule> | <mixin_decl> | <include> | <import_stmt> | <property> | <comment> ;
+<statement> ::= <variable_decl> | <nested_rule> | <mixin_decl> | <include> | <import_stmt> | <property> | <comment>  | <extend_stmt>  | <control_if>  | <control_for>  | <control_each>  | <control_while>  | <use_stmt>  | <forward_stmt>  | <function_def>  | <media_query>  | <supports_query> ;
 <variable_decl> ::= '$' <identifier> ':' <value> ';' ;
 <import_stmt> ::= '@import' <text> ';' ;
 <mixin_decl> ::= '@mixin' <identifier>( '(' <params>? ')')? '{' <statement>* '}' ;
 <include> ::= '@include' <identifier>( '(' <args>? ')')? ';' ;
 <params> ::= '$' <identifier>( ':' <value>)?( ',' '$' <identifier>( ':' <value>)?)* ;
 <args> ::= <value>( ',' <value>)* ;
-<nested_rule> ::= <selector> '{' <statement>* '}' ;
-<selector> ::= <selector_text> ;
+<nested_rule> ::= <selector> '{' <statement>* '}'  | <nested_media> ;
+<selector> ::= <selector_text>  | <placeholder_sel> ;
 <property> ::= <prop_name> ':' <value> ';' ;
 <prop_name> ::= <identifier> ;
-<value> ::= <term>( <term>)* ;
+<value> ::= <term>( <term>)*  | <interpolation>  | <default_flag>  | <global_flag> ;
 <term> ::= <number> | <text> | <color> | <identifier> | '$' <identifier> | <function_call> | '!' <flag> ;
 <function_call> ::= <identifier> '(' <args>? ')' ;
 <flag> ::= 'important' ;
@@ -35,12 +35,13 @@ TokenSplitter: Space
 <use_stmt> ::= '@use' <text>( 'as' <identifier>)? ';'; ;
 <forward_stmt> ::= '@forward' <text> ';'; ;
 <interpolation> ::= '#{' <value> '}'; ;
-<function_def> ::= '@function' <identifier> '(' <params>? ')' '{' <statement>* '}'; ;
+<function_def> ::= '@function' <iden
+tifier> '(' <params>? ')' '{' <statement>* '}';  | <return_stmt> ;
 <return_stmt> ::= '@return' <value> ';'; ;
 
 # --- Coverage completion: remaining language constructs ---
 
-<media_query> ::= "@media" "media_query_list" "block" ;
+<media_query> ::= "@media" "media_query_list" "block"  | <media_feature> ;
 <media_feature> ::= "(" "feature_name" ":" "feature_value" ")" ;
 <nested_media> ::= <media_query> "block" <media_query>* ;
 <supports_query> ::= "@supports" <supports_condition> "block" ;
