@@ -1,0 +1,12 @@
+<div id="main">
+  <p>Some text</p>
+  <br/>
+</div>
+
+# --- Coverage completion constructs ---
+
+<my-widget data-id="7"><span>custom</span></my-widget>
+<svg viewBox="0 0 10 10"><circle cx="5" cy="5" r="4"/></svg>
+<math><mi>x</mi></math>
+&#169; &#x1F600;
+<template><slot name="item"></slot></template>
