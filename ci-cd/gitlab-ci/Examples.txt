@@ -1,0 +1,23 @@
+stages: [build]
+build:
+  stage: build
+  script: [ "dotnet build" ]
+  artifacts:
+    paths: [ "bin/" ]
+
+# --- Coverage completion constructs ---
+test:
+  services:
+    - name: postgres:16
+      alias: db
+  cache:
+    key: deps
+    paths: [node_modules]
+    policy: pull-push
+  interruptible: true
+pages:
+  script: [ build docs ]
+  artifacts: { paths: [public] }
+release_job:
+  release: { tag_name: v1.0 }
+
