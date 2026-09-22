@@ -1,0 +1,13 @@
+library(dplyr)
+data <- c(1, 2, 3)
+mean(data)
+if (mean(data) > 1) { print("big") }
+
+# --- Coverage completion constructs ---
+
+setClass('Point', slots = c(x = 'numeric', y = 'numeric'))
+setMethod('show', 'Point', function(object) cat(object@x, object@y))
+setGeneric('dist2', function(a, b) standardGeneric('dist2'))
+model <- y ~ x1 + x2:x3
+txt <- r"(some (raw) text)"
+result <- data |> dplyr::filter(x > 0) |> head()
