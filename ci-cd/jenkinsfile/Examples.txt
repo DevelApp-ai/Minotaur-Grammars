@@ -1,0 +1,23 @@
+pipeline {
+  agent { label 'linux' }
+  stages {
+    stage('Test') {
+      steps { sh 'dotnet test' }
+    }
+  }
+}
+
+# --- Coverage completion constructs ---
+stage('Deploy') {
+  when {
+    branch 'main'
+    expression { params.DEPLOY }
+  }
+  agent {
+    docker { image 'node:20' registryUrl 'https://ghcr.io' }
+  }
+  options { skipDefaultCheckout() }
+  steps { sh 'deploy.sh' }
+}
+@Library('shared-lib') _
+
