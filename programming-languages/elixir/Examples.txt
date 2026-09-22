@@ -1,0 +1,17 @@
+"hello"
+|> String.upcase()
+|> String.split()
+
+defmodule Foo do
+  def bar(x) when is_integer(x), do: x + 1
+end
+
+# --- Coverage completion constructs ---
+
+f = fn 0 -> :zero; n when n > 0 -> :pos; _ -> :neg end
+<<header::size(8), body::binary>> = msg
+for <<b::8 <- bytes>>, b > 32, into: "", do: <<b>>
+regex = ~r/hel+o/i
+words = ~w(alpha beta gamma)a
+date = ~D[2026-09-21]
+value = params[:key]
