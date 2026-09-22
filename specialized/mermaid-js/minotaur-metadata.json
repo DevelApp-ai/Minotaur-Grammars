@@ -1,0 +1,17 @@
+{
+  "Id": "develapp.mermaidjs",
+  "Name": "MermaidJs",
+  "Description": "Minotaur grammar for MermaidJs covering the core language subset.",
+  "MinotaurVersion": "*",
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free",
+  "Tags": [
+    "specialized"
+  ]
+}

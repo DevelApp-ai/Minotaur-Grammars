@@ -1,0 +1,10 @@
+contract Token {
+  mapping(address => uint256) public balances;
+  function transfer(address to, uint256 amount) public { balances[to] += amount; }
+}
+
+# --- Coverage completion constructs ---
+
+assembly { let x := add(a, 1) sstore(0, x) }
+event Transfer(address indexed from, address indexed to) anonymous;
+(uint a, bool b) = abi.decode(data, (uint, bool));

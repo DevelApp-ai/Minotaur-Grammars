@@ -1,0 +1,23 @@
+{
+  "Id": "develapp.makefile",
+  "Name": "Makefile",
+  "Vendor": "DevelApp",
+  "DisplayName": "Makefile",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "Grammar for GNU Makefiles: rules with targets and prerequisites, recipes with tab indentation, variables, pattern rules, conditionals, include and .PHONY declarations.",
+  "License": "MIT",
+  "Tags": [
+    "infrastructure"
+  ],
+  "MainFile": "Makefile.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}
