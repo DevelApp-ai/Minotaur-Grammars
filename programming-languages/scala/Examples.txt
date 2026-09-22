@@ -1,0 +1,11 @@
+val doubled = List(1, 2, 3).map(x => x * 2)
+
+# --- Coverage completion constructs ---
+
+extension (s: String) def shout: String = s.toUpperCase + "!"
+export scala.collection.mutable.ListBuffer
+def f(x: Int | String): Int = x match { case i: Int => i; case s: String => s.length }
+type Readable & Closeable
+opaque type UserId = Int
+end fac
+given Ord[Int] with def compare(a: Int, b: Int) = a - b

@@ -1,0 +1,49 @@
+Grammar: Scala
+FormatType: EBNF
+TokenSplitter: Space
+
+<program> ::= <object_def> | <class_def> | <trait_def> | <func_def> | <stmt>* ;
+<object_def> ::= 'object' <identifier> ('extends' <type>)? '{' <member>* '}' ;
+<class_def> ::= 'class' <identifier> ('(' <params>? ')')? ('extends' <type>)? '{' <member>* '}' ;
+<trait_def> ::= 'trait' <identifier> '{' <member>* '}' ;
+<func_def> ::= 'def' <identifier> ('(' <params>? ')')? (':' <type>)? '=' <expr_or_block> ;
+<member> ::= <func_def> | <val_def> | <var_def> | <stmt> | <expr> '.' <identifier> ;
+<val_def> ::= 'val' (<identifier> | '(' <ids> ')') (':' <type>)? '=' <expr> ;
+<var_def> ::= 'var' <identifier> (':' <type>)? '=' <expr> ;
+<params> ::= <param> (',' <param>)* ;
+<param> ::= <identifier> ':' <type> ('=' <expr>)? ;
+<expr_or_block> ::= <expr> | '{' <stmt>* '}' ;
+<stmt> ::= <expr> | <val_def> | <var_def> | <func_def> | <match_expr> ;
+<match_expr> ::= <expr> 'match' '{' <case_clause>* '}' ;
+<case_clause> ::= 'case' <pattern> '=>' block ;
+<pattern> ::= <identifier> | <literal> | '_' | '(' <pattern> ',' <pattern> ')' ;
+<expr> ::= <literal> | <identifier> | <call> | <member> | <expr> <binop> <expr> | '(' <expr> ')' | <lambda> | <if_expr> ;
+<if_expr> ::= 'if' '(' <expr> ')' <expr> 'else' <expr> ;
+<call> ::= <expr> '(' <args>? ')' ;
+<lambda> ::= '(' <ids>? ')' '=>' <expr> | <identifier> '=>' <expr> ;
+<ids> ::= <identifier> (',' <identifier>)* ;
+<args> ::= <expr> (',' <expr>)* ;
+<type> ::= <qualified_id> ('[' <types> ']')? ;
+<types> ::= <type> (',' <type>)* ;
+<literal> ::= <number> | <text> | <boolean> | 'Nil' | 'None' ;
+<boolean> ::= 'true' | 'false' ;
+<binop> ::= '+' | '-' | '*' | '/' | '==' | '::' | '<' | '>' | '&&' | ' |  | ' | ':+' ;
+<qualified_id> ::= <identifier> ('.' <identifier>)* ;
+<identifier> ::= /[a-zA-Z_][a-zA-Z0-9_]*/ ;
+<text> ::= /'"'[^"]*'"'/ ;
+<number> ::= /[0-9]+/ ;
+
+# --- Coverage completion: remaining language constructs ---
+
+<extension_clause> ::= "extension" <auto_extension_clause_0> extension_method* ;
+<export_clause> ::= "export" ref_expression <auto_export_clause_0> ;
+<union_type> ::= <type> " | " <type> ;
+<intersection_type> ::= <type> "&" <type> ;
+<opaque_type> ::= "opaque" "type" type_name <auto_opaque_type_0> "=" <type> ;
+<end_marker> ::= "end" ( <identifier> | "if" | "while" | "match" | "try" | "new" | "val" | "extension" ) ;
+<given_with> ::= "given" <auto_given_with_0> ":" <type> "with" template_body ;
+
+<auto_extension_clause_0> ::= /[ "(" extension_parameter_list ")" ]/ ;
+<auto_export_clause_0> ::= /[ "." "*" | export_selector_list ]/ ;
+<auto_opaque_type_0> ::= /[ type_params ]/ ;
+<auto_given_with_0> ::= /[ identifier ]/ ;
