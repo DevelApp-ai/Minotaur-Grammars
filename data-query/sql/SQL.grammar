@@ -3,14 +3,14 @@ FormatType: EBNF
 TokenSplitter: Space
 
 <script> ::= <statement>* ;
-<statement> ::= <select_stmt> | <insert_stmt> | <update_stmt> | <delete_stmt> | <create_table> | <create_index> | <alter_table> | <drop_stmt> ;
-<select_stmt> ::= 'SELECT' <select_list> 'FROM' <table_ref>( <join_clause>)*( <where_clause>)?( <group_by>)?( <having_clause>)?( <order_by>)?( <limit_clause>)? ';' ;
+<statement> ::= <select_stmt> | <insert_stmt> | <update_stmt> | <delete_stmt> | <create_table> | <create_index> | <alter_table> | <drop_stmt>  | <merge_statement>  | <dml_with_clause>  | <create_procedure>  | <create_trigger>  | <grant_statement>  | <revoke_statement> ;
+<select_stmt> ::= 'SELECT' <select_list> 'FROM' <table_ref>( <join_clause>)*( <where_clause>)?( <group_by>)?( <having_clause>)?( <order_by>)?( <limit_clause>)? ';'  | <named_window> ;
 <select_list> ::= '*' | <column>( ',' <column>)* ;
 <column> ::= <qualified_column> | <identifier> | <aggregate> ;
 <qualified_column> ::= <identifier> '.' <identifier> ;
 <aggregate> ::= <func_name> '('( '*' | <column> | <expr>) ')' ;
 <func_name> ::= 'COUNT' | 'SUM' | 'AVG' | 'MIN' | 'MAX' ;
-<table_ref> ::= <identifier> | <identifier> 'AS' <identifier> ;
+<table_ref> ::= <identifier> | <identifier> 'AS' <identifier>  | <lateral_join> ;
 <join_clause> ::= ( 'INNER' | 'LEFT' | 'RIGHT' | 'FULL')? 'JOIN' <table_ref> 'ON' <condition> ;
 <where_clause> ::= 'WHERE' <condition> ;
 <group_by> ::= 'GROUP' 'BY' <column>( ',' <column>)* ;
@@ -22,14 +22,15 @@ TokenSplitter: Space
 <bool_op> ::= 'AND' | 'OR' ;
 <expr> ::= <term>(( '+' | '-') <term>)* ;
 <term> ::= <factor>(( '*' | '/') <factor>)* ;
-<factor> ::= <number> | <text> | <column> | <aggregate> | '(' <condition> ')' ;
-<insert_stmt> ::= 'INSERT' 'INTO' <identifier> '(' <column_list> ')' 'VALUES' '(' <value_list> ')'( ',' '(' <value_list> ')')* ';' ;
+<factor> ::= <number> | <text> | <column> | <aggregate> | '(' <condition> ')'  | <json_operator> ;
+<insert_stmt> ::= 'INSERT' 'INTO' <identifier> '(' <column_list> ')' 'VALUES' '(' <value_list> ')'( ',' '(' <value_list> ')')* ';'  | <on_conflict_clause> ;
 <column_list> ::= <identifier>( ',' <identifier>)* ;
 <value_list> ::= <expr>( ',' <expr>)* ;
 <update_stmt> ::= 'UPDATE' <identifier> 'SET' <assignment_list>( <where_clause>)? ';' ;
 <assignment_list> ::= <identifier> '=' <expr>( ',' <identifier> '=' <expr>)* ;
 <delete_stmt> ::= 'DELETE' 'FROM' <identifier>( <where_clause>)? ';' ;
-<create_table> ::= 'CREATE' 'TABLE' <identifier> '(' <column_def>( ',' <column_def>)*( ',' <table_constraint>)* ')' ';' ;
+<create_table> ::=
+ 'CREATE' 'TABLE' <identifier> '(' <column_def>( ',' <column_def>)*( ',' <table_constraint>)* ')' ';' ;
 <column_def> ::= <identifier> <data_type>( 'PRIMARY' 'KEY')?( 'NOT' 'NULL')?( 'DEFAULT' <expr>)? ;
 <data_type> ::= 'INTEGER' | 'INT' | 'BIGINT' | 'TEXT' | 'VARCHAR' '(' <number> ')' | 'BOOLEAN' | 'DATE' | 'TIMESTAMP' | 'DECIMAL' '(' <number> ',' <number> ')' | 'UUID' ;
 <table_constraint> ::= ( 'PRIMARY' 'KEY' '(' <column_list> ')' | 'FOREIGN' 'KEY' '(' <column_list> ')' 'REFERENCES' <identifier> '(' <column_list> ')' | 'UNIQUE' '(' <column_list> ')') ;
@@ -37,7 +38,7 @@ TokenSplitter: Space
 <alter_table> ::= 'ALTER' 'TABLE' <identifier>( 'ADD' 'COLUMN' <column_def> | 'DROP' 'COLUMN' <identifier> | 'RENAME' 'TO' <identifier>) ';' ;
 <drop_stmt> ::= 'DROP'( 'TABLE' | 'INDEX') ' identifier '; ' ;
 <identifier> ::= <auto_identifier_1> <auto_identifier_2> ;
-<text> ::= '\'' <auto_text_3> '\'' ;
+<text> ::= <auto_text_3> ;
 <number> ::= <auto_number_4>( '.' <auto_number_4>)? ;
 
 # --- Coverage completion: remaining language constructs ---
@@ -48,10 +49,11 @@ TokenSplitter: Space
 <create_procedure> ::= "CREATE" ( "OR" "REPLACE" )? "PROCEDURE" "routine_name" "(" "routine_params" ")" "routine_body" ;
 <create_trigger> ::= "CREATE" ( "OR" "REPLACE" )? "TRIGGER" "trigger_name" "trigger_timing" "trigger_event" "ON" <table_ref> "FOR" "EACH"( "ROW" | "STATEMENT") "EXECUTE"( "FUNCTION" | "PROCEDURE") "routine_name" "(" "args"? ")" ";" ;
 <grant_statement> ::= "GRANT" "privilege_list" "ON" "object_name" "TO" "grantee_list" ( "WITH" "GRANT" "OPTION" )? ";" ;
-<revoke_statement> ::= "REVOKE" ( "GRANT" "OPTION" "FOR" )? "privilege_list" "ON" "object_name" "FROM" "grantee_list" <auto_revoke_statement_5> "CASCADE" | "RESTRICT" "]" ";" ;
+<revoke_statement> ::= "REVOKE" ( "GRANT" "OPTION" "FOR" )? "privilege_list" "ON" "object_name" "FROM" 
+"grantee_list" <auto_revoke_statement_5> "CASCADE" | "RESTRICT" "]" ";" ;
 <json_operator> ::= "expression"( "->" | "->>" | "#>" | "#>>" | "@>" | "<@" | "?" | "?|" | "?&") "json_path" ;
 <lateral_join> ::= ","? "LATERAL" "(" "select_statement" ")" <auto_lateral_join_6> ;
-<named_window> ::= "WINDOW" "window_name" "AS" "(" "window_spec" ")" ;
+<named_window> ::= "WINDOW" "window_name" "AS" "(" "window_spec" ")"  | <window_frame> ;
 <window_frame> ::= ( "ROWS" | "RANGE" | "GROUPS") "frame_extent" ;
 
 <auto_identifier_1> ::= /[a-zA-Z_]/ ;
