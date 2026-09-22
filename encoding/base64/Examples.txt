@@ -1,0 +1,13 @@
+SGVsbG8sIHdvcmxkIQ==
+aGVsbG8gd29ybGQ=
+
+# --- Extended coverage constructs ---
+
+aGVsbG8-d29ybGQ
+data:image/png;base64,iVBORw0KGgo=
+
+# --- Coverage completion constructs ---
+
+=?UTF-8?B?SGVsbG8=?=
+-----BEGIN PGP MESSAGE-----
+-----END PGP MESSAGE-----
