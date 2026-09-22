@@ -1,0 +1,35 @@
+Grammar: UnixPsOutput
+FormatType: EBNF
+TokenSplitter: Space
+
+<output> ::= ( <header> | <bsd_header> )? <process>+ ;
+<header> ::= 'PID' 'TTY' 'TIME' 'CMD' ;
+<process> ::= <ps_row> | <bsd_row> | <custom_format_row> | <ps_sysv_row> ;
+<ps_row> ::= <pid> <tty> <time> <cmd> ;
+<pid> ::= <number> ;
+<tty> ::= '?' | 'ttys' <number> | 'pts' '/' <number> ;
+<time> ::= <number> ':' <number> ':' <number> ;
+<cmd> ::= <command> | <kernel_thread> ;
+<command> ::= <auto_cmd_1> ;
+<number> ::= <auto_number_2> ;
+
+# --- Extended coverage: additional language constructs ---
+<state_code> ::= ( 'R' | 'S' | 'D' | 'T' | 'Z' | 'I' ) ( '+' | '<' | 'N' | 's' | 'l' | 'm' )* ;
+<percent> ::= <number> '.' <number> '%' ;
+<rss_size> ::= <number> ;
+<kernel_thread> ::= '[' <auto_kernel_thread_3> ']' ;
+<ps_sysv_row> ::= <username> <pid> <rss_size> <username> <time> <tty> <time> <cmd> ;
+
+# --- Coverage completion: remaining language constructs ---
+<bsd_header> ::= 'USER' 'PID' '%CPU' '%MEM' 'VSZ' 'RSS' 'TTY' 'STAT' 'START' 'TIME' 'COMMAND' ;
+<bsd_row> ::= <username> <pid> <percent> <percent> <number> <rss_size> <tty> <state_code> <start_time> <time> <cmd> ;
+<custom_format_row> ::= <column_value>+ ;
+<username> ::= <auto_username_4> ;
+<start_time> ::= <time> | <number> ;
+<column_value> ::= <auto_column_value_5> ;
+
+<auto_cmd_1> ::= /[^\n]+/ ;
+<auto_number_2> ::= /[0-9]+/ ;
+<auto_kernel_thread_3> ::= /[^\]]+/ ;
+<auto_username_4> ::= /[a-zA-Z0-9_.-]+/ ;
+<auto_column_value_5> ::= /[^\s]+/ ;

@@ -1,0 +1,16 @@
+PID TTY TIME CMD
+1 ? 00:01:02 systemd
+42 pts/0 00:00:05 bash
+
+# --- Extended constructs ---
+STAT  %CPU %MEM COMMAND
+Ss     0.0  0.1 -zsh
+R+     1.5  2.0 [kworker/0:2]
+UID PID PPID C STIME TTY TIME COMMAND
+
+# --- Coverage completion constructs ---
+
+USER  PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root     1  0.0  0.1 169364 12224 ?        Ss   09:00   0:02 /sbin/init
+  PID COMMAND
+12345 /usr/bin/python3
