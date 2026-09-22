@@ -1,0 +1,19 @@
+pipelines:
+  branches:
+    main:
+      - step:
+          script: [ dotnet test ]
+
+# --- Coverage completion constructs ---
+pipelines:
+  default:
+    - step:
+        name: build
+        oidc: true
+        artifacts:
+          paths: [dist/**]
+          download: true
+definitions:
+  caches:
+    npm: { path: node_modules }
+

@@ -1,0 +1,48 @@
+Grammar: BitbucketPipelines
+FormatType: EBNF
+TokenSplitter: Space
+
+<pipelines> ::= <image>? <definitions>? <pipelines_body> ;
+<image> ::= 'image' ':' <text> ;
+<definitions> ::= 'definitions' ':' <services>? <caches_def>? ;
+<services> ::= 'services' ':' <service> (','? <service>)* ;
+<service> ::= <identifier> ':' 'image' ':' <text> 'variables' ':' <pair_map>? ;
+<caches_def> ::= 'caches' ':' <cache_pair> (','? <cache_pair>)* ;
+<cache_pair> ::= <identifier> ':' 'path' ':' <text> ;
+<pipelines_body> ::= ('default' ':' <pipeline> | <branch_pipe> | <tag_pipe> | <pull_request_pipe> | <custom_pipe>)+ ;
+<branch_pipe> ::= 'branches' ':' <named_pipe> ;
+<tag_pipe> ::= 'tags' ':' <named_pipe> ;
+<pull_request_pipe> ::= 'pull-requests' ':' <named_pipe> ;
+<custom_pipe> ::= 'custom' ':' <named_pipe> ;
+<named_pipe> ::= <pipe_name> ':' <pipeline> ;
+<pipe_name> ::= <identifier> | <text> ;
+<pipeline> ::= <step>+ <variables>? ;
+<step> ::= '-' <step_body> ;
+<step_body> ::= <step_name>? <script> <artifacts>? <caches>? <services_list>? <after_script>? ;
+<step_name> ::= 'name' ':' <text> ;
+<script> ::= 'script' ':' <script_lines> ;
+<script_lines> ::= '[' <text> (',' <text>)* ']' ;
+<after_script> ::= 'after-script' ':' <script_lines> ;
+<artifacts> ::= 'artifacts' ':' <path_list> ;
+<path_list> ::= '[' <text> (',' <text>)* ']' ;
+<caches> ::= 'caches' ':' <identifier_list> ;
+<services_list> ::= 'services' ':' <identifier_list> ;
+<identifier_list> ::= '[' <identifier> (',' <identifier>)* ']' ;
+<variables> ::= 'variables' ':' <pair_map> ;
+<pair_map> ::= <pair> (','? <pair>)* ;
+<pair> ::= <identifier> ':' <scalar> ;
+<identifier> ::= /[a-zA-Z_][a-zA-Z0-9_-]*/ ;
+<scalar> ::= <text> | <number> | <boolean> ;
+<boolean> ::= 'true' | 'false' ;
+<text> ::= /'"'[^"]*'"'/ ;
+<number> ::= /[0-9]+/ ;
+
+# --- Coverage completion: remaining language constructs ---
+<var_anchor> ::= &<identifier> ;
+<artifacts_full> ::= 'artifacts' ':' 'paths' ':' <path_list> 'download' ':' <boolean>? 'expiry' ':' <text>? ;
+<oidc_kw> ::= 'oidc' ':' <boolean> ;
+<run_as_user> ::= 'run-as-user' ':' <text> ;
+<size_limit> ::= 'size' ':' ('1x' | '2x' | '4x' | '8x') ;
+<default_settings> ::= 'default' ':' <pair> (','? <pair>)* ;
+<git_push_step> ::= 'script' ':' '[' (<text> 'git push origin ' <text>) ']' ;
+
