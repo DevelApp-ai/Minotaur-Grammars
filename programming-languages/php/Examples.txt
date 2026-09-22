@@ -1,0 +1,15 @@
+<?php
+function greet($name) {
+  echo "Hello $name";
+}
+greet('World');
+
+# --- Coverage completion constructs ---
+
+enum Suit: string { case Hearts = 'h'; case Spades = 's'; }
+readonly class Point { public function __construct(public int $x, public int $y) {} }
+#[Route('/api', methods: ['GET'])]
+$city = $user?->address?->city;
+$config['debug'] ??= false;
+$fn = strlen(...);
+$result = match($x) { 0 => 'zero', 1, 2 => 'small', default => 'many' };
