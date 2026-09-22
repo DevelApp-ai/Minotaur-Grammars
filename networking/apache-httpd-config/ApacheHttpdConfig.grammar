@@ -2,30 +2,31 @@ Grammar: ApacheHttpdConfig
 FormatType: EBNF
 TokenSplitter: Space
 
-config     ::= line* ;
-line       ::= section | directive | comment ;
-comment    ::= '#' [^\n]* ;
-section    ::= section_open line* section_close ;
-section_open  ::= '<' section_name section_arg? '>' ;
-section_close ::= '</' section_name '>' ;
-section_name ::= 'VirtualHost' | 'Directory' | 'Location' | 'IfModule' | 'Files' | 'Proxy' | identifier ;
-section_arg  ::= arg ;
-directive  ::= name args? ;
-name       ::= identifier ;
-args       ::= arg (arg)* ;
-arg        ::= text | identifier | number ;
-identifier ::= [a-zA-Z_][a-zA-Z0-9_]* ;
-text       ::= '"' [^"]* '"' ;
-number     ::= [0-9]+ ;
+<config> ::= <line>* ;
+<line> ::= <section> | <directive> | <comment> ;
+<comment> ::= /'#'[^\n]*/ ;
+<section> ::= <section_open> <line>* <section_close> ;
+<section_open> ::= '<' <section_name> <section_arg>? '>' ;
+<section_close> ::= '</' <section_name> '>' ;
+<section_name> ::= 'VirtualHost' | 'Directory' | 'Location' | 'IfModule' | 'Files' | 'Proxy' | <identifier> ;
+<section_arg> ::= <arg> ;
+<directive> ::= <name> <args>? ;
+<name> ::= <identifier> ;
+<args> ::= <arg> (<arg>)* ;
+<arg> ::= <text> | <identifier> | <number> ;
+<identifier> ::= /[a-zA-Z_][a-zA-Z0-9_]*/ ;
+<text> ::= /'"'[^"]*'"'/ ;
+<number> ::= /[0-9]+/ ;
 
 # --- Coverage completion: remaining language constructs ---
-options_dir ::= 'Options' ('+' | '-')? identifier ('+' identifier | '-' identifier)* ; ;
-allow_override ::= 'AllowOverride' ('None' | 'All' | identifier)* ; ;
-set_env ::= ('SetEnv' | 'PassEnv' | 'UnsetEnv') identifier text? ; ;
-header_dir ::= 'Header' ('always' | 'onsuccess')? ('set' | 'add' | 'append' | 'unset' | 'edit') identifier text? ; ;
-directory_index ::= 'DirectoryIndex' identifier+ ; ;
-ssl_cert ::= ('SSLCertificateFile' | 'SSLCertificateKeyFile' | 'SSLCertificateChainFile') arg ; ;
-proxy_pass_match ::= 'ProxyPassMatch' regex arg ; ;
-request_header ::= 'RequestHeader' ('set' | 'unset' | 'add') identifier text? ; ;
-require_dir ::= 'Require' ('all' 'granted' | 'all' 'denied' | 'ip' arg | 'local') ; ;
-auth_basic ::= 'AuthType' ('Basic' | 'Digest') ; 'AuthName' text ; 'AuthUserFile' arg ; ;
+<options_dir> ::= 'Options' ('+' | '-')? <identifier> ('+' <identifier> | '-' <identifier>)* ;
+<allow_override> ::= 'AllowOverride' ('None' | 'All' | <identifier>)* ;
+<set_env> ::= ('SetEnv' | 'PassEnv' | 'UnsetEnv') <identifier> <text>? ;
+<header_dir> ::= 'Header' ('always' | 'onsuccess')? ('set' | 'add' | 'append' | 'unset' | 'edit') <identifier> <text>? ;
+<directory_index> ::= 'DirectoryIndex' <identifier>+ ;
+<ssl_cert> ::= ('SSLCertificateFile' | 'SSLCertificateKeyFile' | 'SSLCertificateChainFile') <arg> ;
+<proxy_pass_match> ::= 'ProxyPassMatch' regex <arg> ;
+<request_header> ::= 'RequestHeader' ('set' | 'unset' | 'add') <identifier> <text>? ;
+<require_dir> ::= 'Require' ('all' 'granted' | 'all' 'denied' | 'ip' <arg> | 'local') ;
+<auth_basic> ::= 'AuthType' ('Basic' | 'Digest') ; 'AuthName' <text> ; 'AuthUserFile' <arg> ;
+
