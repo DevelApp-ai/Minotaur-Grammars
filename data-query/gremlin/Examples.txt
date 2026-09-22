@@ -1,0 +1,7 @@
+g.V().has('person','name','Ada').out('created').values('name')
+
+# --- Coverage completion constructs ---
+
+g.V().with('~tinkergraph.readOnly', true).out('knows')
+g.withSack(1.0d).V().sack(mult).by('weight').sack().sum()
+g.V().out().profile()

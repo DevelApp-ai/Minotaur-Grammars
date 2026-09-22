@@ -1,0 +1,31 @@
+Grammar: Gremlin
+FormatType: EBNF
+TokenSplitter: Space
+
+<query> ::= <traversal> ;
+<traversal> ::= <source_step> <step>* ;
+<source_step> ::= 'g' '.'( 'V' | 'E') '(' <args>? ')' | 'g' '.' <identifier> '(' <args>? ')' ;
+<step> ::= '.' <step_name> '(' <args>? ')'  | <with_step>  | <sack_step>  | <profile_step> ;
+<step_name> ::= 'has' | 'hasLabel' | 'hasId' | 'out' | 'in' | 'both' | 'outE' | 'inE' | 'values' | 'label' | 'id' | 'count' | 'limit' | 'range' | 'order' | 'by' | 'where' | 'filter' | 'map' | 'path' | 'dedup' | 'group' | 'project' | 'select' | 'as' | 'fold' | 'unfold' | 'aggregate' | 'match' | 'choose' | 'coalesce' | 'union' | 'repeat' | 'until' | 'times' | 'emit' ;
+<args> ::= <arg>( ',' <arg>)* ;
+<arg> ::= <literal> | <identifier> | <text> | <traversal> | <predicate> ;
+<predicate> ::= ( 'eq' | 'neq' | 'lt' | 'lte' | 'gt' | 'gte' | 'within' | 'without') '(' <args>? ')' ;
+<literal> ::= <number> | <text> | <boolean> ;
+<boolean> ::= 'true' | 'false' ;
+<identifier> ::= <auto_identifier_1> <auto_identifier_2> ;
+<text> ::= '"' <auto_text_3> '"' | <auto_text_4> ;
+<number> ::= <auto_number_5> ;
+
+# --- Coverage completion: remaining language constructs ---
+
+<with_step> ::= "with(" "string" "," "object" ")" ;
+<sack_step> ::= "sack(" <auto_sack_step_6> ")"  | <sack_value> ;
+<sack_value> ::= ".sack()" ;
+<profile_step> ::= "profile()" ( "(" "string" ")" )? ;
+
+<auto_identifier_1> ::= /[a-zA-Z_]/ ;
+<auto_identifier_2> ::= /[a-zA-Z0-9_]*/ ;
+<auto_text_3> ::= /[^"]*/ ;
+<auto_text_4> ::= /[^\']*/ ;
+<auto_number_5> ::= /[0-9]+/ ;
+<auto_sack_step_6> ::= /[ operator ]/ ;
