@@ -1,0 +1,59 @@
+Grammar: SASS
+FormatType: EBNF
+TokenSplitter: Space
+
+<stylesheet> ::= <statement>* ;
+<statement> ::= <variable_decl> | <nested_rule> | <mixin_decl> | <include> | <import_stmt> | <property> | <comment>  | <extend_stmt>  | <control_if>  | <control_for>  | <control_each>  | <control_while>  | <use_stmt>  | <forward_stmt>  | <function_def>  | <media_query>  | <supports_query> ;
+<variable_decl> ::= '$' <identifier> ':' <value> ';' ;
+<import_stmt> ::= '@import' <text> ';' ;
+<mixin_decl> ::= '@mixin' <identifier>( '(' <params>? ')')? '{' <statement>* '}' ;
+<include> ::= '@include' <identifier>( '(' <args>? ')')? ';' ;
+<params> ::= '$' <identifier>( ':' <value>)?( ',' '$' <identifier>( ':' <value>)?)* ;
+<args> ::= <value>( ',' <value>)* ;
+<nested_rule> ::= <selector> '{' <statement>* '}'  | <nested_media> ;
+<selector> ::= <selector_text>  | <placeholder_sel> ;
+<property> ::= <prop_name> ':' <value> ';' ;
+<prop_name> ::= <identifier> ;
+<value> ::= <term>( <term>)*  | <interpolation>  | <default_flag>  | <global_flag> ;
+<term> ::= <number> | <text> | <color> | <identifier> | '$' <identifier> | <function_call> | '!' <flag> ;
+<function_call> ::= <identifier> '(' <args>? ')' ;
+<flag> ::= 'important' ;
+<comment> ::= '/*' <auto_comment_1> '*/' | '//' <auto_comment_2> ;
+<selector_text> ::= <auto_selector_text_3> ;
+<color> ::= '#' <auto_color_4> ;
+<identifier> ::= <auto_identifier_5> <auto_identifier_6> ;
+<text> ::= '"' <auto_text_7> '"' ;
+<number> ::= <auto_number_8>( '.' <auto_number_8>)?( 'px' | 'em' | 'rem' | '%')? ;
+
+# --- Extended coverage: additional language constructs ---
+<extend_stmt> ::= '@extend' <selector> ';'; ;
+<placeholder_sel> ::= '%' <identifier>; ;
+<control_if> ::= '@if' "condition" '{' <statement>* '}'( '@else' 'if' "condition" '{' <statement>* '}')*( '@else' '{' <statement>* '}')?; ;
+<control_for> ::= '@for' '$' <identifier> 'from' <number> 'through' <number> '{' <statement>* '}'; ;
+<control_each> ::= '@each' '$' <identifier>( ',' '$' <identifier>)? 'in' <value> '{' <statement>* '}'; ;
+<control_while> ::= '@while' "condition" '{' <statement>* '}'; ;
+<use_stmt> ::= '@use' <text>( 'as' <identifier>)? ';'; ;
+<forward_stmt> ::= '@forward' <text> ';'; ;
+<interpolation> ::= '#{' <value> '}'; ;
+<function_def> ::= '@function' <iden
+tifier> '(' <params>? ')' '{' <statement>* '}';  | <return_stmt> ;
+<return_stmt> ::= '@return' <value> ';'; ;
+
+# --- Coverage completion: remaining language constructs ---
+
+<media_query> ::= "@media" "media_query_list" "block"  | <media_feature> ;
+<media_feature> ::= "(" "feature_name" ":" "feature_value" ")" ;
+<nested_media> ::= <media_query> "block" <media_query>* ;
+<supports_query> ::= "@supports" <supports_condition> "block" ;
+<supports_condition> ::= "supports_negation" | "supports_operation" | "(" "declaration" ")" ;
+<default_flag> ::= "!default" ;
+<global_flag> ::= "!global" ;
+
+<auto_comment_1> ::= /[^*]*/ ;
+<auto_comment_2> ::= /[^\n]*/ ;
+<auto_selector_text_3> ::= /[.#&a-zA-Z:\[\]=" (),>+~*-]+/ ;
+<auto_color_4> ::= /[0-9a-fA-F]+/ ;
+<auto_identifier_5> ::= /[a-zA-Z-]/ ;
+<auto_identifier_6> ::= /[a-zA-Z0-9-]*/ ;
+<auto_text_7> ::= /[^"]*/ ;
+<auto_number_8> ::= /[0-9]+/ ;

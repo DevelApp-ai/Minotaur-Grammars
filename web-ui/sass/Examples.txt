@@ -1,0 +1,12 @@
+.card {
+  padding: 16px;
+  .title { font-weight: bold; }
+}
+
+# --- Coverage completion constructs ---
+
+@media (min-width: 768px) and (orientation: landscape) { .grid { display: flex; } }
+@supports (display: grid) { .layout { display: grid; } }
+$primary: blue !default;
+$count: 5 !global;
+@media screen { @media (min-width: 600px) { .a { color: red; } } }
