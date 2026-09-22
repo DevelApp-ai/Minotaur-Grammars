@@ -1,0 +1,13 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+</IfModule>
+
+# --- Coverage completion constructs ---
+Options -Indexes +FollowSymLinks
+AllowOverride None
+SetEnv APP_ENV production
+Header always set X-Frame-Options DENY
+DirectoryIndex index.php index.html
+SSLCertificateFile /certs/site.crt
+ProxyPassMatch ^/(.*)$ unix:/run/app.sock|http://localhost/$1
+
