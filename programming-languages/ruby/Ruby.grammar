@@ -2,51 +2,51 @@ Grammar: Ruby
 FormatType: EBNF
 TokenSplitter: Space
 
-# <program> ::= <stmt>* ;
-# <stmt> ::= <assignment> | <if_stmt> | <def> | <class_def> | <module_def> | <expr> | <while_stmt> ;
-# <assignment> ::= <identifier> '=' <expr> ;
-# <if_stmt> ::= 'if' <expr> <stmt>* ('elsif' <expr> <stmt>*)* ('else' <stmt>*)? 'end' ;
-# <while_stmt> ::= 'while' <expr> <stmt>* 'end' ;
-# <def> ::= 'def' <method_name> '(' <params>? ')' <stmt>* 'end' ;
-# <method_name> ::= <identifier> | <operator> ;
-# <params> ::= <param> (',' <param>)* ;
-# <param> ::= <identifier> (':' <identifier>)? ;
-# <class_def> ::= 'class' <const_id> ('<' <const_id>)? <stmt>* 'end' ;
-# <module_def> ::= 'module' <const_id> <stmt>* 'end' ;
-# <expr> ::= <literal> | <var> | <call> | <expr> <binop> <expr> | '(' <expr> ')' ;
-# <call> ::= (<receiver> '.')? <method_name> ('(' <args>? ')')? <block>? ;
-# <receiver> ::= <var> | <const_id> ;
-# <block> ::= '{' ' | ' <params>? ' | ' <stmt>* '}' ;
-# <args> ::= <expr> (',' <expr>)* ;
-# <literal> ::= <number> | <text> | <symbol> | <array> | <hash> | <boolean> | 'nil' ;
-# <array> ::= '[' <args>? ']' ;
-# <hash> ::= '{' <hash_pair> (',' <hash_pair>)* '}' ;
-# <hash_pair> ::= (<symbol> | <text>) '=>' <expr> ;
-# <symbol> ::= ':' <identifier> ;
-# <operator> ::= '+' | '-' | '*' | '/' | '==' | '<' | '>' | '<=' | '>=' ;
-# <binop> ::= <operator> ;
-# <var> ::= <identifier> | <instance_var> | <class_var> | <global_var> ;
-# <instance_var> ::= '@' <identifier> ;
-# <class_var> ::= '@@' <identifier> ;
-# <global_var> ::= '$' <identifier> ;
-# <const_id> ::= /[A-Z][a-zA-Z0-9_]*/ ;
-# <identifier> ::= /[a-zA-Z_][a-zA-Z0-9_]*[?!]?/ ;
-# <boolean> ::= 'true' | 'false' ;
-# <text> ::= /'"'[^"]*'"'/ ;
-# <number> ::= /[0-9]+/ ;
+<program> ::= <stmt>* ;
+<stmt> ::= <assignment> | <if_stmt> | <def> | <class_def> | <module_def> | <expr> | <while_stmt> ;
+<assignment> ::= <identifier> '=' <expr> ;
+<if_stmt> ::= 'if' <expr> <stmt>* ('elsif' <expr> <stmt>*)* ('else' <stmt>*)? 'end' ;
+<while_stmt> ::= 'while' <expr> <stmt>* 'end' ;
+<def> ::= 'def' <method_name> '(' <params>? ')' <stmt>* 'end' ;
+<method_name> ::= <identifier> | <operator> ;
+<params> ::= <param> (',' <param>)* ;
+<param> ::= <identifier> (':' <identifier>)? ;
+<class_def> ::= 'class' <const_id> ('<' <const_id>)? <stmt>* 'end' ;
+<module_def> ::= 'module' <const_id> <stmt>* 'end' ;
+<expr> ::= <literal> | <var> | <call> | <expr> <binop> <expr> | '(' <expr> ')' ;
+<call> ::= (<receiver> '.')? <method_name> ('(' <args>? ')')? <block>? ;
+<receiver> ::= <var> | <const_id> ;
+<block> ::= '{' ' | ' <params>? ' | ' <stmt>* '}' ;
+<args> ::= <expr> (',' <expr>)* ;
+<literal> ::= <number> | <text> | <symbol> | <array> | <hash> | <boolean> | 'nil' ;
+<array> ::= '[' <args>? ']' ;
+<hash> ::= '{' <hash_pair> (',' <hash_pair>)* '}' ;
+<hash_pair> ::= (<symbol> | <text>) '=>' <expr> ;
+<symbol> ::= ':' <identifier> ;
+<operator> ::= '+' | '-' | '*' | '/' | '==' | '<' | '>' | '<=' | '>=' ;
+<binop> ::= <operator> ;
+<var> ::= <identifier> | <instance_var> | <class_var> | <global_var> ;
+<instance_var> ::= '@' <identifier> ;
+<class_var> ::= '@@' <identifier> ;
+<global_var> ::= '$' <identifier> ;
+<const_id> ::= /[A-Z][a-zA-Z0-9_]*/ ;
+<identifier> ::= /[a-zA-Z_][a-zA-Z0-9_]*[?!]?/ ;
+<boolean> ::= 'true' | 'false' ;
+<text> ::= /'"'[^"]*'"'/ ;
+<number> ::= /[0-9]+/ ;
 
 # --- Coverage completion: remaining language constructs ---
 
-# <stabby_lambda> ::= "->" <auto_stabby_lambda_0> block_body ;
-# <refinement> ::= "refine" class_name ( "do" statement* "end" | "{" statement* "}" ) ;
-# <alias_statement> ::= ( "alias" | "alias_method" ) <method_name> <method_name> ;
-# <heredoc> ::= "<<" <auto_heredoc_0> ( <identifier> | quoted_identifier ) line_terminator heredoc_body heredoc_terminator ;
-# <percent_array> ::= "%" ( "w" | "W" | "i" | "I" ) open_delim <auto_percent_array_0> close_delim ;
-# <percent_string> ::= "%" ( "q" | "Q" | "r" | "s" ) open_delim string_content close_delim ;
-# <safe_navigation> ::= primary "&." <method_name> call_arguments ;
-# <defined_check> ::= "defined?" ( "(" expression ")" | expression ) ;
+<stabby_lambda> ::= "->" <auto_stabby_lambda_0> block_body ;
+<refinement> ::= "refine" class_name ( "do" statement* "end" | "{" statement* "}" ) ;
+<alias_statement> ::= ( "alias" | "alias_method" ) <method_name> <method_name> ;
+<heredoc> ::= "<<" <auto_heredoc_0> ( <identifier> | quoted_identifier ) line_terminator heredoc_body heredoc_terminator ;
+<percent_array> ::= "%" ( "w" | "W" | "i" | "I" ) open_delim <auto_percent_array_0> close_delim ;
+<percent_string> ::= "%" ( "q" | "Q" | "r" | "s" ) open_delim string_content close_delim ;
+<safe_navigation> ::= primary "&." <method_name> call_arguments ;
+<defined_check> ::= "defined?" ( "(" expression ")" | expression ) ;
 
-# <auto_stabby_lambda_0> ::= /[ "(" param_list ")" ]/ ;
-# <auto_heredoc_0> ::= /[ "~" ]/ ;
-# <auto_percent_array_0> ::= /[ string_list ]/ ;
+<auto_stabby_lambda_0> ::= /[ "(" param_list ")" ]/ ;
+<auto_heredoc_0> ::= /[ "~" ]/ ;
+<auto_percent_array_0> ::= /[ string_list ]/ ;
 
