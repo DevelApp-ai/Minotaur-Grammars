@@ -1,0 +1,23 @@
+{
+  "Id": "develapp.chefrecipe",
+  "Name": "ChefRecipe",
+  "Vendor": "DevelApp",
+  "DisplayName": "Chef Recipe",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "Grammar for Chef recipes (Ruby DSL subset): resources with actions and properties, attributes, variables, notifiers and guard clauses.",
+  "License": "MIT",
+  "Tags": [
+    "infrastructure"
+  ],
+  "MainFile": "ChefRecipe.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}

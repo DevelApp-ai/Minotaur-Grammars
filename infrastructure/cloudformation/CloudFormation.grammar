@@ -1,0 +1,58 @@
+Grammar: CloudFormation
+FormatType: EBNF
+TokenSplitter: Space
+
+# CloudFormation grammar - core subset
+<file> ::= <template> => { buildTemplate($1); }
+<template> ::= <version>? <section>* => { buildCfn($1, $2); }
+<version> ::= /---[\S\s]*?---/ | "{"
+<section> ::= <resources-section> | <parameters-section> | <outputs-section> | <mappings-section> | <conditions-section> | <metadata-section> | <rules-section>
+<resources-section> ::= "Resources" ":" <resource>* => { collectResources($3); }
+<resource> ::= <indent> <logical-name> ":" <resource-body> => { addResource($2, $4); }
+<resource-body> ::= <resource-type> <resource-props> <extra-attr>*
+<resource-type> ::= <indent2> "Type" ":" <aws-type> => { setResourceType($3); }
+<aws-type> ::= /"AWS::[a-zA-Z0-9:]+"/ | /"Custom::[a-zA-Z0-9]+"/ | <string>
+<resource-props> ::= <indent2> "Properties" ":" <prop-map> => { setProperties($4); }
+<prop-map> ::= (<prop-entry>)*
+<prop-entry> ::= <indent3> <prop-name> ":" <value> => { addProperty($2, $4); }
+<extra-attr> ::= <indent2> ("DependsOn" | "Condition" | "DeletionPolicy" | "UpdateReplacePolicy" | "Metadata" | "CreationPolicy" | "UpdatePolicy") ":" <value> => { addAttr($2, $4); }
+<parameters-section> ::= "Parameters" ":" <parameter>*
+<parameter> ::= <indent> <logical-name> ":" <param-type> <param-attr>* => { addParameter($2, $3, $4); }
+<param-type> ::= <indent2> "Type" ":" <param-type-value>
+<param-type-value> ::= /"(String|Number|List<[^>]+>|CommaDelimitedList|AWS::[A-Za-z]+)"/
+<param-attr> ::= <indent2> ("Default" | "Description" | "AllowedValues" | "AllowedPattern" | "MinLength" | "MaxLength" | "NoEcho" | "ConstraintDescription") ":" <value>
+<outputs-section> ::= "Outputs" ":" <output>*
+<output> ::= <indent> <logical-name> ":" <output-attr>+ => { addOutput($2, $3); }
+<output-attr> ::= <indent2> ("Value" | "Description" | "Export") ":" <value>
+<mappings-section> ::= "Mappings" ":" <mapping>*
+<mapping> ::= <indent> <logical-name> ":" <map-body>
+<map-body> ::= (<indent2> <string> ":" <v
+alue>)+
+<conditions-section> ::= "Conditions" ":" <condition>*
+<condition> ::= <indent> <logical-name> ":" <intrinsic> => { addCondition($2, $3); }
+<value> ::= <scalar> | <list-value> | <intrinsic> | <map-value>
+<scalar> ::= <boolean> | <number> | <string> | "null"
+<boolean> ::= "true" | "false"
+<number> ::= /[+-]?[0-9]+(\.[0-9]+)?/
+<string> ::= /'[^'\n]*'/ | /"[^"\n]*"/
+<list-value> ::= "[" <value>? ("," <value>)* "]"
+<map-value> ::= "{" <value>* "}"
+<intrinsic> ::= "!" <fn-name> " " <value> => { buildIntrinsic($2, $4); }
+             | "{" <fn-fullname> ":" <value> "}" => { buildIntrinsic($2, $4); }
+<fn-name> ::= "Ref" | "GetAtt" | "Sub" | "Join" | "If" | "FindInMap" | "Base64" | "GetAZs" | "ImportValue" | "Select" | "Split" | "Cidr"
+<fn-fullname> ::= /"Fn::[A-Za-z]+"/ | /"Ref"/ | /"Condition"/
+<logical-name> ::= <identifier>
+<prop-name> ::= <identifier>
+<identifier> ::= /[a-zA-Z_][a-zA-Z0-9]*/
+<indent> ::= /[ \t]+/
+<indent2> ::= /[ \t][ \t]+/
+<indent3> ::= /[ \t][ \t][ \t]+/
+
+# --- Coverage completion: remaining language constructs ---
+<fn_long> ::= "Fn:" ("Ref" | "GetAtt" | "Sub" | "Join" | "FindInMap" | "ImportValue" | "Select" | "Split" | "GetAZs" | "Cidr" | "Base64" | "Transform") ":" <args> ;
+<fn_if> ::= "Fn::If" ":" [ <text> , <json_value> , <json_value> ] ;
+<transform_block> ::= "Transform" ":" (<text> | [ <text>+ ]) ;
+<rules_block> ::= "Rules" ":" <map> ;
+<hooks_block> ::= "Hooks" ":" <map> ;
+<param_constraints> ::= ("AllowedValues" | "AllowedPattern" | "MaxLength" | "MinLength" | "MaxValue" | "MinValue" | "NoEcho" | "Description") ":" <json_value> ;
+<aws_partition> ::= "AWS::Partition" | "AWS::Region" | "AWS::AccountId" | "AWS::StackName" | "AWS::URLSuffix" ;

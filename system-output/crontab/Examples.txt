@@ -1,0 +1,8 @@
+SHELL=/bin/bash
+*/15 * * * * /usr/bin/monitor
+0 0 1 1 * echo 'happy new year'
+
+# --- Coverage completion constructs ---
+
+0 9 * * MON-FRI /usr/bin/backup.sh
+0 0 1 JAN,JUL * /usr/bin/report.sh

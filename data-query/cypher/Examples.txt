@@ -1,0 +1,8 @@
+CREATE (n:Person { name: 'Ada' })
+MATCH (n:Person) RETURN n.name;
+
+# --- Coverage completion constructs ---
+
+MATCH (u:User) CALL { MATCH (p:Post {authorId: u.id}) RETURN count(p) AS n } RETURN u, n
+LOAD CSV WITH HEADERS FROM 'file:///data.csv' AS row CREATE (i:Item {name: row.name});
+USE neo4j.db MATCH (n) RETURN n;

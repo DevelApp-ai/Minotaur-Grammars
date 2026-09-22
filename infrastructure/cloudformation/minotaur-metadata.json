@@ -1,0 +1,23 @@
+{
+  "Id": "develapp.cloudformation",
+  "Name": "CloudFormation",
+  "Vendor": "DevelApp",
+  "DisplayName": "AWS CloudFormation",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "Grammar for AWS CloudFormation templates: Resources with types and properties, Parameters, Outputs, Mappings, Conditions and intrinsic functions.",
+  "License": "MIT",
+  "Tags": [
+    "infrastructure"
+  ],
+  "MainFile": "CloudFormation.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}

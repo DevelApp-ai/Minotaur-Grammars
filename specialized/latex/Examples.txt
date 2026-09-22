@@ -1,0 +1,10 @@
+\begin{itemize}
+\item First
+\item Second
+\end{itemize}
+
+# --- Coverage completion constructs ---
+
+\begin{equation} E = mc^2 \end{equation}
+\begin{align} a &= b \\ c &= d \end{align}
+\begin{itemize} \item first \item second \end{itemize}

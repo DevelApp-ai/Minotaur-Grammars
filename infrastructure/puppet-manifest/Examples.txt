@@ -1,0 +1,30 @@
+class order_service (
+  String $version = 'latest',
+  Integer $port = 8080,
+) {
+  package { 'nginx':
+    ensure => installed,
+  }
+  file { '/etc/nginx/conf.d/orders.conf':
+    ensure  => file,
+    content => template('orders/nginx.conf.erb'),
+    require => Package['nginx'],
+    notify  => Service['nginx'],
+  }
+  service { 'nginx':
+    ensure  => running,
+    enable  => true,
+  }
+}
+
+node 'web01.example.com' {
+  include order_service
+}
+
+# --- Coverage completion constructs ---
+class nginx::ssl inherits nginx {
+  File['nginx.conf'] { mode => '0600' }
+}
+unless $disabled { include nginx }
+$ports.each |$p| { port { "p${p}": ensure => present } }
+Package['nginx'] ~> Service['nginx']
