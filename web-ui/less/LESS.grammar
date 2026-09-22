@@ -3,7 +3,7 @@ FormatType: EBNF
 TokenSplitter: Space
 
 <stylesheet> ::= <statement>* ;
-<statement> ::= <variable_decl> | <nested_rule> | <mixin_decl> | <mixin_call> | <import_stmt> | <property> | <comment> ;
+<statement> ::= <variable_decl> | <nested_rule> | <mixin_decl> | <mixin_call> | <import_stmt> | <property> | <comment>  | <guarded_mixin> ;
 <variable_decl> ::= '@' <identifier> ':' <value> ';' ;
 <import_stmt> ::= '@import' <text> ';' ;
 <mixin_decl> ::= <mixin_def> | <param_mixin> ;
@@ -13,11 +13,11 @@ TokenSplitter: Space
 <param> ::= '@' <identifier>( ':' <value>)? | '...' ;
 <mixin_call> ::= '.' <identifier>( '(' <args>? ')')? ';' ;
 <args> ::= <value>( ',' <value>)* ;
-<nested_rule> ::= <selector> '{' <statement>* '}' ;
-<selector> ::= <selector_text> ;
+<nested_rule> ::= <selector> '{' <statement>* '}'  | <nested_media> ;
+<selector> ::= <selector_text>  | <parent_selector> ;
 <property> ::= <prop_name> ':' <value> ';' ;
-<prop_name> ::= <identifier> ;
-<value> ::= <term>( <term>)* ;
+<prop_name> ::= <identifier>  | <property_interpolation> ;
+<value> ::= <term>( <term>)*  | <merge_syntax> ;
 <term> ::= <number> | <text> | <color> | <identifier> | '@' <identifier> | <function_call> | <operation> ;
 <operation> ::= '(' <value> ')' ;
 <function_call> ::= <identifier> '(' <args>? ')' ;
@@ -42,6 +42,7 @@ TokenSplitter: Space
 <auto_color_4> ::= /[0-9a-fA-F]+/ ;
 <auto_identifier_5> ::= /[a-zA-Z-]/ ;
 <auto_identifier_6> ::= /[a-zA-Z0-9-]*/ ;
-<auto_text_7> ::= /[^"]*/ ;
+<auto_text_7> ::=
+ /[^"]*/ ;
 <auto_number_8> ::= /[0-9]+/ ;
 <auto_parent_selector_9> ::= /[ combinator simple_selector ]/ ;
