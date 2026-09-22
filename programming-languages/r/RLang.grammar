@@ -2,50 +2,54 @@ Grammar: RLang
 FormatType: EBNF
 TokenSplitter: Space
 
-program  ::= stmt* ;
-stmt     ::= assignment | func_def | if_stmt | for_stmt | while_stmt | library_stmt | expr_stmt ;
-library_stmt ::= ('library'|'require') '(' identifier ')' ;
-assignment ::= lvalue ('<-'|'=') expr ;
-lvalue   ::= identifier | indexed ;
-indexed  ::= identifier '$' identifier | identifier '[' expr ']' ;
-func_def ::= identifier '<-' 'function' '(' params? ')' '{' stmt* '}' | 'function' '(' params? ')' '{' stmt* '}' ;
-params   ::= param (',' param)* ;
-param    ::= identifier ('=' expr)? ;
-if_stmt  ::= 'if' '(' expr ')' expr_or_block ('else' expr_or_block)? ;
-for_stmt ::= 'for' '(' identifier 'in' expr ')' expr_or_block ;
-while_stmt ::= 'while' '(' expr ')' expr_or_block ;
-expr_or_block ::= expr | '{' stmt* '}' ;
-expr_stmt ::= expr ';' ;
-expr     ::= literal | identifier | call | indexed | expr binop expr | '(' expr ')' | formula ;
-call     ::= identifier '(' args? ')' ;
-args     ::= arg (',' arg)* ;
-arg      ::= (identifier '=')? expr ;
-formula  ::= '~' expr ;
-literal  ::= number | text | boolean | 'NULL' | 'NA' | vector ;
-vector   ::= 'c' '(' args? ')' ;
-boolean  ::= 'TRUE' | 'FALSE' | 'T' | 'F' ;
-binop    ::= '+' | '-' | '*' | '/' | '^' | '==' | '<' | '>' | '<=' | '>=' | '&' | '|' | '%%' ;
-identifier ::= [a-zA-Z_.][a-zA-Z0-9_.]* ;
-text     ::= '"' [^"]* '"' ;
-number   ::= [0-9]+ ('.' [0-9]+)? ;
+<program> ::= <stmt>* ;
+<stmt> ::= <assignment> | <func_def> | <if_stmt> | <for_stmt> | <while_stmt> | <library_stmt> | <expr_stmt> ;
+<library_stmt> ::= ('library' | 'require') '(' <identifier> ')' ;
+<assignment> ::= <lvalue> ('<-' | '=') <expr> ;
+<lvalue> ::= <identifier> | <indexed> ;
+<indexed> ::= <identifier> '$' <identifier> | <identifier> '[' <expr> ']' ;
+<func_def> ::= <identifier> '<-' 'function' '(' <params>? ')' '{' <stmt>* '}' | 'function' '(' <params>? ')' '{' <stmt>* '}' ;
+<params> ::= <param> (',' <param>)* ;
+<param> ::= <identifier> ('=' <expr>)? ;
+<if_stmt> ::= 'if' '(' <expr> ')' <expr_or_block> ('else' <expr_or_block>)? ;
+<for_stmt> ::= 'for' '(' <identifier> 'in' <expr> ')' <expr_or_block> ;
+<while_stmt> ::= 'while' '(' <expr> ')' <expr_or_block> ;
+<expr_or_block> ::= <expr> | '{' <stmt>* '}' ;
+<expr_stmt> ::= <expr> ';' ;
+<expr> ::= <literal> | <identifier> | <call> | <indexed> | <expr> <binop> <expr> | '(' <expr> ')' | <formula> ;
+<call> ::= <identifier> '(' <args>? ')' ;
+<args> ::= <arg> (',' <arg>)* ;
+<arg> ::= (<identifier> '=')? <expr> ;
+<formula> ::= '~' <expr> ;
+<literal> ::= <number> | <text> | <boolean> | 'NULL' | 'NA' | <vector> ;
+<vector> ::= 'c' '(' <args>? ')' ;
+<boolean> ::= 'TRUE' | 'FALSE' | 'T' | 'F' ;
+<binop> ::= '+' | '-' | '*' | '/' | '^' | '==' | '<' | '>' | '<=' | '>=' | '&' | ' | ' | '%%' ;
+<identifier> ::= /[a-zA-Z_.][a-zA-Z0-9_.]*/ ;
+<text> ::= /'"'[^"]*'"'/ ;
+<number> ::= /[0-9]+('.'[0-9]+)?/ ;
 
 # --- Extended coverage: additional language constructs ---
-native_pipe ::= expr '|>' call ; ;
-in_op ::= expr '%in%' expr ; ;
-repeat_stmt ::= 'repeat' expr_or_block ; ;
-break_next ::= ('break' | 'next') ; ;
-switch_call ::= 'switch' '(' expr (',' arg)* ')' ; ;
-try_catch ::= 'tryCatch' '(' expr ',' 'error' '=' call ')' ; ;
-s3_generic ::= identifier '.' identifier '(' args? ')' ; ;
-apply_family ::= ('sapply' | 'lapply' | 'vapply' | 'apply' | 'mapply') '(' args ')' ; ;
-double_index ::= identifier '[[' expr ']]' ; ;
-seq_colon ::= expr ':' expr ; ;
+<native_pipe> ::= <expr> ' | >' <call> ;
+<in_op> ::= <expr> '%in%' <expr> ;
+<repeat_stmt> ::= 'repeat' <expr_or_block> ;
+<break_next> ::= ('break' | 'next') ;
+<switch_call> ::= 'switch' '(' <expr> (',' <arg>)* ')' ;
+<try_catch> ::= 'tryCatch' '(' <expr> ',' 'error' '=' <call> ')' ;
+<s3_generic> ::= <identifier> '.' <identifier> '(' <args>? ')' ;
+<apply_family> ::= ('sapply' | 'lapply' | 'vapply' | 'apply' | 'mapply') '(' <args> ')' ;
+<double_index> ::= <identifier> '[[' <expr> ']]' ;
+<seq_colon> ::= <expr> ':' <expr> ;
 
 # --- Coverage completion: remaining language constructs ---
 
-set_class ::= "setClass" "(" string [ "," slot_list ] [ "," contains_clause ] ")" ;
-set_method ::= "setMethod" "(" string "," signature_list "," function_definition ")" ;
-set_generic ::= "setGeneric" "(" string "," function_definition ")" ;
-two_sided_formula ::= expression "~" expression ;
-raw_string ::= "r" quote_char "(" raw_body ")" quote_char ;
-pipe_expr ::= expression ( "|>" | "%>%" | "%||%" | "%in%" ) expression ;
+
+<set_class> ::= "setClass" "(" string <auto_set_class_0> <auto_set_class_1> ")" ;
+<set_method> ::= "setMethod" "(" string "," signature_list "," function_definition ")" ;
+<set_generic> ::= "setGeneric" "(" string "," function_definition ")" ;
+<two_sided_formula> ::= expression "~" expression ;
+<raw_string> ::= "r" quote_char "(" raw_body ")" quote_char ;
+<pipe_expr> ::= expression ( " | >" | "%>%" | "% |  | %" | "%in%" ) expression ;
+
+<auto_set_class_0> ::= /[ "," slot_list ]/ ;
+<auto_set_class_1> ::= /[ "," contains_clause ]/ ;
