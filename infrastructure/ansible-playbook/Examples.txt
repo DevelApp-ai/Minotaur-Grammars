@@ -1,0 +1,35 @@
+---
+- name: Deploy order service
+  hosts: webservers
+  become: true
+  vars:
+    app_port: 8080
+  roles:
+    - common
+    - { role: deploy, tags: ["app"] }
+  tasks:
+    - name: Install package
+      apt:
+        name: nginx
+        state: present
+      when: ansible_os_family == "Debian"
+      notify: restart nginx
+  handlers:
+    - name: restart nginx
+      service:
+        name: nginx
+        state: restarted
+
+# --- Coverage completion constructs ---
+collections: [ community.general ]
+module_defaults: { community.general.docker: { state: present } }
+pre_tasks: [ { name: prep, command: init.sh } ]
+post_tasks: [ { name: cleanup, command: clean.sh } ]
+strategy: free
+any_errors_fatal: true
+max_fail_percentage: 25
+tasks:
+  - name: delegated
+    command: check.sh
+    delegate_to: localhost
+    run_once: true

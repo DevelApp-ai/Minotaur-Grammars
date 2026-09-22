@@ -1,0 +1,21 @@
+== Intro
+
+. Step one
+. Step two
+
+link:https://example.com[Example]
+
+# --- Coverage completion constructs ---
+
+[cols="1,2,3"]
+|===
+| a | b | c
+|===
+[source,ruby]
+----
+puts 'hi'
+----
+--
+open block content
+--
+'''

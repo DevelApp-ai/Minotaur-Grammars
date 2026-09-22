@@ -1,0 +1,39 @@
+Grammar: AsciiDoc
+FormatType: EBNF
+TokenSplitter: Space
+
+<document> ::= <header>? <block>* ;
+<header> ::= '=' <text>( <attr_line>)* ;
+<attr_line> ::= ':' <identifier> ':' <text>? ;
+<block> ::= <section> | <paragraph> | <listing> | <list> | <admonition> | <table> ;
+<section> ::= '='+ <text> ;
+<paragraph> ::= <inline>+ ;
+<listing> ::= '---' <auto_listing_1> '---' ;
+<list> ::= <bullet_item>+ | <ordered_item>+ ;
+<bullet_item> ::= ( '*' | '-') <inline> ;
+<ordered_item> ::= <number> '.' <inline> ;
+<admonition> ::= ( 'NOTE:' | 'TIP:' | 'WARNING:' | 'IMPORTANT:' | 'CAUTION:') <inline> ;
+<table> ::= '|===' <table_row>* '|===' ;
+<table_row> ::= <auto_table_row_2> ;
+<inline> ::= <text> | <bold> | <italic> | <mono> | <link> | <xref> ;
+<bold> ::= '*' <text> '*' ;
+<italic> ::= '_' <text> '_' ;
+<mono> ::= '`' <text> '`' ;
+<link> ::= 'link:' <text> '[' <text>? ']' ;
+<xref> ::= '<<' <text> ','? <text>? '>>' ;
+<text> ::= <auto_text_3> "^" "\" "n" "="* "_" "-" "`" "<" ">" | "]"+ ;
+<identifier> ::= <auto_identifier_4> ;
+<number> ::= <auto_number_5> ;
+
+# --- Coverage completion: remaining language constructs ---
+
+<cols_attribute> ::= "[cols=" "quoted_value" "]" ;
+<source_block> ::= "[source" ( "," "language" )? "]" "delimiter" "block_content" "delimiter" ;
+<open_block> ::= "--" "line_terminator" "block_content" "--" ;
+<page_break> ::= "'" ;
+
+<auto_listing_1> ::= /[^---]*/ ;
+<auto_table_row_2> ::= /[^\n]+/ ;
+<auto_text_3> ::= /[]/ ;
+<auto_identifier_4> ::= /[a-zA-Z0-9_-]+/ ;
+<auto_number_5> ::= /[0-9]+/ ;

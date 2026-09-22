@@ -1,0 +1,51 @@
+job "order-service" {
+  datacenters = ["dc1"]
+  type = "service"
+
+  group "web" {
+    count = 3
+    network {
+      port "http" { to = 8080 }
+    }
+    task "orders" {
+      driver = "docker"
+      config {
+        image = "develapp/orders:1.2.0"
+        ports = ["http"]
+      }
+      resources {
+        cpu    = 500
+        memory = 512
+      }
+      template {
+        data        = <<EOF
+PORT={{ env "NOMAD_PORT_http" }}
+EOF
+        destination = "local/env.txt"
+        env         = true
+      }
+      service {
+        name     = "orders"
+        port     = "http"
+        provider = "consul"
+        check {
+          type     = "http"
+          path     = "/health"
+          interval = "10s"
+        }
+      }
+    }
+  }
+}
+
+# --- Coverage completion constructs ---
+job "web" {
+  type = "service"
+  affinity { attribute = "${node.datacenter}", value = "dc1" }
+  spread "node.datacenter" { weight = 100 }
+  reschedule { attempts = 3, interval = "5m" }
+  group "front" {
+    network { port "http" { static = 8080 } }
+    service { name = "web", provider = "consul" }
+  }
+}

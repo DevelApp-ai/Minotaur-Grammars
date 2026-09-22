@@ -1,0 +1,23 @@
+{
+  "Id": "develapp.nomadhcl",
+  "Name": "NomadHcl",
+  "Vendor": "DevelApp",
+  "DisplayName": "Nomad HCL",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "Grammar for HashiCorp Nomad job files (HCL): job groups with tasks, resources, networks, services, constraints, templates and stanza blocks.",
+  "License": "MIT",
+  "Tags": [
+    "infrastructure"
+  ],
+  "MainFile": "NomadHcl.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}
