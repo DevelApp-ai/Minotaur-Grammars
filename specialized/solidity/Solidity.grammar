@@ -11,7 +11,7 @@ TokenSplitter: Space
 <member> ::= <state_var> | <function> | <modifier_def> | <event_def> | <struct_def> | <enum_def> ;
 <state_var> ::= <visibility>? <type> <identifier>( '=' <expr>)? ';' ;
 <visibility> ::= 'public' | 'private' | 'internal' | 'external' ;
-<function> ::= 'function' <identifier> '(' <params>? ')' <visibility>? <mutability>?( 'returns' '(' <params>? ')')?( ';' | '{' <stmt>* '}')  | <block> ;
+<function> ::= 'function' <identifier> '(' <params>? ')' <visibility>? <mutability>?( 'returns' '(' <params>? ')')?( ';' | '{' <stmt>* '}') ;
 <params> ::= <param>( ',' <param>)* ;
 <param> ::= <type> 'memory'? 'calldata'? 'storage'? <identifier>? ;
 <mutability> ::= 'pure' | 'view' | 'payable' | 'constant' ;
@@ -35,11 +35,11 @@ TokenSplitter: Space
  <args>? ')' ';' ;
 <revert_stmt> ::= 'revert'( <identifier> '(' <args>? ')')? ';' ;
 <block> ::= '{' <stmt>* '}' ;
-<expr> ::= <literal> | <identifier> | <call> | <member> | <expr> <binop> <expr> | '(' <expr> ')'  | <abi_decode> ;
-<call> ::= <expr> '(' "ar"  | <args> ;
+<expr> ::= <literal> | <identifier> | <call> | <member_access> | <expr> <binop> <expr> | '(' <expr> ')'  | <abi_decode> ;
+<call> ::= <expr> '(' "ar" ;
 
 gs? ')' ;
-<member> ::= <expr> '.' <identifier>  | <state_var>  | <function>  | <modifier_def>  | <event_def>  | <struct_def>  | <enum_def> ;
+<member_access> ::= <expr> '.' <identifier> ;
 <args> ::= <arg>( ',' <arg>)* ;
 <arg> ::= ( <identifier> '=')? <expr> ;
 <type> ::= <elementary> | 'mapping' '(' <type> '=>' <type> ')' | <identifier> | <type> '[' ']' ;
