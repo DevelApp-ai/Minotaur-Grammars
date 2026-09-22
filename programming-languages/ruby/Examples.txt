@@ -1,0 +1,18 @@
+def add(a, b)
+  a + b
+end
+
+puts add(1, 2)
+
+names.each { |n| puts n }
+
+# --- Coverage completion constructs ---
+
+double = ->(x) { x * 2 }
+refine String do; def shout; upcase + '!'; end; end
+alias_method :size, :length
+sql = <<~SQL; SELECT * FROM users; SQL
+words = %w[alpha beta gamma]
+syms = %i(a b c)
+value = obj&.property
+defined?(Foo)
