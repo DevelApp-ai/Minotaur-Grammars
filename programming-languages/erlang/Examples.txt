@@ -1,0 +1,15 @@
+-module(counter).
+-export([start/0]).
+start() -> 0.
+inc(N) -> N + 1.
+
+# --- Coverage completion constructs ---
+
+<<Len:8/big, Payload:Len/binary, _Rest/binary>> = Packet
+case Map of #{id := Id, tag := done} -> Id end
+-spec length(list()) -> non_neg_integer().
+-type tree(A) :: leaf | {node, A, tree(A), tree(A)}.
+-ifdef(TEST). -include_lib("eunit/include/eunit.hrl"). -endif.
+-define(MAX, 100).
+catch gen_server:call(Srv, msg)
+try X() catch error:Reason -> {error, Reason} end

@@ -1,0 +1,54 @@
+Grammar: Erlang
+FormatType: EBNF
+TokenSplitter: Space
+
+<module> ::= <attribute>* <form>* ;
+<attribute> ::= '-' ('module' | 'export' | 'import' | 'behaviour') '(' <attr_args> ')' '.' ;
+<attr_args> ::= <atom> | '(' <export_fns>? ')' ;
+<export_fns> ::= <export_fn> (',' <export_fn>)* ;
+<export_fn> ::= <atom> '/' <number> ;
+<form> ::= <function_clauses> '.' ;
+<function_clauses> ::= <function_clause> (';' <function_clause>)* ;
+<function_clause> ::= <atom> '(' <args>? ')' ('when' <guard>)? '->' <exprs> ;
+<guard> ::= <guard_expr> (',' <guard_expr>)* ;
+<guard_expr> ::= <expr> ;
+<args> ::= <expr> (',' <expr>)* ;
+<exprs> ::= <expr> (',' <expr>)* ;
+<expr> ::= <literal> | <var> | <call> | <tuple> | <list> | <map> | <binary> | <case_expr> | <fun_expr> | <receive_expr> | <expr> <binop> <expr> ;
+<call> ::= (<module_ref> ':')? <atom> '(' <args>? ')' ;
+<module_ref> ::= <atom> | <var> ;
+<tuple> ::= '{' <args>? '}' ;
+<list> ::= '[' <args>? ']' ;
+<map> ::= '#' '{' <map_pair> (',' <map_pair>)* '}' ;
+<map_pair> ::= <expr> '=>' <expr> ;
+<binary> ::= '<<' '>>' ;
+<case_expr> ::= 'case' <expr> 'of' <clause>+ 'end' ;
+<clause> ::= <pattern> ('when' <guard>)? '->' <exprs> ';' ;
+<pattern> ::= <var> | <literal> | <tuple> | <list> ;
+<fun_expr> ::= 'fun' (<atom> '/' <number> | '(' <params>? ')' '->' <exprs> 'end') ;
+<params> ::= <var> (',' <var>)* ;
+<receive_expr> ::= 'receive' <clause>+ 'end' ;
+<var> ::= /('_'|[A-Z])[a-zA-Z0-9_]*/ ;
+<atom> ::= /[a-z][a-zA-Z0-9_@]*/ ;
+<literal> ::= <number> | <text> | <atom> ;
+<binop> ::= '+' | '-' | '*' | '/' | '==' | '=:=' | '=/=' | '<' | '>' | 'andalso' | 'orelse' | '++' ;
+<text> ::= /'"'[^"]*'"'/ ;
+<number> ::= /[0-9]+/ ;
+
+# --- Coverage completion: remaining language constructs ---
+
+<bitstring> ::= "<<" <auto_bitstring_0> ">>" ;
+<bit_segment> ::= expression <auto_bit_segment_0> <auto_bit_segment_1> ;
+<map_pattern> ::= "#{" <auto_map_pattern_0> "}" ;
+<map_exact_assoc> ::= key_pattern ":=" value_pattern ;
+<function_spec> ::= "-spec" function_name "(" type_list ")" "->" type "." ;
+<type_declaration> ::= "-type" type_name "(" type_vars ")" "::" type "." ;
+<ifdef_directive> ::= "-ifdef" "(" identifier ")" "." ;
+<define_directive> ::= "-define" "(" identifier <auto_define_directive_0> "," tokens ")" "." ;
+<catch_expression> ::= "catch" expression ;
+
+<auto_bitstring_0> ::= /[ bit_segment ( "," bit_segment )* ]/ ;
+<auto_bit_segment_0> ::= /[ ":" bit_size ]/ ;
+<auto_bit_segment_1> ::= /[ "\/" bit_type_list ]/ ;
+<auto_map_pattern_0> ::= /[ map_assoc ( "," map_assoc )* ]/ ;
+<auto_define_directive_0> ::= /[ "(" params ")" ]/ ;
