@@ -3,7 +3,7 @@ FormatType: EBNF
 TokenSplitter: Space
 
 <query> ::= ( <statement> ';'?)+ ;
-<statement> ::= <match_stmt> | <create_stmt> | <merge_stmt> | <delete_stmt> | <return_stmt> | <set_stmt> ;
+<statement> ::= <match_stmt> | <create_stmt> | <merge_stmt> | <delete_stmt> | <return_stmt> | <set_stmt>  | <call_subquery>  | <load_csv>  | <use_clause> ;
 <match_stmt> ::= 'MATCH' <pattern>( ',' <pattern>)*( <where_clause>)? ;
 <pattern> ::= <node_pattern>( <rel_pattern> <node_pattern>)* ;
 <node_pattern> ::= '('( <identifier>)?( ':' <label>)?( <props>)? ')' ;
@@ -34,7 +34,8 @@ TokenSplitter: Space
 <text> ::= '"' <auto_text_3> '"' ;
 <number> ::= <auto_number_4> ;
 
-# --- Coverage completion: remaining language constructs ---
+# --- Coverage completion: remaining language co
+nstructs ---
 
 <call_subquery> ::= "CALL" "{"( "WITH" "with_list")? "subquery_body" "}" ;
 <load_csv> ::= "LOAD" "CSV" ( "WITH" "HEADERS" )? "FROM" "string" ( "AS" <identifier> )? ( "field_terminator" )? ;

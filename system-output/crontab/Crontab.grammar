@@ -12,8 +12,8 @@ TokenSplitter: Space
 <minute> ::= <field> ;
 <hour> ::= <field> ;
 <day_of_month> ::= <field> ;
-<month> ::= <field> ;
-<day_of_week> ::= <field> ;
+<month> ::= <field>  | <month_name> ;
+<day_of_week> ::= <field>  | <day_name> ;
 <field> ::= '*' | <number> | <range> | <list> | <step> ;
 <range> ::= <number> '-' <number> ;
 <list> ::= ( <number> | <range> | '*')( ','( <number> | <range> | '*'))* ;
