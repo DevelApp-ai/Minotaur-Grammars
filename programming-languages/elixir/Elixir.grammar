@@ -2,31 +2,49 @@ Grammar: Elixir
 FormatType: EBNF
 TokenSplitter: Space
 
-# <program> ::= <exprs> ;
-# <exprs> ::= <expr>+ ;
-# <expr> ::= <def_module> | <def> | <defp> | assignment | pipe_expr | call | literal | identifier | struct_access | <expr> binop <expr> ;
-# <def_module> ::= 'defmodule' alias 'do' <exprs> 'end' ;
-# <def> ::= 'def' (<call_head> | <name_and_guard>) (',' 'do:' <expr> | 'do' <exprs> 'end') ;
-# <defp> ::= 'defp' <call_head> (',' 'do:' <expr> | 'do' <exprs> 'end') ;
-# <call_head> ::= identifier '(' <params>? ')' ('when' <guard>)? ;
-# <name_and_guard> ::= identifier 'when' <guard> ;
-# <guard> ::= <expr> ;
-# <params> ::= <param> (',' <param>)* ;
-# <param> ::= identifier | '_' | identifier '\' expr ;assignment ::= identifier '=' expr ;pipe_expr ::= expr (' | >' call)+ ;call ::= (module_ref '.')? identifier '(' args? ')' ( 'do' exprs 'end' )? ;module_ref ::= alias ;args ::= expr (',' expr)* ;struct_access ::= expr '.' identifier ;alias ::= [A-Z][a-zA-Z0-9_.]* ;literal ::= number | text | atom | boolean | 'nil' | list | tuple | map | keyword ;list ::= '<auto_param_0>' ;tuple ::= '{' args? '}' ;map ::= '%' '{' map_pair (',' map_pair)* '}' ;map_pair ::= expr '=>' expr ;keyword ::= identifier ':' expr ;atom ::= ':' identifier ;boolean ::= 'true' | 'false' ;binop ::= '+' | '-' | '*' | '/' | '==' | '<>' | '<' | '>' | '&&' | ' |  | ' | '++' | ' | >' ;identifier ::= [a-z_][a-zA-Z0-9_]*[?!]? ;text ::= '"' [^"]* '"' ;
-# <number> ::= /[0-9]+/ ;
+<program> ::= <exprs> ;
+<exprs> ::= <expr>+ ;
+<expr> ::= <def_module> | <def> | <defp> | assignment | pipe_expr | call | literal | identifier | struct_access | <expr> binop <expr> ;
+<def_module> ::= 'defmodule' alias 'do' <exprs> 'end' ;
+<def> ::= 'def' (<call_head> | <name_and_guard>) (',' 'do:' <expr> | 'do' <exprs> 'end') ;
+<defp> ::= 'defp' <call_head> (',' 'do:' <expr> | 'do' <exprs> 'end') ;
+<call_head> ::= identifier '(' <params>? ')' ('when' <guard>)? ;
+<name_and_guard> ::= identifier 'when' <guard> ;
+<guard> ::= <expr> ;
+<params> ::= <param> (',' <param>)* ;
+<param> ::= identifier | '_' | identifier '\' expr ;
+assignment ::= identifier '=' expr ;
+pipe_expr ::= expr (' | >' call)+ ;
+call ::= (module_ref '.')? identifier '(' args? ')' ( 'do' exprs 'end' )? ;
+module_ref ::= alias ;
+args ::= expr (',' expr)* ;
+struct_access ::= expr '.' identifier ;
+alias ::= [A-Z][a-zA-Z0-9_.]* ;
+literal ::= number | text | atom | boolean | 'nil' | list | tuple | map | keyword ;
+list ::= '<auto_param_0>' ;
+tuple ::= '{' args? '}' ;
+map ::= '%' '{' map_pair (',' map_pair)* '}' ;
+map_pair ::= expr '=>' expr ;
+keyword ::= identifier ':' expr ;
+atom ::= ':' identifier ;
+boolean ::= 'true' | 'false' ;
+binop ::= '+' | '-' | '*' | '/' | '==' | '<>' | '<' | '>' | '&&' | ' |  | ' | '++' | ' | >' ;
+identifier ::= [a-z_][a-zA-Z0-9_]*[?!]? ;
+text ::= '"' [^"]* '"' ;
+<number> ::= /[0-9]+/ ;
 
 # --- Coverage completion: remaining language constructs ---
 
-# <multi_clause_fn> ::= "fn" <fn_clause> ( ";" <fn_clause> )* "end" ;
-# <fn_clause> ::= pattern <auto_fn_clause_0> "->" expression_list ;
-# <bitstring_segment> ::= expression "::" bit_modifiers ;
-# <binary_comprehension> ::= "for" "<<" comprehension_segments ">>" <auto_binary_comprehension_0> <auto_binary_comprehension_1> "," "do:" expression ;
-# <sigil> ::= "~" sigil_char sigil_delimiter sigil_body sigil_delimiter <auto_sigil_0> ;
-# <access_syntax> ::= expression "[" ( expression | atom_literal ) "]" ;
+<multi_clause_fn> ::= "fn" <fn_clause> ( ";" <fn_clause> )* "end" ;
+<fn_clause> ::= pattern <auto_fn_clause_0> "->" expression_list ;
+<bitstring_segment> ::= expression "::" bit_modifiers ;
+<binary_comprehension> ::= "for" "<<" comprehension_segments ">>" <auto_binary_comprehension_0> <auto_binary_comprehension_1> "," "do:" expression ;
+<sigil> ::= "~" sigil_char sigil_delimiter sigil_body sigil_delimiter <auto_sigil_0> ;
+<access_syntax> ::= expression "[" ( expression | atom_literal ) "]" ;
 
-# <auto_param_0> ::= /[' args? ']/ ;
-# <auto_fn_clause_0> ::= /[ guard ]/ ;
-# <auto_binary_comprehension_0> ::= /[ comprehension_filters ]/ ;
-# <auto_binary_comprehension_1> ::= /[ "into:" expression ]/ ;
-# <auto_sigil_0> ::= /[ sigil_modifier_list ]/ ;
+<auto_param_0> ::= /[' args? ']/ ;
+<auto_fn_clause_0> ::= /[ guard ]/ ;
+<auto_binary_comprehension_0> ::= /[ comprehension_filters ]/ ;
+<auto_binary_comprehension_1> ::= /[ "into:" expression ]/ ;
+<auto_sigil_0> ::= /[ sigil_modifier_list ]/ ;
 
