@@ -9,16 +9,16 @@ TokenSplitter: Space
 <select_query> ::= 'SELECT'( 'DISTINCT')?( '*' | <var_list>) 'WHERE'? <group_graph_pattern>( <solution_modifier>)* ;
 <var_list> ::= <var>( <var>)* ;
 <var> ::= '?' <identifier> | '$' <identifier> ;
-<group_graph_pattern> ::= '{' <triples_block>?( <graph_pattern_node> '.'? <triples_block>?)* '}' ;
+<group_graph_pattern> ::= '{' <triples_block>?( <graph_pattern_node> '.'? <triples_block>?)* '}'  | <service_pattern>  | <graph_pattern> ;
 <graph_pattern_node> ::= <optional_block> | <filter_block> | <union_block> ;
 <optional_block> ::= 'OPTIONAL' <group_graph_pattern> ;
-<filter_block> ::= 'FILTER' '(' <expr> ')' ;
+<filter_block> ::= 'FILTER' '(' <expr> ')'  | <filter_exists> ;
 <union_block> ::= <group_graph_pattern> 'UNION' <group_graph_pattern> ;
 <triples_block> ::= <triples_same_subject>( '.' <triples_same_subject>?)* ;
 <triples_same_subject> ::= <var_or_term> <property_list> ;
 <property_list> ::= <verb> <object_list>( ';'( <verb> <object_list>)?)* ;
 <object_list> ::= <object>( ',' <object>)* ;
-<verb> ::= <iri> | 'a' ;
+<verb> ::= <iri> | 'a'  | <erty_path> ;
 <object> ::= <var_or_term> ;
 <var_or_term> ::= <var> | <iri> | <literal> | <blank_node> ;
 <blank_node> ::= '_:' <identifier> ;
@@ -38,11 +38,12 @@ TokenSplitter: Space
 
 # --- Coverage completion: remaining language constructs ---
 
-<service_pattern> ::= "SERVICE" ( "SILENT" )? "var_or_iri" <group_graph_pattern> ;
+<service_pattern> ::= "SERVICE" (
+ "SILENT" )? "var_or_iri" <group_graph_pattern> ;
 <filter_exists> ::= "FILTER"( "EXISTS" | "NOT" "EXISTS") <group_graph_pattern> ;
 <graph_pattern> ::= "GRAPH"( <var> | <iri>) <group_graph_pattern> ;
 prop
-<erty_path> ::= "path_alternative" ;
+<erty_path> ::= "path_alternative"  | <path_element> ;
 <path_element> ::= "path_primary" <path_modifier> ;
 <path_modifier> ::= "*" | "+" | "?" | "{" "integer"( "," "integer"?)? "}" ;
 
