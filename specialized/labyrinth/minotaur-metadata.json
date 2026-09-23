@@ -1,0 +1,23 @@
+{
+  "Id": "develapp.labyrinth",
+  "Name": "Labyrinth",
+  "Vendor": "DevelApp",
+  "DisplayName": "Labyrinth",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "Grammar for the Labyrinth rule language: the specialized YAML format of the Minotaur SAST rule engine. Rules use Semgrep-style patterns (metavariables, ellipsis) written in arbitrary DevelApp target grammars, taint-mode source/sink/sanitizer/propagator keys, and Dynamic LINQ condition strings.",
+  "License": "MIT",
+  "Tags": [
+    "specialized"
+  ],
+  "MainFile": "Labyrinth.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars/issues/182",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}

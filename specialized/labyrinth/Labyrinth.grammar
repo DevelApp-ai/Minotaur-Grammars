@@ -1,0 +1,73 @@
+Grammar: Labyrinth
+FormatType: EBNF
+TokenSplitter: Space
+
+# Labyrinth grammar - Minotaur SAST rule language (specialized YAML)
+# See Minotaur-Grammars issue #182 and DevelApp-ai/Minotaur issue #100.
+<rule-file> ::= <rules-key> <rule>+ => { buildRuleFile($$); }
+<rules-key> ::= "rules" ":" => { beginRules(); }
+<rule> ::= <rule-entry> => { beginRule(); }
+<rule-entry> ::= "-" <rule-body> ;
+<rule-body> ::= <id-key> <severity-key> <message-key> <type-key> <rule-body-tail> ;
+<rule-body-tail> ::= <search-body> | <taint-body> ;
+<id-key> ::= "id" ":" <rule-id> => { setRuleId($2); }
+<rule-id> ::= /[a-z0-9][a-z0-9-]*/ ;
+<severity-key> ::= "severity" ":" <severity> => { setSeverity($2); }
+<severity> ::= "ERROR" | "WARNING" | "INFO" ;
+<message-key> ::= "message" ":" <quoted> => { setMessage($2); }
+<type-key> ::= "type" ":" <rule-type> => { setRuleType($2); }
+<rule-type> ::= "search" | "taint" ;
+
+# --- search mode ---
+<search-body> ::= <pattern-key> <condition-key>? => { endSearchRule(); }
+<pattern-key> ::= "pattern" ":" <quoted-pattern> => { setPattern($2); }
+<condition-key> ::= "condition" ":" <quoted> => { setCondition($2); }
+
+# --- taint mode ---
+<taint-body> ::= <sources-key> <sinks-key> <sanitizers-key>? <propagators-key>? ;
+<sources-key> ::= "sources" ":" <source-entry>+ ;
+<source-entry> ::= "-" <pattern-key> => { addSource(); }
+<sinks-key> ::= "sinks" ":" <sink-entry>+ ;
+<sink-entry> ::= "-" <pattern-key> => { addSink(); }
+<sanitizers-key> ::= "sanitizers" ":" <sanitizer-entry>+ ;
+<sanitizer-entry> ::= "-" <pattern-key> => { addSanitizer(); }
+<propagators-key> ::= "propagators" ":" <propagator-entry>+ ;
+<propagator-entry> ::= "-" <pattern-key> <from-key> <to-key> => { addPropagator(); }
+<from-key> ::= "from" ":" <metavar> ;
+<to-key> ::= "to" ":" <metavar> ;
+
+# --- pattern bodies: target-grammar snippets with Semgrep-style operators ---
+<quoted-pattern> ::= <quoted> => { tokenizePattern($1); }
+<quoted> ::= /'"'[^"\n]*'"'/ | /"'"[^'\n]*'"'/ ;
+<metavar> ::= "$" /[A-Z_][A-Z0-9_]*/ => { metavarRef($2); }
+<ellipsis> ::= "..." => { matchZeroOrMore(); }
+<metavar-token> ::= "$" /[A-Z_][A-Z0-9_]*/ => { capture($2); }
+<comment> ::= "#" /[\S\s]*/ => { skip(); }
+<empty> ::= /[ \t]*/ ;
+
+# --- Coverage completion: remaining language constructs ---
+<metadata> ::= <metadata-key> <metadata-entry>+ ;
+<metadata-key> ::= "metadata" ":" ;
+<metadata-entry> ::= "-" <meta-kv> ;
+<meta-kv> ::= <meta-key> ":" <meta-value> ;
+<meta-key> ::= /[a-z][a-z0-9_-]*/ ;
+<meta-value> ::= <quoted> | <bare-scalar> ;
+<bare-scalar> ::= /[a-zA-Z0-9_.\/-]+/ ;
+<languages-key> ::= "languages" ":" <lang-list> ;
+<lang-list> ::= "[" <lang> ("," <lang>)* "]" ;
+<lang> ::= <quoted> ;
+<paths-key> ::= "paths" ":" <paths-body> ;
+<paths-body> ::= <include-key> <exclude-key>? ;
+<include-key> ::= "include" ":" <glob-list> ;
+<exclude-key> ::= "exclude" ":" <glob-list> ;
+<glob-list> ::= "[" <glob> ("," <glob>)* "]" ;
+<glob> ::= <quoted> ;
+<fix-key> ::= "fix" ":" <quoted> ;
+<pattern-either> ::= "pattern-either" ":" <pattern-alt>+ ;
+<pattern-alt> ::= "-" <pattern-key> ;
+<pattern-inside> ::= "pattern-inside" ":" <quoted-pattern> ;
+<pattern-not> ::= "pattern-not" ":" <quoted-pattern> ;
+<pattern-not-inside> ::= "pattern-not-inside" ":" <quoted-pattern> ;
+<focus-metavariable-key> ::= "focus-metavariable" ":" <metavar> ;
+<severity-inline-key> ::= "severity" ":" <quoted> ;
+<multi-rule-id> ::= "rule_id" ":" <rule-id> ;
