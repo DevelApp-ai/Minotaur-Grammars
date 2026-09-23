@@ -13,5 +13,6 @@
   "PricingModel": "free",
   "Tags": [
     "programming-languages"
-  ]
+  ],
+  "LabyrinthExtension": true
 }
