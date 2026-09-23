@@ -57,8 +57,14 @@ mechanism covers both.
 - **Metadata**: grammars shipping the overlay set `"LabyrinthExtension": true`
   in their `minotaur-metadata.json`, so tooling can filter Labyrinth-capable
   grammars without hitting the filesystem.
-- Initial target grammars: csharp10, typescript, javascriptes2022, python311,
-  java17, go119, rust2021, cpp20 — others can follow incrementally.
+- Coverage: **every language grammar under `programming-languages/`** ships
+  the overlay (36 grammars: c17, classicasp, clojure, cobol2023, cpp20,
+  csharp10, css, dart, elixir, erlang, fsharp, go119, haskell, htmlembedded,
+  java, java17, javascript, javascriptes2022, json, jsonschema, kotlin, lua,
+  perl, php, pl1, python311, r, ruby, rust2021, scala, swift, typescript,
+  visualbasic, webassembly20, xaml, xml). Only the meta/project grammars
+  (`extensionfile`, `folderproject`, `grammarfile`, `sample`, `dotnetproject`)
+  are excluded — they describe Minotaur project formats, not languages.
 
 ## Validation
 
