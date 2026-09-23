@@ -1,0 +1,37 @@
+# YAML examples
+---
+name: example-service
+version: 2
+enabled: true
+released: 2026-09-23
+tags: [dev, staging]
+defaults: &defaults
+  timeout: 30
+  retries: 3
+production:
+  <<: *defaults
+  retries: 5
+items:
+  - first
+  - second
+multiline: |
+  line one
+  line two
+folded: >
+  folded
+  text
+quoted: "with \"escapes\" and \n"
+single: 'it''s quoted'
+comments: value # inline comment
+...
+# --- Coverage completion constructs ---
+%YAML 1.2
+---
+explicit: ? complex
+  : key
+set:
+  ? alpha
+  :
+nulls: [null, ~]
+numbers: [-42, +3.14, 1e6]
+typed: !!str 42

@@ -1,0 +1,23 @@
+{
+  "Id": "develapp.yaml",
+  "Name": "YAML",
+  "Vendor": "DevelApp",
+  "DisplayName": "YAML",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "Grammar for YAML documents: block and flow mappings and sequences, scalars (plain, quoted, block), anchors and aliases, tags, directives, comments and multi-document streams.",
+  "License": "MIT",
+  "Tags": [
+    "data-config"
+  ],
+  "MainFile": "YAML.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}
