@@ -3,7 +3,16 @@ FormatType: EBNF
 TokenSplitter: Space
 
 # Labyrinth grammar - Minotaur SAST rule language (specialized YAML)
-# See Minotaur-Grammars issue #182 and DevelApp-ai/Minotaur issue #100.
+# See Minotaur-Grammars issue #182 (original grammar), #184 (pattern-operator
+# cleanup) and DevelApp-ai/Minotaur issue #100.
+#
+# NOTE on pattern bodies (issue #184): pattern strings inside a rule are
+# snippets written in the rule's TARGET grammar, not in this grammar. They
+# are carried here only as opaque quoted strings and are parsed by
+# StepParser through target-grammar + Labyrinth.extension overlay
+# composition (DevelApp-ai/ENFAStepLexer-StepParser#65, #66). Metavariable
+# and ellipsis tokens therefore live in the per-target Labyrinth.extension
+# files placed next to each target grammar, not in this grammar.
 <rule-file> ::= <rules-key> <rule>+ => { buildRuleFile($$); }
 <rules-key> ::= "rules" ":" => { beginRules(); }
 <rule> ::= <rule-entry> => { beginRule(); }
@@ -36,12 +45,14 @@ TokenSplitter: Space
 <from-key> ::= "from" ":" <metavar> ;
 <to-key> ::= "to" ":" <metavar> ;
 
-# --- pattern bodies: target-grammar snippets with Semgrep-style operators ---
-<quoted-pattern> ::= <quoted> => { tokenizePattern($1); }
+# --- pattern bodies: opaque strings in the TARGET grammar ---
+# The body of a pattern is not tokenized by this grammar. It is parsed by
+# StepParser as target grammar + Labyrinth.extension overlay
+# (DevelApp-ai/ENFAStepLexer-StepParser#65, #66), so metavariable and
+# ellipsis tokens are defined per target language, not here.
+<quoted-pattern> ::= <quoted> ;
 <quoted> ::= /'"'[^"\n]*'"'/ | /"'"[^'\n]*'"'/ ;
 <metavar> ::= "$" /[A-Z_][A-Z0-9_]*/ => { metavarRef($2); }
-<ellipsis> ::= "..." => { matchZeroOrMore(); }
-<metavar-token> ::= "$" /[A-Z_][A-Z0-9_]*/ => { capture($2); }
 <comment> ::= "#" /[\S\s]*/ => { skip(); }
 <empty> ::= /[ \t]*/ ;
 

@@ -28,6 +28,8 @@ rules:
 
 - **Metavariables** (`$DATA`, `$TARGET`, ...): capture groups unifying AST nodes across a rule
 - **Ellipsis** (`...`): matches zero or more arguments/statements/characters
+
+Metavariable/ellipsis *tokens* are not defined by this grammar: pattern bodies are snippets in the rule's target grammar, parsed via target grammar + Labyrinth.extension overlay composition (issue #184; DevelApp-ai/ENFAStepLexer-StepParser#65, #66). This grammar carries patterns as opaque quoted strings.
 - **Taint mode**: `sources`, `sinks`, `sanitizers`, `propagators` (with `from`/`to` bindings); the engine compiles patterns to Expression Tree delegates and runs a fixed-point taint traversal — rule authors never write graph queries
 - **Dynamic LINQ escape hatch**: optional `condition` with a string-based C# boolean expression (System.Linq.Dynamic.Core), e.g. `node.Arguments[0].Value > 1024`
 
