@@ -70,6 +70,10 @@
       "minLength": 1,
       "description": "File name of the main .grammar file inside the grammar folder."
     },
+    "LabyrinthExtension": {
+      "type": "boolean",
+      "description": "Optional: true when the grammar folder ships an optional Labyrinth.extension overlay next to the main grammar, marking it as a Labyrinth (Minotaur SAST) target grammar (Minotaur-Grammars issue #184). Absent means no overlay."
+    },
     "Dependencies": {
       "type": "array",
       "items": {
