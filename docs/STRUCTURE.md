@@ -10,6 +10,7 @@ programming-languages/       # grammars for programming & markup languages
     LICENSE                  # per-grammar license (see docs/LICENSING.md)
     CSharp10_Examples.txt    # optional sidecar: example inputs
     CSharp10_README.md       # optional sidecar: grammar notes
+    Labyrinth.extension      # optional: Labyrinth (SAST) pattern-operator overlay
 natural-languages/           # natural-language grammars (optional
   danish/                    #   downloadable content in the marketplace)
 compiler-compilers/          # base grammars other grammars inherit from
@@ -38,6 +39,9 @@ docs/
   grammar folder.
 - A grammar folder is any directory containing a `minotaur-metadata.json` —
   this is also how the validation scripts discover grammars.
+- **`Labyrinth.extension`** is an optional fixed-name overlay marking a
+  grammar as a Labyrinth (Minotaur SAST) target grammar; a grammar without
+  it must load and work unchanged (issue #184).
 
 ## What each file is
 
@@ -51,6 +55,7 @@ r-metadata.json` | Marketplace package metadata; validates against `schemas/mino
 | `*_Examples.txt` | Sample inputs exercising the grammar |
 | `*_README.md` | Notes about the grammar (coverage, origin, quirks) |
 | `Tests/` | Grammar-specific test cases |
+| `Labyrinth.extension` | Optional Labyrinth (SAST) pattern-operator overlay; presence is also flagged as `"LabyrinthExtension": true` in `minotaur-metadata.json` (issue #184) |
 
 ## Validation
 

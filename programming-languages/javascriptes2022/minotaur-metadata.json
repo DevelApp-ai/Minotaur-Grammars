@@ -12,6 +12,7 @@
     "minotaur"
   ],
   "MainFile": "JavaScriptES2022.grammar",
+  "LabyrinthExtension": true,
   "Dependencies": [],
   "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
   "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",

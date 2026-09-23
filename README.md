@@ -31,6 +31,35 @@ marketplace `GrammarInfo` schema:
 - A grammar that validates against the schema and the OPA policies can be
   packaged with `GrammarPackageExporter` and published with zero manual edits.
 
+## Labyrinth rule patterns (`Labyrinth.extension`)
+
+Grammars that can serve as **target grammars for Labyrinth rules** (Minotaur's
+SAST rule engine) may ship an optional `Labyrinth.extension` overlay next to
+the `.grammar` file:
+
+```
+programming-languages/csharp10/
+  CSharp10.grammar
+  Labyrinth.extension   <- optional
+```
+
+The overlay adds the Labyrinth pattern operators (`$NAME` metavariable,
+`...` ellipsis) on top of the base grammar via StepParser overlay composition
+(Minotaur-Grammars issue #184; engine support in
+DevelApp-ai/ENFAStepLexer-StepParser#65, #66 and DevelApp-ai/Minotaur#88).
+It uses the same file format as the `extensions/*.extension` files, so one
+mechanism covers both.
+
+- **Optional**: a grammar without a `Labyrinth.extension` loads and works
+  unchanged; absence is not an error.
+- **Fixed name**: always `Labyrinth.extension`, so consumers can discover it
+  without a manifest change.
+- **Metadata**: grammars shipping the overlay set `"LabyrinthExtension": true`
+  in their `minotaur-metadata.json`, so tooling can filter Labyrinth-capable
+  grammars without hitting the filesystem.
+- Initial target grammars: csharp10, typescript, javascriptes2022, python311,
+  java17, go119, rust2021, cpp20 — others can follow incrementally.
+
 ## Validation
 
 ```bash
