@@ -12,7 +12,7 @@ TokenSplitter: Space
 <name_and_guard> ::= identifier 'when' <guard> ;
 <guard> ::= <expr> ;
 <params> ::= <param> (',' <param>)* ;
-<param> ::= identifier | '_' | identifier '\\' expr ;
+<param> ::= identifier | '_' | identifier '\' expr ;
 assignment ::= identifier '=' expr ;
 pipe_expr ::= expr (' | >' call)+ ;
 call ::= (module_ref '.')? identifier '(' args? ')' ( 'do' exprs 'end' )? ;
