@@ -19,7 +19,6 @@ TokenSplitter: Space
 <number> ::= /[0-9]+('.'[0-9]+)?/ ;
 
 # --- Coverage completion: remaining language constructs ---
-
 <atom_creation> ::= "(" "def" <identifier> "(" "atom" <expression> ")" ")" ;
 <atom_update> ::= "(" ( "swap!" | "reset!" | "compare-and-set!" ) <expression> <expression>* ")" ;
 <deref_expression> ::= ( "@" <form> | "(" "deref" <form> ")" ) ;
@@ -28,7 +27,6 @@ TokenSplitter: Space
 <ns_clause> ::= "(" "ns" <symbol> ns_options* ")" ;
 <var_quote> ::= "#'" <symbol> ;
 <syntax_quote> ::= "`" <form> ;
-
 <expression> ::= <literal> | <symbol> | <keyword> | <list> | <vector> | <map> | <set> ;
 <pair> ::= <expression> <expression> ;
 <identifier> ::= <symbol_text> ;
@@ -39,7 +37,6 @@ TokenSplitter: Space
 <symbol_text> ::= /<auto_symbol_text_0><auto_symbol_text_1>/ ;
 <number_text> ::= /<auto_number_text_0><auto_number_text_1>(\.<auto_number_text_2>)?/ ;
 <string_text> ::= /"[^"]*"/ ;
-
 <auto_char_0> ::= /[a-zA-Z]/ ;
 <auto_defrecord_0> ::= /[ "[" field_list "]/ ;
 <auto_defrecord_1> ::= /" ]/ ;
@@ -50,3 +47,7 @@ TokenSplitter: Space
 <auto_number_text_0> ::= /[+-]?/ ;
 <auto_number_text_1> ::= /[0-9]+/ ;
 <auto_number_text_2> ::= /[0-9]+/ ;
+
+/* Comments (issue #189) */
+<semicolon-comment> ::= /;[^\n]*/
+<comment> ::= <semicolon-comment>
