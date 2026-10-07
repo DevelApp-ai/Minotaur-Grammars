@@ -1,0 +1,6 @@
+Grammar: EscapeProbe
+FormatType: EBNF
+
+/* probe: mapping test for backslash handling */
+<probe-one> ::= \ <any_source_character>
+<probe-two> ::= \\ <any_source_character>
