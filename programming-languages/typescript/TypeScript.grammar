@@ -1,4 +1,5 @@
 Grammar: TypeScript
+Language version: TypeScript 4.1-5.0 features on ES2022 base (template literal types 4.1, infer 4.7, decorators 5.0).
 TokenSplitter: Space
 FormatType: EBNF
 
