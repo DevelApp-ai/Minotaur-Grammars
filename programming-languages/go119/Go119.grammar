@@ -148,7 +148,7 @@ FormatType: EBNF
 <operand> ::= <literal> | <identifier> | <qualified-identifier> | "(" <expression> ")"
            | <composite-literal> | <func-literal>
 <composite-literal> ::= <type-expression> <whitespace>? "{" <element-list>? "}"
-<element-list> ::= <element> ("," <whitespace>? <element>)*
+<element-list> ::= <element> ("," <element>)* ","?
 <element> ::= <expression> | <key> ":" <expression>
 <key> ::= <identifier> | <expression>
 <func-literal> ::= "func" <signature> <function-body>
@@ -156,7 +156,7 @@ FormatType: EBNF
 <int-literal> ::= /[0-9]+/ | /0[xX][0-9a-fA-F]+/
 <float-literal> ::= /([0-9]+\.[0-9]*|\.[0-9]+)([eE][+-]?[0-9]+)?/
 <string-literal> ::= /"[^"]*"/
-<rune-literal> ::= /'([^']|\\.)'/
+<rune-literal> ::= /'([^'\\]|\\.)'/
 <bool-literal> ::= "true" | "false"
 <nil-literal> ::= "nil"
 <identifier> ::= /[_a-zA-Z][_a-zA-Z0-9]*/
