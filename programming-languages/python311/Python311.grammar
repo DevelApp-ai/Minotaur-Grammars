@@ -16,7 +16,6 @@ Keywords: False, None, True, and, as, assert, async, await, break, class, contin
 <file_input> ::= <statements>? NEWLINE* ENDMARKER
 <interactive_input> ::= <statement_newline>
 <eval_input> ::= <testlist> NEWLINE* ENDMARKER
-
 <decorator> ::= @ <dotted_name> ( ( <arglist> ) )? NEWLINE
 <decorators> ::= <decorator>+
 <decorated> ::= <decorators> ( <classdef> | <funcdef> | <async_funcdef> )
@@ -31,7 +30,6 @@ Keywords: False, None, True, and, as, assert, async, await, break, class, contin
 <star_vargs> ::= * <vfpdef>? ( , <vfpdef> ( = <test> )? )* ( , <vkwargs> )?
 <vkwargs> ::= ** <vfpdef>
 <vfpdef> ::= NAME
-
 <stmt> ::= <comment> | <simple_stmt> | <compound_stmt>
 <simple_stmt> ::= <small_stmt> ( ; <small_stmt> )* ;? NEWLINE
 <small_stmt> ::= ( <expr_stmt> | <del_stmt> | <pass_stmt> | <flow_stmt> | <import_stmt> | <global_stmt> | <nonlocal_stmt> | <assert_stmt> | <type_stmt> )
@@ -64,7 +62,6 @@ Keywords: False, None, True, and, as, assert, async, await, break, class, contin
 <type_var> ::= NAME ( : <test> )?
 <type_var_tuple> ::= * NAME ( : <test> )?
 <param_spec> ::= ** NAME ( : <test> )?
-
 <compound_stmt> ::= <if_stmt> | <while_stmt> | <for_stmt> | <try_stmt> | <with_stmt> | <funcdef> | <classdef> | <decorated> | <async_stmt> | <match_stmt>
 <async_stmt> ::= async ( <funcdef> | <with_stmt> | <for_stmt> )
 <if_stmt> ::= if <test> : <suite> ( elif <test> : <suite> )* ( else : <suite> )?
@@ -118,7 +115,6 @@ Keywords: False, None, True, and, as, assert, async, await, break, class, contin
 <statements> ::= <statement>+
 <statement> ::= <compound_stmt> | <simple_stmt>
 <statement_newline> ::= <compound_stmt> NEWLINE | <simple_stmt> | NEWLINE
-
 <test> ::= <or_test> ( if <or_test> else <test> )? | <lambdef>
 <test_nocond> ::= <or_test> | <lambdef_nocond>
 <lambdef> ::= lambda <varargslist>? : <test>
@@ -203,7 +199,7 @@ Keywords: False, None, True, and, as, assert, async, await, break, class, contin
 <longstringitem> ::= <longstringchar> | <stringescapeseq>
 <shortstringchar> ::= <any_source_character_except_backslash_or_newline_or_quote>
 <longstringchar> ::= <any_source_character_except_backslash>
-<stringescapeseq> ::= \\ <any_source_character>
+<stringescapeseq> ::= \ <any_source_character>
 <bytesliteral> ::= <bytesprefix> ( <shortbytes> | <longbytes> )
 <bytesprefix> ::= b | B | br | Br | bR | BR | rb | rB | Rb | RB
 <shortbytes> ::= ' <shortbytesitem>* ' | " <shortbytesitem>* "
@@ -212,7 +208,7 @@ Keywords: False, None, True, and, as, assert, async, await, break, class, contin
 <longbytesitem> ::= <longbyteschar> | <bytesescapeseq>
 <shortbyteschar> ::= <any_ascii_character_except_backslash_or_newline_or_quote>
 <longbyteschar> ::= <any_ascii_character_except_backslash>
-<bytesescapeseq> ::= \\ <any_ascii_character>
+<bytesescapeseq> ::= \ <any_ascii_character>
 <integer> ::= <decinteger> | <bininteger> | <octinteger> | <hexinteger>
 <decinteger> ::= <nonzerodigit> ( _ ? <digit> )* | 0+ ( _ ? 0 )*
 <bininteger> ::= 0 ( b | B ) ( _ ? <bindigit> )+
