@@ -1,10 +1,11 @@
 Grammar: Dart
+Language version: Dart 3.0+ (records, patterns, sealed classes).
 FormatType: EBNF
 TokenSplitter: Space
 
 <library> ::= <import_stmt>* <decl>* ;
 <import_stmt> ::= 'import' <text> ('as' <identifier>)? ';' ;
-<decl> ::= <class_decl> | <func_decl> | <var_decl> | <const_decl> ;
+<decl> ::= <comment> | <class_decl> | <func_decl> | <var_decl> | <const_decl> ;
 <class_decl> ::= ('abstract' 'class' | 'class') <identifier> ('<' <type_params>? '>')? ('extends' <type>)? ('implements' <type_list>)? ('with' <type_list>)? '{' <member>* '}' ;
 <type_params> ::= <identifier> (',' <identifier>)* ;
 <func_decl> ::= <type>? <identifier> '(' <params>? ')' ('async')? ('{' <stmt>* '}' | '=>' <expr> ';') ;
@@ -25,7 +26,7 @@ TokenSplitter: Space
 <call> ::= <expr> '(' <args>? ')' ;
 <args> ::= <expr> (',' <expr>)* ;
 <type> ::= <identifier> ('<' <types> '>')? <type_null> ;
-<type_null> ::= /'?'?/ ;
+<type_null> ::= /'?\'?/ ;
 <types> ::= <type> (',' <type>)* ;
 <type_list> ::= <type> (',' <type>)* ;
 <literal> ::= <number> | <text> | <boolean> | 'null' | <list> | <map> ;
@@ -33,16 +34,14 @@ TokenSplitter: Space
 <map> ::= '{' <map_entry> (',' <map_entry>)* '}' ;
 <map_entry> ::= <expr> ':' <expr> ;
 <boolean> ::= 'true' | 'false' ;
-<binop> ::= '+' | '-' | '*' | '/' | '==' | '<' | '>' | '&&' | ' |  | ' | '??' ;
+<binop> ::= '+' | '-' | '*' | '/' | '==' | '<' | '>' | '&&' | '||' | '??' ;
 <identifier> ::= /[a-zA-Z_][a-zA-Z0-9_]*/ ;
 <text> ::= /'"'[^"]*'"'/ ;
 <number> ::= /[0-9]+('.'[0-9]+)?/ ;
 
-# --- Coverage completion: remaining languag
-# e constructs ---
-
+# --- Coverage completion: remaining language constructs ---
 <extension_declaration> ::= "extension" <auto_extension_declaration_0> <identifier>? <auto_extension_declaration_1> "{" class_member* "}" ;
-<record_type> ::= /"("[record_field(","record_field)*]")"/ ;
+<record_type> ::= /"("[record_field(\",\"record_field)*]")"/ ;
 <record_literal> ::= "(" expression ( "," expression )+ <auto_record_literal_0> ")" ;
 <pattern_switch> ::= "switch" "(" expression ")" "{" pattern_case* <auto_pattern_switch_0> "}" ;
 <sealed_class> ::= "sealed" class_declaration ;
@@ -50,9 +49,13 @@ TokenSplitter: Space
 <late_declaration> ::= "late" <auto_late_declaration_0> variable_declaration ;
 <part_directive> ::= "part" string_literal ";" ;
 <part_of_directive> ::= "part" "of" ( string_literal | dotted_identifier ) ";" ;
-
 <auto_extension_declaration_0> ::= /[ "on" type ]?/ ;
 <auto_extension_declaration_1> ::= /[ "on" type ]/ ;
 <auto_record_literal_0> ::= /[ ":" named_field ]/ ;
 <auto_pattern_switch_0> ::= /[ default_case ]/ ;
 <auto_late_declaration_0> ::= /[ "final" ]/ ;
+
+/* Comments (issue #189) */
+<single-line-comment> ::= /\/\/[^\n]*/
+<multi-line-comment> ::= /\/\*([^*]|\*+[^*/])*\*+\//
+<comment> ::= <single-line-comment> | <multi-line-comment>

@@ -37,7 +37,6 @@ TokenSplitter: Space
 <number> ::= /[0-9]+/ ;
 
 # --- Coverage completion: remaining language constructs ---
-
 <multi_way_if> ::= "if" " | " guard expression "->" expression ( " | " guard expression "->" expression )* ;
 <lambda_case> ::= "\\" "case" alt ( ";" alt )* ;
 <record_wildcards> ::= constructor_name "{" ".." "}" ;
@@ -45,5 +44,9 @@ TokenSplitter: Space
 <bang_pattern> ::= "!" <pattern> ;
 <template_splice> ::= "$" "(" expression ")" | "$" <identifier> ;
 <quasi_quote> ::= "[" quasi_quoter " | " quasi_body " | " "]" ;
-
 <auto_char_0> ::= /[^\']*/ ;
+
+/* Comments (issue #189) */
+<haskell-line-comment> ::= /--[^\n]*/
+<haskell-block-comment> ::= /\{-([^-]|-[^}])*-\}/
+<comment> ::= <haskell-line-comment> | <haskell-block-comment>

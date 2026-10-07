@@ -3,7 +3,7 @@ FormatType: EBNF
 TokenSplitter: Space
 
 <program> ::= <stmt>* ;
-<stmt> ::= <assignment> | <if_stmt> | <def> | <class_def> | <module_def> | <expr> | <while_stmt> ;
+<stmt> ::= <comment> | <assignment> | <if_stmt> | <def> | <class_def> | <module_def> | <expr> | <while_stmt> ;
 <assignment> ::= <identifier> '=' <expr> ;
 <if_stmt> ::= 'if' <expr> <stmt>* ('elsif' <expr> <stmt>*)* ('else' <stmt>*)? 'end' ;
 <while_stmt> ::= 'while' <expr> <stmt>* 'end' ;
@@ -36,7 +36,6 @@ TokenSplitter: Space
 <number> ::= /[0-9]+/ ;
 
 # --- Coverage completion: remaining language constructs ---
-
 <stabby_lambda> ::= "->" <auto_stabby_lambda_0> block_body ;
 <refinement> ::= "refine" class_name ( "do" statement* "end" | "{" statement* "}" ) ;
 <alias_statement> ::= ( "alias" | "alias_method" ) <method_name> <method_name> ;
@@ -45,8 +44,10 @@ TokenSplitter: Space
 <percent_string> ::= "%" ( "q" | "Q" | "r" | "s" ) open_delim string_content close_delim ;
 <safe_navigation> ::= primary "&." <method_name> call_arguments ;
 <defined_check> ::= "defined?" ( "(" expression ")" | expression ) ;
-
 <auto_stabby_lambda_0> ::= /[ "(" param_list ")" ]/ ;
 <auto_heredoc_0> ::= /[ "~" ]/ ;
 <auto_percent_array_0> ::= /[ string_list ]/ ;
 
+/* Comments (issue #189) */
+<hash-comment> ::= /#[^\n]*/
+<comment> ::= <hash-comment>

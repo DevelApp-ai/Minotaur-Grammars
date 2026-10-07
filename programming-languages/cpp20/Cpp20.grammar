@@ -4,7 +4,7 @@ FormatType: EBNF
 
 /*
  * C++20 Grammar Specification (ISO/IEC 14882:2020)
- * 
+ *
  * This grammar is designed for parsing the C++20 programming language and is suitable for a grammar marketplace.
  * It covers the full language specification, including modern features like concepts, modules, coroutines, and ranges.
  * This grammar is based on the official ISO standard and is designed for use with modern parser generators.
@@ -429,4 +429,9 @@ Keywords: alignas, alignof, and, and_eq, asm, auto, bitand, bitor, bool, break, 
 
 <new-line> ::= the new-line character
 
-
+/* Comments (issue #189) */
+<single-line-comment> ::= /\/\/[^\n]*/
+<multi-line-comment> ::= /\/\*([^*]|\*+[^*/])*\*+\//
+<comment> ::= <single-line-comment> | <multi-line-comment>
+<declaration> ::= <function-definition> | <block-declaration> | <template-declaration> | <explicit-instantiation> | <explicit-specialization> | <linkage-specification> | <namespace-definition> | <empty-declaration> | <attribute-declaration> | <module-import-declaration>
+<declaration-seq> ::= (<declaration> | <comment>)+

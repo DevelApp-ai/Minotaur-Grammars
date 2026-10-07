@@ -1,0 +1,27 @@
+{
+  "Id": "develapp.java8",
+  "Name": "Java8",
+  "Vendor": "DevelApp",
+  "DisplayName": "Java 8",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "Java SE 8 grammar (JLS 8) for the Minotaur parser platform. Complete syntactic coverage of Java SE 8 - a superset of Java 7 and earlier - including lambda expressions, method references, default and static interface methods, intersection type casts, and the diamond operator. Replaces the unversioned legacy Java.grammar, which only covered Java through 7.",
+  "License": "MIT",
+  "Tags": [
+    "programming-language",
+    "minotaur",
+    "java",
+    "java8"
+  ],
+  "MainFile": "Java8.grammar",
+  "LabyrinthExtension": false,
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}

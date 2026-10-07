@@ -4,7 +4,7 @@ TokenSplitter: Space
 
 <script> ::= <open_tag> <stmt>* ;
 <open_tag> ::= '<?php' ;
-<stmt> ::= <assignment> | <func_def> | <class_def> | <if_stmt> | <while_stmt> | <foreach_stmt> | <expr_stmt> | <return_stmt> ;
+<stmt> ::= <comment> | <assignment> | <func_def> | <class_def> | <if_stmt> | <while_stmt> | <foreach_stmt> | <expr_stmt> | <return_stmt> ;
 <assignment> ::= <variable> '=' <expr> ';' ;
 <expr_stmt> ::= <expr> ';' ;
 <return_stmt> ::= 'return' <expr>? ';' ;
@@ -28,14 +28,13 @@ TokenSplitter: Space
 <literal> ::= <number> | <text> | <boolean> | 'null' | <array> ;
 <array> ::= 'array' '(' <args>? ')' | '[' <args>? ']' ;
 <boolean> ::= 'true' | 'false' | 'TRUE' | 'FALSE' ;
-<binop> ::= '+' | '-' | '*' | '/' | '.' | '==' | '===' | '<' | '>' | '&&' | ' |  | ' ;
+<binop> ::= '+' | '-' | '*' | '/' | '.' | '==' | '===' | '<' | '>' | '&&' | '||' ;
 <variable> ::= '$' <identifier> ;
 <identifier> ::= /[a-zA-Z_][a-zA-Z0-9_]*/ ;
 <text> ::= '"' <auto_text_0> '"' | '\'' <auto_text_1> '\'' ;
 <number> ::= /[0-9]+/ ;
 
 # --- Coverage completion: remaining language constructs ---
-
 <enum_declaration> ::= attribute_list? doc_comment? "enum" <identifier> <auto_enum_declaration_0> "{" <enum_case>* class_member* "}" ;
 <enum_case> ::= "case" <identifier> <auto_enum_case_0> ";" ;
 <readonly_class> ::= "readonly" class_declaration ;
@@ -45,7 +44,6 @@ TokenSplitter: Space
 <null_coalesce_assign> ::= lvalue "??=" expression ";" ;
 <first_class_callable> ::= function_name "(" "..." ")" ;
 <match_expression> ::= "match" "(" expression ")" "{" match_arm* <auto_match_expression_0> "}" ";"? ;
-
 <auto_text_0> ::= /[^"]*/ ;
 <auto_text_1> ::= /[^\']*/ ;
 <auto_enum_declaration_0> ::= /[ ":" type ]/ ;
@@ -53,3 +51,8 @@ TokenSplitter: Space
 <auto_attribute_0> ::= /[ "(" argument_list ")" ]/ ;
 <auto_match_expression_0> ::= /[ default_arm ]/ ;
 
+/* Comments (issue #189) */
+<single-line-comment> ::= /\/\/[^\n]*/
+<hash-comment> ::= /#[^\n]*/
+<multi-line-comment> ::= /\/\*([^*]|\*+[^*/])*\*+\//
+<comment> ::= <single-line-comment> | <hash-comment> | <multi-line-comment>

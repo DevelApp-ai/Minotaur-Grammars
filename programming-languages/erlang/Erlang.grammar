@@ -36,7 +36,6 @@ TokenSplitter: Space
 <number> ::= /[0-9]+/ ;
 
 # --- Coverage completion: remaining language constructs ---
-
 <bitstring> ::= "<<" <auto_bitstring_0> ">>" ;
 <bit_segment> ::= expression <auto_bit_segment_0> <auto_bit_segment_1> ;
 <map_pattern> ::= "#{" <auto_map_pattern_0> "}" ;
@@ -46,9 +45,12 @@ TokenSplitter: Space
 <ifdef_directive> ::= "-ifdef" "(" identifier ")" "." ;
 <define_directive> ::= "-define" "(" identifier <auto_define_directive_0> "," tokens ")" "." ;
 <catch_expression> ::= "catch" expression ;
-
 <auto_bitstring_0> ::= /[ bit_segment ( "," bit_segment )* ]/ ;
 <auto_bit_segment_0> ::= /[ ":" bit_size ]/ ;
 <auto_bit_segment_1> ::= /[ "\/" bit_type_list ]/ ;
 <auto_map_pattern_0> ::= /[ map_assoc ( "," map_assoc )* ]/ ;
 <auto_define_directive_0> ::= /[ "(" params ")" ]/ ;
+
+/* Comments (issue #189) */
+<erlang-comment> ::= /%[^\n]*/
+<comment> ::= <erlang-comment>

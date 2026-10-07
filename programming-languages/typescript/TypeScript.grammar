@@ -1,14 +1,19 @@
 Grammar: TypeScript
+Language version: TypeScript 4.1-5.0 features on ES2022 base (template literal types 4.1, infer 4.7, decorators 5.0).
 TokenSplitter: Space
 FormatType: EBNF
 
 /*
  * TypeScript Grammar Definition (ES2022 + type system)
  * Authored from scratch for Minotaur (issue #8); based on the
- * TypeScript Language Specification (high-level structure).
+ * TypeScript Language Specification. Hardened for code-analysis
+ * consumers (issue #189): comments, async, accessors, decorators,
+ * full heritage clauses with type arguments, declare/export forms,
+ * abstract members, string escapes, template literal types.
  */
 
 <ts-program> ::= <statement-list>?
+
 <statement-list> ::= <statement> <statement-list>?
 
 <statement> ::= <import-declaration>
@@ -32,67 +37,106 @@ FormatType: EBNF
              | <continue-statement>
              | <expression-statement>
              | <block>
+             | <comment>
              | <semicolon>
 
-<import-declaration> ::= "import" <whitespace> <import-clause> <whitespace> "from" <whitespace> <string-literal> <semicolon>?
+/* Comments (issue #189: required for documentation extraction) */
+<comment> ::= <single-line-comment> | <multi-line-comment>
+<single-line-comment> ::= /\/\/[^\n]*/
+<multi-line-comment> ::= /\/\*([^*]|\*+[^*/])*\*+\//
+
+/* Import Declarations */
+<import-declaration> ::= "import" <whitespace> <import-clause> <whitespace> "from" <whitespace> <module-specifier> <semicolon>?
+                       | "import" <whitespace> <module-specifier> <semicolon>?
+                       | "import" <whitespace> <identifier> <whitespace> "=" <whitespace> <module-specifier> <semicolon>?
+                       | "export" <whitespace> "import" <import-clause> <whitespace> "from" <whitespace> <module-specifier> <semicolon>?
 <import-clause> ::= <import-default> <import-named>
                   | <import-named>
                   | <import-default>
-                  | "*"
+                  | "*" <whitespace> "as" <whitespace> <identifier>
 <import-default> ::= <identifier>
 <import-named> ::= "{" <import-spec-list> "}" | "*" <whitespace> "as" <whitespace> <identifier>
 <import-spec-list> ::= <import-spec> ("," <import-spec>)* ","?
-<import-spec> ::= <identifier> ("as" <whitespace> <identifier>)?
+<import-spec> ::= <type-import-spec> | <identifier> ("as" <whitespace> <identifier>)?
+<type-import-spec> ::= "type" <whitespace> <identifier> ("as" <whitespace> <identifier>)?
+<module-specifier> ::= <string-literal>
 
+/* Export Declarations (issue #189: export = / export default forms) */
 <export-declaration> ::= "export" <whitespace> <statement>
                        | "export" <whitespace> "default" <whitespace> <statement>
-                       | "export" <whitespace> <import-named> <whitespace> "from" <whitespace> <string-literal> <semicolon>?
+                       | "export" <whitespace> <import-named> <whitespace> "from" <whitespace> <module-specifier> <semicolon>?
+                       | "export" <whitespace> "*" <whitespace> "from" <whitespace> <module-specifier> <semicolon>?
+                       | "export" <whitespace> <identifier> <whitespace> "=" <whitespace> <identifier> <semicolon>?
+                       | "export" <whitespace> "default" <whitespace> <arrow-function>
+                       | "export" <whitespace> "default" <whitespace> <function-expression>
 
+/* Type Alias Declarations */
 <type-alias-declaration> ::= "type" <whitespace> <identifier> <type-params>? <whitespace> "=" <whitespace> <type-expression> <semicolon>?
 
-<interface-declaration> ::= "interface" <whitespace> <identifier> <type-params>? <heritage-clause>? <whitespace>? "{" <interface-body>? "}"
+/* Interface Declarations */
+<interface-declaration> ::= "interface" <whitespace> <identifier> <type-params>? <heritage-clause-list>? <whitespace>? "{" <interface-body>? "}"
+<heritage-clause-list> ::= <extends-clause> | <extends-clause> <whitespace> <implements-clause> | <implements-clause>
+<extends-clause> ::= <whitespace> "extends" <whitespace> <type-list>
+<implements-clause> ::= <whitespace> "implements" <whitespace> <type-list>
 <interface-body> ::= <interface-member> (<newline>? <interface-member>)*
-<interface-member> ::= <property-signature> | <method-signature> | <index-signature>
-<property-signature> ::= <accessibility>? <readonly>? <identifier> <optional>? ":" <whitespace> <type-expression> <semicolon>?
+<interface-member> ::= <comment> | <property-signature> | <method-signature> | <index-signature> | <call-signature>
+<property-signature> ::= <accessibility>? <readonly>? <identifier> <optional>? ("!" | "?")? ":" <whitespace> <type-expression> <semicolon>?
 <method-signature> ::= <identifier> <optional>? <type-params>? "(" <parameter-list>? ")" (":" <whitespace> <type-expression>)? <semicolon>?
 <index-signature> ::= "[" <identifier> ":" <whitespace> <type-expression> "]" ":" <whitespace> <type-expression>
+<call-signature> ::= <type-params>? "(" <parameter-list>? ")" (":" <whitespace> <type-expression>)? <semicolon>?
 <optional> ::= "?"
 
+/* Enum Declarations */
 <enum-declaration> ::= ("const" <whitespace>)? "enum" <whitespace> <identifier> <whitespace>? "{" <enum-body>? "}"
 <enum-body> ::= <enum-member> ("," <enum-member>)* ","?
 <enum-member> ::= <identifier> ("=" <whitespace> <expression>)?
 
+/* Namespace Declarations */
 <namespace-declaration> ::= "namespace" <whitespace> <dotted-name> <whitespace>? "{" <statement-list>? "}"
 
-<class-declaration> ::= "abstract"? <whitespace>? "class" <whitespace> <identifier> <type-params>? <heritage-clause>? <whitespace>? "{" <class-body>? "}"
-<heritage-clause> ::= <whitespace> "extends" <whitespace> <type-expression> | <whitespace> "implements" <whitespace> <type-list>
+/* Class Declarations (issue #189: decorators, abstract members, accessors, async) */
+<class-declaration> ::= <decorator-list>? ("abstract")? <whitespace>? "class" <whitespace> <identifier> <type-params>? <heritage-clause-list>? <whitespace>? "{" <class-body>? "}"
+<decorator-list> ::= <decorator> (<whitespace> <decorator>)* <whitespace>
+<decorator> ::= "@" <dotted-name> <decorator-args>?
+<decorator-args> ::= "(" <argument-list>? ")"
+<heritage-clause> ::= <extends-clause> | <implements-clause>
 <type-list> ::= <type-expression> ("," <whitespace>? <type-expression>)*
 <class-body> ::= <class-member> (<newline>? <class-member>)*
-<class-member> ::= <accessibility>? <readonly>? ("static" <whitespace>)? <class-member-kind>
+<class-member> ::= <comment>
+                | <accessibility>? <readonly>? ("static" <whitespace>)? ("abstract" <whitespace>)? <class-member-kind>
+                | <decorator-list> <class-member>
 <class-member-kind> ::= <property-declaration>
                      | <constructor-declaration>
                      | <method-declaration>
+                     | <getter-declaration>
+                     | <setter-declaration>
                      | <index-member-declaration>
 <property-declaration> ::= <identifier> <optional>? "!"? (":" <whitespace> <type-expression>)? ("=" <whitespace> <expression>)? <semicolon>?
 <constructor-declaration> ::= "constructor" <whitespace>? "(" <parameter-list>? ")" <whitespace>? <class-body>?
-<method-declaration> ::= <identifier> <optional>? <type-params>? "(" <parameter-list>? ")" (":" <whitespace> <type-expression>)? <whitespace>? <class-body>?
+<method-declaration> ::= ("async" <whitespace>)? <identifier> <optional>? <type-params>? "(" <parameter-list>? ")" (":" <whitespace> <type-expression>)? <whitespace>? <class-body>?
+<getter-declaration> ::= ("async" <whitespace>)? "get" <whitespace> <identifier> "(" ")" (":" <whitespace> <type-expression>)? <whitespace>? <class-body>?
+<setter-declaration> ::= ("async" <whitespace>)? "set" <whitespace> <identifier> "(" <parameter> ")" <whitespace>? <class-body>?
 <index-member-declaration> ::= <index-signature>
 
-<function-declaration> ::= "function" <whitespace> <identifier> <type-params>? "(" <parameter-list>? ")" (":" <whitespace> <type-expression>)? <whitespace>? <class-body>?
+/* Function Declarations (issue #189: async, overload signature bodies optional) */
+<function-declaration> ::= ("async" <whitespace>)? "function" <whitespace> <identifier> <type-params>? "(" <parameter-list>? ")" (":" <whitespace> <type-expression>)? <whitespace>? <class-body>?
 <parameter-list> ::= <parameter> ("," <whitespace>? <parameter>)*
 <parameter> ::= <accessibility>? <readonly>? <rest>? <identifier> <optional>? (":" <whitespace> <type-expression>)? ("=" <whitespace> <expression>)?
 <rest> ::= "..."
+
+/* Accessibility Modifiers */
 <accessibility> ::= "public" | "private" | "protected"
 <readonly> ::= "readonly"
 
+/* Variable Statements */
 <variable-statement> ::= ("declare" <whitespace>)? ("const" | "let" | "var") <whitespace> <variable-declaration-list> <semicolon>?
 <variable-declaration-list> ::= <variable-declaration> ("," <whitespace>? <variable-declaration>)*
 <variable-declaration> ::= <identifier> <optional>? "!"? (":" <whitespace> <type-expression>)? ("=" <whitespace> <expression>)?
 
+/* Type Parameters and Arguments (issue #189: generic type args in references and heritage) */
 <type-params> ::= "<" <type-param-list> ">"
 <type-param-list> ::= <type-param> ("," <whitespace>? <type-param>)*
 <type-param> ::= <identifier> ("extends" <whitespace> <type-expression>)? ("=" <whitespace> <type-expression>)?
-
 <type-expression> ::= <union-type>
 <union-type> ::= <intersection-type> (<whitespace>? "|" <whitespace>? <intersection-type>)*
 <intersection-type> ::= <primary-type> (<whitespace>? "&" <whitespace>? <primary-type>)*
@@ -102,10 +146,13 @@ FormatType: EBNF
                 | <tuple-type>
                 | <object-type>
                 | <function-type>
+                | <constructor-type>
                 | <literal-type>
+                | <template-literal-type>
                 | "keyof" <whitespace> <type-expression>
                 | "typeof" <whitespace> <identifier>
                 | "readonly" <whitespace> <type-expression>
+                | "infer" <whitespace> <identifier>
                 | "(" <type-expression> ")"
 <type-name> ::= "any" | "unknown" | "never" | "void" | "undefined" | "null" | "boolean" | "number" | "string" | "bigint" | "symbol" | "object"
 <type-reference> ::= <dotted-name> <type-args>?
@@ -115,10 +162,14 @@ FormatType: EBNF
 <tuple-type> ::= "[" <type-expression> ("," <whitespace>? <type-expression>)* "]"
 <object-type> ::= "{" <object-type-body>? "}"
 <object-type-body> ::= <type-member> (<newline>? ";"? <type-member>)*
-<type-member> ::= <property-signature> | <method-signature> | <index-signature>
+<type-member> ::= <property-signature> | <method-signature> | <index-signature> | <call-signature>
 <function-type> ::= <type-params>? "(" <parameter-list>? ")" <whitespace>? "=>" <whitespace> <type-expression>
+<constructor-type> ::= "abstract"? "new" <whitespace> <type-params>? "(" <parameter-list>? ")" <whitespace>? "=>" <whitespace> <type-expression>
 <literal-type> ::= <string-literal> | <int-literal> | <bool-literal>
+<template-literal-type> ::= "`" <template-type-parts> "`"
+<template-type-parts> ::= (<template-char>+ | "${" <type-expression> "}")*
 
+/* Expressions */
 <expression> ::= <assignment-expression>
 <assignment-expression> ::= <conditional-expression>
                           | <left-hand-side> <whitespace>? <assignment-operator> <whitespace>? <assignment-expression>
@@ -126,7 +177,7 @@ FormatType: EBNF
 <conditional-expression> ::= <binary-expression> <whitespace>? "?" <whitespace>? <assignment-expression> <whitespace>? ":" <whitespace>? <assignment-expression>
 <binary-expression> ::= <unary-expression> (<whitespace>? <binary-operator> <whitespace>? <unary-expression>)*
 <binary-operator> ::= "||" | "&&" | "??" | "==" | "!=" | "===" | "!==" | "<" | "<=" | ">" | ">=" | "instanceof" | "in" | "+" | "-" | "*" | "/" | "%" | "**" | "|" | "^" | "&" | "<<" | ">>" | ">>>"
-<unary-expression> ::= ("!" | "~" | "+" | "-" | "typeof" <whitespace> | "void" <whitespace> | "await" <whitespace>)? <unary-expression>
+<unary-expression> ::= ("!" | "~" | "+" | "-" | "typeof" <whitespace> | "void" <whitespace> | "await" <whitespace> | "delete" <whitespace>)? <unary-expression>
                     | "++" <left-hand-side>
                     | "--" <left-hand-side>
                     | <left-hand-side> "++"
@@ -136,9 +187,10 @@ FormatType: EBNF
 <call-expression> ::= <member-expression> <type-args>? "(" <argument-list>? ")"
 <member-expression> ::= <primary-expression>
                       | <member-expression> "." <identifier>
+                      | <member-expression> <template-literal>
                       | <member-expression> "[" <expression> "]"
                       | <member-expression> "!"
-                      | <member-expression> <template-literal>
+                      | <member-expression> <type-args>
 <primary-expression> ::= <identifier> | "this" | "super" | <literal> | <array-literal> | <object-literal> | <paren-expression>
                       | <arrow-function> | <function-expression> | <class-declaration> | <template-literal> | "await" <whitespace> <unary-expression>
 <argument-list> ::= <assignment-expression> ("," <whitespace>? <assignment-expression>)*
@@ -151,11 +203,12 @@ FormatType: EBNF
                        | <spread-property>
 <spread-property> ::= "..." <assignment-expression>
 <paren-expression> ::= "(" <expression> ")"
-<arrow-function> ::= <arrow-params> <whitespace>? "=>" <whitespace>? <arrow-body>
+<arrow-function> ::= ("async" <whitespace>)? <arrow-params> <whitespace>? "=>" <whitespace>? <arrow-body>
 <arrow-params> ::= <identifier> | "(" <parameter-list>? ")"
 <arrow-body> ::= <class-body> | <assignment-expression>
-<function-expression> ::= "function" <identifier>? "(" <parameter-list>? ")" (":" <whitespace> <type-expression>)? <whitespace>? <class-body>?
+<function-expression> ::= ("async" <whitespace>)? "function" <identifier>? "(" <parameter-list>? ")" (":" <whitespace> <type-expression>)? <whitespace>? <class-body>?
 
+/* Statements */
 <if-statement> ::= "if" <whitespace>? "(" <expression> ")" <whitespace>? <statement> <else-branch>?
 <else-branch> ::= <whitespace>? "else" <whitespace>? <statement>
 <while-statement> ::= "while" <whitespace>? "(" <expression> ")" <whitespace>? <statement>
@@ -179,16 +232,16 @@ FormatType: EBNF
 <block> ::= "{" <statement-list>? "}"
 <semicolon> ::= ";"
 
+/* Literals (issue #189: escape sequences in strings, template literal types) */
 <template-literal> ::= "`" <template-parts> "`"
+<template-char> ::= /[^`$\\]/
 <template-parts> ::= (<template-char>+ | "${" <expression> "}")*
-
 <literal> ::= <string-literal> | <int-literal> | <float-literal> | <bool-literal> | "null" | "undefined" | <regex-literal>
-<string-literal> ::= /"[^"\\]*"/ | /'[^'\\]*'/
+<string-literal> ::= /"(\\.|[^"\\])*"/ | /'(\\.|[^'\\])*'/
 <int-literal> ::= /[0-9]+/
 <float-literal> ::= /[0-9]+\.[0-9]+/
 <bool-literal> ::= "true" | "false"
 <regex-literal> ::= /\/([^\/\\]|\\.)+\/[a-z]*/
-
 <identifier> ::= /[_$a-zA-Z][_$a-zA-Z0-9]*/
 <dotted-name> ::= <identifier> ("." <identifier>)*
 <whitespace> ::= /[ \t]+/
