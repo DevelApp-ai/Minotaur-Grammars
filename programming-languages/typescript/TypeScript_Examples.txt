@@ -1,0 +1,61 @@
+// TypeScript examples exercising the hardened grammar (issue #189).
+// Covers: comments, async, accessors, decorators, generic heritage,
+// declare/export forms, abstract members, string escapes, template types.
+
+/* Block comment */
+import { type Foo, Bar as Baz } from "./foo";
+import * as ns from "pkg";
+import config = require("./config");
+export { helper } from "./helpers";
+export * from "./re-exported";
+
+/** Decorated abstract class with generic heritage */
+@injectable()
+export abstract class BaseService<T extends object, R = void> extends Repository<T> implements Identifiable, Loggable {
+  private readonly id: string = "base";
+  protected cache?: Map<string, T>;
+  static instances: number = 0;
+  abstract name: string;
+
+  constructor(private options: Options, ...rest: string[]) {
+    super();
+  }
+
+  get size(): number { return this.cache?.size ?? 0; }
+  set size(v: number) { this.count = v; }
+
+  async fetch(key: string): Promise<R | undefined> {
+    const value = await this.cache?.get(key);
+    return value as R | undefined;
+  }
+
+  protected abstract validate(input: T): input is T & { ok: true };
+}
+
+export interface Shape {
+  kind: "circle" | "square";
+  readonly area: number;
+  scale?(factor: number): void;
+  [key: string]: unknown;
+}
+
+export type Predicate<T> = (value: T) => value is T & { valid: true };
+export type Id = `user-${number}`;
+export declare const VERSION: string;
+export = BaseService;
+
+const handler = async (req: Request): Promise<Response> => {
+  const path: `/${string}` = req.url;
+  return new Response(`served ${path}`, { status: 200 });
+};
+
+export default handler;
+
+enum Color { Red, Green = 2, Blue }
+const enum Dir { Up, Down }
+
+namespace Util {
+  export function clamp(x: number, lo: number, hi: number): number {
+    return x < lo ? lo : x > hi ? hi : x; // ternary chain
+  }
+}
