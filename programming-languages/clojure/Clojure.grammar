@@ -1,4 +1,5 @@
 Grammar: Clojure
+Language version: Clojure 1.2+ (defrecord/deftype; atoms since 1.0).
 FormatType: EBNF
 TokenSplitter: Space
 
