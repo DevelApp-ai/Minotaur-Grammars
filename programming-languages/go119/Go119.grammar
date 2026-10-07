@@ -155,7 +155,7 @@ FormatType: EBNF
 <literal> ::= <int-literal> | <float-literal> | <string-literal> | <rune-literal> | <bool-literal> | <nil-literal>
 <int-literal> ::= /[0-9]+/ | /0[xX][0-9a-fA-F]+/
 <float-literal> ::= /([0-9]+\.[0-9]*|\.[0-9]+)([eE][+-]?[0-9]+)?/
-<string-literal> ::= /"[^"]*"/
+<string-literal> ::= /"[^"\\]*"/
 <rune-literal> ::= /'([^'\\]|\\.)'/
 <bool-literal> ::= "true" | "false"
 <nil-literal> ::= "nil"
