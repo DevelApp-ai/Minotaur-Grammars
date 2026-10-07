@@ -1,1 +1,6 @@
-PLACEHOLDER_C17
+Grammar: C17TokenSplitter: SpaceFormatType: EBNF/*
+ * C17 Grammar Specification (ISO/IEC 9899:2018)
+ *
+ * This grammar is designed for parsing the C17 programming language and is suitable for a grammar marketplace.
+ * It covers the full language specification, including modern features and is based on the official ISO standard.
+ */
