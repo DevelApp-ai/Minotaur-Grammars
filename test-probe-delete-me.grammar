@@ -1,1 +1,6 @@
-# placeholder: remove before merge (transport probe, intentionally empty)
+Grammar: TransportProbe
+TokenSplitter: Space
+FormatType: EBNF
+
+/* Temporary transport probe; remove before merge. */
+<probe> ::= "probe"
