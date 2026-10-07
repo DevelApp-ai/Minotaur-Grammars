@@ -1,4 +1,5 @@
 Grammar: C17
+Language version: C17 (ISO/IEC 9899:2018).
 TokenSplitter: Space
 FormatType: EBNF
 
