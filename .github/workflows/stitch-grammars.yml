@@ -1,0 +1,76 @@
+name: Stitch grammar parts
+
+# Stitches chunked grammar files (.grammar-parts/*.part-NNN) into their
+# target .grammar files and commits the result (see
+# docs/large-grammar-transport.md).
+#
+# Workflow notes:
+# - Runs on push to any branch and on PRs to main (stitch-only, no commit,
+#   so PR checks validate the stitched result).
+# - The GITHUB_TOKEN commit does NOT re-trigger workflows, so after the
+#   push-event stitch commit lands, the next API/PR commit re-runs the
+#   grammar-validation suite against the stitched files.
+
+on:
+  push:
+    paths:
+      - '.grammar-parts/**'
+  pull_request:
+    paths:
+      - '.grammar-parts/**'
+
+permissions:
+  contents: write
+
+jobs:
+  stitch:
+    name: Stitch chunked grammars
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Stitch parts into target files
+        run: |
+          set -euo pipefail
+          bash scripts/stitch-grammar-parts.sh
+
+      - name: Sanity-check stitched files
+        run: |
+          set -euo pipefail
+          # Same core invariants as the repository sanity checks
+          empty=$(find . -name '*.grammar' -type f -empty)
+          if [ -n "$empty" ]; then
+            echo "Empty grammar files after stitching:" >&2
+            echo "$empty" >&2
+            exit 1
+          fi
+          missing=""
+          while IFS= read -r f; do
+            if ! grep -qE '^\s*Grammar:\s*\S+' "$f"; then
+              missing="$missing$f"$'\n'
+            fi
+          done < <(find . -name '*.grammar' -type f)
+          if [ -n "$missing" ]; then
+            echo "Grammar files without a 'Grammar:' header after stitching:" >&2
+            printf '%s' "$missing" >&2
+            exit 1
+          fi
+
+      - name: Commit stitched files (push events only)
+        if: github.event_name == 'push'
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet && git status --porcelain | grep -q '^??'; then
+            echo "Stitch produced no changes; nothing to commit."
+            exit 0
+          fi
+          git add -A
+          git commit -m "chore: stitch chunked grammar files [skip ci]" || {
+            echo "Stitch produced no changes; nothing to commit."
+            exit 0
+          }
+          git push
