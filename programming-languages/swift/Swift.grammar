@@ -4,7 +4,7 @@ TokenSplitter: Space
 
 <program> ::= <import_stmt>* <decl>* ;
 <import_stmt> ::= 'import' <identifier> ;
-<decl> ::= <func_decl> | <class_decl> | <struct_decl> | <enum_decl> | <var_decl> | <let_decl> ;
+<decl> ::= <comment> | <func_decl> | <class_decl> | <struct_decl> | <enum_decl> | <var_decl> | <let_decl> ;
 <func_decl> ::= 'func' <identifier> '(' <params>? ')' ('->' <type>)? '{' <stmt>* '}' ;
 <params> ::= <param> (',' <param>)* ;
 <param> ::= (<identifier> ':')? <identifier> ':' <type> ('=' <expr>)? ;
@@ -32,13 +32,12 @@ TokenSplitter: Space
 <type_list> ::= <type> (',' <type>)* ;
 <literal> ::= <number> | <text> | <boolean> | 'nil' ;
 <boolean> ::= 'true' | 'false' ;
-<binop> ::= '+' | '-' | '*' | '/' | '==' | '<' | '>' | '&&' | ' |  | ' | '?.' | '??' ;
+<binop> ::= '+' | '-' | '*' | '/' | '==' | '<' | '>' | '&&' | '||' | '?.' | '??' ;
 <identifier> ::= /[a-zA-Z_][a-zA-Z0-9_]*/ ;
 <text> ::= /'"'[^"]*'"'/ ;
 <number> ::= /[0-9]+('.'[0-9]+)?/ ;
 
 # --- Coverage completion: remaining language constructs ---
-
 <actor_declaration> ::= attribute_list? access_modifier? "actor" <identifier> inheritance_clause? type_constraints? actor_body ;
 <async_modifier> ::= ( "async" | "async" "throws" | "reasync" | "rethrows" ) ;
 <await_expression> ::= ( "await" | "try" "await" | "await" "try" ) expression ;
@@ -48,5 +47,9 @@ TokenSplitter: Space
 <required_initializer> ::= "required" initializer_declaration ;
 <lazy_property> ::= "lazy" variable_declaration ;
 <inout_parameter> ::= parameter_name ":" "inout" type_annotation ;
-
 <auto_result_builder_annotation_0> ::= /[ "(" argument_list ")" ]/ ;
+
+/* Comments (issue #189) */
+<single-line-comment> ::= /\/\/[^\n]*/
+<multi-line-comment> ::= /\/\*([^*]|\*+[^*/])*\*+\//
+<comment> ::= <single-line-comment> | <multi-line-comment>
