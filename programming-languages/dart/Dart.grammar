@@ -1,4 +1,5 @@
 Grammar: Dart
+Language version: Dart 3.0+ (records, patterns, sealed classes).
 FormatType: EBNF
 TokenSplitter: Space
 
@@ -25,7 +26,7 @@ TokenSplitter: Space
 <call> ::= <expr> '(' <args>? ')' ;
 <args> ::= <expr> (',' <expr>)* ;
 <type> ::= <identifier> ('<' <types> '>')? <type_null> ;
-<type_null> ::= /'\?'?/ ;
+<type_null> ::= /'?\'?/ ;
 <types> ::= <type> (',' <type>)* ;
 <type_list> ::= <type> (',' <type>)* ;
 <literal> ::= <number> | <text> | <boolean> | 'null' | <list> | <map> ;
