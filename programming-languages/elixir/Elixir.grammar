@@ -12,7 +12,7 @@ TokenSplitter: Space
 <name_and_guard> ::= identifier 'when' <guard> ;
 <guard> ::= <expr> ;
 <params> ::= <param> (',' <param>)* ;
-<param> ::= identifier | '_' | identifier '\' expr ;
+<param> ::= identifier | '_' | identifier '\\' expr ;
 assignment ::= identifier '=' expr ;
 pipe_expr ::= expr (' | >' call)+ ;
 call ::= (module_ref '.')? identifier '(' args? ')' ( 'do' exprs 'end' )? ;
@@ -34,17 +34,18 @@ text ::= '"' [^"]* '"' ;
 <number> ::= /[0-9]+/ ;
 
 # --- Coverage completion: remaining language constructs ---
-
 <multi_clause_fn> ::= "fn" <fn_clause> ( ";" <fn_clause> )* "end" ;
 <fn_clause> ::= pattern <auto_fn_clause_0> "->" expression_list ;
 <bitstring_segment> ::= expression "::" bit_modifiers ;
 <binary_comprehension> ::= "for" "<<" comprehension_segments ">>" <auto_binary_comprehension_0> <auto_binary_comprehension_1> "," "do:" expression ;
 <sigil> ::= "~" sigil_char sigil_delimiter sigil_body sigil_delimiter <auto_sigil_0> ;
 <access_syntax> ::= expression "[" ( expression | atom_literal ) "]" ;
-
 <auto_param_0> ::= /[' args? ']/ ;
 <auto_fn_clause_0> ::= /[ guard ]/ ;
 <auto_binary_comprehension_0> ::= /[ comprehension_filters ]/ ;
 <auto_binary_comprehension_1> ::= /[ "into:" expression ]/ ;
 <auto_sigil_0> ::= /[ sigil_modifier_list ]/ ;
 
+/* Comments (issue #189) */
+<hash-comment> ::= /#[^\n]*/
+<comment> ::= <hash-comment>
