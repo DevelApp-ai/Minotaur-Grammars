@@ -10,10 +10,8 @@ SymbolTableSharing: hierarchical
 
 /* Program Structure */
 <js-program> ::= <statement-list>?
-
 <statement-list> ::= <statement> <statement-list>?
-
-<statement> ::= <block-statement>
+<statement> ::= <comment> | <block-statement>
               | <variable-statement>
               | <function-declaration>
               | <class-declaration>
@@ -43,17 +41,16 @@ SymbolTableSharing: hierarchical
 <initializer> ::= "=" <assignment-expression>
 
 /* Function Declarations */
-<function-declaration> ::= "function" <whitespace> @SYMBOL[function] <identifier> 
-                          "(" <parameter-list>? ")" <block-statement>
-
+<function-declaration> ::= "function" <whitespace> @SYMBOL[function] <identifier>
+                           "(" <parameter-list>? ")" <block-statement>
 <parameter-list> ::= <parameter> <parameter-tail>?
 <parameter-tail> ::= "," <parameter-list>
 <parameter> ::= @SYMBOL[parameter] <identifier> <default-parameter>?
 <default-parameter> ::= "=" <assignment-expression>
 
 /* Class Declarations */
-<class-declaration> ::= "class" <whitespace> @SYMBOL[class] <identifier> <class-heritage>? 
-                       "{" <class-body> "}"
+<class-declaration> ::= "class" <whitespace> @SYMBOL[class] <identifier> <class-heritage>?
+                        "{" <class-body> "}"
 <class-heritage> ::= "extends" <whitespace> <identifier>
 <class-body> ::= <class-element>*
 <class-element> ::= <method-definition> | <field-definition>
@@ -64,19 +61,14 @@ SymbolTableSharing: hierarchical
 /* Control Flow Statements */
 <if-statement> ::= "if" <opt-whitespace> "(" <expression> ")" <statement> <else-clause>?
 <else-clause> ::= "else" <whitespace> <statement>
-
 <while-statement> ::= "while" <opt-whitespace> "(" <expression> ")" <statement>
-
 <for-statement> ::= "for" <opt-whitespace> "(" <for-init>? ";" <expression>? ";" <expression>? ")" <statement>
 <for-init> ::= <variable-declaration> | <expression>
-
 <do-while-statement> ::= "do" <whitespace> <statement> "while" <opt-whitespace> "(" <expression> ")" <semicolon>?
-
 <switch-statement> ::= "switch" <opt-whitespace> "(" <expression> ")" "{" <case-clauses>? "}"
 <case-clauses> ::= <case-clause> <case-clauses>?
 <case-clause> ::= <case-label> <statement-list>?
 <case-label> ::= "case" <whitespace> <expression> ":" | "default" <opt-whitespace> ":"
-
 <try-statement> ::= "try" <whitespace> <block-statement> <catch-clause>? <finally-clause>?
 <catch-clause> ::= "catch" <opt-whitespace> "(" <identifier> ")" <block-statement>
 <finally-clause> ::= "finally" <whitespace> <block-statement>
@@ -84,13 +76,10 @@ SymbolTableSharing: hierarchical
 /* Jump Statements */
 <return-statement> ::= "return" <return-value>? <semicolon>?
 <return-value> ::= <whitespace> <expression>
-
 <break-statement> ::= "break" <break-label>? <semicolon>?
 <break-label> ::= <whitespace> <identifier>
-
 <continue-statement> ::= "continue" <continue-label>? <semicolon>?
 <continue-label> ::= <whitespace> <identifier>
-
 <throw-statement> ::= "throw" <whitespace> <expression> <semicolon>?
 
 /* Expression Statement */
@@ -99,49 +88,36 @@ SymbolTableSharing: hierarchical
 
 /* Expressions */
 <expression> ::= <assignment-expression>
-
 <assignment-expression> ::= <conditional-expression> <assignment-operator-expression>?
 <assignment-operator-expression> ::= <assignment-operator> <assignment-expression>
 <assignment-operator> ::= "=" | "+=" | "-=" | "*=" | "/=" | "%=" | "<<=" | ">>=" | ">>>=" | "&=" | "^=" | "|="
-
 <conditional-expression> ::= <logical-or-expression> <conditional-operator-expression>?
 <conditional-operator-expression> ::= "?" <assignment-expression> ":" <assignment-expression>
-
 <logical-or-expression> ::= <logical-and-expression> <logical-or-tail>?
 <logical-or-tail> ::= "||" <logical-or-expression>
-
 <logical-and-expression> ::= <bitwise-or-expression> <logical-and-tail>?
 <logical-and-tail> ::= "&&" <logical-and-expression>
-
 <bitwise-or-expression> ::= <bitwise-xor-expression> <bitwise-or-tail>?
 <bitwise-or-tail> ::= "|" <bitwise-or-expression>
-
 <bitwise-xor-expression> ::= <bitwise-and-expression> <bitwise-xor-tail>?
 <bitwise-xor-tail> ::= "^" <bitwise-xor-expression>
-
 <bitwise-and-expression> ::= <equality-expression> <bitwise-and-tail>?
 <bitwise-and-tail> ::= "&" <bitwise-and-expression>
-
 <equality-expression> ::= <relational-expression> <equality-tail>?
 <equality-tail> ::= <equality-operator> <equality-expression>
 <equality-operator> ::= "==" | "!=" | "===" | "!=="
-
 <relational-expression> ::= <shift-expression> <relational-tail>?
 <relational-tail> ::= <relational-operator> <relational-expression>
 <relational-operator> ::= "<" | ">" | "<=" | ">=" | "instanceof" | "in"
-
 <shift-expression> ::= <additive-expression> <shift-tail>?
 <shift-tail> ::= <shift-operator> <shift-expression>
 <shift-operator> ::= "<<" | ">>" | ">>>"
-
 <additive-expression> ::= <multiplicative-expression> <additive-tail>?
 <additive-tail> ::= <additive-operator> <additive-expression>
 <additive-operator> ::= "+" | "-"
-
 <multiplicative-expression> ::= <unary-expression> <multiplicative-tail>?
 <multiplicative-tail> ::= <multiplicative-operator> <multiplicative-expression>
 <multiplicative-operator> ::= "*" | "/" | "%"
-
 <unary-expression> ::= <postfix-expression>
                      | <unary-operator> <unary-expression>
                      | "delete" <whitespace> <unary-expression>
@@ -149,15 +125,12 @@ SymbolTableSharing: hierarchical
                      | "typeof" <whitespace> <unary-expression>
                      | "++" <unary-expression>
                      | "--" <unary-expression>
-
 <unary-operator> ::= "+" | "-" | "~" | "!"
-
 <postfix-expression> ::= <primary-expression> <postfix-tail>?
 <postfix-tail> ::= <member-access> <postfix-tail>?
                  | <function-call> <postfix-tail>?
                  | <array-access> <postfix-tail>?
                  | "++" | "--"
-
 <member-access> ::= "." <identifier>
 <array-access> ::= "[" <expression> "]"
 
@@ -171,11 +144,9 @@ SymbolTableSharing: hierarchical
 <dom-function-call> ::= <get-element-by-id-call>
                       | <query-selector-call>
                       | <add-event-listener-call>
-
 <get-element-by-id-call> ::= "document" "." "getElementById" "(" "\"" @REFERENCE[HTML.id] <identifier> "\"" ")"
 <query-selector-call> ::= "document" "." "querySelector" "(" "\"" <css-selector-string> "\"" ")"
 <add-event-listener-call> ::= <identifier> "." "addEventListener" "(" <string-literal> "," <function-reference> ")"
-
 <css-selector-string> ::= @REFERENCE[CSS.selector] <string-content>
 <function-reference> ::= @REFERENCE[JavaScript.function] <identifier>
 
@@ -188,7 +159,6 @@ SymbolTableSharing: hierarchical
                        | <arrow-function>
                        | <parenthesized-expression>
                        | <dom-function-call>
-
 <parenthesized-expression> ::= "(" <expression> ")"
 
 /* Literals */
@@ -197,29 +167,23 @@ SymbolTableSharing: hierarchical
             | <numeric-literal>
             | <string-literal>
             | <regex-literal>
-
 <null-literal> ::= "null"
 <boolean-literal> ::= "true" | "false"
-
 <numeric-literal> ::= <decimal-literal> | <hex-literal> | <octal-literal> | <binary-literal>
 <decimal-literal> ::= <integer-part> <decimal-part>? <exponent-part>?
 <integer-part> ::= "0" | <non-zero-digit> <digit>*
 <decimal-part> ::= "." <digit>+
 <exponent-part> ::= <exponent-indicator> <sign>? <digit>+
 <exponent-indicator> ::= "e" | "E"
-
 <hex-literal> ::= "0" <hex-indicator> <hex-digit>+
 <hex-indicator> ::= "x" | "X"
-
 <octal-literal> ::= "0" <octal-digit>+
 <binary-literal> ::= "0" <binary-indicator> <binary-digit>+
 <binary-indicator> ::= "b" | "B"
-
 <string-literal> ::= "\"" <double-string-content> "\"" | "'" <single-string-content> "'" | "`" <template-string-content> "`"
 <double-string-content> ::= <double-string-char>*
 <single-string-content> ::= <single-string-char>*
 <template-string-content> ::= <template-string-char>*
-
 <regex-literal> ::= "/" <regex-body> "/" <regex-flags>?
 <regex-body> ::= <regex-char>+
 <regex-flags> ::= <regex-flag>+
@@ -231,7 +195,6 @@ SymbolTableSharing: hierarchical
 <element-tail> ::= "," <element-list>?
 <array-element> ::= <assignment-expression> | <empty-element>
 <empty-element> ::= ""
-
 <object-literal> ::= "{" <property-list>? "}"
 <property-list> ::= <property> <property-tail>?
 <property-tail> ::= "," <property-list>?
@@ -241,7 +204,6 @@ SymbolTableSharing: hierarchical
 /* Function Expressions */
 <function-expression> ::= "function" <function-name>? "(" <parameter-list>? ")" <block-statement>
 <function-name> ::= <whitespace> <identifier>
-
 <arrow-function> ::= <arrow-parameters> "=>" <arrow-body>
 <arrow-parameters> ::= <identifier> | "(" <parameter-list>? ")"
 <arrow-body> ::= <assignment-expression> | <block-statement>
@@ -257,32 +219,26 @@ SymbolTableSharing: hierarchical
 <octal-digit> ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7"
 <binary-digit> ::= "0" | "1"
 <hex-digit> ::= <digit> | "A" | "B" | "C" | "D" | "E" | "F" | "a" | "b" | "c" | "d" | "e" | "f"
-
 <letter> ::= "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M"
            | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z"
            | "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m"
            | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z"
-
 <sign> ::= "+" | "-"
 
 /* String Characters */
 <double-string-char> ::= <source-char-except-double-quote-and-backslash> | <escape-sequence>
 <single-string-char> ::= <source-char-except-single-quote-and-backslash> | <escape-sequence>
 <template-string-char> ::= <source-char-except-backtick-and-backslash> | <escape-sequence> | <template-substitution>
-
 <source-char-except-double-quote-and-backslash> ::= <letter> | <digit> | <space> | <safe-string-punctuation>
 <source-char-except-single-quote-and-backslash> ::= <letter> | <digit> | <space> | <safe-string-punctuation> | "\""
 <source-char-except-backtick-and-backslash> ::= <letter> | <digit> | <space> | <safe-string-punctuation> | "\"" | "'"
-
 <safe-string-punctuation> ::= "!" | "#" | "$" | "%" | "&" | "(" | ")" | "*" | "+" | "," | "-" | "."
                              | "/" | ":" | ";" | "<" | "=" | ">" | "?" | "@" | "[" | "]" | "^" | "_"
                              | "{" | "|" | "}" | "~"
-
 <escape-sequence> ::= "\\" <escape-char>
 <escape-char> ::= "'" | "\"" | "\\" | "/" | "b" | "f" | "n" | "r" | "t" | "v" | "0"
                 | "x" <hex-digit> <hex-digit>
                 | "u" <hex-digit> <hex-digit> <hex-digit> <hex-digit>
-
 <template-substitution> ::= "${" <expression> "}"
 
 /* Regex Characters */
@@ -295,11 +251,11 @@ SymbolTableSharing: hierarchical
 <space> ::= " " | "\t" | "\n" | "\r"
 <whitespace> ::= <space>+
 <opt-whitespace> ::= <space>*
-
 <semicolon> ::= ";"
 
 /* Symbol Definitions for Cross-Language Validation */
-@SYMBOLS {
+@SYMBOLS
+{
     function: <function-declaration>
     variable: <variable-declarator>
     class: <class-declaration>
@@ -307,3 +263,7 @@ SymbolTableSharing: hierarchical
     getElementById: <get-element-by-id-call>
 }
 
+/* Comments (issue #189) */
+<single-line-comment> ::= /\/\/[^\n]*/
+<multi-line-comment> ::= /\/\*([^*]|\*+[^*/])*\*+\//
+<comment> ::= <single-line-comment> | <multi-line-comment>
