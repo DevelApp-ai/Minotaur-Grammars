@@ -3,9 +3,9 @@
   "Name": "TypeScript",
   "Vendor": "DevelApp",
   "DisplayName": "TypeScript",
-  "Version": "1.0.0",
+  "Version": "1.1.0",
   "MinotaurVersion": "*",
-  "Description": "TypeScript (ES2022 + type system) grammar for the Minotaur parser platform (authored for issue #8).",
+  "Description": "TypeScript (ES2022 + type system) grammar for the Minotaur parser platform. Hardened for code-analysis consumers (issue #189): comments, async, accessors, decorators, full heritage clauses, declare/export forms, template literal types.",
   "License": "MIT",
   "Tags": [
     "programming-language",
