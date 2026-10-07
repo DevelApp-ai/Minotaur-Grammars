@@ -4,7 +4,7 @@ TokenSplitter: Space
 
 <chunk> ::= <block> ;
 <block> ::= <stmt>* ;
-<stmt> ::= <assignment> | <local_decl> | <func_def> | <if_stmt> | <while_stmt> | <for_stmt> | <repeat_stmt> | <return_stmt> | <expr_stmt> ;
+<stmt> ::= <comment> | <assignment> | <local_decl> | <func_def> | <if_stmt> | <while_stmt> | <for_stmt> | <repeat_stmt> | <return_stmt> | <expr_stmt> ;
 <assignment> ::= <var_list> '=' <expr_list> ;
 <var_list> ::= <var> (',' <var>)* ;
 <var> ::= <identifier> | <prefixexp> '[' <expr> ']' | <prefixexp> '.' <identifier> ;
@@ -38,7 +38,6 @@ TokenSplitter: Space
 <number> ::= /[0-9]+('.'[0-9]+)?/ ;
 
 # --- Coverage completion: remaining language constructs ---
-
 <multiple_assignment> ::= target_list "=" expression_list ;
 <multiple_return> ::= "return" expression_list <auto_multiple_return_0> ;
 <select_expression> ::= "select" "(" "#" varargs ")" ;
@@ -46,5 +45,9 @@ TokenSplitter: Space
 <label_statement> ::= "::" <identifier> "::" ;
 <string_escape> ::= "\\" ( escape_char | line_terminator | "x" hex_digit hex_digit | digit digit digit ) ;
 <long_comment> ::= "--" long_open comment_body long_close ;
-
 <auto_multiple_return_0> ::= /[ ";" ]/ ;
+
+/* Comments (issue #189) */
+<lua-line-comment> ::= /--[^\n]*/
+<lua-block-comment> ::= /--\[\[([^\]]|\]+[^\]])*\]+\//
+<comment> ::= <lua-line-comment> | <lua-block-comment>
