@@ -40,14 +40,14 @@ jobs:
 
     steps:
       - name: Checkout Minotaur-Grammars (this repository)
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           # Full history on PRs so changed-file detection can diff against
           # the base commit.
           fetch-depth: ${{ github.event_name == 'pull_request' && '0' || '1' }}
 
       - name: Checkout ENFAStepLexer-StepParser
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: DevelApp-ai/ENFAStepLexer-StepParser
           path: enfa
@@ -56,7 +56,7 @@ jobs:
           ref: main
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v5
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
@@ -158,7 +158,7 @@ jobs:
       contents: read
     steps:
       - name: Checkout Minotaur-Grammars (this repository)
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: No empty grammar files
         run: |
