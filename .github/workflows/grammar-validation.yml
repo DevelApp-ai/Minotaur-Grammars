@@ -75,7 +75,11 @@ jobs:
             # diverged from the base, regardless of how far the base branch
             # has advanced since. A failed diff must fail the job loudly -
             # never silently skip the grammar gate.
-            if ! files=$(git diff --name-only --diff-filter=ACMR "${base}...HEAD" -- '*.grammar'); then
+            #
+            # Conformance.txt files are included so that conformance-only
+            # changes (lex:/fail: case edits without a grammar change) still
+            # run the conformance harness in the ENFA suite.
+            if ! files=$(git diff --name-only --diff-filter=ACMR "${base}...HEAD" -- '*.grammar' '**/Conformance.txt'); then
               echo "Failed to compute changed grammar files against base ${base}" >&2
               exit 1
             fi

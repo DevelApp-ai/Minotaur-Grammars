@@ -14,6 +14,215 @@ FormatType: EBNF
 TokenSplitter: Space
 Keywords: abstract, as, base, bool, break, byte, case, catch, char, checked, class, const, continue, decimal, default, delegate, do, double, else, enum, event, explicit, extern, false, finally, fixed, float, for, foreach, goto, if, implicit, in, int, interface, internal, is, lock, long, namespace, new, null, object, operator, out, override, params, private, protected, public, readonly, ref, return, sbyte, sealed, short, sizeof, stackalloc, static, string, struct, switch, this, throw, true, try, typeof, uint, ulong, unchecked, unsafe, ushort, using, virtual, void, volatile, while, add, alias, ascending, async, await, by, descending, dynamic, equals, from, get, global, group, into, join, let, nameof, notnull, on, orderby, partial, remove, select, set, unmanaged, value, var, when, where, with, yield, and, or, not, record, init, file, scoped, required
 
+/*
+ * Lexer token rules (issue #194, lexing milestone).
+ *
+ * The StepLexer runtime matcher supports a linear regex subset: character
+ * classes, quantifiers (* + ? {n,m}), shorthand (\d \w \s), \p{...},
+ * hex escapes (\xHH) and literal characters. It has no backtracking, so
+ * groups, alternation and anchors are not usable here. Where C# would need
+ * alternation, several token rules with the SAME name are declared - the
+ * lexer treats same-named rules as alternative spellings of one token type.
+ * Keywords and fixed operators use quoted-literal rules.
+ *
+ * Known limitations of this lexing layer (full parse coverage remains
+ * tracked in issue #194): block comments are not tokenized (matching the
+ * terminator without backtracking is not expressible in the supported
+ * subset); string literals with escaped quotes lex with shifted token
+ * boundaries.
+ */
+
+<whitespace> ::= /[ \t\r\n]+/ => { skip }
+<comment> ::= /\x2F\x2F[^\n]*/ => { skip }
+
+<identifier> ::= /[a-zA-Z_@][a-zA-Z0-9_]*/
+
+<integer_literal> ::= /[0-9]+/
+<integer_literal> ::= /0[xX][0-9a-fA-F]+/
+<integer_literal> ::= /0[bB][01]+/
+<integer_literal> ::= /[0-9]+[uUlL][uUlL]?/
+
+<real_literal> ::= /[0-9]*\.[0-9]+/
+<real_literal> ::= /[0-9]+\.[0-9]*[fFdDmM]/
+<real_literal> ::= /[0-9]*\.[0-9]+[eE][+-]?[0-9]+/
+<real_literal> ::= /[0-9]+[eE][+-]?[0-9]+/
+
+<char_literal> ::= /'[^'\n]'/
+<string_literal> ::= /"[^"\n]*"/
+<verbatim_string_literal> ::= /@"[^"]*"/
+<interpolated_string_literal> ::= /\$"[^"\n]*"/
+
+<semicolon> ::= ";"
+<colon> ::= ":"
+<comma> ::= ","
+<dot> ::= "."
+<open_paren> ::= "("
+<close_paren> ::= ")"
+<open_brace> ::= "{"
+<close_brace> ::= "}"
+<open_bracket> ::= "["
+<close_bracket> ::= "]"
+<less_than> ::= "<"
+<greater_than> ::= ">"
+<equals_sign> ::= "="
+<plus> ::= "+"
+<minus> ::= "-"
+<asterisk> ::= "*"
+<slash> ::= "/"
+<percent> ::= "%"
+<ampersand> ::= "&"
+<question_mark> ::= "?"
+<exclamation> ::= "!"
+<vertical_bar> ::= "|"
+<caret> ::= "^"
+<tilde> ::= "~"
+<hash> ::= "#"
+
+<op_equals> ::= "=="
+<op_lambda> ::= "=>"
+<op_increment> ::= "++"
+<op_decrement> ::= "--"
+<op_plus_assign> ::= "+="
+<op_minus_assign> ::= "-="
+<op_multiply_assign> ::= "*="
+<op_divide_assign> ::= "/="
+<op_modulus_assign> ::= "%="
+<op_and_assign> ::= "&="
+<op_or_assign> ::= "|="
+<op_xor_assign> ::= "^="
+<op_logical_and> ::= "&&"
+<op_logical_or> ::= "||"
+<op_shift_left> ::= "<<"
+<op_shift_right> ::= ">>"
+<op_shift_left_assign> ::= "<<="
+<op_shift_right_assign> ::= ">>="
+<op_less_equal> ::= "<="
+<op_greater_equal> ::= ">="
+<op_null_coalesce> ::= "??"
+<op_null_coalesce_assign> ::= "??="
+<op_null_conditional> ::= "?."
+<op_colon_colon> ::= "::"
+<op_not_equal> ::= "!="
+
+/* Keywords (from the Keywords: header) as quoted-literal token rules. */
+<abstract> ::= "abstract"
+<as> ::= "as"
+<base> ::= "base"
+<bool> ::= "bool"
+<break> ::= "break"
+<byte> ::= "byte"
+<case> ::= "case"
+<catch> ::= "catch"
+<char> ::= "char"
+<checked> ::= "checked"
+<class> ::= "class"
+<const> ::= "const"
+<continue> ::= "continue"
+<decimal> ::= "decimal"
+<default> ::= "default"
+<delegate> ::= "delegate"
+<do> ::= "do"
+<double> ::= "double"
+<else> ::= "else"
+<enum> ::= "enum"
+<event> ::= "event"
+<explicit> ::= "explicit"
+<extern> ::= "extern"
+<false> ::= "false"
+<finally> ::= "finally"
+<fixed> ::= "fixed"
+<float> ::= "float"
+<for> ::= "for"
+<foreach> ::= "foreach"
+<goto> ::= "goto"
+<if> ::= "if"
+<implicit> ::= "implicit"
+<in> ::= "in"
+<int> ::= "int"
+<interface> ::= "interface"
+<internal> ::= "internal"
+<is> ::= "is"
+<lock> ::= "lock"
+<long> ::= "long"
+<namespace> ::= "namespace"
+<new> ::= "new"
+<null> ::= "null"
+<object> ::= "object"
+<operator> ::= "operator"
+<out> ::= "out"
+<override> ::= "override"
+<params> ::= "params"
+<private> ::= "private"
+<protected> ::= "protected"
+<public> ::= "public"
+<readonly> ::= "readonly"
+<ref> ::= "ref"
+<return> ::= "return"
+<sbyte> ::= "sbyte"
+<sealed> ::= "sealed"
+<short> ::= "short"
+<sizeof> ::= "sizeof"
+<stackalloc> ::= "stackalloc"
+<static> ::= "static"
+<string> ::= "string"
+<struct> ::= "struct"
+<switch> ::= "switch"
+<this> ::= "this"
+<throw> ::= "throw"
+<true> ::= "true"
+<try> ::= "try"
+<typeof> ::= "typeof"
+<uint> ::= "uint"
+<ulong> ::= "ulong"
+<unchecked> ::= "unchecked"
+<unsafe> ::= "unsafe"
+<ushort> ::= "ushort"
+<using> ::= "using"
+<virtual> ::= "virtual"
+<void> ::= "void"
+<volatile> ::= "volatile"
+<while> ::= "while"
+<add> ::= "add"
+<alias> ::= "alias"
+<ascending> ::= "ascending"
+<async> ::= "async"
+<await> ::= "await"
+<by> ::= "by"
+<descending> ::= "descending"
+<dynamic> ::= "dynamic"
+<equals> ::= "equals"
+<from> ::= "from"
+<get> ::= "get"
+<global> ::= "global"
+<group> ::= "group"
+<into> ::= "into"
+<join> ::= "join"
+<let> ::= "let"
+<nameof> ::= "nameof"
+<notnull> ::= "notnull"
+<on> ::= "on"
+<orderby> ::= "orderby"
+<partial> ::= "partial"
+<remove> ::= "remove"
+<select> ::= "select"
+<set> ::= "set"
+<unmanaged> ::= "unmanaged"
+<value> ::= "value"
+<var> ::= "var"
+<when> ::= "when"
+<where> ::= "where"
+<with> ::= "with"
+<yield> ::= "yield"
+<and> ::= "and"
+<or> ::= "or"
+<not> ::= "not"
+<record> ::= "record"
+<init> ::= "init"
+<file> ::= "file"
+<scoped> ::= "scoped"
+<required> ::= "required"
+
+
 <compilation_unit> ::= <comment>* <extern_alias_directives>? <using_directives>? <global_attributes>? <namespace_member_declarations>?
 <extern_alias_directives> ::= <extern_alias_directive>+
 <extern_alias_directive> ::= extern alias <identifier> ;
@@ -471,8 +680,3 @@ Keywords: abstract, as, base, bool, break, byte, case, catch, char, checked, cla
 <formatting_character> ::= <unicode_character_of_the_class_Cf>
 <keyword> ::= abstract | as | base | bool | break | byte | case | catch | char | checked | class | const | continue | decimal | default | delegate | do | double | else | enum | event | explicit | extern | false | finally | fixed | float | for | foreach | goto | if | implicit | in | int | interface | internal | is | lock | long | namespace | new | null | object | operator | out | override | params | private | protected | public | readonly | ref | return | sbyte | sealed | short | sizeof | stackalloc | static | string | struct | switch | this | throw | true | try | typeof | uint | ulong | unchecked | unsafe | ushort | using | virtual | void | volatile | while | add | alias | ascending | async | await | by | descending | dynamic | equals | from | get | global | group | into | join | let | nameof | notnull | on | orderby | partial | remove | select | set | unmanaged | value | var | when | where | with | yield | and | or | not | record | init | file | scoped | required
 <contextual_keyword> ::= add | alias | ascending | async | await | by | descending | dynamic | equals | from | get | global | group | into | join | let | nameof | notnull | on | orderby | partial | remove | select | set | unmanaged | value | var | when | where | with | yield | and | or | not | record | init | file | scoped | required
-
-/* Comments (issue #189) */
-<single-line-comment> ::= /\/\/[^\n]*/
-<multi-line-comment> ::= /\/\*([^*]|\*+[^*/])*\*+\//
-<comment> ::= <single-line-comment> | <multi-line-comment>
