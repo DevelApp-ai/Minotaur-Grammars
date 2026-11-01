@@ -1,0 +1,31 @@
+param(
+    [Parameter(Mandatory = $true)]
+    [string]$Name
+)
+function Get-Greeting {
+    param([string]$Name = 'World')
+    Write-Output "Hello, $Name!"
+}
+Get-Greeting -Name 'World' > greetings.txt
+$data = Get-Content -Path ./config.json -Raw
+Invoke-WebRequest -Uri 'https://api.example.com' -UseBasicParsing
+$result = & "git" "status"
+$env:PATH.Split(';') | ForEach-Object { $_.Trim() }
+Describe 'greeter' {
+    It 'greets by name' -TestCases @{ Name = 'World' } {
+        param([string]$Name)
+        Get-Greeting -Name $Name | Should -Be "Hello, $Name!"
+    }
+}
+if ($data -match '"enabled":\s*true') { Write-Host 'enabled' } elseif ($data) { Write-Host 'present' } else { Write-Host 'absent' }
+foreach ($line in 1..3) { Write-Host "line $line" }
+switch -regex ($data) { 'a' { break } default { continue } }
+try { Invoke-Expression $cmd } catch [System.Exception] { throw "failed: $_" } finally { Write-Host 'done' }
+class Greeter : System.Object { hidden [string]$Name; Greeter([string]$n) { $this.Name = $n } [string]Greet() { return "Hello, $($this.Name)" } }
+enum Color { Red = 1 Green Blue }
+$here = @'
+literal body $notexpanded
+'@
+$interp = @"
+expanded $Name and $(1 + 1)
+"@

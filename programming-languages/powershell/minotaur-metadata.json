@@ -1,0 +1,26 @@
+{
+  "Id": "develapp.powershell",
+  "Name": "PowerShell",
+  "Vendor": "DevelApp",
+  "DisplayName": "PowerShell 7",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "PowerShell 7 grammar for the Minotaur parser platform: scripts, param blocks, functions, classes, enums, pipelines, redirection, command invocation with named parameters, and the full expression surface (authored for SBOB-Forge M5 Phase B).",
+  "License": "MIT",
+  "Tags": [
+    "programming-language",
+    "minotaur",
+    "powershell",
+    "shell"
+  ],
+  "MainFile": "PowerShell.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}

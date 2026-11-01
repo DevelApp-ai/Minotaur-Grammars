@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+set -euo pipefail
+greet() {
+    local name="$1"
+    printf 'Hello, %s!\n' "$name"
+}
+greet 'World' > greetings.txt
+config="$(cat ./config.json)"
+curl "https://api.example.com" 2>>error.log
+if [[ -f "$config" && "$config" != "" ]]; then
+    echo "config exists"
+elif [ -d ./config ]; then
+    echo "directory"
+else
+    echo "missing" >&2
+fi
+for i in 1 2 3; do echo "line $i"; done
+for ((i = 0; i < 10; i++)); do echo "i=$i"; done
+while read -r line; do echo "$line"; done < input.txt
+case "$1" in
+    start) echo starting ;;
+    stop|halt) echo stopping ;;&
+    *) echo "unknown: $1" ;;
+esac
+arr=(one "two words" three)
+declare -A map=([key]='value')
+echo "${arr[@]}" "${map[key]}" "${#arr[@]}" "${arr[0]:?missing}"
+count=$((count + 1))
+result=`git status | head -n1`
+total=$((${count} * 2))
+message="status: $(date '+%F')"
+echo "total is ${total}!" >> summary.txt
+trap 'rm -f tmpfile' EXIT
+cat <<EOF > heredoc.txt
+Hello, ${message}
+EOF
+diff <(sort input.txt) <(sort expected.txt)
+function helper { echo "helper $1"; }
+helper 'argument' | tee copy.txt &&
+    echo "done"
+# a comment
