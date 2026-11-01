@@ -243,7 +243,6 @@ Keywords: abstract, as, base, bool, break, byte, case, catch, char, checked, cla
 <verbatim_string_literal_characters> ::= <verbatim_string_literal_character>+
 <verbatim_string_literal_character> ::= <single_verbatim_string_literal_character> | <quote_escape_sequence>
 <single_verbatim_string_literal_character> ::= <any_character_except_quote>
-<quote_escape_sequence> ::= ""
 <null_literal> ::= null
 <interpolated_string_expression> ::= <interpolated_regular_string> | <interpolated_verbatim_string>
 <interpolated_regular_string> ::= $ " <interpolated_regular_string_parts>? "
