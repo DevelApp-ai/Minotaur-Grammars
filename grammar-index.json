@@ -2,6 +2,7 @@
   "$schema": "./schemas/grammar-index.schema.json",
   "description": "Maps grammar file names (as referenced by consumers, e.g. Minotaur's ProjectLoader) to their repository-relative paths.",
   "grammars": {
+    "Bash.grammar": "programming-languages/bash/Bash.grammar",
     "C17.grammar": "programming-languages/c17/C17.grammar",
     "ClassicASP.grammar": "programming-languages/classicasp/ClassicASP.grammar",
     "COBOL2023.grammar": "programming-languages/cobol2023/COBOL2023.grammar",
@@ -23,6 +24,7 @@
     "JSON.grammar": "programming-languages/json/JSON.grammar",
     "JSONSchema.grammar": "programming-languages/jsonschema/JSONSchema.grammar",
     "PL1.grammar": "programming-languages/pl1/PL1.grammar",
+    "PowerShell.grammar": "programming-languages/powershell/PowerShell.grammar",
     "Python311.grammar": "programming-languages/python311/Python311.grammar",
     "Rust2021.grammar": "programming-languages/rust2021/Rust2021.grammar",
     "sample.grammar": "programming-languages/sample/sample.grammar",

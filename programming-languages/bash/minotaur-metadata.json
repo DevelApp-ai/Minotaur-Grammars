@@ -1,0 +1,26 @@
+{
+  "Id": "develapp.bash",
+  "Name": "Bash",
+  "Vendor": "DevelApp",
+  "DisplayName": "Bash 5",
+  "Version": "1.0.0",
+  "MinotaurVersion": "*",
+  "Description": "Bash 5 grammar (POSIX shell superset) for the Minotaur parser platform: scripts, pipelines and lists, all compound commands, functions, here-documents, arrays, and the full expansion surface (authored for SBOB-Forge M5 Phase B).",
+  "License": "MIT",
+  "Tags": [
+    "programming-language",
+    "minotaur",
+    "bash",
+    "shell"
+  ],
+  "MainFile": "Bash.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free"
+}
