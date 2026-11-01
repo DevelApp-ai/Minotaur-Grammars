@@ -1,0 +1,30 @@
+# Conformance cases for CSharp10.grammar (issue #194, lexing milestone).
+#
+# Each lex: input is real C# that MUST lex to completion: some lexer path
+# consumes the entire input and every emitted token has a non-zero length.
+# Each fail: input must be rejected by the lexer (LX1001: no token rule
+# matches at some position).
+grammar: CSharp10.grammar
+
+# Declarations and members.
+lex: class C { }
+lex: int x = 42;
+lex: class C { void M() { } }
+lex: using System;\nusing System.Linq;\nnamespace N { class C { } }
+lex: [Obsolete("old")] class C { }
+lex: public static async Task Main(string[] args) => await Run();
+lex: async Task<int> GetCount() { var x = await FetchAsync(); return x; }
+lex: var list = new List<string>(); var map = new Dictionary<string, int>();
+lex: if (x >= 0 && y <= 1) { Console.WriteLine($"{x}"); }
+
+# Comments, literals and strings.
+lex: // hello world\nint x = 1;
+lex: var s = "hello"; var v = @"raw"; var i = $"n={x}"; var c = 'a';
+lex: double d = 3.14e2; float f = 1.5f; long l = 0x1FUL; int b = 0b1010;
+
+# Operators and punctuation.
+lex: x = a + b * c - d / e % f; x++; y--; z &= 3; p = q ? r : s; w = x ?? y;
+
+# Inputs that are not C# must be rejected by the token rules.
+fail: `backticks`
+fail: x € y
