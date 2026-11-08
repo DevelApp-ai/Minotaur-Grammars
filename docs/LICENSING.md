@@ -9,7 +9,7 @@ field as an [SPDX identifier](https://spdx.org/licenses/).
 
 | Origin | License |
 | --- | --- |
-| Authored by DevelApp / Lars Buch | **MIT** (SPDX: `MIT`) |
+| Authored by DevelApp.ai ApS | **MIT** (SPDX: `MIT`) |
 | Sourced from elsewhere | The **origin license**: keep its SPDX identifier, copy the origin license text into the folder's `LICENSE`, and attribute the original author |
 
 There is deliberately no top-level `LICENSE` file — a grammar's license must
