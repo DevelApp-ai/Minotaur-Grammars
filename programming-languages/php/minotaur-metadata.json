@@ -1,8 +1,18 @@
 {
   "Id": "develapp.php",
   "Name": "PHP",
-  "Description": "Minotaur grammar for PHP covering the core language subset.",
+  "Vendor": "DevelApp",
+  "DisplayName": "PHP",
+  "Version": "1.0.0",
   "MinotaurVersion": "*",
+  "Description": "Minotaur grammar for PHP covering the core language subset.",
+  "License": "MIT",
+  "Tags": [
+    "programming-languages"
+  ],
+  "MainFile": "PHP.grammar",
+  "LabyrinthExtension": true,
+  "Dependencies": [],
   "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
   "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
   "Author": {
@@ -10,9 +20,5 @@
     "FirstName": "Lars",
     "LastName": "Buch-Jepsen"
   },
-  "PricingModel": "free",
-  "Tags": [
-    "programming-languages"
-  ],
-  "LabyrinthExtension": true
+  "PricingModel": "free"
 }

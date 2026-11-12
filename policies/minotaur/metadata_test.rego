@@ -58,7 +58,11 @@ test_bad_develapp_id_prefix_is_rejected {
 test_missing_author_field_is_rejected {
 	some msg
 	deny[msg] with input as {"grammars": [
-		object.union(valid_grammar, {"metadata": object.union(
+		# The outer union must not see the original "metadata" key, or the
+		# recursive object.union merge restores the full Author object over
+		# the reduced one (latent failure under every OPA version; same
+		# remove-then-union pattern as test_missing_required_field_is_rejected).
+		object.union(object.remove(valid_grammar, ["metadata"]), {"metadata": object.union(
 			object.remove(valid_grammar.metadata, ["Author"]),
 			{"Author": {"Username": "larsbuch"}},
 		)}),

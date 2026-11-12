@@ -1,8 +1,17 @@
 {
   "Id": "develapp.unixpsoutput",
   "Name": "UnixPsOutput",
-  "Description": "Minotaur grammar for UnixPsOutput covering the core language subset.",
+  "Vendor": "DevelApp",
+  "DisplayName": "UnixPsOutput",
+  "Version": "1.0.0",
   "MinotaurVersion": "*",
+  "Description": "Minotaur grammar for UnixPsOutput covering the core language subset.",
+  "License": "MIT",
+  "Tags": [
+    "system-output"
+  ],
+  "MainFile": "UnixPsOutput.grammar",
+  "Dependencies": [],
   "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
   "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
   "Author": {
@@ -10,8 +19,5 @@
     "FirstName": "Lars",
     "LastName": "Buch-Jepsen"
   },
-  "PricingModel": "free",
-  "Tags": [
-    "system-output"
-  ]
+  "PricingModel": "free"
 }

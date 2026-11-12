@@ -43,5 +43,8 @@ while IFS= read -r -d '' metadata; do
     <<< "$grammars")
 done < <(find . -name minotaur-metadata.json -not -path './.git/*' -print0 | sort -z)
 
-jq -n '{grammars: $g}' --argjson g "$grammars" > opa-input.json
+# Pipe the accumulated JSON via stdin: at ~170 grammars the --argjson
+# argument exceeds the kernel's single-argument limit (E2BIG) and jq never
+# runs, leaving a 0-byte opa-input.json behind.
+printf '%s' "$grammars" | jq '{grammars: .}' > opa-input.json
 echo "Wrote opa-input.json with $(jq '.grammars | length' opa-input.json) grammar(s)."
