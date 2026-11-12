@@ -1,8 +1,17 @@
 {
   "Id": "develapp.latex",
   "Name": "LaTeX",
-  "Description": "Minotaur grammar for LaTeX covering the core language subset.",
+  "Vendor": "DevelApp",
+  "DisplayName": "LaTeX",
+  "Version": "1.0.0",
   "MinotaurVersion": "*",
+  "Description": "Minotaur grammar for LaTeX covering the core language subset.",
+  "License": "MIT",
+  "Tags": [
+    "specialized"
+  ],
+  "MainFile": "LaTeX.grammar",
+  "Dependencies": [],
   "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
   "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
   "Author": {
@@ -10,8 +19,5 @@
     "FirstName": "Lars",
     "LastName": "Buch-Jepsen"
   },
-  "PricingModel": "free",
-  "Tags": [
-    "specialized"
-  ]
+  "PricingModel": "free"
 }

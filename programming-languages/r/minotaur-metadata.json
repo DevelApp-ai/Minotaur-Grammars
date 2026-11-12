@@ -1,8 +1,18 @@
 {
   "Id": "develapp.rlang",
   "Name": "RLang",
-  "Description": "Minotaur grammar for RLang covering the core language subset.",
+  "Vendor": "DevelApp",
+  "DisplayName": "RLang",
+  "Version": "1.0.0",
   "MinotaurVersion": "*",
+  "Description": "Minotaur grammar for RLang covering the core language subset.",
+  "License": "MIT",
+  "Tags": [
+    "programming-languages"
+  ],
+  "MainFile": "RLang.grammar",
+  "LabyrinthExtension": true,
+  "Dependencies": [],
   "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
   "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
   "Author": {
@@ -10,9 +20,5 @@
     "FirstName": "Lars",
     "LastName": "Buch-Jepsen"
   },
-  "PricingModel": "free",
-  "Tags": [
-    "programming-languages"
-  ],
-  "LabyrinthExtension": true
+  "PricingModel": "free"
 }

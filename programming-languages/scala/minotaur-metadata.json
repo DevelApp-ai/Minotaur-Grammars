@@ -1,8 +1,18 @@
 {
   "Id": "develapp.scala",
   "Name": "Scala",
-  "Description": "Minotaur grammar for Scala covering the core language subset.",
+  "Vendor": "DevelApp",
+  "DisplayName": "Scala",
+  "Version": "1.0.0",
   "MinotaurVersion": "*",
+  "Description": "Minotaur grammar for Scala covering the core language subset.",
+  "License": "MIT",
+  "Tags": [
+    "programming-languages"
+  ],
+  "MainFile": "Scala.grammar",
+  "LabyrinthExtension": true,
+  "Dependencies": [],
   "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
   "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
   "Author": {
@@ -10,9 +20,5 @@
     "FirstName": "Lars",
     "LastName": "Buch-Jepsen"
   },
-  "PricingModel": "free",
-  "Tags": [
-    "programming-languages"
-  ],
-  "LabyrinthExtension": true
+  "PricingModel": "free"
 }
