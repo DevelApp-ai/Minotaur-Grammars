@@ -15,6 +15,9 @@
 # on any machine at any time):
 #   - archive entries sorted by name, GNU tar format
 #   - fixed entry mtime 1970-01-01T00:00:00Z, owner/group 0
+#   - normalized entry modes (a=rX,u+w: files 644, dirs 755) so the
+#     checkout's umask or source archive (git checkout gives 644,
+#     codeload tarballs 664) cannot leak into the packages
 #   - gzip without name/timestamp (-n)
 #   - no clocks, no host paths, no git metadata in any output
 #
@@ -95,6 +98,7 @@ for meta in "${meta_files[@]}"; do
   seen_tarballs["$tarball"]="$folder"
 
   tar --sort=name --format=gnu --mtime='@0' --owner=0 --group=0 --numeric-owner \
+      --mode='a=rX,u+w' \
       -C "$folder" -cf - . | gzip -n > "$out_dir/$tarball"
   sha="$(sha256sum "$out_dir/$tarball" | cut -d' ' -f1)"
 

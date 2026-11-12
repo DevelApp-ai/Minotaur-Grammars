@@ -44,7 +44,7 @@ Cutting a release is `git tag v1.0.0 && git push origin v1.0.0`. The
 3. packages **every grammar folder** (all categories except
    `test-grammars/`) as a byte-deterministic `tar.gz` with
    [scripts/package-grammars.sh](scripts/package-grammars.sh)
-   (sorted entries, fixed mtime/owner, `gzip -n` — identical bytes on every
+   (sorted entries, fixed mtime/owner/mode, `gzip -n` — identical bytes on every
    machine),
 4. signs `SHA256SUMS` and `release-manifest.json` with cosign keyless OIDC
    (org decision #14; identity-pinned to `https://github.com/DevelApp-ai/`)

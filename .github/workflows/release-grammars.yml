@@ -179,7 +179,7 @@ jobs:
 
           Every grammar folder (all categories except `test-grammars/`) is
           packaged as a byte-deterministic `tar.gz` - entries sorted, fixed
-          mtime/owner, `gzip -n` - so the same commit always produces
+          mtime/owner/mode, `gzip -n` - so the same commit always produces
           identical bytes. `SHA256SUMS` covers every tarball;
           `release-manifest.json` maps every grammar (id, version, path,
           tarball, sha256). Both are cosign-signed (keyless OIDC, identity
