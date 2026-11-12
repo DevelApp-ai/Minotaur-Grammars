@@ -31,6 +31,48 @@ marketplace `GrammarInfo` schema:
 - A grammar that validates against the schema and the OPA policies can be
   packaged with `GrammarPackageExporter` and published with zero manual edits.
 
+## Release packaging
+
+Cutting a release is `git tag v1.0.0 && git push origin v1.0.0`. The
+[release pipeline](.github/workflows/release-grammars.yml) then:
+
+1. runs the same sanity checks and OPA license/metadata policies as CI
+   (including an input-completeness assertion, so a truncated policy input
+   can never evaluate to a fake "violation-free"),
+2. waits for the ENFA parse-validation gate on the tagged commit
+   (`grammar-validation.yml` also triggers on `v*` tags),
+3. packages **every grammar folder** (all categories except
+   `test-grammars/`) as a byte-deterministic `tar.gz` with
+   [scripts/package-grammars.sh](scripts/package-grammars.sh)
+   (sorted entries, fixed mtime/owner, `gzip -n` — identical bytes on every
+   machine),
+4. signs `SHA256SUMS` and `release-manifest.json` with cosign keyless OIDC
+   (org decision #14; identity-pinned to `https://github.com/DevelApp-ai/`)
+   and verifies both signatures in-job,
+5. creates the GitHub release with all grammar tarballs plus `SHA256SUMS`
+   and `release-manifest.json` (each with `.sig`/`.bundle` sidecars).
+
+A `workflow_dispatch` run of the same pipeline is a **dry run**: it packages
+and signs but uploads the result as a workflow artifact instead of creating
+a release.
+
+Consumers verify a download against the signed checksum file:
+
+```bash
+sha256sum -c SHA256SUMS --ignore-missing
+cosign verify-blob \
+  --bundle SHA256SUMS.bundle \
+  --certificate-identity-regexp '^https://github.com/DevelApp-ai/' \
+  --certificate-oidc-issuer https://token.actions.githubusercontent.com \
+  SHA256SUMS
+```
+
+`GrammarPackageExporter` in the Minotaur repository is still a placeholder
+(its tar writer does not yet produce a valid tar stream), so this pipeline
+is the byte-accurate producer of the marketplace-format `tar.gz` packages
+until it is real; the marketplace publish step (issue #26) will consume
+these release assets.
+
 ## Labyrinth rule patterns (`Labyrinth.extension`)
 
 Grammars that can serve as **target grammars for Labyrinth rules** (Minotaur's

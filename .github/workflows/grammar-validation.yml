@@ -19,6 +19,9 @@ on:
   pull_request:
   push:
     branches: [main]
+    # Release cuts (v* tags) run the full verify mode too - the
+    # release-grammars pipeline waits on this gate before publishing.
+    tags: ['v*']
   workflow_dispatch:
     inputs:
       mode:

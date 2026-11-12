@@ -1,0 +1,205 @@
+name: Release grammars
+
+# Grammar-package distribution pipeline (see README "Release packaging").
+#
+#   push tag v*        -> sanity + OPA policy gate -> wait for the ENFA
+#                         parse gate -> deterministic packaging -> cosign
+#                         keyless signing -> GitHub release with every
+#                         grammar tarball + SHA256SUMS + release manifest.
+#   workflow_dispatch  -> the same pipeline as a DRY RUN: package and sign,
+#                         then upload the result as a workflow artifact.
+#                         Never creates a release (a release needs a tag).
+#
+# Signing follows org decision #14 (cosign keyless OIDC, identity-pinned) -
+# the same contract as SBOB-Forge's sbob-registry-publish pipeline. The
+# Certum code-signing identity (org decision #38) is deliberately NOT used
+# here: grammars are data, not executing code, and #38 scopes the
+# certificate to NuGet packages, Windows executables and PowerShell
+# scripts.
+#
+# With ~150 grammar packages per release, per-tarball keyless signing would
+# cost a Fulcio/Rekor round-trip per file. Signing SHA256SUMS and
+# release-manifest.json binds every tarball hash with three signatures
+# total; consumers verify each tarball against the signed checksum file.
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  release:
+    name: Package + sign + publish (dry-run on dispatch)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: write   # create the release + upload assets (tag pushes only)
+      checks: read      # poll the ENFA parse gate on the tagged commit
+      id-token: write   # cosign keyless OIDC (org decision #14)
+
+    steps:
+      - name: Checkout Minotaur-Grammars (this repository)
+        uses: actions/checkout@v5
+
+      - name: Repository sanity checks
+        # Same invariants as the grammar-validation sanity job: no empty
+        # grammar files; every grammar file declares a 'Grammar:' header.
+        run: |
+          set -euo pipefail
+          empty=$(find . -name '*.grammar' -type f -empty)
+          if [ -n "$empty" ]; then
+            echo "Empty grammar files found:" >&2
+            echo "$empty" >&2
+            exit 1
+          fi
+          missing=""
+          while IFS= read -r f; do
+            if ! grep -qE '^\s*Grammar:\s*\S+' "$f"; then
+              missing="$missing$f"$'\n'
+            fi
+          done < <(find . -name '*.grammar' -type f)
+          if [ -n "$missing" ]; then
+            echo "Grammar files without a 'Grammar:' header:" >&2
+            printf '%s' "$missing" >&2
+            exit 1
+          fi
+
+      - name: OPA license + metadata policies (must be violation-free)
+        # The policies under policies/minotaur are Rego v0 syntax (implicit
+        # 'some', no 'if' keyword), so they run with --v0-compatible under a
+        # current OPA. Migrating them to Rego v1 syntax is a separate change.
+        # The input completeness assertion is load-bearing: a truncated or
+        # empty opa-input.json would otherwise evaluate to a trivially
+        # violation-free result (found live: build-opa-input.sh used to die
+        # on E2BIG leaving a 0-byte input behind).
+        env:
+          OPA_VERSION: 'v1.22.3'
+        run: |
+          set -euo pipefail
+          curl -sL --fail --retry 3 -o /usr/local/bin/opa \
+            "https://openpolicyagent.org/downloads/${OPA_VERSION}/opa_linux_amd64_static"
+          chmod +x /usr/local/bin/opa
+          opa version
+          bash scripts/build-opa-input.sh
+          expected=$(find . -name minotaur-metadata.json -not -path './.git/*' | wc -l)
+          jq -e --argjson expected "$expected" '.grammars | length == $expected' \
+            opa-input.json > /dev/null || {
+            echo "opa-input.json does not describe all $expected grammar folders - refusing to evaluate a partial input." >&2
+            exit 1
+          }
+          opa eval --v0-compatible -d policies -i opa-input.json \
+            --format=raw 'data.minotaur' > /tmp/opa-eval.json
+          jq -e 'all(.[]; ((.deny // []) | length == 0))' /tmp/opa-eval.json > /dev/null || {
+            echo "OPA policy violations:" >&2
+            jq . /tmp/opa-eval.json >&2
+            exit 1
+          }
+          opa test --v0-compatible policies
+
+      - name: Wait for the ENFA parse-validation gate on this commit
+        # grammar-validation.yml also triggers on v* tags (full verify mode
+        # against the recorded parse baseline). A release must never be cut
+        # from a commit whose grammars fail to parse.
+        if: ${{ github.event_name == 'push' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          sha="${{ github.sha }}"
+          check="ENFAStepLexer-StepParser integration suite"
+          deadline=$(( $(date +%s) + 25 * 60 ))
+          echo "Waiting for '$check' on $sha ..."
+          while :; do
+            last="$(gh api "repos/${{ github.repository }}/commits/$sha/check-runs" \
+              --jq ".check_runs | map(select(.name == \"${check}\")) | sort_by(.started_at) | last")"
+            status="$(jq -r '.status // ""' <<<"$last")"
+            if [ "$status" = "completed" ]; then
+              conclusion="$(jq -r '.conclusion // ""' <<<"$last")"
+              echo "ENFA parse gate concluded: $conclusion"
+              [ "$conclusion" = "success" ] || exit 1
+              exit 0
+            fi
+            if [ "$(date +%s)" -ge "$deadline" ]; then
+              echo "Timed out after 25 min waiting for the '$check' gate." >&2
+              exit 1
+            fi
+            sleep 30
+          done
+
+      - name: Package all grammars (deterministic tar.gz + SHA256SUMS + manifest)
+        run: |
+          set -euo pipefail
+          bash scripts/package-grammars.sh dist
+          ( cd dist && sha256sum -c SHA256SUMS --quiet )
+          for t in dist/*.tar.gz; do
+            tar -tzf "$t" | grep -q '^\./minotaur-metadata.json$' || {
+              echo "$t does not contain minotaur-metadata.json" >&2
+              exit 1
+            }
+          done
+          echo "Packaged $(find dist -name '*.tar.gz' | wc -l) grammar packages."
+
+      - name: Install cosign
+        uses: sigstore/cosign-installer@v3
+
+      - name: Sign SHA256SUMS + release manifest (cosign keyless OIDC)
+        # Sign-then-verify in-job, with the same identity pin consumers use:
+        # the published assets must be verifiable exactly as documented
+        # before anything is published.
+        run: |
+          set -euo pipefail
+          for f in dist/SHA256SUMS dist/release-manifest.json; do
+            cosign sign-blob --yes --output-signature "$f.sig" --bundle "$f.bundle" "$f"
+            cosign verify-blob \
+              --bundle "$f.bundle" \
+              --certificate-identity-regexp '^https://github.com/DevelApp-ai/' \
+              --certificate-oidc-issuer https://token.actions.githubusercontent.com \
+              "$f"
+          done
+
+      - name: Upload the dry-run artifact (workflow_dispatch only)
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        uses: actions/upload-artifact@v6
+        with:
+          name: grammar-release-dry-run
+          path: dist/
+          if-no-files-found: error
+
+      - name: Create the GitHub release with all assets
+        if: ${{ github.event_name == 'push' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          cat > /tmp/release-notes.md <<'NOTES'
+          ## Grammar packages
+
+          Every grammar folder (all categories except `test-grammars/`) is
+          packaged as a byte-deterministic `tar.gz` - entries sorted, fixed
+          mtime/owner, `gzip -n` - so the same commit always produces
+          identical bytes. `SHA256SUMS` covers every tarball;
+          `release-manifest.json` maps every grammar (id, version, path,
+          tarball, sha256). Both are cosign-signed (keyless OIDC, identity
+          pinned to `https://github.com/DevelApp-ai/`).
+
+          ### Verify a download
+
+          ```bash
+          # integrity: against the signed checksum file
+          sha256sum -c SHA256SUMS --ignore-missing
+
+          # authenticity: cosign keyless (org decision #14)
+          cosign verify-blob \
+            --bundle SHA256SUMS.bundle \
+            --certificate-identity-regexp '^https://github.com/DevelApp-ai/' \
+            --certificate-oidc-issuer https://token.actions.githubusercontent.com \
+            SHA256SUMS
+          ```
+          NOTES
+          gh release create "$TAG" --title "Minotaur-Grammars $TAG" \
+            --notes-file /tmp/release-notes.md
+          gh release upload "$TAG" dist/* --clobber
+          echo "Release $TAG published with $(ls dist | wc -l) assets."
