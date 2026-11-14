@@ -167,7 +167,7 @@ jobs:
           path: dist/
           if-no-files-found: error
 
-      - name: Create the GitHub release with all assets
+      - name: Publish the GitHub release with all assets (create or attach)
         if: ${{ github.event_name == 'push' }}
         env:
           GH_TOKEN: ${{ github.token }}
@@ -199,7 +199,18 @@ jobs:
             SHA256SUMS
           ```
           NOTES
-          gh release create "$TAG" --title "Minotaur-Grammars $TAG" \
-            --notes-file /tmp/release-notes.md
+          # Idempotent publish: a release for this tag may already exist
+          # (created manually from the UI before this workflow started, or
+          # left over from a partially failed run). Attach to it instead of
+          # failing; only fill in notes when the existing release has none.
+          if ! gh release view "$TAG" >/dev/null 2>&1; then
+            gh release create "$TAG" --title "Minotaur-Grammars $TAG" \
+              --notes-file /tmp/release-notes.md
+          else
+            echo "Release $TAG already exists - uploading assets into it."
+            if ! gh release view "$TAG" --json body -q .body | grep -q .; then
+              gh release edit "$TAG" --notes-file /tmp/release-notes.md
+            fi
+          fi
           gh release upload "$TAG" dist/* --clobber
           echo "Release $TAG published with $(ls dist | wc -l) assets."
