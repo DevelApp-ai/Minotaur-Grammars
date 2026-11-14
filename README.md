@@ -49,8 +49,11 @@ Cutting a release is `git tag v1.0.0 && git push origin v1.0.0`. The
 4. signs `SHA256SUMS` and `release-manifest.json` with cosign keyless OIDC
    (org decision #14; identity-pinned to `https://github.com/DevelApp-ai/`)
    and verifies both signatures in-job,
-5. creates the GitHub release with all grammar tarballs plus `SHA256SUMS`
-   and `release-manifest.json` (each with `.sig`/`.bundle` sidecars).
+5. publishes the GitHub release with all grammar tarballs plus `SHA256SUMS`
+   and `release-manifest.json` (each with `.sig`/`.bundle` sidecars). If a
+   release for the tag already exists (e.g. created from the GitHub UI
+   before the workflow ran), the pipeline attaches the assets to it
+   instead of failing.
 
 A `workflow_dispatch` run of the same pipeline is a **dry run**: it packages
 and signs but uploads the result as a workflow artifact instead of creating
