@@ -28,3 +28,12 @@ lex: x = a + b * c - d / e % f; x++; y--; z &= 3; p = q ? r : s; w = x ?? y;
 # Inputs that are not C# must be rejected by the token rules.
 fail: `backticks`
 fail: x € y
+
+# Lexing-gap coverage added while working issue #194 (digit separators,
+# char escapes, raw strings). These exercise the rules added to the
+# token-rule layer; block comments and escaped interior quotes remain
+# engine-capability gaps (see grammar header).
+lex: await File.WriteAllTextAsync(_path, content);
+lex: int n = 1_000_000; long h = 0xDEAD_BEEF; uint b = 0b1010_1010;
+lex: var s = """\nline 1\nline 2\n""";
+lex: var c = '\\''; var nl = '\\n'; var bs = '\\\\'; var u = '\\u0041'; var x = '\\x41';

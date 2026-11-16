@@ -27,9 +27,12 @@ Keywords: abstract, as, base, bool, break, byte, case, catch, char, checked, cla
  *
  * Known limitations of this lexing layer (full parse coverage remains
  * tracked in issue #194): block comments are not tokenized (matching the
- * terminator without backtracking is not expressible in the supported
- * subset); string literals with escaped quotes lex with shifted token
- * boundaries.
+ * terminator needs within-rule alternation, not expressible in the
+ * supported subset); string literals with escaped quotes lex with
+ * shifted token boundaries; verbatim strings with doubled quotes and
+ * raw strings with interior quotes need the same construct. These are
+ * engine-capability gaps (upstream ENFAStepLexer-StepParser), not
+ * grammar omissions.
  */
 
 <whitespace> ::= /[ \t\r\n]+/ => { skip }
@@ -42,15 +45,29 @@ Keywords: abstract, as, base, bool, break, byte, case, catch, char, checked, cla
 <integer_literal> ::= /0[bB][01]+/
 <integer_literal> ::= /[0-9]+[uUlL][uUlL]?/
 
+/* Digit separators (C# 7+): 1_000_000, 0xDEAD_BEEF, 0b1010_1010.
+   Underscores must sit between digits, hence the two-digit bookends. */
+<integer_literal> ::= /[0-9][0-9_]*[0-9]/
+<integer_literal> ::= /0[xX][0-9a-fA-F][0-9a-fA-F_]*[0-9a-fA-F]/
+<integer_literal> ::= /0[bB][01][01_]*[01]/
+
 <real_literal> ::= /[0-9]*\.[0-9]+/
 <real_literal> ::= /[0-9]+\.[0-9]*[fFdDmM]/
 <real_literal> ::= /[0-9]*\.[0-9]+[eE][+-]?[0-9]+/
 <real_literal> ::= /[0-9]+[eE][+-]?[0-9]+/
 
 <char_literal> ::= /'[^'\n]'/
+/* Char escapes as same-named alternatives ('\n', '\'', '\\', '\u0041',
+   '\x41'); \x5C is a literal backslash so the pattern stays inside the
+   supported linear subset. */
+<char_literal> ::= /'\x5C.'/
+<char_literal> ::= /'\x5Cu[0-9a-fA-F]{4}'/
+<char_literal> ::= /'\x5Cx[0-9a-fA-F]{1,4}'/
 <string_literal> ::= /"[^"\n]*"/
 <verbatim_string_literal> ::= /@"[^"]*"/
 <interpolated_string_literal> ::= /\$"[^"\n]*"/
+/* Raw string literals (C# 10) without interior quotes. */
+<raw_string_literal> ::= /[\x22]{3}[^\x22]*[\x22]{3}/
 
 <semicolon> ::= ";"
 <colon> ::= ":"
