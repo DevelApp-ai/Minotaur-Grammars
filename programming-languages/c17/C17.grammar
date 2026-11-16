@@ -183,5 +183,5 @@ Keywords: auto, break, case, char, const, continue, default, do, double, else, e
    alternation, compiled by the engine to a forward-only NFA
    (ENFAStepLexer-StepParser issue #129). */
 <single-line-comment> ::= /\x2F\x2F[^\n]*/
-<multi-line-comment> ::= /\*([^*]|\*+[^*\x2F])*\*+\x2F/
+<multi-line-comment> ::= /\x2F\*([^*]|\*+[^*\x2F])*\*+\x2F/
 <comment> ::= <single-line-comment> | <multi-line-comment>

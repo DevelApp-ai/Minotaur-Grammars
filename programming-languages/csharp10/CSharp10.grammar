@@ -37,7 +37,7 @@ Keywords: abstract, as, base, bool, break, byte, case, catch, char, checked, cla
 <comment> ::= /\x2F\x2F[^\n]*/ => { skip }
 /* Block comments: within-rule group/alternation, compiled by the engine to a
    forward-only NFA (ENFAStepLexer-StepParser issue #129). */
-<comment> ::= /\*([^*]|\*+[^*\x2F])*\*+\x2F/ => { skip }
+<comment> ::= /\x2F\*([^*]|\*+[^*\x2F])*\*+\x2F/ => { skip }
 
 <identifier> ::= /[a-zA-Z_@][a-zA-Z0-9_]*/
 
