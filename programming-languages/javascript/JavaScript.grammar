@@ -264,6 +264,10 @@ SymbolTableSharing: hierarchical
 }
 
 /* Comments (issue #189) */
-<single-line-comment> ::= /\/\/[^\n]*/
-<multi-line-comment> ::= /\/\*([^*]|\*+[^*/])*\*+\//
+/* Slashes are written as \x2F: a bare '/' would end the /.../ pattern at
+   the grammar-file layer. The multi-line pattern uses a group with
+   alternation, compiled by the engine to a forward-only NFA
+   (ENFAStepLexer-StepParser issue #129). */
+<single-line-comment> ::= /\x2F\x2F[^\n]*/
+<multi-line-comment> ::= /\x2F\*([^*]|\*+[^*\x2F])*\*+\x2F/
 <comment> ::= <single-line-comment> | <multi-line-comment>

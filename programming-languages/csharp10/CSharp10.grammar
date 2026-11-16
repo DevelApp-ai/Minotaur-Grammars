@@ -17,26 +17,27 @@ Keywords: abstract, as, base, bool, break, byte, case, catch, char, checked, cla
 /*
  * Lexer token rules (issue #194, lexing milestone).
  *
- * The StepLexer runtime matcher supports a linear regex subset: character
- * classes, quantifiers (* + ? {n,m}), shorthand (\d \w \s), \p{...},
- * hex escapes (\xHH) and literal characters. It has no backtracking, so
- * groups, alternation and anchors are not usable here. Where C# would need
- * alternation, several token rules with the SAME name are declared - the
- * lexer treats same-named rules as alternative spellings of one token type.
- * Keywords and fixed operators use quoted-literal rules.
- *
- * Known limitations of this lexing layer (full parse coverage remains
- * tracked in issue #194): block comments are not tokenized (matching the
- * terminator needs within-rule alternation, not expressible in the
- * supported subset); string literals with escaped quotes lex with
- * shifted token boundaries; verbatim strings with doubled quotes and
- * raw strings with interior quotes need the same construct. These are
- * engine-capability gaps (upstream ENFAStepLexer-StepParser), not
- * grammar omissions.
+ * The StepLexer runtime matcher supports a forward-only regex subset:
+ * character classes, quantifiers (* + ? {n,m}), shorthand (\d \w \s),
+ * \p{...}, hex escapes (\xHH) and literal characters; it has no
+ * backtracking. Groups and alternation inside one pattern (needed for
+ * block comments and strings with interior quotes) are compiled by the
+ * engine itself into a forward-only NFA at rule-add time
+ * (ENFAStepLexer-StepParser issue #129), so they are usable here without
+ * any grammar-side workaround. Anchors, backreferences and lookaround
+ * remain unsupported and are reported by the engine at grammar load.
+ * Where C# would need simple choice, several token rules with the SAME
+ * name are declared - the lexer treats same-named rules as alternative
+ * spellings of one token type. Keywords and fixed operators use
+ * quoted-literal rules. A '/' inside a /.../ pattern is written as \x2F,
+ * because a bare '/' would end the pattern at the grammar-file layer.
  */
 
 <whitespace> ::= /[ \t\r\n]+/ => { skip }
 <comment> ::= /\x2F\x2F[^\n]*/ => { skip }
+/* Block comments: within-rule group/alternation, compiled by the engine to a
+   forward-only NFA (ENFAStepLexer-StepParser issue #129). */
+<comment> ::= /\x2F\*([^*]|\*+[^*\x2F])*\*+\x2F/ => { skip }
 
 <identifier> ::= /[a-zA-Z_@][a-zA-Z0-9_]*/
 
@@ -63,11 +64,15 @@ Keywords: abstract, as, base, bool, break, byte, case, catch, char, checked, cla
 <char_literal> ::= /'\x5C.'/
 <char_literal> ::= /'\x5Cu[0-9a-fA-F]{4}'/
 <char_literal> ::= /'\x5Cx[0-9a-fA-F]{1,4}'/
-<string_literal> ::= /"[^"\n]*"/
-<verbatim_string_literal> ::= /@"[^"]*"/
-<interpolated_string_literal> ::= /\$"[^"\n]*"/
-/* Raw string literals (C# 10) without interior quotes. */
+/* Regular strings with escaped interior characters (\"a\\\"b\"). */
+<string_literal> ::= /"([^"\\\n]|\\.)*"/
+/* Verbatim strings with doubled quotes (@"a""b"). */
+<verbatim_string_literal> ::= /@"([^"]|"")*"/
+<interpolated_string_literal> ::= /\$"([^"\\\n]|\\.)*"/
+/* Raw string literals (C# 10): at least three quotes, interior quotes allowed
+   as long as no run of three closes the literal early. */
 <raw_string_literal> ::= /[\x22]{3}[^\x22]*[\x22]{3}/
+<raw_string_literal> ::= /[\x22]{3}([^\x22]|[\x22][^\x22]|[\x22]{2}[^\x22])*[\x22]{3}/
 
 <semicolon> ::= ";"
 <colon> ::= ":"
