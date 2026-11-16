@@ -48,7 +48,7 @@ lex: var i = $"n={x} \"q\"";
 lex: var r = """he said "hi" """;
 
 # Real-file acceptance for ENFAStepLexer-StepParser issue #129: a whole
-# source file (41 KB, 1100+ lines) from a real project must lex to
+# source file (41 KB, 916 lines) from a real project must lex to
 # completion as a single coherent token path. Source: SBoBVerificationTests.cs
 # from DevelApp-ai/RuntimePluggableClassFactory (MIT license), which uses
 # raw string literals, interpolated strings with escaped-quote holes,
