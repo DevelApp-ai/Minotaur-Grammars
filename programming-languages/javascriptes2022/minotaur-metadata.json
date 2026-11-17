@@ -5,7 +5,7 @@
   "DisplayName": "JavaScriptES2022",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "JavaScriptES2022 programming-language grammar for the Minotaur parser platform.",
+  "Description": "JavaScript ES2022 grammar for the Minotaur parser platform: full ES2022 lexing surface (template literals, bigint n suffix, hex/octal/binary, $ identifiers, all operators incl. =>, ..., ??, ?., >>>, **). Engine-verified via Conformance.txt.",
   "License": "MIT",
   "Tags": [
     "programming-language",

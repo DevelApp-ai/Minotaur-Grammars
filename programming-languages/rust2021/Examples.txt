@@ -1,0 +1,54 @@
+// Rust 2021 example corpus for Rust2021.grammar (lex conformance pin via lexfile:).
+fn main() {
+    let x: u32 = 0xFF;
+    let big = 1_000_000u64;
+    let bits = 0b1010;
+    let oct = 0o17;
+    let pi = 3.14e-3f64;
+    let s = "hello";
+    let raw = r"raw string";
+    let hash = r#"no quote inside"#;
+    let bytes = b"byte string";
+    let c = 'x';
+    let b = b'x';
+    let name: &'static str = "static";
+
+    let v: Vec<i32> = vec![1, 2, 3];
+    let doubled: Vec<i32> = v.iter().map(|x| x * 2).collect();
+
+    match x {
+        0 => println!("zero"),
+        1..=10 => println!("small"),
+        _ => println!("big"),
+    }
+
+    for i in 0..10 {
+        if i % 2 == 0 && i != 4 {
+            println!("{}", i);
+        }
+    }
+
+    struct Point { x: i32, y: i32 }
+    impl Point {
+        fn new(x: i32, y: i32) -> Self {
+            Self { x, y }
+        }
+    }
+    let p = Point::new(1, 2);
+    let r = &p;
+    let mut m = 1;
+    let mr = &mut m;
+    *mr += 1;
+
+    enum Shape {
+        Circle(f64),
+        Rect { w: f64, h: f64 },
+    }
+    let sh = Shape::Circle(1.0);
+    if let Shape::Circle(rad) = sh {
+        println!("radius {}", rad);
+    }
+
+    async fn work() {}
+    let handle = work();
+}

@@ -5,7 +5,7 @@
   "DisplayName": "Cpp20",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "Cpp20 programming-language grammar for the Minotaur parser platform.",
+  "Description": "C++20 grammar for the Minotaur parser platform: full C++17-C++20 lexing surface (raw strings R\"(...)\", prefixed strings u8/u/U/L, digit separators ', hex/bin/octal with u/l suffixes, all operators incl. <=>, ->*, &&=). Engine-verified via Conformance.txt.",
   "License": "MIT",
   "Tags": [
     "programming-language",

@@ -398,18 +398,45 @@ Keywords: False, None, True, and, as, assert, async, await, break, class, contin
 <comment> ::= <hash-comment>
 
 /* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
-   identifier, number, string/char literals, punctuation and comments as token
-   rules. String/char/block-comment patterns are the proven CSharp10 ones. */
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules). String/char/block-comment patterns are
+   the proven CSharp10 ones; '/' is written \x2F inside regexes. */
 <lx_ws> ::= /[ \t\r\n]+/ => { skip }
-<lx_backslash> ::= /\\/
-<lx_identifier> ::= /[A-Za-z_][A-Za-z0-9_]*/
-<lx_number> ::= /[0-9]+(\.[0-9]+)?([eE][+-]?[0-9]+)?/
 <lx_string> ::= /"([^"\\\n]|\\.)*"/
-<lx_char0> ::= /'[^'\n]'/
-<lx_char1> ::= /'\x5C.'/
-<lx_char2> ::= /'\x5Cu[0-9a-fA-F]{4}'/
-<lx_char3> ::= /'\x5Cx[0-9a-fA-F]{1,4}'/
-<lx_block_comment0> ::= /\x2F\*([^*]|\*+[^*\x2F])*\*+\x2F/ => { skip }
+<lx_string> ::= /'([^'\\\n]|\\.)*'/
+<lx_string> ::= /[rRbBfF]?"([^"\\\n]|\\.)*"/
+<lx_string> ::= /[rRbBfF]?[\x22]{3}([^\x22]|[\x22][^\x22]|[\x22]{2}[^\x22])*[\x22]{3}/
+<lx_string> ::= /[rRbBfF]?[']{3}([^']|['][^']|[']{2}[^'])*[']{3}/
+<lx_number> ::= /0[xX][0-9a-fA-F_]+/
+<lx_number> ::= /0[oO][0-7_]+/
+<lx_number> ::= /0[bB][01_]+/
+<lx_number> ::= /[0-9][0-9_]*(\.[0-9_]*)?([eE][+-]?[0-9_]+)?[jJ]?/
+<lx_number> ::= /\.[0-9][0-9_]*([eE][+-]?[0-9_]+)?[jJ]?/
+<lx_op0> ::= ":="
+<lx_op1> ::= "->"
+<lx_op2> ::= "**"
+<lx_op3> ::= "//"
+<lx_op4> ::= "<<"
+<lx_op5> ::= ">>"
+<lx_op6> ::= "=="
+<lx_op7> ::= "!="
+<lx_op8> ::= "<="
+<lx_op9> ::= ">="
+<lx_op10> ::= "+="
+<lx_op11> ::= "-="
+<lx_op12> ::= "*="
+<lx_op13> ::= "/="
+<lx_op14> ::= "//="
+<lx_op15> ::= "%="
+<lx_op16> ::= "**="
+<lx_op17> ::= "&="
+<lx_op18> ::= "|="
+<lx_op19> ::= "^="
+<lx_op20> ::= ">>="
+<lx_op21> ::= "<<="
+<lx_op22> ::= "..."
+<lx_op_single> ::= /[-+*\x2F%@&|^~<>=]/
+<lx_identifier> ::= /[A-Za-z_][A-Za-z0-9_]*/
 <lx_p0> ::= "("
 <lx_p1> ::= ")"
 <lx_p2> ::= "{"
@@ -419,50 +446,9 @@ Keywords: False, None, True, and, as, assert, async, await, break, class, contin
 <lx_p6> ::= ";"
 <lx_p7> ::= ","
 <lx_p8> ::= "."
-<lx_p9> ::= "?"
-<lx_p10> ::= ":"
-<lx_p11> ::= "!"
-<lx_p12> ::= "+"
-<lx_p13> ::= "-"
-<lx_p14> ::= "*"
-<lx_p15> ::= "/"
-<lx_p16> ::= "%"
-<lx_p17> ::= "="
-<lx_p18> ::= "<"
-<lx_p19> ::= ">"
-<lx_p20> ::= "&"
-<lx_p21> ::= "|"
-<lx_p22> ::= "^"
-<lx_p23> ::= "~"
-<lx_p24> ::= "@"
-<lx_p25> ::= "`"
-<lx_p26> ::= '"'
-<lx_p27> ::= "'"
-<lx_p28> ::= "=>"
-<lx_p29> ::= "->"
-<lx_p30> ::= "=="
-<lx_p31> ::= "!="
-<lx_p32> ::= "<="
-<lx_p33> ::= ">="
-<lx_p34> ::= "&&"
-<lx_p35> ::= "||"
-<lx_p36> ::= "++"
-<lx_p37> ::= "--"
-<lx_p38> ::= "+="
-<lx_p39> ::= "-="
-<lx_p40> ::= "*="
-<lx_p41> ::= "/="
-<lx_p42> ::= "%="
-<lx_p43> ::= "&="
-<lx_p44> ::= "|="
-<lx_p45> ::= "^="
-<lx_p46> ::= "<<"
-<lx_p47> ::= ">>"
-<lx_p48> ::= "::"
-<lx_p49> ::= ".."
-<lx_p50> ::= "..."
-<lx_p51> ::= "**"
-<lx_p52> ::= "??"
-<lx_p53> ::= "?."
-<lx_p54> ::= "<>"
-<lx_hash_comment> ::= /#[^\n]*/ => { skip }
+<lx_p9> ::= ":"
+<lx_p10> ::= "?"
+<lx_p11> ::= '"'
+<lx_p12> ::= "'"
+<lx_p13> ::= "`"
+<lx_p14> ::= "@"

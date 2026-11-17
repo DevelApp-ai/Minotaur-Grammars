@@ -1,10 +1,32 @@
-# Conformance cases for JavaScriptES2022.grammar - engine-verified lexing pin.
-# Run by the ENFAStepLexer-StepParser integration suite in
-# GreedyLongestMatch mode (engine issues #129/#133); grammar-repository-tests
-# job runs this in engine CI as well.
+# Conformance cases for JavaScriptES2022.grammar - engine-verified lexing pin (templates, bigint, optional chaining).
+# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
+# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
+# engine CI as well.
 grammar: JavaScriptES2022.grammar
 
-lex: let x = 1; console.log(x);
+lex: const x = 42; let y = 3.14e-3;
+lex: let big = 123456789012345678901234567890n; let h = 0xFF; let o = 0o17; let b = 0b101;
+lex: const s = "dq"; const t = 'sq'; const tpl = `tpl ${x + 1} end`;
+lex: function f(a, b = 2, ...rest) { return a + b; }
+lex: const obj = { a: 1, "b c": 2, [x]: 3 };
+lex: const { a, b: c = 2, ...rest } = obj;
+lex: class A extends B { constructor(n) { this.n = n; } static m() {} get x() { return 1; } }
+lex: const f = (a) => a * 2;
+lex: if (a === b && c !== d || !e) {}
+lex: for (let i = 0; i < 10; i++) {}
+lex: for (const k in obj) {} for (const v of arr) {}
+lex: x ??= y; a?.b?.(); c ?? d;
+lex: let s = y >>> 2; let p = y ** 2;
+lex: switch (x) {\n\tcase 1:\n\t\tbreak;\n\tdefault:\n\t\tbreak;\n}
+lex: try { f(); } catch (e) { console.log(e); } finally {}
+lex: label: for (;;) { break label; }
+lex: async function g() { const r = await fetch("/api"); return r.json(); }
+lex: const $el = document.querySelector("#main");
+lex: let legacy = 0777; let dot = .5;
 
-# Input that must be rejected by the token rules (LX1001).
-fail: €
+# Inputs that must be rejected by the token rules (LX1001).
+fail: \\u20ac
+fail: \\\\
+
+# Whole example corpus as a lex case (raw content).
+lexfile: Examples.txt

@@ -1,11 +1,30 @@
-# Conformance cases for Cpp20.grammar - engine-verified lexing pin.
-# Run by the ENFAStepLexer-StepParser integration suite in
-# GreedyLongestMatch mode (engine issues #129/#133); grammar-repository-tests
-# job runs this in engine CI as well.
+# Conformance cases for Cpp20.grammar - engine-verified lexing pin (raw strings, prefixed strings, digit separators, <=>).
+# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
+# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
+# engine CI as well.
 grammar: Cpp20.grammar
 
 lex: int main() { return 0; }
-lex: auto x = 42;
+lex: auto x = 1'000'000; auto h = 0xFFu; auto b = 0b1010;
+lex: double d = 3.14e-3; float f = 2.5f; long l = 42L;
+lex: const char* s = "hi"; const char* r = R"(raw "q" text)";
+lex: char c = 'a'; char nl = '\\n'; wchar_t w = L'w';
+lex: auto u8s = u8"utf8"; auto u = u"x"; auto U = U"y"; auto Ls = L"z";
+lex: std::vector<int> v{1, 2, 3};
+lex: template<typename T> T max(T a, T b) { return a < b ? b : a; }
+lex: for (auto& e : v) { e += 1; }
+lex: constexpr int N = 1 << 10; if constexpr (N <=> 0) { return 0; }
+lex: class C { public: virtual ~C() = default; };
+lex: using P = std::pair<int,int>;
+lex: a->b; p->*m; x::y; s.*t;
+lex: x &&= 1; y ||= 2; z <<= 1; w >>= 2;
+lex: static_assert(N > 0, "positive");
+lex: void f() { co_return; }
 
-# Input that must be rejected by the token rules (LX1001).
-fail: €
+# Inputs that must be rejected by the token rules (LX1001).
+fail: \\u20ac
+fail: $
+fail: \\\\
+
+# Whole example corpus as a lex case (raw content).
+lexfile: Examples.txt

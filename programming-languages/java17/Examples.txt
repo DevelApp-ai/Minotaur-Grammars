@@ -1,0 +1,61 @@
+# Java 17 example corpus for Java17.grammar (lex conformance pin via lexfile:).
+# Lines starting with '#' are skipped by the engine default comment rule.
+package com.example.demo;
+
+import java.util.*;
+import java.io.IOException;
+
+public class Main {
+    public static void main(String[] args) {
+        var list = new ArrayList<String>();
+        list.add("alpha");
+        list.add("beta");
+
+        int mask = 0xFF_00;
+        int bits = 0b1010;
+        long big = 1_000_000L;
+        double ratio = 3.14e-3;
+        float f = 2.5f;
+        char grade = 'A';
+        char newline = '\n';
+
+        String text = "hello " + "world";
+        String block = """
+                multi
+                line
+                """;
+
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(i + ": " + list.get(i));
+        }
+        for (String s : list) {
+            if (s.length() >= 2 && !s.isEmpty()) {
+                System.out.println(s.toUpperCase());
+            }
+        }
+
+        int x = 5;
+        switch (x) {
+            case 1 -> System.out.println("one");
+            case 2, 3 -> System.out.println("small");
+            default -> System.out.println("other");
+        }
+
+        var stream = list.stream()
+            .filter(s -> s.length() > 2)
+            .map(String::toUpperCase);
+
+        try (var reader = new java.io.StringReader(text)) {
+            System.out.println(reader.read());
+        } catch (IOException | RuntimeException e) {
+            e.printStackTrace();
+        }
+
+        record Point(int x, int y) {}
+        sealed interface Shape permits Circle {}
+        int $legacy = 42;
+        int y = x <=> 0 ? 1 : -1;
+        x += 2; x -= 1; x *= 3; x /= 2; x %= 4;
+        boolean ok = x > 0 && x < 100 || false;
+    }
+}
