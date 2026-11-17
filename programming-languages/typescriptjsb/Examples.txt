@@ -1,0 +1,48 @@
+import type { Node } from './Node';
+
+/**
+ * WorkflowDefinition: example workflow definition
+ */
+export interface WorkflowDefinition
+{
+    /**
+     * Name: workflow name
+     */
+    name: string;
+
+    /**
+     * Nodes: workflow nodes
+     */
+    nodes: Node[];
+
+    /**
+     * Active: whether the workflow is active
+     */
+    active?: boolean;
+}
+
+/**
+ * FtpTypeEnum: type of FTP
+ */
+export type FtpTypeEnum = 'Auto' | 'FTP' | 'FTPS';
+
+/**
+ * Edge: definition of an edge
+ */
+export interface Edge
+{
+    /**
+     * FromNodeKey: the node the edge comes from
+     */
+    fromNodeKey: string;
+
+    /**
+     * ToNodeKey: the node the edge goes to
+     */
+    toNodeKey: string;
+
+    /**
+     * Payload: optional edge payload
+     */
+    payload?: object;
+}

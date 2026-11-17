@@ -1,0 +1,43 @@
+Grammar: TypeScriptJsb
+Keywords: export, interface, type, import, from, string, number, boolean, object
+
+<whitespace> ::= /[ \t\r\n]+/ => { skip }
+<block_comment> ::= /\x2F\x2A([^*]|\*+[^*\x2F])*\*+\x2F/ => { skip }
+
+<identifier> ::= /[A-Za-z_][A-Za-z0-9_]*/
+<string_literal> ::= /'([^'\\]|\\.)*'/
+
+<export_kw(priority:10)> ::= 'export'
+<interface_kw(priority:10)> ::= 'interface'
+<type_kw(priority:10)> ::= 'type'
+<import_kw(priority:10)> ::= 'import'
+<from_kw(priority:10)> ::= 'from'
+<string_kw(priority:10)> ::= 'string'
+<number_kw(priority:10)> ::= 'number'
+<boolean_kw(priority:10)> ::= 'boolean'
+<object_kw(priority:10)> ::= 'object'
+
+<ts_module> ::= <ts_item_seq>
+<ts_item_seq> ::= <ts_item_seq> <ts_item>
+<ts_item_seq> ::= <ts_item>
+<ts_item_seq> ::= <ts_item_seq> <ts_item_seq>
+<ts_item> ::= <import_statement>
+<ts_item> ::= <interface_declaration>
+<ts_item> ::= <type_alias>
+
+<import_statement> ::= 'import' 'type' '{' <identifier> '}' 'from' <string_literal> ';'
+
+<interface_declaration> ::= 'export' 'interface' <identifier> '{' '}'
+<interface_declaration> ::= 'export' 'interface' <identifier> '{' <member_seq> '}'
+<member_seq> ::= <member_seq> <member>
+<member_seq> ::= <member>
+<member_seq> ::= <member_seq> <member_seq>
+<member> ::= <identifier> ':' <ts_type> ';'
+<member> ::= <identifier> '?' ':' <ts_type> ';'
+
+<ts_type> ::= 'string' | 'number' | 'boolean' | 'object' | <identifier> | <array_type>
+<array_type> ::= 'string' '[' ']' | 'number' '[' ']' | 'boolean' '[' ']' | 'object' '[' ']' | <identifier> '[' ']' | <identifier> '[' ']' '[' ']'
+
+<type_alias> ::= 'export' 'type' <identifier> '=' <string_literal> ';'
+<type_alias> ::= 'export' 'type' <identifier> '=' <string_literal> '|' <string_literal> ';'
+<type_alias> ::= 'export' 'type' <identifier> '=' <string_literal> '|' <string_literal> '|' <string_literal> ';'

@@ -1,0 +1,32 @@
+# Conformance cases for TypeScriptJsb.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
+# mode; the grammar-repository-tests job runs this in engine CI as well.
+grammar: TypeScriptJsb.grammar
+
+# jsb TypeScript output: the export/interface/type/import prologue and the
+# declaration heads (block doc comments are one skip token each).
+lex: export interface ExampleDefinition\n{\n
+lex: import type { ModuleDefinition } from './ModuleDefinition';
+lex: export type FtpTypeEnum = 'Auto' | 'FTP' | 'FTPS';
+lex: /**\n * ExampleDefinition: a generated schema interface\n */\n
+
+# Interface members: all emitted type shapes - simple keyword types,
+# optional markers, identifier references, arrays and arrays of arrays.
+lex:     name: string;
+lex:     count?: number;
+lex:     payload: object;
+lex:     flag: boolean;
+lex:     nodes?: Node[];
+lex:     myTopPartArrayOfArray?: ObjectInAnArrayOfAnArray[][];
+
+# Inputs that must be rejected by the token rules (LX1001). The jsb
+# TypeScript generator emits no numeric or double-quoted literals and no
+# line comments, so digits, "double quotes", backticks and the euro sign
+# are not TypeScriptJsb tokens by design.
+fail: `
+fail: x = 42;
+fail: name: "x";
+fail: €
+
+# Whole example corpus as a lex case (raw content; '#' lines are comments).
+lexfile: Examples.txt

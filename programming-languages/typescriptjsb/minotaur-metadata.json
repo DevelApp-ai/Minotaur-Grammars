@@ -1,0 +1,27 @@
+{
+  "Id": "develapp.typescriptjsb",
+  "Name": "TypeScriptJsb",
+  "Vendor": "DevelApp",
+  "DisplayName": "TypeScriptJsb",
+  "Version": "2.0.0",
+  "MinotaurVersion": "*",
+  "Description": "Disciplined grammar for the TypeScript dialect emitted by the JsonSchemaBuilder (jsb) generator: exported interfaces with documented members, string-literal union type aliases, and type-only imports. Hand-authored for the ENFAStepLexer-StepParser engine and validated against the jsb TypeScript generator output (21/21 corpus files).",
+  "License": "MIT",
+  "Tags": [
+    "programming-language",
+    "minotaur"
+  ],
+  "MainFile": "TypeScriptJsb.grammar",
+  "LabyrinthExtension": true,
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free",
+  "EngineVerified": true,
+  "EngineVerifiedBy": "DevelApp.StepParser 1.75.0 (GreedyLongestMatch; jsb corpus harness, 21/21 files)"
+}

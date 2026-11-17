@@ -25,6 +25,7 @@
     "Rust2021.grammar": "programming-languages/rust2021/Rust2021.grammar",
     "sample.grammar": "programming-languages/sample/sample.grammar",
     "TypeScript.grammar": "programming-languages/typescript/TypeScript.grammar",
+    "TypeScriptJsb.grammar": "programming-languages/typescriptjsb/TypeScriptJsb.grammar",
     "VisualBasic.grammar": "programming-languages/visualbasic/VisualBasic.grammar",
     "WebAssembly20.grammar": "programming-languages/webassembly20/WebAssembly20.grammar",
     "XAML.grammar": "programming-languages/xaml/XAML.grammar",
