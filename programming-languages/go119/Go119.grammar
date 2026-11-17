@@ -37,6 +37,7 @@ FormatType: EBNF
 <type-decl> ::= "type" <whitespace> <type-spec>
              | "type" <whitespace> "(" <type-spec-list>? ")"
 <type-spec> ::= <identifier> <whitespace>? <type-expression> <newline>?
+             | <identifier> <whitespace>? "=" <whitespace>? <type-expression> <newline>?
              | <identifier> <type-param-list>? <whitespace>? <struct-type> <newline>?
              | <identifier> <type-param-list>? <whitespace>? <interface-type> <newline>?
 <struct-type> ::= "struct" <whitespace>? "{" <field-decl-list>? "}"
@@ -77,6 +78,8 @@ FormatType: EBNF
 <simple-statement> ::= <expression-statement>
                      | <assignment>
                      | <short-var-decl>
+                     | <inc-dec-statement>
+<inc-dec-statement> ::= <expression> ("++" | "--")
 <expression-statement> ::= <expression>
 <assignment> ::= <expression-list> <whitespace>? <assign-op> <whitespace>? <expression-list>
 <assign-op> ::= "=" | "+=" | "-=" | "*=" | "/=" | "%=" | "&=" | "|=" | "^=" | "<<=" | ">>=" | "&^="
@@ -94,10 +97,12 @@ FormatType: EBNF
 <for-statement> ::= "for" <whitespace>? <for-clause>? <whitespace>? <block>
 <for-clause> ::= <for-condition> | <for-range> | <simple-statement> ";" <whitespace>? <expression>? ";" <whitespace>? <simple-statement>
 <for-condition> ::= <expression>
-<for-range> ::= <identifier-list> <whitespace>? ":=" <whitespace>? "range" <whitespace> <expression>
+<for-range> ::= <expression-list> <whitespace>? (":=" | "=") <whitespace>? "range" <whitespace> <expression>
 <switch-statement> ::= "switch" <whitespace> <expression> <whitespace>? "{" <case-clauses>? "}"
+                    | "switch" <whitespace>? "{" <case-clauses>? "}"
                     | "switch" <whitespace> <simple-statement> ";" <whitespace> <expression> <whitespace>? "{" <case-clauses>? "}"
                     | "switch" <whitespace> "type" <whitespace>? "{" <case-clauses>? "}"
+                    | "switch" <whitespace> <simple-statement> ";" <whitespace> <expression> "." "(" "type" ")" <whitespace>? "{" <case-clauses>? "}"
 <case-clauses> ::= <case-clause>+
 <case-clause> ::= ("case" <whitespace> <expression-list> | "default") ":" <statement-list>?
 <select-statement> ::= "select" <whitespace>? "{" <comm-clauses>? "}"
@@ -105,7 +110,9 @@ FormatType: EBNF
 <comm-clause> ::= <comm-case> ":" <statement-list>?
 <comm-case> ::= "case" <whitespace> <comm-op> | "default"
 <comm-op> ::= <expression> "<-" <whitespace> <expression>
-           | <identifier-list> <whitespace>? ":=" <whitespace>? "range" <whitespace> <expression>
+           | "<-" <whitespace> <expression>
+           | <identifier-list> <whitespace>? (":=" | "=") <whitespace>? "range" <whitespace> <expression>
+           | <identifier-list> <whitespace>? (":=" | "=") <whitespace>? "<-" <whitespace> <expression>
 <go-statement> ::= "go" <whitespace> <expression>
 <defer-statement> ::= "defer" <whitespace> <expression>
 <type-expression> ::= <type-name>
@@ -151,11 +158,18 @@ FormatType: EBNF
 <element> ::= <expression> | <key> ":" <expression>
 <key> ::= <identifier> | <expression>
 <func-literal> ::= "func" <signature> <function-body>
-<literal> ::= <int-literal> | <float-literal> | <string-literal> | <rune-literal> | <bool-literal> | <nil-literal>
-<int-literal> ::= /[0-9]+/ | /0[xX][0-9a-fA-F]+/
-<float-literal> ::= /([0-9]+\.[0-9]*|\.[0-9]+)([eE][+-]?[0-9]+)?/
-<string-literal> ::= /"[^"\\]*"/
+<literal> ::= <int-literal> | <float-literal> | <imaginary-literal> | <string-literal> | <raw-string-literal> | <rune-literal> | <bool-literal> | <nil-literal>
+<int-literal> ::= /0[xX][0-9a-fA-F][0-9a-fA-F_]*[0-9a-fA-F]|0[xX][0-9a-fA-F]/
+                | /0[oO][0-7][0-7_]*[0-7]|0[oO][0-7]/
+                | /0[bB][01][01_]*[01]|0[bB][01]/
+                | /[0-9][0-9_]*[0-9]|[0-9]/
+<float-literal> ::= /([0-9]+\\.[0-9]*|\\.[0-9]+)([eE][+-]?[0-9]+)?/
+                  | /[0-9]+[eE][+-]?[0-9]+/
+<imaginary-literal> ::= /([0-9]+\\.[0-9]*|\\.[0-9]+|[0-9]+)([eE][+-]?[0-9]+)?i/
+<string-literal> ::= /"([^"\\\n]|\\.)*"/
+<raw-string-literal> ::= /`[^`]*`/
 <rune-literal> ::= /'([^'\\]|\\.)'/
+<tilde> ::= "~"
 <bool-literal> ::= "true" | "false"
 <nil-literal> ::= "nil"
 <identifier> ::= /[_a-zA-Z][_a-zA-Z0-9]*/
