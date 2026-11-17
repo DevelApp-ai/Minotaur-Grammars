@@ -1,5 +1,4 @@
 Grammar: ClassicASP
-TokenSplitter: Space
 FormatType: EBNF
 
 /*

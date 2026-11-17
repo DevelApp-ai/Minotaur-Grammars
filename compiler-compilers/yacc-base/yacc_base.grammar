@@ -1,5 +1,4 @@
 Grammar: Yacc_Base
-TokenSplitter: Space
 Inheritable: true
 FormatType: Yacc
 ImportSemantics: true

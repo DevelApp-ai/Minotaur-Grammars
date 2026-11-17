@@ -1,6 +1,5 @@
 Grammar: AiSpec
 FormatType: EBNF
-TokenSplitter: Space
 
 # AiSpec - grammar for hierarchical .ai component specification files
 # used by Specification-First Development (SpecTree). A .ai file declares

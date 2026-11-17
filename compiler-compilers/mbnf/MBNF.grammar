@@ -1,9 +1,7 @@
 Grammar: MBNF
-TokenSplitter: Space
 FormatType: EBNF
 
 ﻿Grammar: CEBNF
-TokenSplitter: None
 
 /*
 Context

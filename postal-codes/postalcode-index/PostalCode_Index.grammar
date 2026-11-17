@@ -1,5 +1,4 @@
 Grammar: PostalCode_Index
-TokenSplitter: Space
 FormatType: CEBNF
 
 /*

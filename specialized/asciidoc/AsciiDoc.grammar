@@ -1,6 +1,5 @@
 Grammar: AsciiDoc
 FormatType: EBNF
-TokenSplitter: Space
 
 <document> ::= <header>? <block>* ;
 <header> ::= '=' <text>( <attr_line>)* ;

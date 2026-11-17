@@ -1,6 +1,5 @@
 Grammar: SrsSpec
 FormatType: EBNF
-TokenSplitter: Space
 
 # SrsSpec - grammar for .srs requirements specification files
 # (SpecTree). System-level requirements with MoSCoW prioritisation,

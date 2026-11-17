@@ -1,6 +1,5 @@
 Grammar: AdrSpec
 FormatType: EBNF
-TokenSplitter: Space
 
 # AdrSpec - grammar for .adr architectural design record files
 # (SpecTree). YAML front-matter with status lifecycle and requirement

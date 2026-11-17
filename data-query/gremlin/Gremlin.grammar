@@ -1,6 +1,5 @@
 Grammar: Gremlin
 FormatType: EBNF
-TokenSplitter: Space
 
 <query> ::= <traversal> ;
 <traversal> ::= <source_step> <step>* ;

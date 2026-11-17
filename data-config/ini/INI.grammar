@@ -1,6 +1,5 @@
 Grammar: INI
 FormatType: EBNF
-TokenSplitter: Space
 
 # INI grammar - core language subset
 <file> ::= <line>* => { buildIni($1); }

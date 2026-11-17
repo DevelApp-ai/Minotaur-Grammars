@@ -1,5 +1,4 @@
 Grammar: US_English
-TokenSplitter: Space
 FormatType: CEBNF
 ContextSensitive: true
 SymbolTableSharing: hierarchical

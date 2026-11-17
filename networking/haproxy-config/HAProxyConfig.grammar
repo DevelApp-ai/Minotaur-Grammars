@@ -1,6 +1,5 @@
 Grammar: HAProxyConfig
 FormatType: EBNF
-TokenSplitter: Space
 
 <config> ::= <section>* ;
 <section> ::= <global_sec> | <defaults_sec> | <frontend_sec> | <backend_sec> | <listen_sec> ;

@@ -1,6 +1,5 @@
 Grammar: ModernLanguageGrammar
 Inherits: antlr4_base
-TokenSplitter: Space
 ImportSemantics: true
 
 # Custom tokens extending base grammar

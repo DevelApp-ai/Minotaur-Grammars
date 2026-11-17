@@ -1,6 +1,5 @@
 Grammar: UnixLsOutput
 FormatType: EBNF
-TokenSplitter: Space
 
 <output> ::= <total_line>? <entry>+ ;
 <entry> ::= <long_entry> | <long_entry_ext> | <inode_entry> | <name_entry> ;

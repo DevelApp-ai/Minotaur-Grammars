@@ -1,5 +1,4 @@
 Grammar: ContextValidation
-TokenSplitter: Space
 
 <FUNCTION> ::= 'function'
 <CLASS> ::= 'class' 

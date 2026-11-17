@@ -1,6 +1,5 @@
 Grammar: PrismaSchema
 FormatType: EBNF
-TokenSplitter: Space
 
 <schema> ::= <block>* ;
 <block> ::= <datasource> | <generator> | <model> | <enum_block>  | <view_def>  | <composite_type> ;

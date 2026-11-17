@@ -1,6 +1,5 @@
 Grammar: GitDiff
 FormatType: EBNF
-TokenSplitter: Space
 
 <diff> ::= <file_diff>* ;
 <file_diff> ::= <diff_header> ( 'index' <line_hash> )? <extended_header>* ( '---' <source_path> )? ( '+++' <target_path> )? ( <binary_notice> | <hunk>* ) <stat_line>* <stat_summary>? ;

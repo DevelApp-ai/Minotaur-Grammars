@@ -1,5 +1,4 @@
 Grammar: VisualBasic
-TokenSplitter: Space
 FormatType: EBNF
 
 /*

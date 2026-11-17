@@ -1,6 +1,5 @@
 Grammar: Crontab
 FormatType: EBNF
-TokenSplitter: Space
 
 <crontab> ::= <line>* ;
 <line> ::= <entry> | <variable> | <comment> | <empty> ;

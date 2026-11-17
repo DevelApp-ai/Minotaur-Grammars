@@ -3,7 +3,7 @@
   "Name": "sample",
   "Vendor": "DevelApp",
   "DisplayName": "sample",
-  "Version": "1.0.0",
+  "Version": "2.0.0",
   "MinotaurVersion": "*",
   "Description": "sample programming-language grammar for the Minotaur parser platform. Inherits from antlr4_base.",
   "License": "MIT",
@@ -22,5 +22,7 @@
     "FirstName": "Lars",
     "LastName": "Buch-Jepsen"
   },
-  "PricingModel": "free"
+  "PricingModel": "free",
+  "EngineVerified": true,
+  "EngineVerifiedBy": "ENFAStepLexer-StepParser@e6d1ae5cf748 (grammar-repository-tests, GreedyLongestMatch)"
 }

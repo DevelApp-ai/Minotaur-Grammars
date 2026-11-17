@@ -1,6 +1,5 @@
 Grammar: AnsiblePlaybook
 FormatType: EBNF
-TokenSplitter: Space
 
 # AnsiblePlaybook grammar - core subset
 <file> ::= <document-start>? <play>* => { buildPlaybook($2); }

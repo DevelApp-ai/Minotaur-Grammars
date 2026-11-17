@@ -1,6 +1,5 @@
 Grammar: WindowsDirOutput
 FormatType: EBNF
-TokenSplitter: Space
 
 <output> ::= <header> <volume_serial>? <entry>+ <footer> ;
 <header> ::= 'Volume' 'in' 'drive' <identifier> 'is' <name> 'Directory' 'of' <path> ;

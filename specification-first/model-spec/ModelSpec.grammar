@@ -1,6 +1,5 @@
 Grammar: ModelSpec
 FormatType: EBNF
-TokenSplitter: Space
 
 # ModelSpec - grammar for .model data model specification files
 # (SpecTree). Declares entities, relationships, invariants and

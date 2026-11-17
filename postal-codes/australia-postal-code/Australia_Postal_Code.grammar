@@ -1,5 +1,4 @@
 Grammar: Australia_Postal_Code
-TokenSplitter: Space
 FormatType: CEBNF
 ContextSensitive: true
 

@@ -1,6 +1,5 @@
 Grammar: EnvoyConfig
 FormatType: EBNF
-TokenSplitter: Space
 
 <config> ::= <node>? <static_resources>? <admin>? <listeners_list>? <clusters_list>? ;
 <node> ::= 'node' ':' <node_body> ;

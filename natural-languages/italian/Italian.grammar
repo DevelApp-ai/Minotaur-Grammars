@@ -1,5 +1,4 @@
 Grammar: Italian
-TokenSplitter: Space
 FormatType: CEBNF
 ContextSensitive: true
 SymbolTableSharing: hierarchical

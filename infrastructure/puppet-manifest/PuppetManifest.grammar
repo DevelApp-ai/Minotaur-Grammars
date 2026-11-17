@@ -1,6 +1,5 @@
 Grammar: PuppetManifest
 FormatType: EBNF
-TokenSplitter: Space
 
 # PuppetManifest grammar - core subset
 <file> ::= <statement>* => { buildManifest($1); }

@@ -1,5 +1,4 @@
 Grammar: FSharp
-TokenSplitter: Space
 FormatType: EBNF
 
 /*

@@ -1,6 +1,5 @@
 Grammar: Solidity
 FormatType: EBNF
-TokenSplitter: Space
 
 <source_unit> ::= <pragma>? <import_stmt>* <contract_def>* ;
 <pragma> ::= 'pragma' 'solidity' <version_spec> ';' ;

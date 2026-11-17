@@ -1,6 +1,5 @@
 Grammar: SASS
 FormatType: EBNF
-TokenSplitter: Space
 
 <stylesheet> ::= <statement>* ;
 <statement> ::= <variable_decl> | <nested_rule> | <mixin_decl> | <include> | <import_stmt> | <property> | <comment>  | <extend_stmt>  | <control_if>  | <control_for>  | <control_each>  | <control_while>  | <use_stmt>  | <forward_stmt>  | <function_def>  | <media_query>  | <supports_query> ;

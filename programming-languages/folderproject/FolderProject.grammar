@@ -5,7 +5,6 @@ Grammar: FolderProject
 # relationship tracking. Rewritten from the legacy ANTLR-style draft to
 # EBNF so it parses with StepParserEngine.LoadGrammarFromContent (issue #18).
 
-TokenSplitter: Space
 Context: default
 
 # --- Lexical tokens ---

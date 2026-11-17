@@ -1,6 +1,5 @@
 Grammar: SPARQL
 FormatType: EBNF
-TokenSplitter: Space
 
 <query> ::= <prologue> <select_query> ;
 <prologue> ::= <prefix_decl>* ;

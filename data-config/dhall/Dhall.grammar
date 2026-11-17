@@ -1,6 +1,5 @@
 Grammar: Dhall
 FormatType: EBNF
-TokenSplitter: Space
 
 # Dhall grammar - core language subset
 <file> ::= <expr> => { buildDhall($1); }

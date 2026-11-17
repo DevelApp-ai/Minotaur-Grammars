@@ -1,5 +1,4 @@
 Grammar: XAML
-TokenSplitter: Space
 FormatType: EBNF
 EmbeddedLanguage: true
 ParentContext: XML

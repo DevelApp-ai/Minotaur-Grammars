@@ -1,6 +1,5 @@
 Grammar: Jsonnet
 FormatType: EBNF
-TokenSplitter: Space
 
 # Jsonnet grammar - core language subset
 <file> ::= <expr> => { buildJsonnet($1); }

@@ -1,6 +1,5 @@
 Grammar: NginxConfig
 FormatType: EBNF
-TokenSplitter: Space
 
 <config> ::= <directive>* ;
 <directive> ::= <simple> | <block> ;

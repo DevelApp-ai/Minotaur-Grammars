@@ -1,6 +1,5 @@
 Grammar: Cypher
 FormatType: EBNF
-TokenSplitter: Space
 
 <query> ::= ( <statement> ';'?)+ ;
 <statement> ::= <match_stmt> | <create_stmt> | <merge_stmt> | <delete_stmt> | <return_stmt> | <set_stmt>  | <call_subquery>  | <load_csv>  | <use_clause> ;

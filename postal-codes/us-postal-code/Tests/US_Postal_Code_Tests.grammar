@@ -1,5 +1,4 @@
 Grammar: US_Postal_Code_Tests
-TokenSplitter: Space
 FormatType: CEBNF
 
 /*

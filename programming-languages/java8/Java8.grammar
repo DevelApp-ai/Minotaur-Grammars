@@ -1,6 +1,5 @@
 Grammar: Java8
 Language version: Java SE 8 (superset of Java 7 and earlier; lambdas, method references, default/static interface methods, intersection casts).
-TokenSplitter: Space
 FormatType: EBNF
 
 /*

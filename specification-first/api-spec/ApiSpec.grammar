@@ -1,6 +1,5 @@
 Grammar: ApiSpec
 FormatType: EBNF
-TokenSplitter: Space
 
 # ApiSpec - grammar for .api interface specification files (SpecTree).
 # Declares versioned REST contracts: endpoints, schemas, validation

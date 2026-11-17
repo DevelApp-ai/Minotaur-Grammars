@@ -1,6 +1,5 @@
 Grammar: CircleCIConfig
 FormatType: EBNF
-TokenSplitter: Space
 
 <config> ::= <version> <jobs>? <workflows>? <orbs>? <commands>? <executors>? ;
 <version> ::= 'version' ':' <number> ;

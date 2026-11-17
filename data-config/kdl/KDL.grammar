@@ -1,6 +1,5 @@
 Grammar: KDL
 FormatType: EBNF
-TokenSplitter: Space
 
 # KDL grammar - core language subset
 <file> ::= <node>* => { buildKdl($1); }

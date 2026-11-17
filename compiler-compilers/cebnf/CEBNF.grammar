@@ -1,9 +1,7 @@
 Grammar: CEBNF
-TokenSplitter: Space
 FormatType: EBNF
 
 ﻿Grammar: BNF
-TokenSplitter: Space
 
 <syntax>                    ::= <ruleOrComment> | <ruleOrComment> <syntax>
 <ruleOrComment>             ::= <comment> | <rule>

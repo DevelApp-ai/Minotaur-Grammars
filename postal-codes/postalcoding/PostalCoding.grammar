@@ -1,9 +1,7 @@
 Grammar: PostalCoding
-TokenSplitter: Space
 FormatType: EBNF
 
 ﻿Grammar: CEBNF
-TokenSplitter: None
 
 /* Grammar for validating US Postal coding */
 <postal-address>  ::= <name-part> <street-address> <zip-part>

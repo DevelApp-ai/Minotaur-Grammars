@@ -1,6 +1,5 @@
 Grammar: CloudFormation
 FormatType: EBNF
-TokenSplitter: Space
 
 # CloudFormation grammar - core subset
 <file> ::= <template> => { buildTemplate($1); }

@@ -1,6 +1,5 @@
 Grammar: Cue
 FormatType: EBNF
-TokenSplitter: Space
 
 # Cue grammar - core language subset
 <file> ::= <package-clause>? <import-decl>* <declaration>* => { buildCue($1, $2, $3); }

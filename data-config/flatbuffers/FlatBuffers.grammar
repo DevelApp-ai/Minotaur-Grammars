@@ -1,6 +1,5 @@
 Grammar: FlatBuffers
 FormatType: EBNF
-TokenSplitter: Space
 
 # FlatBuffers grammar - core language subset
 <file> ::= <declaration>* => { buildSchema($1); }

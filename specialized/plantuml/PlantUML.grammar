@@ -1,6 +1,5 @@
 Grammar: PlantUML
 FormatType: EBNF
-TokenSplitter: Space
 
 <diagram> ::= <startuml> <content> <enduml>  | <activity_diagram>  | <deployment_diagram>  | <object_diagram>  | <timing_diagram> ;
 <startuml> ::= '@startuml' <identifier>? ;

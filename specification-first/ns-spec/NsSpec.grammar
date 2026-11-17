@@ -1,6 +1,5 @@
 Grammar: NsSpec
 FormatType: EBNF
-TokenSplitter: Space
 
 # NsSpec - grammar for .ns non-functional specification files
 # (SpecTree). Measurable performance budgets, security requirements,

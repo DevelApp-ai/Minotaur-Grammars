@@ -1,6 +1,5 @@
 Grammar: Xsd11
 FormatType: EBNF
-TokenSplitter: Space
 
 <schema> ::= '<schema' <schema_attrs>? '>' <definition>* '</schema>' ;
 <definition> ::= <element_def> | <complexType> | <simpleType> | <group_def> | <attributeGroup> | <annotation> | <include> | <import> | <redefine> | <override> | <default_open_content> | <notation> ;

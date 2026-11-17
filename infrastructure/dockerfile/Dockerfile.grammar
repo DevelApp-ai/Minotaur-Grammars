@@ -1,6 +1,5 @@
 Grammar: Dockerfile
 FormatType: EBNF
-TokenSplitter: Space
 
 # Dockerfile grammar - core subset
 <file> ::= <instruction>* => { buildDockerfile($1); }

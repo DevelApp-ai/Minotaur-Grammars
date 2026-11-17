@@ -1,5 +1,4 @@
 Grammar: CEBNF
-TokenSplitter: Space
 EmbeddedLanguage: true
 ParentContext: HTML
 ContextSensitive: true

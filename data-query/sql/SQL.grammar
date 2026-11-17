@@ -1,6 +1,5 @@
 Grammar: SQL
 FormatType: EBNF
-TokenSplitter: Space
 
 <script> ::= <statement>* ;
 <statement> ::= <select_stmt> | <insert_stmt> | <update_stmt> | <delete_stmt> | <create_table> | <create_index> | <alter_table> | <drop_stmt>  | <merge_statement>  | <dml_with_clause>  | <create_procedure>  | <create_trigger>  | <grant_statement>  | <revoke_statement> ;

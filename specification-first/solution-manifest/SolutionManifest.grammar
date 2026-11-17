@@ -1,6 +1,5 @@
 Grammar: SolutionManifest
 FormatType: EBNF
-TokenSplitter: Space
 
 # SolutionManifest - grammar for the SpecTree solution manifest.
 # Binds the specification tree to a .NET solution: project mappings,

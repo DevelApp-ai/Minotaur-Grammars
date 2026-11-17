@@ -1,5 +1,4 @@
 Grammar: French
-TokenSplitter: Space
 FormatType: CEBNF
 ContextSensitive: true
 SymbolTableSharing: hierarchical

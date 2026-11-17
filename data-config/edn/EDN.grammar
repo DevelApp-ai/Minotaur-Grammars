@@ -1,6 +1,5 @@
 Grammar: EDN
 FormatType: EBNF
-TokenSplitter: Space
 
 # EDN grammar - core language subset
 <file> ::= <edn-value>* => { buildEdn($1); }

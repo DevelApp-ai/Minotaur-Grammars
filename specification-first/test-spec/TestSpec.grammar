@@ -1,6 +1,5 @@
 Grammar: TestSpec
 FormatType: EBNF
-TokenSplitter: Space
 
 # TestSpec - grammar for .test test specification files (SpecTree).
 # A .test file binds to a target component and declares scenario-based
