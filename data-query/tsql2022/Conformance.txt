@@ -1,14 +1,21 @@
-# Conformance cases for SQL.grammar - engine-verified lexing pin.
+# Conformance cases for TSQL2022.grammar - engine-verified lexing pin.
 # Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
 # mode (engine issues #129/#133); the grammar-repository-tests job runs this in
 # engine CI as well.
-grammar: SQL.grammar
+grammar: TSQL2022.grammar
 
-lex: CREATE TABLE users (id INTEGER PRIMARY KEY, name TEXT NOT NULL);
-lex: SELECT * FROM users WHERE id = 1;
-lex: MERGE INTO t USING s ON t.id = s.id WHEN MATCHED THEN UPDATE SET v = s.v WHEN NOT MATCHED THEN INSERT VALUES (s.id, s.v);
-lex: CREATE TRIGGER trg BEFORE INSERT ON t FOR EACH ROW EXECUTE FUNCTION fn();
-lex: CREATE PROCEDURE p(IN x INT) BEGIN SELECT x; END;
-lex: GRANT SELECT, INSERT ON t TO analyst;
-lex: SELECT * FROM a, LATERAL (SELECT * FROM b WHERE b.id = a.id) sub;
-lex: SELECT avg(v) OVER w FROM t WINDOW w AS (PARTITION BY g ORDER BY ts ROWS BETWEEN 1 PRECEDING AND CURRENT ROW);
+lex: CREATE TABLE [Funny.Onion].[Example] ([Id] BIGINT IDENTITY(1,1) NOT NULL, [Name] NVARCHAR(100) NULL DEFAULT 'x', CONSTRAINT [PK] PRIMARY KEY ([Id])); GO
+lex: IF NOT EXISTS (SELECT 1 FROM sys.schemas WHERE name = N'Funny.Onion') EXEC(N'CREATE SCHEMA [Funny.Onion];'); GO
+lex: IF dbo.fn(N'a', N'b') IS NOT NULL DROP TABLE [dbo].[t]; GO
+lex: CREATE TABLE [t] ([Kind] NVARCHAR(30) NULL CHECK ([Kind] IN (N'Auto', N'Manual')), [V] NVARCHAR(100) NULL CHECK ([V] >= 'a')); GO
+lex: CREATE TABLE [t3] ([O] BIGINT IDENTITY(1,1) NOT NULL, CONSTRAINT [FK] FOREIGN KEY ([O]) REFERENCES [dbo].[t] ([O])); GO
+lex: DROP TABLE [Funny.Onion].[Example]; GO
+
+# The DDL grammar has no '*' token (TSQL2022 DDL has no DML star-selects),
+# so these inputs must be rejected by the token rules (LX1001).
+fail: SELECT * FROM t
+fail: `
+fail: €
+
+# Whole example corpus as a lex case (raw content; '--' lines are comments).
+lexfile: Examples.txt
