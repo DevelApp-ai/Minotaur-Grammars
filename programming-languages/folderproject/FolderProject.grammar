@@ -41,7 +41,7 @@ Context: default
                           | <generic_project>
 
 <dotnet_project> ::= <indicator_file> 'DotNetProject.grammar'
-<node_project> ::= <indicator_file> 'JavaScript001.grammar'
+<node_project> ::= <indicator_file> 'JavaScript.grammar'
 <python_project> ::= <indicator_file> 'Python311.grammar'
 <java_project> ::= <indicator_file> 'Java17.grammar'
 <cpp_project> ::= <indicator_file> 'Cpp20.grammar'

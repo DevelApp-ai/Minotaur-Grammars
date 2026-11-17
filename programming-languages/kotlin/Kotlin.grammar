@@ -1,0 +1,130 @@
+Grammar: Kotlin
+FormatType: EBNF
+
+<file> ::= <package_stmt>? <import_stmt>* <decl>* ;
+<package_stmt> ::= 'package' <qualified_id> ;
+<import_stmt> ::= 'import' <qualified_id> ;
+<decl> ::= <comment> | <fun_decl> | <class_decl> | <object_decl> | <val_decl> | <var_decl> ;
+<fun_decl> ::= 'fun' (<type> '.')? <identifier> '(' <params>? ')' (':' <type>)? '{' <stmt>* '}' ;
+<params> ::= <param> (',' <param>)* ;
+<param> ::= <identifier> ':' <type> ('=' <expr>)? ;
+<class_decl> ::= ('class' | 'data' 'class') <identifier> ('(' <params>? ')')? (':' <type_list>)? '{' <decl>* '}' ;
+<object_decl> ::= 'object' <identifier> (':' <type_list>)? '{' <decl>* '}' ;
+<val_decl> ::= 'val' <identifier> (':' <type>)? '=' <expr> ;
+<var_decl> ::= 'var' <identifier> (':' <type>)? ('=' <expr>)? ;
+<stmt> ::= <expr_stmt> | <return_stmt> | <if_stmt> | <for_stmt> | <while_stmt> | <when_stmt> | <decl> ;
+<expr_stmt> ::= <expr> ;
+<return_stmt> ::= 'return' <expr>? ;
+<if_stmt> ::= 'if' '(' <expr> ')' <block> ('else' <block>)? ;
+<for_stmt> ::= 'for' '(' <identifier> 'in' <expr> ')' <block> ;
+<while_stmt> ::= 'while' '(' <expr> ')' <block> ;
+<when_stmt> ::= 'when' '(' <expr> ')' '{' <when_entry>* '}' ;
+<when_entry> ::= (<expr> | 'else') '->' (<block> | <expr>) ;
+<block> ::= '{' <stmt>* '}' | <stmt> ;
+<expr> ::= <literal> | <identifier> | <call> | <member> | <null_check> | <expr> <binop> <expr> | '(' <expr> ')' | <lambda> ;
+<call> ::= <expr> '(' <args>? ')' ;
+<member> ::= <expr> '.' <identifier> ;
+<null_check> ::= <expr> ('!!' | '?') ;
+<args> ::= (<identifier> '=')? <expr> (',' (<identifier> '=')? <expr>)* ;
+<lambda> ::= '{' (<params> '->')? <stmt>* '}' ;
+<type> ::= <qualified_id> | 'List' '<' <type> '>' | <type> '?' ;
+<type_list> ::= <type> (',' <type>)* ;
+<literal> ::= <number> | <text> | <boolean> | 'null' ;
+<boolean> ::= 'true' | 'false' ;
+<binop> ::= '+' | '-' | '*' | '/' | '==' | '!=' | '<' | '>' | '&&' | '||' | '?:' ;
+<qualified_id> ::= <identifier> ('.' <identifier>)* ;
+<identifier> ::= /[a-zA-Z_][a-zA-Z0-9_]*/ ;
+<text> ::= /'"'[^"]*'"'/ ;
+<number> ::= /[0-9]+('.'[0-9]+)?/ ;
+
+# --- Coverage completion: remaining language constructs ---
+<inline_function> ::= modifier_list? "inline" fun_declaration ;
+<reified_type_parameter> ::= "reified" <auto_reified_type_parameter_0> type_name <auto_reified_type_parameter_1> ;
+<crossinline_parameter> ::= "crossinline" lambda_parameter ;
+<vararg_parameter> ::= "vararg" parameter_name ":" <type> <auto_vararg_parameter_0> ;
+<operator_function> ::= "operator" fun_declaration ;
+<infix_function> ::= "infix" fun_declaration ;
+<tailrec_function> ::= "tailrec" fun_declaration ;
+<data_object> ::= "data" "object" <identifier> <auto_data_object_0> class_body? ;
+<implicit_lambda> ::= "{" statement* "}" ;
+<auto_reified_type_parameter_0> ::= /[ "in" | "out" ]/ ;
+<auto_reified_type_parameter_1> ::= /[ ":" type_bound ]/ ;
+<auto_vararg_parameter_0> ::= /[ "=" expression ]/ ;
+<auto_data_object_0> ::= /[ ":" delegation_list ]/ ;
+
+/* Comments (issue #189) */
+<single-line-comment> ::= /\/\/[^\n]*/
+<multi-line-comment> ::= /\/\*([^*]|\*+[^*/])*\*+\//
+<comment> ::= <single-line-comment> | <multi-line-comment>
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   identifier, number, string/char literals, punctuation and comments as token
+   rules. String/char/block-comment patterns are the proven CSharp10 ones. */
+<lx_ws> ::= /[ \t\r\n]+/ => { skip }
+<lx_backslash> ::= /\\/
+<lx_identifier> ::= /[A-Za-z_][A-Za-z0-9_]*/
+<lx_number> ::= /[0-9]+(\.[0-9]+)?([eE][+-]?[0-9]+)?/
+<lx_string> ::= /"([^"\\\n]|\\.)*"/
+<lx_char0> ::= /'[^'\n]'/
+<lx_char1> ::= /'\x5C.'/
+<lx_char2> ::= /'\x5Cu[0-9a-fA-F]{4}'/
+<lx_char3> ::= /'\x5Cx[0-9a-fA-F]{1,4}'/
+<lx_block_comment0> ::= /\x2F\*([^*]|\*+[^*\x2F])*\*+\x2F/ => { skip }
+<lx_p0> ::= "("
+<lx_p1> ::= ")"
+<lx_p2> ::= "{"
+<lx_p3> ::= "}"
+<lx_p4> ::= "["
+<lx_p5> ::= "]"
+<lx_p6> ::= ";"
+<lx_p7> ::= ","
+<lx_p8> ::= "."
+<lx_p9> ::= "?"
+<lx_p10> ::= ":"
+<lx_p11> ::= "!"
+<lx_p12> ::= "+"
+<lx_p13> ::= "-"
+<lx_p14> ::= "*"
+<lx_p15> ::= "/"
+<lx_p16> ::= "%"
+<lx_p17> ::= "="
+<lx_p18> ::= "<"
+<lx_p19> ::= ">"
+<lx_p20> ::= "&"
+<lx_p21> ::= "|"
+<lx_p22> ::= "^"
+<lx_p23> ::= "~"
+<lx_p24> ::= "@"
+<lx_p25> ::= "`"
+<lx_p26> ::= '"'
+<lx_p27> ::= "'"
+<lx_p28> ::= "=>"
+<lx_p29> ::= "->"
+<lx_p30> ::= "=="
+<lx_p31> ::= "!="
+<lx_p32> ::= "<="
+<lx_p33> ::= ">="
+<lx_p34> ::= "&&"
+<lx_p35> ::= "||"
+<lx_p36> ::= "++"
+<lx_p37> ::= "--"
+<lx_p38> ::= "+="
+<lx_p39> ::= "-="
+<lx_p40> ::= "*="
+<lx_p41> ::= "/="
+<lx_p42> ::= "%="
+<lx_p43> ::= "&="
+<lx_p44> ::= "|="
+<lx_p45> ::= "^="
+<lx_p46> ::= "<<"
+<lx_p47> ::= ">>"
+<lx_p48> ::= "::"
+<lx_p49> ::= ".."
+<lx_p50> ::= "..."
+<lx_p51> ::= "**"
+<lx_p52> ::= "??"
+<lx_p53> ::= "?."
+<lx_p54> ::= "<>"
+<lx_line_comment> ::= /\x2F\x2F[^\n]*/ => { skip }
+<lx_hash_comment> ::= /#[^\n]*/ => { skip }
+<lx_block_comment> ::= /\x2F\*([^*]|\*+[^*\x2F])*\*+\x2F/ => { skip }
