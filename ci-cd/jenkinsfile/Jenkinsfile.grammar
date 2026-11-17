@@ -1,6 +1,5 @@
 Grammar: Jenkinsfile
 FormatType: EBNF
-TokenSplitter: Space
 
 <pipeline> ::= 'pipeline' '{' <agent> <stages> <post>? <environment>? <parameters>? <options>? <triggers>? <tools>? '}' ;
 <agent> ::= 'agent' <agent_body> ;

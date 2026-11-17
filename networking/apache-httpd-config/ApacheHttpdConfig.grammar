@@ -1,6 +1,5 @@
 Grammar: ApacheHttpdConfig
 FormatType: EBNF
-TokenSplitter: Space
 
 <config> ::= <line>* ;
 <line> ::= <section> | <directive> | <comment> ;

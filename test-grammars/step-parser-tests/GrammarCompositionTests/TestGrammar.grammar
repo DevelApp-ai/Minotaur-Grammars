@@ -1,5 +1,4 @@
 Grammar: TestGrammar
-TokenSplitter: Space
 Context: default
 
 # Minimal placeholder rule: this fixture is loaded by GrammarCompositionTests

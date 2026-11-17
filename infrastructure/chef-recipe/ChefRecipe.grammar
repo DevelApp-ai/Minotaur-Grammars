@@ -1,6 +1,5 @@
 Grammar: ChefRecipe
 FormatType: EBNF
-TokenSplitter: Space
 
 # ChefRecipe grammar - core subset
 <file> ::= <statement>* => { buildRecipe($1); }

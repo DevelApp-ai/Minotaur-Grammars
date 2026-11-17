@@ -1,6 +1,5 @@
 Grammar: HTML
 FormatType: EBNF
-TokenSplitter: Space
 
 <document> ::= <doctype>? <html_elem> ;
 <doctype> ::= '<!DOCTYPE' 'html' '>' ;

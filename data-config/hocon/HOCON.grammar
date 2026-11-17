@@ -1,6 +1,5 @@
 Grammar: HOCON
 FormatType: EBNF
-TokenSplitter: Space
 
 # HOCON grammar - core language subset
 <file> ::= <root> => { buildHocon($1); }

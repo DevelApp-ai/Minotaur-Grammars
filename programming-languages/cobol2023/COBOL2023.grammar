@@ -1,5 +1,4 @@
 Grammar: COBOL2023
-TokenSplitter: Space
 FormatType: EBNF
 
 /*

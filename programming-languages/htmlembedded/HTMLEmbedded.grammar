@@ -1,5 +1,4 @@
 Grammar: HTMLEmbedded
-TokenSplitter: Space
 FormatType: EBNF
 EmbeddedLanguage: true
 ContextSensitive: true

@@ -1,5 +1,4 @@
 Grammar: CEBNF
-TokenSplitter: None
 
 /* Enhanced Grammar for validating International Postal Addresses */
 /* Supports US, Danish, and extensible international formats */

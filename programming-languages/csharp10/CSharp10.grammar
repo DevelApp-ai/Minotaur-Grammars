@@ -1,5 +1,4 @@
 Grammar: CSharp10
-TokenSplitter: Space
 FormatType: EBNF
 
 /*
@@ -11,7 +10,6 @@ FormatType: EBNF
  * official C# 10 specification and .NET 6 features.
  */
 
-TokenSplitter: Space
 Keywords: abstract, as, base, bool, break, byte, case, catch, char, checked, class, const, continue, decimal, default, delegate, do, double, else, enum, event, explicit, extern, false, finally, fixed, float, for, foreach, goto, if, implicit, in, int, interface, internal, is, lock, long, namespace, new, null, object, operator, out, override, params, private, protected, public, readonly, ref, return, sbyte, sealed, short, sizeof, stackalloc, static, string, struct, switch, this, throw, true, try, typeof, uint, ulong, unchecked, unsafe, ushort, using, virtual, void, volatile, while, add, alias, ascending, async, await, by, descending, dynamic, equals, from, get, global, group, into, join, let, nameof, notnull, on, orderby, partial, remove, select, set, unmanaged, value, var, when, where, with, yield, and, or, not, record, init, file, scoped, required
 
 /*

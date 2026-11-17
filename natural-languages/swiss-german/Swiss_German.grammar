@@ -1,5 +1,4 @@
 Grammar: Swiss_German
-TokenSplitter: Space
 FormatType: CEBNF
 ContextSensitive: true
 SymbolTableSharing: hierarchical

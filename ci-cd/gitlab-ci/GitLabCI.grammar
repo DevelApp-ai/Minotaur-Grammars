@@ -1,6 +1,5 @@
 Grammar: GitLabCI
 FormatType: EBNF
-TokenSplitter: Space
 
 <pipeline> ::= <stages>? <jobs> <variables>? <workflow>? <include>? ;
 <stages> ::= 'stages' ':' '[' <stage_name> (',' <stage_name>)* ']' ;

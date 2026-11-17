@@ -1,6 +1,5 @@
 Grammar: Protobuf
 FormatType: EBNF
-TokenSplitter: Space
 
 # Protobuf grammar - core language subset
 <file> ::= <syntax-decl> <top-level-decl>* => { buildProto($1, $2); }

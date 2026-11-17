@@ -1,5 +1,4 @@
 Grammar: ContextSensitiveGrammar
-TokenSplitter: Space
 
 <FUNCTION> ::= "function"
 <CLASS> ::= "class"

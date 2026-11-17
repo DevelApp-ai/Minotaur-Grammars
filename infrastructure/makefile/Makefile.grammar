@@ -1,6 +1,5 @@
 Grammar: Makefile
 FormatType: EBNF
-TokenSplitter: Space
 
 # Makefile grammar - core subset
 <file> ::= <make-line>* => { buildMakefile($1); }

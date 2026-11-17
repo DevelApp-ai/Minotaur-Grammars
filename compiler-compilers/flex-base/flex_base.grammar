@@ -1,5 +1,4 @@
 Grammar: Flex_Base
-TokenSplitter: None
 Inheritable: true
 FormatType: Flex
 ImportSemantics: true

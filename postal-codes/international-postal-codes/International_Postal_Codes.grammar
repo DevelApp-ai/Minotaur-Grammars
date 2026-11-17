@@ -1,5 +1,4 @@
 Grammar: International_Postal_Codes
-TokenSplitter: Space
 FormatType: CEBNF
 ContextSensitive: true
 

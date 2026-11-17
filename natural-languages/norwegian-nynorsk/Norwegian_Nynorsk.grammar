@@ -17,7 +17,6 @@
  */
 
 Grammar: Norwegian_Nynorsk
-TokenSplitter: Space
 FormatType: CEBNF
 ContextSensitive: true
 SymbolTableSharing: hierarchical

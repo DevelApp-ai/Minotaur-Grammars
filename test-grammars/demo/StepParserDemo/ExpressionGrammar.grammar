@@ -1,5 +1,4 @@
 Grammar: ExpressionGrammar
-TokenSplitter: Space
 
 # Token definitions
 <NUMBER> ::= /[0-9]+/ => { return("NUMBER"); }

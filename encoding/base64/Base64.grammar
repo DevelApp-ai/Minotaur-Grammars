@@ -1,6 +1,5 @@
 Grammar: Base64
 FormatType: EBNF
-TokenSplitter: Space
 
 <document> ::= <base64> | <base64url> | <mime_line> | <data_url> | <encoded_word> | <openpgp_armor> ;
 <base64> ::= <chunk>* <tail>? ;

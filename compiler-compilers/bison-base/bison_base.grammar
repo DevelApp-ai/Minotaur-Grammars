@@ -1,5 +1,4 @@
 Grammar: Bison_Base
-TokenSplitter: Space
 Inheritable: true
 FormatType: Bison
 ImportSemantics: true

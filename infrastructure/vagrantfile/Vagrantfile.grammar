@@ -1,6 +1,5 @@
 Grammar: Vagrantfile
 FormatType: EBNF
-TokenSplitter: Space
 
 # Vagrantfile grammar - core subset
 <file> ::= <statement>* => { buildVagrantfile($1); }

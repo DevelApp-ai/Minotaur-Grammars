@@ -1,6 +1,5 @@
 Grammar: Markdown
 FormatType: EBNF
-TokenSplitter: Space
 
 <document> ::= <block>*  | <front_matter> ;
 <block> ::= <heading> | <paragraph> | <code_block> | <list> | <blockquote> | <thematic_break> | <table>  | <html_comment> ;

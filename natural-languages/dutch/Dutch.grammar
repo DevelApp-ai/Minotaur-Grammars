@@ -1,5 +1,4 @@
 Grammar: Dutch
-TokenSplitter: Space
 FormatType: CEBNF
 ContextSensitive: true
 SymbolTableSharing: hierarchical

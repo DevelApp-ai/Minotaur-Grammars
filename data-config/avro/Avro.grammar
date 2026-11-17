@@ -1,6 +1,5 @@
 Grammar: Avro
 FormatType: EBNF
-TokenSplitter: Space
 
 # Avro grammar - core language subset
 <file> ::= <schema> => { buildAvroSchema($1); }

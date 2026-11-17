@@ -1,5 +1,4 @@
 Grammar: ANTLR4_Base
-TokenSplitter: Space
 Inheritable: true
 FormatType: ANTLR4
 ImportSemantics: true

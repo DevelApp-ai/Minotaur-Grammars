@@ -1,6 +1,5 @@
 Grammar: PHP
 FormatType: EBNF
-TokenSplitter: Space
 
 <script> ::= <open_tag> <stmt>* ;
 <open_tag> ::= '<?php' ;

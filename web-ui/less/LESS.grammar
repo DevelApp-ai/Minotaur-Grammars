@@ -1,6 +1,5 @@
 Grammar: LESS
 FormatType: EBNF
-TokenSplitter: Space
 
 <stylesheet> ::= <statement>* ;
 <statement> ::= <variable_decl> | <nested_rule> | <mixin_decl> | <mixin_call> | <import_stmt> | <property> | <comment>  | <guarded_mixin> ;

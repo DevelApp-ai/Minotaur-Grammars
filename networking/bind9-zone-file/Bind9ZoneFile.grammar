@@ -1,6 +1,5 @@
 Grammar: Bind9ZoneFile
 FormatType: EBNF
-TokenSplitter: Space
 
 <zone_file> ::= <soa_record> <record>* ;
 <soa_record> ::= <origin> <ttl_class> 'SOA' <mname> <rname> '(' <soa_values> ')' ;

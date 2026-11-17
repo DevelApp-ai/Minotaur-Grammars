@@ -1,5 +1,4 @@
 Grammar: Go119
-TokenSplitter: Space
 FormatType: EBNF
 
 /*

@@ -1,6 +1,5 @@
 Grammar: NomadHcl
 FormatType: EBNF
-TokenSplitter: Space
 
 # NomadHcl grammar - core subset
 <file> ::= <job-block> => { buildNomadJob($1); }

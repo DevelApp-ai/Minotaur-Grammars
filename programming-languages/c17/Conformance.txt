@@ -1,0 +1,11 @@
+# Conformance cases for C17.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); grammar-repository-tests
+# job runs this in engine CI as well.
+grammar: C17.grammar
+
+lex: int main(void) { return 0; }
+lex: int x = 42;
+
+# Input that must be rejected by the token rules (LX1001).
+fail: €

@@ -1,5 +1,4 @@
 Grammar: Modern_Greek
-TokenSplitter: Space
 FormatType: CEBNF
 ContextSensitive: true
 SymbolTableSharing: hierarchical

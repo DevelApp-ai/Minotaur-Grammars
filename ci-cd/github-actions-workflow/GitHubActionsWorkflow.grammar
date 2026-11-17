@@ -1,6 +1,5 @@
 Grammar: GitHubActionsWorkflow
 FormatType: EBNF
-TokenSplitter: Space
 
 <workflow> ::= <name>? <on> <triggers> <jobs> <env>? <defaults>? ;
 <name> ::= 'name' ':' <text> ;

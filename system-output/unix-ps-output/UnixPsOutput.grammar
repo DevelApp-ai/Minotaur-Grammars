@@ -1,6 +1,5 @@
 Grammar: UnixPsOutput
 FormatType: EBNF
-TokenSplitter: Space
 
 <output> ::= ( <header> | <bsd_header> )? <process>+ ;
 <header> ::= 'PID' 'TTY' 'TIME' 'CMD' ;

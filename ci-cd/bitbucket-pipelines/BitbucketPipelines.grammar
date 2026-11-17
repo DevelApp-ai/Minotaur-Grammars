@@ -1,6 +1,5 @@
 Grammar: BitbucketPipelines
 FormatType: EBNF
-TokenSplitter: Space
 
 <pipelines> ::= <image>? <definitions>? <pipelines_body> ;
 <image> ::= 'image' ':' <text> ;

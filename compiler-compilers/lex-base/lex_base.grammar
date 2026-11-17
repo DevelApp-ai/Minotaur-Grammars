@@ -1,5 +1,4 @@
 Grammar: Lex_Base
-TokenSplitter: None
 Inheritable: true
 FormatType: Lex
 ImportSemantics: true

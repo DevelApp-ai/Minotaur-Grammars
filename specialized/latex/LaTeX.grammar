@@ -1,6 +1,5 @@
 Grammar: LaTeX
 FormatType: EBNF
-TokenSplitter: Space
 
 <document> ::= <preamble> <body> ;
 <preamble> ::= <preamble_cmd>* ;

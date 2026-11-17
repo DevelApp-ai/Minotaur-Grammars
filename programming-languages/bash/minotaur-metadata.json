@@ -3,7 +3,7 @@
   "Name": "Bash",
   "Vendor": "DevelApp",
   "DisplayName": "Bash 5",
-  "Version": "1.0.0",
+  "Version": "2.0.0",
   "MinotaurVersion": "*",
   "Description": "Bash 5 grammar (POSIX shell superset) for the Minotaur parser platform: scripts, pipelines and lists, all compound commands, functions, here-documents, arrays, and the full expansion surface (authored for SBOB-Forge M5 Phase B).",
   "License": "MIT",
@@ -22,5 +22,7 @@
     "FirstName": "Lars",
     "LastName": "Buch-Jepsen"
   },
-  "PricingModel": "free"
+  "PricingModel": "free",
+  "EngineVerified": true,
+  "EngineVerifiedBy": "ENFAStepLexer-StepParser@e6d1ae5cf748 (grammar-repository-tests, GreedyLongestMatch)"
 }

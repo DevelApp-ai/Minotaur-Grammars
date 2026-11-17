@@ -1,6 +1,5 @@
 Grammar: MermaidJs
 FormatType: EBNF
-TokenSplitter: Space
 
 <diagram> ::= <flowchart> | <sequence_diagram> | <class_diagram> | <state_diagram>  | <er_diagram>  | <gantt_diagram>  | <pie_diagram>  | <journey_diagram>  | <gitgraph_diagram>  | <timeline_diagram>  | <quadrant_chart>  | <mindmap_diagram>  | <requirement_diagram> ;
 <flowchart> ::= 'flowchart' 'TD' | 'flowchart' 'LR' <flowchart_body> ;

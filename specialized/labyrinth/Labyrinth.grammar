@@ -1,6 +1,5 @@
 Grammar: Labyrinth
 FormatType: EBNF
-TokenSplitter: Space
 
 # Labyrinth grammar - Minotaur SAST rule language (specialized YAML)
 # See Minotaur-Grammars issue #182 (original grammar), #184 (pattern-operator

@@ -1,6 +1,5 @@
 Grammar: YAML
 FormatType: EBNF
-TokenSplitter: Space
 
 # YAML grammar - core language subset (YAML 1.1/1.2 block + flow styles)
 <yaml_stream> ::= <document> (<document-sep> <document>)* => { buildStream($$); }

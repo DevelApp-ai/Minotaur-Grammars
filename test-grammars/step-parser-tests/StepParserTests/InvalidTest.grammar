@@ -1,5 +1,4 @@
 Grammar: InvalidTest
-TokenSplitter: Space
 
 <NUMBER> ::= /[0-9]+/
 <INVALID_RULE ::= missing_closing_bracket
