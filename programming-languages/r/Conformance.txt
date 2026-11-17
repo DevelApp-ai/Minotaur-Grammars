@@ -1,18 +1,30 @@
-# Conformance cases for RLang.grammar - engine-verified lexing pin.
-# Run by the ENFAStepLexer-StepParser integration suite in
-# GreedyLongestMatch mode (engine issues #129/#133); grammar-repository-tests
-# job runs this in engine CI as well.
+# Conformance cases for RLang.grammar - engine-verified lexing pin (R 4.1+: raw strings r"(..)", <- and |>, %op%, slots $ @).
+# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
+# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
+# engine CI as well.
 grammar: RLang.grammar
 
-lex: library(dplyr)
-lex: data <- c(1, 2, 3)
-lex: mean(data)
-lex: if (mean(data) > 1) { print("big") }
-lex: setClass('Point', slots = c(x = 'numeric', y = 'numeric'))
-lex: setMethod('show', 'Point', function(object) cat(object@x, object@y))
+lex: x <- c(1, 2, 3)
+lex: y <- 1:10
+lex: s <- "hello"
+lex: raw <- r"(raw string)"
+lex: hex <- 0xFF
+lex: hf <- 0x1p4
+lex: int_l <- 42L
+lex: df$a
+lex: df[["b"]]
+lex: if (x[1] > 0 && x[2] != 0) {}
+lex: for (i in 1:10) print(i)
+lex: f <- function(a, b = 2, ...) a + b
+lex: g <- \\(x) x * 2
+lex: x %>% mean() %>% round(2)
+lex: 1 %in% x
+lex: a <- 1 -> b
+lex: c <<- 2
+lex: `weird name` <- 1
 
-# Input that must be rejected by the token rules (LX1001).
+# Inputs that must be rejected by the token rules (LX1001).
 fail: €
 
-# Whole real corpus file as a lex case (raw content).
+# Whole example corpus as a lex case (raw content).
 lexfile: Examples.txt

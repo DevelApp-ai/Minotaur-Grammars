@@ -1,18 +1,31 @@
-# Conformance cases for Ruby.grammar - engine-verified lexing pin.
-# Run by the ENFAStepLexer-StepParser integration suite in
-# GreedyLongestMatch mode (engine issues #129/#133); grammar-repository-tests
-# job runs this in engine CI as well.
+# Conformance cases for Ruby.grammar - engine-verified lexing pin (Ruby: :symbols, %w/%i sigils, ?a, @ivars/$gvars, -> lambdas).
+# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
+# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
+# engine CI as well.
 grammar: Ruby.grammar
 
-lex: def add(a, b)
-lex: a + b
-lex: end
-lex: puts add(1, 2)
-lex: names.each { |n| puts n }
-lex: double = ->(x) { x * 2 }
+lex: class Greeter\n  def greet\n    "hi"\n  end\nend
+lex: @@count = 0
+lex: @name = name
+lex: attr_accessor :name
+lex: "Hello, #{@name}!"
+lex: words = %w[a b c]
+lex: interp = %Q(yes #{1 + 1})
+lex: sym = :ok
+lex: quoted = :"a b"
+lex: op_sym = :+
+lex: hash = { a: 1, "b" => 2 }
+lex: if a && !b then x end
+lex: for i in 0...10 do end
+lex: case x\nwhen 1..5 then puts 1\nelse puts 2\nend
+lex: f = ->(a, b) { a + b }
+lex: g = lambda { |x| x * 2 }
+lex: puts ?a
+lex: x += 1; y **= 2; z <<= 1;
+lex: HEX = 0xFF
 
-# Input that must be rejected by the token rules (LX1001).
+# Inputs that must be rejected by the token rules (LX1001).
 fail: €
 
-# Whole real corpus file as a lex case (raw content).
+# Whole example corpus as a lex case (raw content).
 lexfile: Examples.txt

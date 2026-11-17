@@ -5,7 +5,7 @@
   "DisplayName": "Scala",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "Minotaur grammar for Scala covering the core language subset.",
+  "Description": "Scala 3 grammar for the Minotaur parser platform (export/given/opaque/end). Full lexing surface engine-verified via Conformance.txt: symbolic identifiers, interpolated s\"..\" and triple multiline strings, backtick idents, suffixed literals, full operator set.",
   "License": "MIT",
   "Tags": [
     "programming-languages"

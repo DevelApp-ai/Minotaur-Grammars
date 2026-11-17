@@ -5,7 +5,7 @@
   "DisplayName": "Swift",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "Minotaur grammar for Swift covering the core language subset.",
+  "Description": "Swift 5.5 grammar for the Minotaur parser platform (actors, async/await 5.5). Full lexing surface engine-verified via Conformance.txt: raw strings #\"..\"#, interpolation \\(..), ..< and ... ranges, $0 closure args, #available, overflow ops &+, all operators.",
   "License": "MIT",
   "Tags": [
     "programming-languages"

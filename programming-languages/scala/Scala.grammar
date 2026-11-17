@@ -29,40 +29,29 @@ FormatType: EBNF
 <binop> ::= '+' | '-' | '*' | '/' | '==' | '::' | '<' | '>' | '&&' | '||' | ':+' ;
 <qualified_id> ::= <identifier> ('.' <identifier>)* ;
 <identifier> ::= /[a-zA-Z_][a-zA-Z0-9_]*/ ;
-<text> ::= /'"'[^"]*'"'/ ;
-<number> ::= /[0-9]+/ ;
-
-# --- Coverage completion: remaining language constructs ---
-<extension_clause> ::= "extension" <auto_extension_clause_0> extension_method* ;
-<export_clause> ::= "export" ref_expression <auto_export_clause_0> ;
-<union_type> ::= <type> " | " <type> ;
-<intersection_type> ::= <type> "&" <type> ;
-<opaque_type> ::= "opaque" "type" type_name <auto_opaque_type_0> "=" <type> ;
-<end_marker> ::= "end" ( <identifier> | "if" | "while" | "match" | "try" | "new" | "val" | "extension" ) ;
-<given_with> ::= "given" <auto_given_with_0> ":" <type> "with" template_body ;
-<auto_extension_clause_0> ::= /[ "(" extension_parameter_list ")" ]/ ;
-<auto_export_clause_0> ::= /[ "." "*" | export_selector_list ]/ ;
-<auto_opaque_type_0> ::= /[ type_params ]/ ;
-<auto_given_with_0> ::= /[ identifier ]/ ;
-
-/* Comments (issue #189) */
-<single-line-comment> ::= /\/\/[^\n]*/
-<multi-line-comment> ::= /\/\*([^*]|\*+[^*/])*\*+\//
-<comment> ::= <single-line-comment> | <multi-line-comment>
 
 /* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
-   identifier, number, string/char literals, punctuation and comments as token
-   rules. String/char/block-comment patterns are the proven CSharp10 ones. */
-<lx_ws> ::= /[ \t\r\n]+/ => { skip }
-<lx_backslash> ::= /\\/
-<lx_identifier> ::= /[A-Za-z_][A-Za-z0-9_]*/
-<lx_number> ::= /[0-9]+(\.[0-9]+)?([eE][+-]?[0-9]+)?/
-<lx_string> ::= /"([^"\\\n]|\\.)*"/
-<lx_char0> ::= /'[^'\n]'/
-<lx_char1> ::= /'\x5C.'/
-<lx_char2> ::= /'\x5Cu[0-9a-fA-F]{4}'/
-<lx_char3> ::= /'\x5Cx[0-9a-fA-F]{1,4}'/
-<lx_block_comment0> ::= /\x2F\*([^*]|\*+[^*\x2F])*\*+\x2F/ => { skip }
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   Scala 3: // and /* */ comments, triple multiline strings, symbolic idents, backtick idents, # projection */
+<whitespace> ::= /[ \t\r\n]+/ => { skip }
+<line_comment> ::= /\x2F\x2F[^\n]*/ => { skip }
+<block_comment> ::= /\x2F\*([^*]|\*+[^*\x2F])*\*+\x2F/ => { skip }
+<string> ::= /[sSfF]"([^"\\\n]|\\.)*"/
+<string> ::= /"([^"\\\n]|\\.)*"/
+<string> ::= /[\x22]{3}([^\x22]|[\x22][^\x22]|[\x22]{2}[^\x22])*[\x22]{3}/
+<char> ::= /'[^'\n]'/
+<char> ::= /'\x5C.'/
+<char> ::= /'\x5Cu[0-9a-fA-F]{4}'/
+<char> ::= /'\x5Cx[0-9a-fA-F]{1,4}'/
+<number> ::= /0[xX][0-9a-fA-F_]+/
+<number> ::= /[0-9][0-9_]*(\.[0-9_]*)?([eE][+-]?[0-9_]+)?[fFdDlL]?/
+<number> ::= /\.[0-9][0-9_]*([eE][+-]?[0-9_]+)?[fFdD]?/
+<symop> ::= /[:!#$%&*+.\x2F<=>?@^|~-]+/
+<identifier> ::= /[a-zA-Z_$][a-zA-Z0-9_$]*/
+<backtick_ident> ::= /`[^`\n]+`/
+<op_single> ::= /[-+*\x2F%&|^~<>=!?:@]/
 <lx_p0> ::= "("
 <lx_p1> ::= ")"
 <lx_p2> ::= "{"
@@ -71,53 +60,5 @@ FormatType: EBNF
 <lx_p5> ::= "]"
 <lx_p6> ::= ";"
 <lx_p7> ::= ","
-<lx_p8> ::= "."
-<lx_p9> ::= "?"
-<lx_p10> ::= ":"
-<lx_p11> ::= "!"
-<lx_p12> ::= "+"
-<lx_p13> ::= "-"
-<lx_p14> ::= "*"
-<lx_p15> ::= "/"
-<lx_p16> ::= "%"
-<lx_p17> ::= "="
-<lx_p18> ::= "<"
-<lx_p19> ::= ">"
-<lx_p20> ::= "&"
-<lx_p21> ::= "|"
-<lx_p22> ::= "^"
-<lx_p23> ::= "~"
-<lx_p24> ::= "@"
-<lx_p25> ::= "`"
-<lx_p26> ::= '"'
-<lx_p27> ::= "'"
-<lx_p28> ::= "=>"
-<lx_p29> ::= "->"
-<lx_p30> ::= "=="
-<lx_p31> ::= "!="
-<lx_p32> ::= "<="
-<lx_p33> ::= ">="
-<lx_p34> ::= "&&"
-<lx_p35> ::= "||"
-<lx_p36> ::= "++"
-<lx_p37> ::= "--"
-<lx_p38> ::= "+="
-<lx_p39> ::= "-="
-<lx_p40> ::= "*="
-<lx_p41> ::= "/="
-<lx_p42> ::= "%="
-<lx_p43> ::= "&="
-<lx_p44> ::= "|="
-<lx_p45> ::= "^="
-<lx_p46> ::= "<<"
-<lx_p47> ::= ">>"
-<lx_p48> ::= "::"
-<lx_p49> ::= ".."
-<lx_p50> ::= "..."
-<lx_p51> ::= "**"
-<lx_p52> ::= "??"
-<lx_p53> ::= "?."
-<lx_p54> ::= "<>"
-<lx_line_comment> ::= /\x2F\x2F[^\n]*/ => { skip }
-<lx_hash_comment> ::= /#[^\n]*/ => { skip }
-<lx_block_comment> ::= /\x2F\*([^*]|\*+[^*\x2F])*\*+\x2F/ => { skip }
+<lx_p8> ::= '"'
+<lx_p9> ::= "'"

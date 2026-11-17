@@ -1,6 +1,6 @@
 # Scala
 
-Minotaur grammar for Scala, covering the core language subset.
+Minotaur grammar for Scala; lexing surface engine-verified (Conformance.txt + Examples.txt pin, GreedyLongestMatch).
 
 ## Syntax sketch
 

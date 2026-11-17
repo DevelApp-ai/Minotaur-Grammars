@@ -5,7 +5,7 @@
   "DisplayName": "Ruby",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "Minotaur grammar for Ruby covering the core language subset.",
+  "Description": "Ruby 2.3+ grammar for the Minotaur parser platform (safe navigation &. 2.3). Full lexing surface engine-verified via Conformance.txt: # comments, :symbols incl. quoted/operator, %w/%i/%q/%Q sigils, ?a chars, @ivars/@@cvars/$gvars, -> lambdas, .. and ... ranges.",
   "License": "MIT",
   "Tags": [
     "programming-languages"

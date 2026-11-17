@@ -1,16 +1,60 @@
-func greet(name: String) -> String {
-  return "Hello, \(name)"
+// Swift 5.5 example corpus for Swift.grammar (lexfile pin).
+import Foundation
+
+let pi = 3.14159
+let hex = 0xFF
+let oct = 0o17
+let bin = 0b1010
+let big = 1_000_000
+let f = 2.5e-3
+let s = "value: \(pi)"
+let raw = #"raw string"#
+let multi = """
+    multiline
+    string
+    """
+
+struct Point {
+    var x: Int
+    var y: Int
+    func dist() -> Double {
+        return Double(x * x + y * y)
+    }
 }
-let msg = greet(name: "Ada")
 
-# --- Coverage completion constructs ---
+func add(_ a: Int, _ b: Int = 2) -> Int {
+    return a + b
+}
 
-actor Counter { var value = 0; func incr() -> Int { value += 1; return value } }
-let t = await task.value
-func load() async throws -> Data { try await fetch() }
-@Wrapper var cached: Int
-@ViewBuilder var body: some View { Text("hi") }
-deinit { cleanup() }
-required init(from decoder: Decoder) throws {}
-lazy var heavy = build()
-func swap(_ a: inout Int, _ b: inout Int) {}
+let arr = [1, 2, 3]
+for i in 0..<10 {
+    if i % 2 == 0 && i != 0 { print(i) }
+}
+for (k, v) in arr.enumerated() {
+    print(k, v)
+}
+var x = 5
+while x > 0 { x -= 1 }
+repeat { x += 1 } while x < 10
+
+switch x {
+case 0: print("zero")
+case 1...5: print("small")
+default: break
+}
+
+let opt: Int? = nil
+let y = opt ?? 0
+if let v = opt { print(v) }
+guard let w = opt else { return }
+
+let closure = { (a: Int, b: Int) in a + b }
+let nums = arr.map { $0 * 2 }
+print(add(1), add(1, b: 3))
+
+enum Shape {
+    case circle(r: Double)
+    case rect(w: Double, h: Double)
+}
+let sh = Shape.circle(r: 1.0)
+#available(macOS 12.0, *)

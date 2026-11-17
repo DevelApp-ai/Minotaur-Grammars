@@ -5,7 +5,7 @@
   "DisplayName": "Perl",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "Minotaur grammar for Perl covering the core language subset.",
+  "Description": "Perl 5.36+ grammar for the Minotaur parser platform (subroutine signatures). Full lexing surface engine-verified via Conformance.txt: # comments, q/qq/qw/qr/m/s/tr with / and {} delimiters, sigil vars $ @ % & *, refs, heredoc-free strings, all operators incl. <=> and =~.",
   "License": "MIT",
   "Tags": [
     "programming-languages"

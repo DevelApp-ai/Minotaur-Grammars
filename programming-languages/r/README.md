@@ -1,6 +1,6 @@
 # R
 
-Minotaur grammar for R, covering the core language subset.
+Minotaur grammar for R; lexing surface engine-verified (Conformance.txt + Examples.txt pin, GreedyLongestMatch).
 
 ## Syntax sketch
 

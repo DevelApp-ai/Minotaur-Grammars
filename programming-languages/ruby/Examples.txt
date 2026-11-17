@@ -1,18 +1,61 @@
-def add(a, b)
-  a + b
+# Ruby example corpus for Ruby.grammar (lexfile pin).
+class Greeter
+  @@count = 0
+  @default = "hi"
+  attr_accessor :name
+
+  def initialize(name)
+    @name = name
+    @@count += 1
+  end
+
+  def greet
+    "Hello, #{@name}!"
+  end
 end
 
-puts add(1, 2)
+$special = 42
+PI = 3.14159
+HEX = 0xFF
+BIG = 1_000_000
+F = 2.5e-3
 
-names.each { |n| puts n }
+words = %w[a b c]
+syms = %i[x y]
+str = %q(no interp)
+interp = %Q(yes #{1 + 1})
+sym = :ok
+quoted = :"a b"
+op_sym = :+
 
-# --- Coverage completion constructs ---
+list = [1, 2, 3]
+hash = { a: 1, "b" => 2 }
+hash[:a]
 
-double = ->(x) { x * 2 }
-refine String do; def shout; upcase + '!'; end; end
-alias_method :size, :length
-sql = <<~SQL; SELECT * FROM users; SQL
-words = %w[alpha beta gamma]
-syms = %i(a b c)
-value = obj&.property
-defined?(Foo)
+if list.size > 0 && !list.empty?
+  puts "non-empty"
+elsif list.empty?
+  puts "empty"
+else
+  puts "?"
+end
+
+for i in 0...10
+  puts i
+end
+
+x = 1
+while x < 10
+  x += 1
+end
+
+case x
+when 1..5 then puts "small"
+when 10 then puts "ten"
+else puts "other"
+end
+
+f = ->(a, b) { a + b }
+g = lambda { |x| x * 2 }
+puts f.call(1, 2)
+puts ?a
