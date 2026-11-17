@@ -1,17 +1,44 @@
-"hello"
-|> String.upcase()
-|> String.split()
+# Elixir example corpus for Elixir.grammar (lexfile pin).
+defmodule MyApp do
+  @moduledoc "docs"
+  @pi 3.14159
 
-defmodule Foo do
-  def bar(x) when is_integer(x), do: x + 1
+  def add(a, b \\ 2) when is_integer(a), do: a + b
+
+  def run do
+    list = [1, 2, 3]
+    map = %{name: "n", age: 30}
+    str = "hello #{name}"
+    heredoc = """
+    multi
+    line
+    """
+    sig = ~s(hello)
+    words = ~w(a b c)a
+    char = ?a
+    atom = :ok
+    quoted = :"quoted atom"
+    op_atom = :+
+
+    list |> Enum.map(&(&1 * 2)) |> Enum.sum()
+
+    for x <- list, x > 1, do: x
+    for <<x <- <<1, 2, 3>>>>, do: x
+
+    case atom do
+      :ok -> :fine
+      _ -> :error
+    end
+
+    if a == b and not c, do: :yes, else: :no
+
+    y = 1 + 2 * 3 - 4 / 2
+    z = x |> div(2)
+    s = "a" <> "b"
+    l = [1] ++ [2]
+    b = 0xFF
+    f = 1.5e-3
+
+    defp priv, do: :ok
+  end
 end
-
-# --- Coverage completion constructs ---
-
-f = fn 0 -> :zero; n when n > 0 -> :pos; _ -> :neg end
-<<header::size(8), body::binary>> = msg
-for <<b::8 <- bytes>>, b > 32, into: "", do: <<b>>
-regex = ~r/hel+o/i
-words = ~w(alpha beta gamma)a
-date = ~D[2026-09-21]
-value = params[:key]

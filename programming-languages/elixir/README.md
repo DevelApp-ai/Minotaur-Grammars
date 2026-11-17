@@ -1,6 +1,6 @@
 # Elixir
 
-Minotaur grammar for Elixir, covering the core language subset.
+Minotaur grammar for Elixir; lexing surface engine-verified (Conformance.txt + Examples.txt pin, GreedyLongestMatch).
 
 ## Syntax sketch
 

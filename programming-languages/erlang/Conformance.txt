@@ -1,18 +1,33 @@
-# Conformance cases for Erlang.grammar - engine-verified lexing pin.
-# Run by the ENFAStepLexer-StepParser integration suite in
-# GreedyLongestMatch mode (engine issues #129/#133); grammar-repository-tests
-# job runs this in engine CI as well.
+# Conformance cases for Erlang.grammar - engine-verified lexing pin (Erlang/OTP: % comments, quoted atoms, $ chars, 16#FF, bitstrings).
+# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
+# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
+# engine CI as well.
 grammar: Erlang.grammar
 
-lex: -module(counter).
-lex: -export([start/0]).
-lex: start() -> 0.
-lex: inc(N) -> N + 1.
-lex: <<Len:8/big, Payload:Len/binary, _Rest/binary>> = Packet
-lex: case Map of #{id := Id, tag := done} -> Id end
+lex: -module(my_app).
+lex: -export([start/0, add/2]).
+lex: -define(PI, 3.14159).
+lex: X = 42,
+lex: Z = 16#FF,
+lex: W = 1.0e-3,
+lex: B = 'quoted atom',
+lex: C = "a string",
+lex: D = $a,
+lex: E = $\\n,
+lex: io:format("~p~n", [X]),
+lex: <<X:8, Y:16>> = <<1, 2>>,
+lex: case X of\n    0 -> zero;\n    _ -> other\nend,
+lex: if X > 0 -> pos; true -> neg end,
+lex: receive M -> M after 1000 -> timeout end,
+lex: fun(A, B) -> A + B end,
+lex: [X || X <- [1, 2, 3]],
+lex: add(A, B) when is_integer(A) -> A + B;
+lex: M = #{a => 1, b => 2},
+lex: L = [X || X <- [1, 2]],
 
-# Input that must be rejected by the token rules (LX1001).
+# Inputs that must be rejected by the token rules (LX1001).
 fail: €
+fail: \\\\
 
-# Whole real corpus file as a lex case (raw content).
+# Whole example corpus as a lex case (raw content).
 lexfile: Examples.txt

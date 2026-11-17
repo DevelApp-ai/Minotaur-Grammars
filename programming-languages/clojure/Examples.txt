@@ -1,15 +1,48 @@
-(ns my.core)
-(defn add [a b] (+ a b))
-(let [x 1 y 2] (+ x y))
+;; Clojure example corpus for Clojure.grammar (lexfile pin).
+(ns my.app.core
+  (:require [clojure.string :as str]
+            [clojure.set :as set]))
 
-# --- Coverage completion constructs ---
+(def pi 3.14159)
+(def ratio 22/7)
+(def hex 0xFF)
+(def radix 2r1010)
+(def f 1.5e-3)
+(def neg -42)
 
-(def counter (atom 0))
-(swap! counter inc)
-(reset! counter 10)
-(deref (future 42))
-(defrecord Pt [x y])
-(deftype FastQ [] clojure.lang.IFn (invoke [_] 1))
-(ns app.core (:require [clojure.string :as str :refer [join]]))
-#'app.core/fn
-`(+ 1 2)
+(def greeting "hello, world")
+(def ch \a)
+(def nl \newline)
+(def uni \u0041)
+
+(def m {:a 1 :b 2 :ns/k 3})
+(def s #{1 2 3})
+(def v [1 2 3])
+(def lst '(1 2 3))
+
+(defn add [a b]
+  (+ a b))
+
+(defn greet [name]
+  (str "Hello, " name "!"))
+
+(def sq #(* % %))
+
+(defn- safe-div [a b]
+  (if (zero? b) nil (/ a b)))
+
+(defrecord Point [x y])
+(deftype Circle [radius])
+
+(defmulti area :shape)
+(defmethod area :circle [c] (* pi (:radius c)))
+
+(let [x 1 y 2]
+  (+ x y))
+
+(for [x [1 2 3] :when (even? x)] (println x))
+(->> [1 2 3] (map sq) (reduce +))
+
+`(+ ~x ~y)
+#'some-var
+#_ignored

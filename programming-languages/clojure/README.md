@@ -1,6 +1,6 @@
 # Clojure
 
-Minotaur grammar for Clojure, covering the core language subset.
+Minotaur grammar for Clojure; lexing surface engine-verified (Conformance.txt + Examples.txt pin, GreedyLongestMatch).
 
 ## Syntax sketch
 

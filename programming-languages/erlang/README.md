@@ -1,6 +1,6 @@
 # Erlang
 
-Minotaur grammar for Erlang, covering the core language subset.
+Minotaur grammar for Erlang; lexing surface engine-verified (Conformance.txt + Examples.txt pin, GreedyLongestMatch).
 
 ## Syntax sketch
 

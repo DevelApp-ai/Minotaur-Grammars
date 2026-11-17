@@ -1,6 +1,6 @@
 # Dart
 
-Minotaur grammar for Dart, covering the core language subset.
+Minotaur grammar for Dart; lexing surface engine-verified (Conformance.txt + Examples.txt pin, GreedyLongestMatch).
 
 ## Syntax sketch
 

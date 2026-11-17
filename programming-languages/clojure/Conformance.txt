@@ -1,18 +1,33 @@
-# Conformance cases for Clojure.grammar - engine-verified lexing pin.
-# Run by the ENFAStepLexer-StepParser integration suite in
-# GreedyLongestMatch mode (engine issues #129/#133); grammar-repository-tests
-# job runs this in engine CI as well.
+# Conformance cases for Clojure.grammar - engine-verified lexing pin (Clojure: ; comments, symbols/keywords, \ chars, ratios/radix numbers).
+# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
+# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
+# engine CI as well.
 grammar: Clojure.grammar
 
-lex: (ns my.core)
+lex: (ns my.app (:require [clojure.string :as str]))
+lex: (def pi 3.14159)
+lex: (def ratio 22/7)
+lex: (def hex 0xFF)
+lex: (def r 2r1010)
+lex: (def f 1.5e-3)
+lex: (def n -42)
+lex: (def s "hello")
+lex: (def c \\a)
+lex: (def nl \\newline)
+lex: (def u \\u0041)
+lex: (def m {:a 1 :ns/k 3})
+lex: (def s #{1 2 3})
+lex: (def lst '(1 2 3))
 lex: (defn add [a b] (+ a b))
-lex: (let [x 1 y 2] (+ x y))
-lex: (def counter (atom 0))
-lex: (swap! counter inc)
-lex: (reset! counter 10)
+lex: (def sq #(* % %))
+lex: (for [x [1 2 3] :when (even? x)] x)
+lex: (->> xs (map f) (reduce +))
+lex: `(+ ~x ~y)
+lex: #'var
+lex: #_ignored
 
-# Input that must be rejected by the token rules (LX1001).
+# Inputs that must be rejected by the token rules (LX1001).
 fail: €
 
-# Whole real corpus file as a lex case (raw content).
+# Whole example corpus as a lex case (raw content).
 lexfile: Examples.txt
