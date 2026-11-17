@@ -1,0 +1,125 @@
+Grammar: Erlang001
+FormatType: EBNF
+
+<module> ::= <attribute>* <form>* ;
+<attribute> ::= '-' ('module' | 'export' | 'import' | 'behaviour') '(' <attr_args> ')' '.' ;
+<attr_args> ::= <atom> | '(' <export_fns>? ')' ;
+<export_fns> ::= <export_fn> (',' <export_fn>)* ;
+<export_fn> ::= <atom> '/' <number> ;
+<form> ::= <function_clauses> '.' ;
+<function_clauses> ::= <function_clause> (';' <function_clause>)* ;
+<function_clause> ::= <atom> '(' <args>? ')' ('when' <guard>)? '->' <exprs> ;
+<guard> ::= <guard_expr> (',' <guard_expr>)* ;
+<guard_expr> ::= <expr> ;
+<args> ::= <expr> (',' <expr>)* ;
+<exprs> ::= <expr> (',' <expr>)* ;
+<expr> ::= <literal> | <var> | <call> | <tuple> | <list> | <map> | <binary> | <case_expr> | <fun_expr> | <receive_expr> | <expr> <binop> <expr> ;
+<call> ::= (<module_ref> ':')? <atom> '(' <args>? ')' ;
+<module_ref> ::= <atom> | <var> ;
+<tuple> ::= '{' <args>? '}' ;
+<list> ::= '[' <args>? ']' ;
+<map> ::= '#' '{' <map_pair> (',' <map_pair>)* '}' ;
+<map_pair> ::= <expr> '=>' <expr> ;
+<binary> ::= '<<' '>>' ;
+<case_expr> ::= 'case' <expr> 'of' <clause>+ 'end' ;
+<clause> ::= <pattern> ('when' <guard>)? '->' <exprs> ';' ;
+<pattern> ::= <var> | <literal> | <tuple> | <list> ;
+<fun_expr> ::= 'fun' (<atom> '/' <number> | '(' <params>? ')' '->' <exprs> 'end') ;
+<params> ::= <var> (',' <var>)* ;
+<receive_expr> ::= 'receive' <clause>+ 'end' ;
+<var> ::= /('_'|[A-Z])[a-zA-Z0-9_]*/ ;
+<atom> ::= /[a-z][a-zA-Z0-9_@]*/ ;
+<literal> ::= <number> | <text> | <atom> ;
+<binop> ::= '+' | '-' | '*' | '/' | '==' | '=:=' | '=/=' | '<' | '>' | 'andalso' | 'orelse' | '++' ;
+<text> ::= /'"'[^"]*'"'/ ;
+<number> ::= /[0-9]+/ ;
+
+# --- Coverage completion: remaining language constructs ---
+<bitstring> ::= "<<" <auto_bitstring_0> ">>" ;
+<bit_segment> ::= expression <auto_bit_segment_0> <auto_bit_segment_1> ;
+<map_pattern> ::= "#{" <auto_map_pattern_0> "}" ;
+<map_exact_assoc> ::= key_pattern ":=" value_pattern ;
+<function_spec> ::= "-spec" function_name "(" type_list ")" "->" type "." ;
+<type_declaration> ::= "-type" type_name "(" type_vars ")" "::" type "." ;
+<ifdef_directive> ::= "-ifdef" "(" identifier ")" "." ;
+<define_directive> ::= "-define" "(" identifier <auto_define_directive_0> "," tokens ")" "." ;
+<catch_expression> ::= "catch" expression ;
+<auto_bitstring_0> ::= /[ bit_segment ( "," bit_segment )* ]/ ;
+<auto_bit_segment_0> ::= /[ ":" bit_size ]/ ;
+<auto_bit_segment_1> ::= /[ "\/" bit_type_list ]/ ;
+<auto_map_pattern_0> ::= /[ map_assoc ( "," map_assoc )* ]/ ;
+<auto_define_directive_0> ::= /[ "(" params ")" ]/ ;
+
+/* Comments (issue #189) */
+<erlang-comment> ::= /%[^\n]*/
+<comment> ::= <erlang-comment>
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   identifier, number, string/char literals, punctuation and comments as token
+   rules. String/char/block-comment patterns are the proven CSharp10 ones. */
+<lx_ws> ::= /[ \t\r\n]+/ => { skip }
+<lx_backslash> ::= /\\/
+<lx_identifier> ::= /[a-z_][A-Za-z0-9_@]*/
+<lx_number> ::= /[0-9]+(\.[0-9]+)?([eE][+-]?[0-9]+)?/
+<lx_string> ::= /"([^"\\\n]|\\.)*"/
+<lx_char0> ::= /'[^'\n]'/
+<lx_char1> ::= /'\x5C.'/
+<lx_char2> ::= /'\x5Cu[0-9a-fA-F]{4}'/
+<lx_char3> ::= /'\x5Cx[0-9a-fA-F]{1,4}'/
+<lx_block_comment0> ::= /\x2F\*([^*]|\*+[^*\x2F])*\*+\x2F/ => { skip }
+<lx_p0> ::= "("
+<lx_p1> ::= ")"
+<lx_p2> ::= "{"
+<lx_p3> ::= "}"
+<lx_p4> ::= "["
+<lx_p5> ::= "]"
+<lx_p6> ::= ";"
+<lx_p7> ::= ","
+<lx_p8> ::= "."
+<lx_p9> ::= "?"
+<lx_p10> ::= ":"
+<lx_p11> ::= "!"
+<lx_p12> ::= "+"
+<lx_p13> ::= "-"
+<lx_p14> ::= "*"
+<lx_p15> ::= "/"
+<lx_p16> ::= "%"
+<lx_p17> ::= "="
+<lx_p18> ::= "<"
+<lx_p19> ::= ">"
+<lx_p20> ::= "&"
+<lx_p21> ::= "|"
+<lx_p22> ::= "^"
+<lx_p23> ::= "~"
+<lx_p24> ::= "@"
+<lx_p25> ::= "`"
+<lx_p26> ::= '"'
+<lx_p27> ::= "'"
+<lx_p28> ::= "=>"
+<lx_p29> ::= "->"
+<lx_p30> ::= "=="
+<lx_p31> ::= "!="
+<lx_p32> ::= "<="
+<lx_p33> ::= ">="
+<lx_p34> ::= "&&"
+<lx_p35> ::= "||"
+<lx_p36> ::= "++"
+<lx_p37> ::= "--"
+<lx_p38> ::= "+="
+<lx_p39> ::= "-="
+<lx_p40> ::= "*="
+<lx_p41> ::= "/="
+<lx_p42> ::= "%="
+<lx_p43> ::= "&="
+<lx_p44> ::= "|="
+<lx_p45> ::= "^="
+<lx_p46> ::= "<<"
+<lx_p47> ::= ">>"
+<lx_p48> ::= "::"
+<lx_p49> ::= ".."
+<lx_p50> ::= "..."
+<lx_p51> ::= "**"
+<lx_p52> ::= "??"
+<lx_p53> ::= "?."
+<lx_p54> ::= "<>"
+<lx_percent_comment> ::= /%[^\n]*/ => { skip }

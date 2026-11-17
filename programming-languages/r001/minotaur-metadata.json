@@ -1,0 +1,26 @@
+{
+  "Id": "develapp.r001",
+  "Name": "RLang001",
+  "Vendor": "DevelApp",
+  "DisplayName": "RLang",
+  "Version": "2.0.0",
+  "MinotaurVersion": "*",
+  "Description": "Minotaur grammar for RLang covering the core language subset.",
+  "License": "MIT",
+  "Tags": [
+    "programming-languages"
+  ],
+  "MainFile": "RLang.grammar",
+  "LabyrinthExtension": true,
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free",
+  "EngineVerified": true,
+  "EngineVerifiedBy": "ENFAStepLexer-StepParser@e6d1ae5cf748 (grammar-repository-tests, GreedyLongestMatch)"
+}

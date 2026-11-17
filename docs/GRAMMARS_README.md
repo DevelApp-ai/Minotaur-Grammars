@@ -13,8 +13,8 @@ Comprehensive grammar for .NET solution and project file parsing, supporting:
 
 **Supported File Types:**
 - C# files (*.cs) → CSharp10.grammar
-- VB.NET files (*.vb) → VisualBasic.grammar  
-- F# files (*.fs) → FSharp.grammar
+- VB.NET files (*.vb) → VisualBasic001.grammar  
+- F# files (*.fs) → FSharp001.grammar
 - Razor files (*.razor, *.cshtml) → HTMLEmbedded.grammar + CSharp10.grammar
 - XAML files (*.xaml) → XAML.grammar
 - JSON files (*.json) → JSON.grammar
