@@ -1,0 +1,23 @@
+# Conformance cases for GB_English.grammar (natural-language lexing pin;
+# greedy/longest-match lexer mode, #133/#129, for natural languages).
+#
+# Each lex: input is real English that MUST lex to completion in
+# GreedyLongestMatch mode. Each fail: input must be rejected (LX1001).
+grammar: GB_English.grammar
+
+# Everyday sentences from Examples.txt.
+lex: I work.
+lex: He works in London.
+lex: She studies English.
+lex: We read books.
+lex: The dog barks loudly.
+lex: They write letters, and we read two books.
+
+# Punctuation: the "..." literal must win over "." by longest match.
+lex: Is it true... maybe not!
+
+# Input that is not English text must be rejected by the token rules.
+fail: `backticks`
+
+# Whole real corpus file as a lex case.
+lexfile: Examples.txt

@@ -455,16 +455,16 @@ Keywords: og, eller, men, hvis, når, fordi, at, som, der, det, den, de, jeg, du
 <genitive-modifier> ::= <noun-phrase> "s"
 
 /* Common noun stems - using regex for pattern matching */
-<common-noun-stem> ::= /[a-zæøå]+/
+<common-noun-stem> ::= /[a-zæøåé]+/
 
-<neuter-noun-stem> ::= /[a-zæøå]+/
+<neuter-noun-stem> ::= /[a-zæøåé]+/
 
-<noun-stem> ::= /[a-zæøå]+/
+<noun-stem> ::= /[a-zæøåé]+/
 
-<proper-noun> ::= /[A-ZÆØÅ][a-zæøå]*/
+<proper-noun> ::= /[A-ZÆØÅÉ][a-zæøåé]*/
                 | <multi-word-proper-noun>
 
-<multi-word-proper-noun> ::= /[A-ZÆØÅ][a-zæøå]*/ ( <opt-whitespace> /[A-ZÆØÅ][a-zæøå]*/ )+
+<multi-word-proper-noun> ::= /[A-ZÆØÅÉ][a-zæøåé]*/ ( <opt-whitespace> /[A-ZÆØÅÉ][a-zæøåé]*/ )+
 
 /* Adjective phrases with agreement and comparison */
 <adjective-phrase> ::= <degree-modifier>? <opt-whitespace> <adjective>
@@ -503,7 +503,7 @@ Keywords: og, eller, men, hvis, når, fordi, at, som, der, det, den, de, jeg, du
 
 <irregular-superlative> ::= "bedst" | "værst" | "størst" | "mindst" | "ældst" | "yngst" | "mest" <opt-whitespace> <adjective-stem>
 
-<adjective-stem> ::= /[a-zæøå]+/
+<adjective-stem> ::= /[a-zæøåé]+/
 
 /* Predicate with voice and mood */
 <predicate> ::= <verb-phrase>
@@ -573,7 +573,7 @@ Keywords: og, eller, men, hvis, når, fordi, at, som, der, det, den, de, jeg, du
 <regular-verb-present> ::= <verb-stem> ( "er" | "r" )
 
 /* Common regular verb stems */
-<verb-stem> ::= /[a-zæøå]+/
+<verb-stem> ::= /[a-zæøåé]+/
 
 /* Irregular verbs in present tense - context sensitive */
 <irregular-verb-present> ::= @IRREGULAR "er" | "har" | "bliver" | "går" | "kommer" | "ved" | "gør" | "får" | "ser" | "giver" | "siger" | "tager" | "finder" | "står" | "sidder" | "ligger" | "slår" | "holder" | "falder" | "dør" | "fødes" | "bærer" | "spiser" | "drikker" | "sover" | "løber"
@@ -958,7 +958,7 @@ Keywords: og, eller, men, hvis, når, fordi, at, som, der, det, den, de, jeg, du
 <conjunction> ::= <coordinating-conjunction>
 
 /* Punctuation expanded */
-<punctuation> ::= "." | "!" | "?" | "," | ";" | ":" | "..." | "-" | "–" | "—"
+<punctuation> ::= "." | "!" | "?" | "," | ";" | ":" | "..." | "-" | "–" | "—" | "(" | ")" | "\""
 
 /* Whitespace handling */
 <whitespace> ::= /[ \t\n\r]+/
