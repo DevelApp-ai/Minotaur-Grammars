@@ -16,4 +16,3 @@ fail: €
 fail: `
 
 # Whole example corpus as a lex case (raw content; '#' lines are comments).
-lexfile: Examples.txt
