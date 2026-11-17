@@ -15,7 +15,7 @@
 # mechanism covers both.
 
 Grammar: CEBNF
-BaseGrammar: Clojure001001.grammar
+BaseGrammar: Clojure001.grammar
 MergeStrategy: Additive
 
 /* Labyrinth pattern operators (added; never replace base productions).
