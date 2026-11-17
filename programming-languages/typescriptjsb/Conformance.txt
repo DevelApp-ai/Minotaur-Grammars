@@ -8,7 +8,7 @@ grammar: TypeScriptJsb.grammar
 lex: export interface ExampleDefinition\n{\n
 lex: import type { ModuleDefinition } from './ModuleDefinition';
 lex: export type FtpTypeEnum = 'Auto' | 'FTP' | 'FTPS';
-lex: /**\n * ExampleDefinition: a generated schema interface\n */\n
+lex: /**\n * ExampleDefinition: a generated schema interface\n */\nexport interface ExampleDefinition\n{\n
 
 # Interface members: all emitted type shapes - simple keyword types,
 # optional markers, identifier references, arrays and arrays of arrays.
