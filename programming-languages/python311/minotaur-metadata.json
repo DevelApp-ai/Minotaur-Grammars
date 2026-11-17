@@ -5,7 +5,7 @@
   "DisplayName": "Python311",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "Python311 programming-language grammar for the Minotaur parser platform.",
+  "Description": "Python 3.11 grammar for the Minotaur parser platform: full Python 3.11 lexing surface (prefixed and triple-quoted strings, hex/octal/binary/underscore numbers, imaginary j, walrus :=, ellipsis, full operator set) plus match/except*/type-statement productions. Engine-verified via Conformance.txt.",
   "License": "MIT",
   "Tags": [
     "programming-language",

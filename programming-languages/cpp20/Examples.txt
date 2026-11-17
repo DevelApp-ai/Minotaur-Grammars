@@ -1,0 +1,38 @@
+// C++20 example corpus for Cpp20.grammar (lex conformance pin via lexfile:).
+#include <iostream>
+#include <vector>
+#define PI 3.14159
+
+template<typename T>
+T max_of(T a, T b) { return a < b ? b : a; }
+
+int main() {
+    auto x = 1'000'000;
+    auto hex = 0xFFu;
+    auto bin = 0b1010;
+    auto d = 3.14e-3;
+    auto f = 2.5f;
+    const char* s = "hello";
+    const char* raw = R"(raw "text" here)";
+    char c = 'a';
+    char nl = '\n';
+    wchar_t w = L'w';
+    auto u8s = u8"utf8";
+    auto u16s = u"u16";
+    auto u32s = U"u32";
+
+    std::vector<int> v{1, 2, 3};
+    for (auto& e : v) {
+        e += 1;
+    }
+    if (x > 0 && x < 100 || false) {
+        std::cout << s << std::endl;
+    }
+
+    constexpr int N = 1 << 10;
+    static_assert(N > 0, "positive");
+    if constexpr (N <=> 0) {
+        return 0;
+    }
+    return -1;
+}

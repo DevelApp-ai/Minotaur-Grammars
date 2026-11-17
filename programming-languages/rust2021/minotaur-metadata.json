@@ -5,7 +5,7 @@
   "DisplayName": "Rust2021",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "Rust2021 programming-language grammar for the Minotaur parser platform.",
+  "Description": "Rust 2021 grammar for the Minotaur parser platform: full lexing surface (raw strings r\"..\"/r#\"..\"#/r##.., byte strings b\"..\", lifetimes, suffixed hex/oct/bin/decimal/float numbers, full operator set incl. ..= and =>). Engine-verified via Conformance.txt.",
   "License": "MIT",
   "Tags": [
     "programming-language",

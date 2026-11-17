@@ -34,8 +34,8 @@ productions for X's defining features.
 
 | Language | Grammar | Supported version(s) | Evidence |
 |---|---|---|---|
-| C | `C17` | C17 (ISO/IEC 9899:2018) | named; `_Static_assert`, `_Alignas` |
-| C++ | `Cpp20` | C++17–C++20 | concepts, modules, coroutines, `<=>` |
+| C | `C17` | C17 (ISO/IEC 9899:2018) | named; `_Static_assert`, `_Alignas`; full lexing surface engine-verified (Conformance.txt + Examples.txt) |
+| C++ | `Cpp20` | C++17–C++20 | concepts, modules, coroutines, `<=>`; full lexing surface engine-verified (raw/prefixed strings, digit separators, Conformance.txt + Examples.txt) |
 | C# | `CSharp10` | C# 1.0–10 | records, `init`, file-scoped namespaces |
 | Clojure | `Clojure` | Clojure 1.2+ | `defrecord`/`deftype` (1.2), atoms (1.0) |
 | COBOL | `COBOL2023` | COBOL 2023 | named |
@@ -46,17 +46,17 @@ productions for X's defining features.
 | Go | `Go119` | Go 1.18–1.19 | full surface engine-verified (Conformance.txt: generics + `~` constraints, type aliases, all literals incl. raw strings/imaginary, all statement forms); named for 1.19 |
 | Haskell | `Haskell` | GHC 7.6+ | `MultiWayIf`, `LambdaCase` |
 | **Java (legacy)** | `Java` | **Java ≤ 7 — legacy, superseded** | **no lambdas / method refs (pre-8)**; use `Java17` |
-| Java | `Java17` | Java 8–17 | named; records, sealed, `var` |
+| Java | `Java17` | Java 8–17 | named; records, sealed, `var`; full lexing surface engine-verified (text blocks, suffixed literals, Conformance.txt + Examples.txt) |
 | JavaScript (legacy) | `JavaScript` | ES2015+ (embedded-HTML profile) | classes, arrows, template strings (ES6) |
-| JavaScript | `JavaScriptES2022` | ES2022 | named; full ES2022 spec coverage |
+| JavaScript | `JavaScriptES2022` | ES2022 | named; full ES2022 spec coverage; full lexing surface engine-verified (templates, bigint, Conformance.txt + Examples.txt) |
 | Kotlin | `Kotlin` | Kotlin 1.9+ (subset) | `data object` (1.9) |
 | Lua | `Lua` | Lua 5.2–5.4 | `goto`/labels (5.2), attributes (5.4) |
 | Perl | `Perl` | Perl 5.36+ (subset) | subroutine signatures |
 | PHP | `PHP` | PHP 8.2 (subset) | `readonly` class (8.2), enums (8.1), `match` (8.0) |
-| Python | `Python311` | Python 3.11 | named; match, `except*`, `type` statement |
+| Python | `Python311` | Python 3.11 | named; match, `except*`, `type` statement; full lexing surface engine-verified (prefixed/triple strings, all number forms, Conformance.txt + Examples.txt) |
 | R | `RLang` | R 4.1+ | native pipe `\|>` (4.1), raw strings (4.0) |
 | Ruby | `Ruby` | Ruby 2.3+ (subset) | safe navigation `&.` (2.3), `refine` (2.0) |
-| Rust | `Rust2021` | Rust 2021 edition | named |
+| Rust | `Rust2021` | Rust 2021 edition | named; full lexing surface engine-verified (raw strings, byte strings, lifetimes, suffixed numbers, Conformance.txt + Examples.txt) |
 | Scala | `Scala` | Scala 3 (subset) | `export`, `given`, `opaque`, `end` (all 3.0) |
 | Swift | `Swift` | Swift 5.5 (subset) | actors, async/await (5.5), wrappers (5.1) |
 | TypeScript | `TypeScript` | TS 4.1–5.0 features on ES2022 base | template literal types (4.1), `infer` (4.7), decorators (5.0); no `satisfies` (4.9) |

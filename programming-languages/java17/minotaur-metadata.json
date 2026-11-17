@@ -5,7 +5,7 @@
   "DisplayName": "Java17",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "Java17 programming-language grammar for the Minotaur parser platform.",
+  "Description": "Java 17 grammar for the Minotaur parser platform: full Java 8-17 lexing surface (text blocks \"\"\"...\"\"\", char escapes, underscore/hex/binary literals with l/f/d suffixes, $ identifiers, all operators incl. ->, ::, >>>). Engine-verified via Conformance.txt.",
   "License": "MIT",
   "Tags": [
     "programming-language",

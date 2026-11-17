@@ -1,0 +1,76 @@
+// JavaScript ES2022 example corpus for JavaScriptES2022.grammar (lexfile pin).
+const PI = 3.14159;
+let big = 123456789012345678901234567890n;
+let hex = 0xFF;
+let oct = 0o17;
+let bin = 0b101;
+let d = 1.5e-3;
+
+const greeting = "hello";
+const single = 'world';
+const tpl = `value: ${PI + 1}`;
+
+function add(a, b = 2, ...rest) {
+    return a + b + rest.length;
+}
+
+const obj = { a: 1, "b c": 2, [PI]: 3 };
+const { a, b: c = 2, ...others } = obj;
+const arr = [1, 2, 3];
+
+class Animal {
+    constructor(name) {
+        this.name = name;
+    }
+    speak() {
+        return `${this.name} makes a sound`;
+    }
+    static create(n) {
+        return new Animal(n);
+    }
+}
+
+const f = (x) => x * 2;
+let y = f(21);
+
+if (y === 42 && PI !== 0 || !false) {
+    console.log("yes");
+} else if (y >= 40) {
+    console.log("big");
+}
+
+for (let i = 0; i < 10; i++) {}
+for (const k in obj) {}
+for (const v of arr) {}
+
+let z = y ?? 0;
+z ??= 5;
+obj?.a?.b;
+let shifted = y >>> 2;
+let pow = y ** 2;
+
+switch (y) {
+    case 42:
+        break;
+    default:
+        break;
+}
+
+try {
+    JSON.parse("{bad}");
+} catch (e) {
+    console.error(e);
+} finally {
+    console.log("done");
+}
+
+label: for (;;) {
+    break label;
+}
+
+async function load() {
+    const res = await fetch("/api/data");
+    return res.json();
+}
+
+const $el = document.querySelector("#main");
