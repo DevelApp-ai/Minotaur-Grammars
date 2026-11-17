@@ -1,0 +1,25 @@
+# Conformance cases for Danish.grammar (natural-language lexing pin;
+# answers whether the greedy/longest-match lexer mode (#133) and the
+# forward-only NFA token rules (#129) also work for natural languages).
+#
+# Each lex: input is real Danish that MUST lex to completion in
+# GreedyLongestMatch mode. Each fail: input must be rejected (LX1001).
+grammar: Danish.grammar
+
+# Everyday sentences from Examples.txt, incl. æ/ø/å/é letters.
+lex: Jeg arbejder.
+lex: Han arbejder i København.
+lex: Vi læser en bog.
+lex: Hun studerer dansk, og han skriver et brev.
+lex: De spiser morgenmad, og jeg drikker kaffe.
+lex: Han havde en idé.
+
+# Punctuation: the "..." literal must win over "." by longest match.
+lex: Er det sandt... måske ikke!
+
+# Input that is not Danish text must be rejected by the token rules.
+fail: `backticks`
+
+# Whole real corpus file as a lex case (raw content; '#' lines are
+# comments, skipped by the engine's default comment rule).
+lexfile: Examples.txt
