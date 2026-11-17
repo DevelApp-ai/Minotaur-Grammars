@@ -1,0 +1,197 @@
+# Example corpus for JSONSchemaDraft7.grammar - the JSON Schema draft-07
+# shapes the JsonSchemaBuilder (jsb) generator emits. '#'-prefixed lines
+# are comments (skipped). Each schema below is a real jsb output shape.
+
+{
+	"$schema" : "http://json-schema.org/draft-07/schema#",
+	"$id" : "http://example.com/schemas/example.schema.json",
+	"title" : "ExampleDefinition",
+	"description" : "The easy definition of the schema of an example",
+	"$comment" : "Generated with JsonSchemaBuilder",
+	"examples" : [],
+	"enum" : [],
+	"type" : "object",
+	"additionalProperties" : false,
+	"properties" : {
+		"name" : {
+			"title" : "Name",
+			"description" : "The name of the example",
+			"$comment" : "Generated with JsonSchemaBuilder",
+			"examples" : [],
+			"enum" : [],
+			"type" : "string",
+			"maxLength" : 100
+		},
+		"description" : {
+			"title" : "Description",
+			"description" : "Description of the node",
+			"$comment" : "Generated with JsonSchemaBuilder",
+			"examples" : [],
+			"enum" : [],
+			"type" : "string"
+		},
+		"created" : {
+			"title" : "Created",
+			"description" : "Creation date of the example",
+			"$comment" : "Generated with JsonSchemaBuilder",
+			"examples" : [],
+			"enum" : [],
+			"type" : "string",
+			"format" : "date-time",
+			"pattern" : "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}"
+		},
+		"state" : {
+			"title" : "State",
+			"description" : "The state of the example",
+			"$comment" : "Generated with JsonSchemaBuilder",
+			"examples" : [],
+			"enum" : [ "Draft", "Placed", "Shipped" ],
+			"type" : "string"
+		},
+		"tags" : {
+			"title" : "Tags",
+			"description" : "The tags of the example",
+			"$comment" : "Generated with JsonSchemaBuilder",
+			"examples" : [],
+			"type" : "array",
+			"items" : {
+				"title" : "Tag",
+				"description" : "A single tag",
+				"$comment" : "Generated with JsonSchemaBuilder",
+				"examples" : [],
+				"enum" : [],
+				"type" : "string",
+				"minLength" : 1
+			}
+		},
+		"required" : {
+			"title" : "Required",
+			"description" : "The required fields",
+			"$comment" : "Generated with JsonSchemaBuilder",
+			"examples" : [],
+			"type" : "object",
+			"additionalProperties" : false,
+			"required" : [ "name", "created", "state", "tags", "value", "count", "outer" ],
+			"properties" : {
+				"value" : {
+					"title" : "Value",
+					"$comment" : "Generated with JsonSchemaBuilder",
+					"examples" : [],
+					"enum" : [],
+					"type" : "integer"
+				}
+			}
+		}
+	}
+}
+
+# Composition shape: allOf / anyOf / oneOf with nested schemas.
+
+{
+	"$schema" : "http://json-schema.org/draft-07/schema#",
+	"title" : "Composition",
+	"description" : "Schema composition example",
+	"$comment" : "Generated with JsonSchemaBuilder",
+	"examples" : [],
+	"enum" : [],
+	"type" : "object",
+	"additionalProperties" : false,
+	"allOf" : [
+		{
+			"title" : "First",
+			"$comment" : "Generated with JsonSchemaBuilder",
+			"examples" : [],
+			"enum" : [],
+			"type" : "object"
+		},
+		{
+			"title" : "Second",
+			"$comment" : "Generated with JsonSchemaBuilder",
+			"examples" : [],
+			"enum" : [],
+			"type" : "object"
+		}
+	],
+	"anyOf" : [
+		{
+			"title" : "Either",
+			"$comment" : "Generated with JsonSchemaBuilder",
+			"examples" : [],
+			"enum" : [],
+			"type" : "boolean"
+		}
+	],
+	"oneOf" : [
+		{
+			"title" : "ExactlyOne",
+			"$comment" : "Generated with JsonSchemaBuilder",
+			"examples" : [],
+			"enum" : [],
+			"type" : "string",
+			"format" : "email"
+		}
+	],
+	"definitions" : {
+		"InnerDefinition" : {
+			"title" : "Inner",
+			"description" : "A nested definition",
+			"$comment" : "Generated with JsonSchemaBuilder",
+			"examples" : [],
+			"enum" : [],
+			"type" : "object"
+		},
+		"DeeperDefinition" : {
+			"title" : "Deeper",
+			"description" : "A deeper nested definition",
+			"$comment" : "Generated with JsonSchemaBuilder",
+			"examples" : [],
+			"enum" : [],
+			"type" : "object",
+			"properties" : {
+				"plainProperty" : {
+					"title" : "Plain",
+					"description" : "A plain property",
+					"$comment" : "Generated with JsonSchemaBuilder",
+					"examples" : [],
+					"enum" : [],
+					"type" : "string",
+					"format" : "iri-reference"
+				}
+			}
+		}
+	}
+}
+
+# Fragment reference shape: $ref into definitions, date/time formats.
+
+{
+	"$schema" : "http://json-schema.org/draft-07/schema#",
+	"title" : "Fragment",
+	"description" : "Fragment reference example",
+	"$comment" : "Generated with JsonSchemaBuilder",
+	"examples" : [],
+	"enum" : [],
+	"type" : "object",
+	"additionalProperties" : false,
+	"properties" : {
+		"selfFragmentReference" : {
+			"$ref" : "#/definitions/refToSchemaLevelNested",
+			"title" : "Self",
+			"description" : "Self reference",
+			"$comment" : "Generated with JsonSchemaBuilder",
+			"examples" : [],
+			"enum" : [],
+			"type" : "string",
+			"format" : "date"
+		},
+		"timeValue" : {
+			"title" : "Time",
+			"description" : "A time value",
+			"$comment" : "Generated with JsonSchemaBuilder",
+			"examples" : [],
+			"enum" : [],
+			"type" : "string",
+			"format" : "time"
+		}
+	}
+}

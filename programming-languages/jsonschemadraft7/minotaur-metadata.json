@@ -1,0 +1,27 @@
+{
+  "Id": "develapp.jsonschemadraft7",
+  "Name": "JSONSchemaDraft7",
+  "Vendor": "DevelApp",
+  "DisplayName": "JSONSchemaDraft7",
+  "Version": "2.0.0",
+  "MinotaurVersion": "*",
+  "Description": "JSON Schema draft-07 grammar for the Minotaur parser platform, hand-authored for the ENFAStepLexer-StepParser engine and validated against the JsonSchemaBuilder generator output (21/21 corpus files).",
+  "License": "MIT",
+  "Tags": [
+    "programming-language",
+    "minotaur"
+  ],
+  "MainFile": "JSONSchemaDraft7.grammar",
+  "LabyrinthExtension": true,
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free",
+  "EngineVerified": true,
+  "EngineVerifiedBy": "DevelApp.StepParser 1.75.0 (GreedyLongestMatch; jsb corpus harness, 21/21 files)"
+}

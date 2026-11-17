@@ -1,0 +1,113 @@
+Grammar: JSONSchemaDraft7
+
+<whitespace> ::= /[ \t\r\n]+/ => { skip }
+
+<json_string> ::= /"([^"\\]|\\.)*"/
+<int_literal> ::= /[0-9]+/
+
+<false_kw(priority:10)> ::= 'false'
+
+<title_kw(priority:10)> ::= /"title"/
+<description_kw(priority:10)> ::= /"description"/
+<comment_kw(priority:10)> ::= /"\$comment"/
+<examples_kw(priority:10)> ::= /"examples"/
+<enum_kw(priority:10)> ::= /"enum"/
+<type_kw(priority:10)> ::= /"type"/
+<format_kw(priority:10)> ::= /"format"/
+<maxlength_kw(priority:10)> ::= /"maxLength"/
+<minlength_kw(priority:10)> ::= /"minLength"/
+<pattern_kw(priority:10)> ::= /"pattern"/
+<items_kw(priority:10)> ::= /"items"/
+<additionalprops_kw(priority:10)> ::= /"additionalProperties"/
+<properties_kw(priority:10)> ::= /"properties"/
+<required_kw(priority:10)> ::= /"required"/
+<ref_kw(priority:10)> ::= /"\$ref"/
+<definitions_kw(priority:10)> ::= /"definitions"/
+<allof_kw(priority:10)> ::= /"allOf"/
+<anyof_kw(priority:10)> ::= /"anyOf"/
+<oneof_kw(priority:10)> ::= /"oneOf"/
+<id_kw(priority:10)> ::= /"\$id"/
+<schema_kw(priority:10)> ::= /"\$schema"/
+<string_type_kw(priority:10)> ::= /"string"/
+<object_type_kw(priority:10)> ::= /"object"/
+<array_type_kw(priority:10)> ::= /"array"/
+<integer_type_kw(priority:10)> ::= /"integer"/
+<boolean_type_kw(priority:10)> ::= /"boolean"/
+<date_fmt_kw(priority:10)> ::= /"date"/
+<datetime_fmt_kw(priority:10)> ::= /"date-time"/
+<time_fmt_kw(priority:10)> ::= /"time"/
+<email_fmt_kw(priority:10)> ::= /"email"/
+<iriref_fmt_kw(priority:10)> ::= /"iri-reference"/
+
+<schema_document> ::= <schema>
+<schema> ::= '{' <member_seq> '}'
+
+<member> ::= <title_kw> ':' <json_string>
+<member> ::= <description_kw> ':' <json_string>
+<member> ::= <comment_kw> ':' <json_string>
+<member> ::= <examples_kw> ':' '[' ']'
+<member> ::= <enum_kw> ':' '[' ']'
+<member> ::= <enum_kw> ':' '[' <json_string> ']'
+<member> ::= <enum_kw> ':' '[' <json_string> ',' <json_string> ']'
+<member> ::= <enum_kw> ':' '[' <json_string> ',' <json_string> ',' <json_string> ']'
+<member> ::= <type_kw> ':' <type_value>
+<member> ::= <format_kw> ':' <format_value>
+<member> ::= <maxlength_kw> ':' <int_literal>
+<member> ::= <minlength_kw> ':' <int_literal>
+<member> ::= <pattern_kw> ':' <json_string>
+<member> ::= <items_kw> ':' <schema>
+<member> ::= <additionalprops_kw> ':' <false_kw>
+<member> ::= <properties_kw> ':' '{' <prop_seq> '}'
+<member> ::= <required_kw> ':' '[' ']'
+<member> ::= <required_kw> ':' '[' <json_string> ']'
+<member> ::= <required_kw> ':' '[' <json_string> ',' <json_string> ']'
+<member> ::= <required_kw> ':' '[' <json_string> ',' <json_string> ',' <json_string> ']'
+<member> ::= <required_kw> ':' '[' <json_string> ',' <json_string> ',' <json_string> ',' <json_string> ']'
+<member> ::= <required_kw> ':' '[' <json_string> ',' <json_string> ',' <json_string> ',' <json_string> ',' <json_string> ']'
+<member> ::= <required_kw> ':' '[' <json_string> ',' <json_string> ',' <json_string> ',' <json_string> ',' <json_string> ',' <json_string> ']'
+<member> ::= <required_kw> ':' '[' <json_string> ',' <json_string> ',' <json_string> ',' <json_string> ',' <json_string> ',' <json_string> ',' <json_string> ']'
+<member> ::= <ref_kw> ':' <json_string>
+<member> ::= <definitions_kw> ':' '{' <prop_seq> '}'
+<member> ::= <allof_kw> ':' '[' ']'
+<member> ::= <allof_kw> ':' '[' <schema> ']'
+<member> ::= <allof_kw> ':' '[' <schema> ',' <schema> ']'
+<member> ::= <allof_kw> ':' '[' <schema> ',' <schema> ',' <schema> ']'
+<member> ::= <anyof_kw> ':' '[' ']'
+<member> ::= <anyof_kw> ':' '[' <schema> ']'
+<member> ::= <anyof_kw> ':' '[' <schema> ',' <schema> ']'
+<member> ::= <anyof_kw> ':' '[' <schema> ',' <schema> ',' <schema> ']'
+<member> ::= <oneof_kw> ':' '[' ']'
+<member> ::= <oneof_kw> ':' '[' <schema> ']'
+<member> ::= <oneof_kw> ':' '[' <schema> ',' <schema> ']'
+<member> ::= <oneof_kw> ':' '[' <schema> ',' <schema> ',' <schema> ']'
+<member> ::= <id_kw> ':' <json_string>
+<member> ::= <schema_kw> ':' <json_string>
+
+<member_seq> ::= <member>
+<member_seq> ::= <member> ',' <member>
+<member_seq> ::= <member> ',' <member> ',' <member>
+<member_seq> ::= <member> ',' <member> ',' <member> ',' <member>
+<member_seq> ::= <member> ',' <member> ',' <member> ',' <member> ',' <member>
+<member_seq> ::= <member> ',' <member> ',' <member> ',' <member> ',' <member> ',' <member>
+<member_seq> ::= <member> ',' <member> ',' <member> ',' <member> ',' <member> ',' <member> ',' <member>
+<member_seq> ::= <member> ',' <member> ',' <member> ',' <member> ',' <member> ',' <member> ',' <member> ',' <member>
+<member_seq> ::= <member> ',' <member> ',' <member> ',' <member> ',' <member> ',' <member> ',' <member> ',' <member> ',' <member>
+<member_seq> ::= <member> ',' <member> ',' <member> ',' <member> ',' <member> ',' <member> ',' <member> ',' <member> ',' <member> ',' <member>
+<member_seq> ::= <member> ',' <member> ',' <member> ',' <member> ',' <member> ',' <member> ',' <member> ',' <member> ',' <member> ',' <member> ',' <member>
+<member_seq> ::= <member> ',' <member> ',' <member> ',' <member> ',' <member> ',' <member> ',' <member> ',' <member> ',' <member> ',' <member> ',' <member> ',' <member>
+
+<prop_entry> ::= <json_string> ':' <schema> | <title_kw> ':' <schema> | <description_kw> ':' <schema> | <comment_kw> ':' <schema> | <examples_kw> ':' <schema> | <enum_kw> ':' <schema> | <type_kw> ':' <schema> | <format_kw> ':' <schema> | <maxlength_kw> ':' <schema> | <minlength_kw> ':' <schema> | <pattern_kw> ':' <schema> | <items_kw> ':' <schema> | <additionalprops_kw> ':' <schema> | <properties_kw> ':' <schema> | <required_kw> ':' <schema> | <ref_kw> ':' <schema> | <definitions_kw> ':' <schema> | <allof_kw> ':' <schema> | <anyof_kw> ':' <schema> | <oneof_kw> ':' <schema> | <id_kw> ':' <schema> | <schema_kw> ':' <schema> | <string_type_kw> ':' <schema> | <object_type_kw> ':' <schema> | <array_type_kw> ':' <schema> | <integer_type_kw> ':' <schema> | <boolean_type_kw> ':' <schema> | <date_fmt_kw> ':' <schema> | <datetime_fmt_kw> ':' <schema> | <time_fmt_kw> ':' <schema> | <email_fmt_kw> ':' <schema> | <iriref_fmt_kw> ':' <schema> | <false_kw> ':' <schema>
+
+<prop_seq> ::= <prop_entry>
+<prop_seq> ::= <prop_entry> ',' <prop_entry>
+<prop_seq> ::= <prop_entry> ',' <prop_entry> ',' <prop_entry>
+<prop_seq> ::= <prop_entry> ',' <prop_entry> ',' <prop_entry> ',' <prop_entry>
+<prop_seq> ::= <prop_entry> ',' <prop_entry> ',' <prop_entry> ',' <prop_entry> ',' <prop_entry>
+<prop_seq> ::= <prop_entry> ',' <prop_entry> ',' <prop_entry> ',' <prop_entry> ',' <prop_entry> ',' <prop_entry>
+<prop_seq> ::= <prop_entry> ',' <prop_entry> ',' <prop_entry> ',' <prop_entry> ',' <prop_entry> ',' <prop_entry> ',' <prop_entry>
+<prop_seq> ::= <prop_entry> ',' <prop_entry> ',' <prop_entry> ',' <prop_entry> ',' <prop_entry> ',' <prop_entry> ',' <prop_entry> ',' <prop_entry>
+<prop_seq> ::= <prop_entry> ',' <prop_entry> ',' <prop_entry> ',' <prop_entry> ',' <prop_entry> ',' <prop_entry> ',' <prop_entry> ',' <prop_entry> ',' <prop_entry>
+
+<type_value> ::= <string_type_kw> | <object_type_kw> | <array_type_kw> | <integer_type_kw> | <boolean_type_kw>
+<format_value> ::= <date_fmt_kw> | <datetime_fmt_kw> | <time_fmt_kw> | <email_fmt_kw> | <iriref_fmt_kw>
+

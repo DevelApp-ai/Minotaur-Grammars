@@ -1,0 +1,45 @@
+# Conformance cases for JSONSchemaDraft7.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
+# mode; the grammar-repository-tests job runs this in engine CI as well.
+grammar: JSONSchemaDraft7.grammar
+
+# jsb draft-07 document shape: keyword keys ($-prefixed and plain), string
+# values, empty example/enum arrays, int length bounds.
+lex: {\n\t"$schema" : "http://json-schema.org/draft-07/schema#",\n\t"$id" : "http://example.com/schemas/example.schema.json",\n\t"title" : "ExampleDefinition",\n\t"description" : "The easy definition of the schema of an example",\n\t"$comment" : "Generated with JsonSchemaBuilder",\n\t"examples" : [],\n\t"enum" : [],\n\t"type" : "object",\n\t"additionalProperties" : false,\n\t"maxLength" : 100,\n\t"minLength" : 1\n}\n
+
+# Type and format keyword values; enum and required string lists.
+lex: "type" : "string"
+lex: "type" : "object"
+lex: "type" : "array"
+lex: "type" : "integer"
+lex: "type" : "boolean"
+lex: "format" : "date"
+lex: "format" : "date-time"
+lex: "format" : "time"
+lex: "format" : "email"
+lex: "format" : "iri-reference"
+lex: "enum" : [ "Draft", "Placed", "Shipped" ]
+lex: "required" : [ "name", "created", "state", "tags", "value", "count", "outer" ]
+lex: "pattern" : "^[a-zA-Z0-9_-]+$"
+
+# Composition lists and nested schemas.
+lex: "allOf" : [\n\t{\n\t\t"title" : "First",\n\t\t"$comment" : "Generated with JsonSchemaBuilder",\n\t\t"examples" : [],\n\t\t"enum" : [],\n\t\t"type" : "object"\n\t},\n\t{\n\t\t"title" : "Second"\n\t}\n]
+lex: "anyOf" : [\n\t{\n\t\t"type" : "boolean"\n\t}\n]
+lex: "oneOf" : [\n\t{\n\t\t"type" : "string",\n\t\t"format" : "email"\n\t}\n]
+
+# properties/definitions blocks, including keyword-colliding entry keys
+# ("description" lexes as the description keyword token, not json_string)
+# and $ref fragment references.
+lex: "properties" : {\n\t"description" : {\n\t\t"title" : "Description",\n\t\t"description" : "Description of the node",\n\t\t"$comment" : "Generated with JsonSchemaBuilder",\n\t\t"examples" : [],\n\t\t"enum" : [],\n\t\t"type" : "string"\n\t},\n\t"plainProperty" : {\n\t\t"$ref" : "#/definitions/refToSchemaLevelNested",\n\t\t"title" : "Plain",\n\t\t"type" : "string"\n\t}\n}
+lex: "definitions" : {\n\t"InnerDefinition" : {\n\t\t"title" : "Inner",\n\t\t"type" : "object"\n\t}\n}
+lex: "items" : {\n\t"title" : "Tag",\n\t"type" : "string",\n\t"minLength" : 1\n}
+
+# Inputs that must be rejected by the token rules (LX1001). Bare true, floats
+# and the euro sign are not part of the jsb draft-07 emit surface.
+fail: true
+fail: 3.5
+fail: €
+fail: `
+
+# Whole example corpus as a lex case (raw content; '#' lines are comments).
+lexfile: Examples.txt
