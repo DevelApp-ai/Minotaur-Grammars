@@ -31,39 +31,62 @@ FormatType: EBNF
 <const_id> ::= /[A-Z][a-zA-Z0-9_]*/ ;
 <identifier> ::= /[a-zA-Z_][a-zA-Z0-9_]*[?!]?/ ;
 <boolean> ::= 'true' | 'false' ;
-<text> ::= /'"'[^"]*'"'/ ;
-<number> ::= /[0-9]+/ ;
-
-# --- Coverage completion: remaining language constructs ---
-<stabby_lambda> ::= "->" <auto_stabby_lambda_0> block_body ;
-<refinement> ::= "refine" class_name ( "do" statement* "end" | "{" statement* "}" ) ;
-<alias_statement> ::= ( "alias" | "alias_method" ) <method_name> <method_name> ;
-<heredoc> ::= "<<" <auto_heredoc_0> ( <identifier> | quoted_identifier ) line_terminator heredoc_body heredoc_terminator ;
-<percent_array> ::= "%" ( "w" | "W" | "i" | "I" ) open_delim <auto_percent_array_0> close_delim ;
-<percent_string> ::= "%" ( "q" | "Q" | "r" | "s" ) open_delim string_content close_delim ;
-<safe_navigation> ::= primary "&." <method_name> call_arguments ;
-<defined_check> ::= "defined?" ( "(" expression ")" | expression ) ;
-<auto_stabby_lambda_0> ::= /[ "(" param_list ")" ]/ ;
-<auto_heredoc_0> ::= /[ "~" ]/ ;
-<auto_percent_array_0> ::= /[ string_list ]/ ;
-
-/* Comments (issue #189) */
-<hash-comment> ::= /#[^\n]*/
-<comment> ::= <hash-comment>
 
 /* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
-   identifier, number, string/char literals, punctuation and comments as token
-   rules. String/char/block-comment patterns are the proven CSharp10 ones. */
-<lx_ws> ::= /[ \t\r\n]+/ => { skip }
-<lx_backslash> ::= /\\/
-<lx_identifier> ::= /[A-Za-z_][A-Za-z0-9_]*[?!]?/
-<lx_number> ::= /[0-9]+(\.[0-9]+)?([eE][+-]?[0-9]+)?/
-<lx_string> ::= /"([^"\\\n]|\\.)*"/
-<lx_char0> ::= /'[^'\n]'/
-<lx_char1> ::= /'\x5C.'/
-<lx_char2> ::= /'\x5Cu[0-9a-fA-F]{4}'/
-<lx_char3> ::= /'\x5Cx[0-9a-fA-F]{1,4}'/
-<lx_block_comment0> ::= /\x2F\*([^*]|\*+[^*\x2F])*\*+\x2F/ => { skip }
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   Ruby 2.3+: # comments, :symbols, %w/%i sigils, ?a chars, @ivars $gvars, -> => .. ... */
+<whitespace> ::= /[ \t\r\n]+/ => { skip }
+<comment> ::= /#[^\n]*/ => { skip }
+<string> ::= /"([^"\\\n]|\\.)*"/
+<string> ::= /'([^'\\\n]|\\.)*'/
+<psigil> ::= /%[qQwWiIrs]\{[^}]*\}/
+<psigil> ::= /%[qQwWiIrs]\[[^\]]*\]/
+<psigil> ::= /%[qQwWiIrs]\([^)]*\)/
+<psigil> ::= /%[qQwWiIrs]<[^>]*>/
+<psigil> ::= /%[qQwWiIrs]\x2F([^\x2F\\]|\\.)*\x2F/
+<symbol> ::= /::/
+<symbol> ::= /\x3A\x22([^\x22\\]|\\.)*\x22/
+<symbol> ::= /:[a-zA-Z_][a-zA-Z0-9_]*[!?=]?/
+<symbol> ::= /:[+\-*<>=!&|^~.\x2F%]+/
+<char> ::= /\?\\./
+<char> ::= /\?[^\s\\]/
+<gvar> ::= /[$@]{1,2}[a-zA-Z_][a-zA-Z0-9_]*/
+<gvar> ::= /[$@]{1,2}/
+<number> ::= /0[xX][0-9a-fA-F_]+/
+<number> ::= /0[bB][01_]+/
+<number> ::= /0[oO]?[0-7_]+/
+<number> ::= /[0-9][0-9_]*(\.[0-9_]*)?([eE][+-]?[0-9]+)?[ri]?/
+<number> ::= /\.[0-9][0-9_]*([eE][+-]?[0-9]+)?/
+<identifier> ::= /[a-zA-Z_][a-zA-Z0-9_]*[!?=]?/
+<lx_op0> ::= "=>"
+<lx_op1> ::= "->"
+<lx_op2> ::= "=="
+<lx_op3> ::= "==="
+<lx_op4> ::= "!="
+<lx_op5> ::= "=~"
+<lx_op6> ::= "!~"
+<lx_op7> ::= "<=>"
+<lx_op8> ::= ".."
+<lx_op9> ::= "..."
+<lx_op10> ::= "<<"
+<lx_op11> ::= ">>"
+<lx_op12> ::= "**"
+<lx_op13> ::= "&&"
+<lx_op14> ::= "||"
+<lx_op15> ::= "+="
+<lx_op16> ::= "-="
+<lx_op17> ::= "*="
+<lx_op18> ::= "/="
+<lx_op19> ::= "%="
+<lx_op20> ::= "&="
+<lx_op21> ::= "|="
+<lx_op22> ::= "^="
+<lx_op23> ::= "<<="
+<lx_op24> ::= ">>="
+<lx_op25> ::= "**="
+<op_single> ::= /[-+*\x2F%&|^~<>=!?:@:.]/
 <lx_p0> ::= "("
 <lx_p1> ::= ")"
 <lx_p2> ::= "{"
@@ -72,52 +95,6 @@ FormatType: EBNF
 <lx_p5> ::= "]"
 <lx_p6> ::= ";"
 <lx_p7> ::= ","
-<lx_p8> ::= "."
-<lx_p9> ::= "?"
-<lx_p10> ::= ":"
-<lx_p11> ::= "!"
-<lx_p12> ::= "+"
-<lx_p13> ::= "-"
-<lx_p14> ::= "*"
-<lx_p15> ::= "/"
-<lx_p16> ::= "%"
-<lx_p17> ::= "="
-<lx_p18> ::= "<"
-<lx_p19> ::= ">"
-<lx_p20> ::= "&"
-<lx_p21> ::= "|"
-<lx_p22> ::= "^"
-<lx_p23> ::= "~"
-<lx_p24> ::= "@"
-<lx_p25> ::= "`"
-<lx_p26> ::= '"'
-<lx_p27> ::= "'"
-<lx_p28> ::= "=>"
-<lx_p29> ::= "->"
-<lx_p30> ::= "=="
-<lx_p31> ::= "!="
-<lx_p32> ::= "<="
-<lx_p33> ::= ">="
-<lx_p34> ::= "&&"
-<lx_p35> ::= "||"
-<lx_p36> ::= "++"
-<lx_p37> ::= "--"
-<lx_p38> ::= "+="
-<lx_p39> ::= "-="
-<lx_p40> ::= "*="
-<lx_p41> ::= "/="
-<lx_p42> ::= "%="
-<lx_p43> ::= "&="
-<lx_p44> ::= "|="
-<lx_p45> ::= "^="
-<lx_p46> ::= "<<"
-<lx_p47> ::= ">>"
-<lx_p48> ::= "::"
-<lx_p49> ::= ".."
-<lx_p50> ::= "..."
-<lx_p51> ::= "**"
-<lx_p52> ::= "??"
-<lx_p53> ::= "?."
-<lx_p54> ::= "<>"
-<lx_hash_comment> ::= /#[^\n]*/ => { skip }
-<lx_line_comment> ::= /\x2F\x2F[^\n]*/ => { skip }
+<lx_p8> ::= '"'
+<lx_p9> ::= "'"
+<lx_p10> ::= "`"

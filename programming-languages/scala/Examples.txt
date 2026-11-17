@@ -1,11 +1,43 @@
-val doubled = List(1, 2, 3).map(x => x * 2)
+// Scala 3 example corpus for Scala.grammar (lexfile pin).
+package com.example
 
-# --- Coverage completion constructs ---
+import scala.collection.mutable
 
-extension (s: String) def shout: String = s.toUpperCase + "!"
-export scala.collection.mutable.ListBuffer
-def f(x: Int | String): Int = x match { case i: Int => i; case s: String => s.length }
-type Readable & Closeable
-opaque type UserId = Int
-end fac
-given Ord[Int] with def compare(a: Int, b: Int) = a - b
+object Main {
+  val pi: Double = 3.14159
+  val hex = 0xFF
+  val big = 1_000_000L
+  val f = 2.5e-3f
+
+  def main(args: Array[String]): Unit = {
+    val list = List(1, 2, 3)
+    val s = s"count: ${list.size}"
+    val raw = """
+      multiline
+    """
+    for (x <- list if x > 1) println(x)
+    list.foreach(x => println(x * 2))
+    val sum = list.foldLeft(0)(_ + _)
+    val m = mutable.Map("a" -> 1)
+    val opt: Option[Int] = Some(1)
+    opt match {
+      case Some(v) => println(v)
+      case None => println("none")
+    }
+    val (a, b) = (1, 2)
+    val add = (x: Int, y: Int) => x + y
+    val `back tick` = 3
+    println(add(a, b))
+    println(list.map(_ * 2).sum)
+  }
+}
+
+case class Point(x: Int, y: Int)
+trait Showable { def show: String }
+class Circle(val r: Double) extends Showable {
+  def show: String = s"circle $r"
+}
+given Showable with
+  def show = "given"
+enum Color:
+  case Red, Green, Blue

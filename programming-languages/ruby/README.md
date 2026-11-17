@@ -1,6 +1,6 @@
 # Ruby
 
-Minotaur grammar for Ruby, covering the core language subset.
+Minotaur grammar for Ruby; lexing surface engine-verified (Conformance.txt + Examples.txt pin, GreedyLongestMatch).
 
 ## Syntax sketch
 

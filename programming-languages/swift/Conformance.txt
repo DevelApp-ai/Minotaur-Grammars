@@ -1,18 +1,29 @@
-# Conformance cases for Swift.grammar - engine-verified lexing pin.
-# Run by the ENFAStepLexer-StepParser integration suite in
-# GreedyLongestMatch mode (engine issues #129/#133); grammar-repository-tests
-# job runs this in engine CI as well.
+# Conformance cases for Swift.grammar - engine-verified lexing pin (Swift 5.5: raw #".."#, ..< ..., $0 closures, #available).
+# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
+# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
+# engine CI as well.
 grammar: Swift.grammar
 
-lex: func greet(name: String) -> String {
-lex: return "Hello, \\(name)"
-lex: }
-lex: let msg = greet(name: "Ada")
-lex: actor Counter { var value = 0; func incr() -> Int { value += 1; return value } }
-lex: let t = await task.value
+lex: import Foundation
+lex: let hex = 0xFF
+lex: let big = 1_000_000
+lex: let s = "value: \\(pi)"
+lex: let raw = #"raw string"#
+lex: let multi = """\nmulti\n"""
+lex: for i in 0..<10 {}
+lex: switch x {\ncase 1...5: break\ndefault: break\n}
+lex: let y = opt ?? 0
+lex: if let v = opt { print(v) }
+lex: let closure = { (a: Int, b: Int) in a + b }
+lex: let nums = arr.map { $0 * 2 }
+lex: x += 1; y <<= 2; z &= 0xFF;
+lex: enum Shape {\n    case circle(r: Double)\n}
+lex: #available(macOS 12.0, *)
+lex: func add(_ a: Int, _ b: Int = 2) -> Int { return a + b }
 
-# Input that must be rejected by the token rules (LX1001).
+# Inputs that must be rejected by the token rules (LX1001).
 fail: €
+fail: \\\\
 
-# Whole real corpus file as a lex case (raw content).
+# Whole example corpus as a lex case (raw content).
 lexfile: Examples.txt

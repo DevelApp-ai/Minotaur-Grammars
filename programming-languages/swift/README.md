@@ -1,6 +1,6 @@
 # Swift
 
-Minotaur grammar for Swift, covering the core language subset.
+Minotaur grammar for Swift; lexing surface engine-verified (Conformance.txt + Examples.txt pin, GreedyLongestMatch).
 
 ## Syntax sketch
 

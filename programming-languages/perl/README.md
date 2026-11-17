@@ -1,6 +1,6 @@
 # Perl
 
-Minotaur grammar for Perl, covering the core language subset.
+Minotaur grammar for Perl; lexing surface engine-verified (Conformance.txt + Examples.txt pin, GreedyLongestMatch).
 
 ## Syntax sketch
 
