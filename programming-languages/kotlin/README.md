@@ -1,6 +1,6 @@
 # Kotlin
 
-Minotaur grammar for Kotlin, covering the core language subset.
+Minotaur grammar for Kotlin; lexing surface engine-verified (Conformance.txt + Examples.txt pin, GreedyLongestMatch).
 
 ## Syntax sketch
 

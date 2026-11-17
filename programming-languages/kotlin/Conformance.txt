@@ -1,18 +1,28 @@
-# Conformance cases for Kotlin.grammar - engine-verified lexing pin.
-# Run by the ENFAStepLexer-StepParser integration suite in
-# GreedyLongestMatch mode (engine issues #129/#133); grammar-repository-tests
-# job runs this in engine CI as well.
+# Conformance cases for Kotlin.grammar - engine-verified lexing pin (Kotlin 1.9: raw triple strings, backtick idents, elvis ?:, .. ranges).
+# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
+# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
+# engine CI as well.
 grammar: Kotlin.grammar
 
-lex: fun max(a: Int, b: Int): Int = if (a > b) a else b
-lex: inline fun <reified T> tag(): String = T::class.simpleName ?: "?"
-lex: crossinline body check
-lex: fun sum(vararg values: Int) = values.sum()
-lex: operator fun Times.dec() = this - 1
-lex: infix fun Int.pow(n: Int): Int = if (n == 0) 1 else this * pow(n - 1)
+lex: package com.example
+lex: import java.util.ArrayList
+lex: const val PI = 3.14159
+lex: val big = 1_000_000L
+lex: val f = 2.5e-3f
+lex: val s = "value: $x and ${x + 1}"
+lex: val raw = """\nraw\n"""
+lex: for (i in 0..10) {}
+lex: when (x) {\n    0 -> println(0)\n    in 1..10 -> println(1)\n    else -> println(2)\n}
+lex: val y = nullable?.length ?: 0
+lex: val (a, b) = Pair(1, 2)
+lex: val `weird name` = 1
+lex: x += 1; y <<= 2; z >>>= 3;
+lex: class Greeter(private val name: String) {}
+lex: val fn = { a: Int, b: Int -> a + b }
 
-# Input that must be rejected by the token rules (LX1001).
+# Inputs that must be rejected by the token rules (LX1001).
 fail: €
+fail: \\\\
 
-# Whole real corpus file as a lex case (raw content).
+# Whole example corpus as a lex case (raw content).
 lexfile: Examples.txt

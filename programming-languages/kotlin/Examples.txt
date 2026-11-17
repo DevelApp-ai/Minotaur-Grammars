@@ -1,12 +1,43 @@
-fun max(a: Int, b: Int): Int = if (a > b) a else b
+// Kotlin 1.9 example corpus for Kotlin.grammar (lexfile pin).
+package com.example
 
-# --- Coverage completion constructs ---
+import java.util.ArrayList
 
-inline fun <reified T> tag(): String = T::class.simpleName ?: "?"
-crossinline body check
-fun sum(vararg values: Int) = values.sum()
-operator fun Times.dec() = this - 1
-infix fun Int.pow(n: Int): Int = if (n == 0) 1 else this * pow(n - 1)
-tailrec fun fac(n: Long, acc: Long = 1): Long = if (n <= 1) acc else fac(n - 1, acc * n)
-data object Empty : List<Nothing>
-list.map { it * 2 }
+const val PI = 3.14159
+val hex = 0xFF
+val bin = 0b1010
+val big = 1_000_000L
+val f = 2.5e-3f
+
+fun main() {
+    val list = arrayListOf("a", "b")
+    var x = 42
+    val s = "value: $x and ${x + 1}"
+    val raw = """
+        raw
+        string
+    """
+    for (i in 0..10) {
+        if (i % 2 == 0 && i != 0) println(i)
+    }
+    for (item in list) println(item)
+    while (x > 0) { x -= 1 }
+    when (x) {
+        0 -> println("zero")
+        in 1..10 -> println("small")
+        else -> println("big")
+    }
+    val fn = { a: Int, b: Int -> a + b }
+    val g = fun(x: Int): Int = x * 2
+    val nullable: String? = null
+    val y = nullable?.length ?: 0
+    val (a, b) = Pair(1, 2)
+    run { println("block") }
+    val `weird name` = 1
+    data class Point(val x: Int, val y: Int)
+    println(Point(1, 2).x)
+}
+
+class Greeter(private val name: String) {
+    fun greet(): String = "Hello, $name!"
+}

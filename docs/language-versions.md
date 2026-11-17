@@ -37,11 +37,11 @@ productions for X's defining features.
 | C | `C17` | C17 (ISO/IEC 9899:2018) | named; `_Static_assert`, `_Alignas`; full lexing surface engine-verified (Conformance.txt + Examples.txt) |
 | C++ | `Cpp20` | C++17–C++20 | concepts, modules, coroutines, `<=>`; full lexing surface engine-verified (raw/prefixed strings, digit separators, Conformance.txt + Examples.txt) |
 | C# | `CSharp10` | C# 1.0–10 | records, `init`, file-scoped namespaces |
-| Clojure | `Clojure` | Clojure 1.2+ | `defrecord`/`deftype` (1.2), atoms (1.0) |
+| Clojure | `Clojure` | Clojure 1.2+ | `defrecord`/`deftype` (1.2), atoms (1.0); full lexing surface engine-verified (symbols/keywords, ratios/radix, Conformance.txt + Examples.txt) |
 | COBOL | `COBOL2023` | COBOL 2023 | named |
-| Dart | `Dart` | Dart 3.0+ | records, patterns, sealed (all 3.0) |
-| Elixir | `Elixir` | Elixir 1.x (subset) | core syntax, sigils, multi-clause `fn` |
-| Erlang | `Erlang` | Erlang/OTP 17+ | maps (`#{}`), bit syntax |
+| Dart | `Dart` | Dart 3.0+ | records, patterns, sealed (all 3.0); full lexing surface engine-verified (raw/triple strings, cascades/spread, Conformance.txt + Examples.txt) |
+| Elixir | `Elixir` | Elixir 1.x | core syntax, sigils, multi-clause `fn`; full lexing surface engine-verified (atoms, sigils, heredocs, Conformance.txt + Examples.txt) |
+| Erlang | `Erlang` | Erlang/OTP 17+ | maps (`#{}`), bit syntax; full lexing surface engine-verified (atoms, $ chars, radix numbers, Conformance.txt + Examples.txt) |
 | F# | `FSharp` | F# core (version not pinned) | records, unions, object expressions — needs pinning (follow-up) |
 | Go | `Go119` | Go 1.18–1.19 | full surface engine-verified (Conformance.txt: generics + `~` constraints, type aliases, all literals incl. raw strings/imaginary, all statement forms); named for 1.19 |
 | Haskell | `Haskell` | Haskell 2010 + MultiWayIf/LambdaCase (GHC 7.6+ evidence) | `MultiWayIf`, `LambdaCase`; full lexing surface engine-verified (symop class, hex/octal, `{- -}`/`--` comments, pragmas; Conformance.txt + Examples.txt) |
@@ -49,16 +49,16 @@ productions for X's defining features.
 | Java | `Java17` | Java 8–17 | named; records, sealed, `var`; full lexing surface engine-verified (text blocks, suffixed literals, Conformance.txt + Examples.txt) |
 | JavaScript (legacy) | `JavaScript` | ES2015+ (embedded-HTML profile) | classes, arrows, template strings (ES6) |
 | JavaScript | `JavaScriptES2022` | ES2022 | named; full ES2022 spec coverage; full lexing surface engine-verified (templates, bigint, Conformance.txt + Examples.txt) |
-| Kotlin | `Kotlin` | Kotlin 1.9+ (subset) | `data object` (1.9) |
+| Kotlin | `Kotlin` | Kotlin 1.9+ | `data object` (1.9); full lexing surface engine-verified (raw strings, backtick idents, elvis, Conformance.txt + Examples.txt) |
 | Lua | `Lua` | Lua 5.4 | `goto`/labels (5.2), integer div + bitwise (5.3), `<close>` attributes (5.4); full lexing surface engine-verified (long strings/comments, hex floats, `//`, varargs; Conformance.txt + Examples.txt) |
-| Perl | `Perl` | Perl 5.36+ (subset) | subroutine signatures |
+| Perl | `Perl` | Perl 5.36+ | subroutine signatures; full lexing surface engine-verified (q//m//s///, sigil vars, Conformance.txt + Examples.txt) |
 | PHP | `PHP` | PHP 8.2 (subset) | `readonly` class (8.2), enums (8.1), `match` (8.0) |
 | Python | `Python311` | Python 3.11 | named; match, `except*`, `type` statement; full lexing surface engine-verified (prefixed/triple strings, all number forms, Conformance.txt + Examples.txt) |
-| R | `RLang` | R 4.1+ | native pipe `\|>` (4.1), raw strings (4.0) |
-| Ruby | `Ruby` | Ruby 2.3+ (subset) | safe navigation `&.` (2.3), `refine` (2.0) |
+| R | `RLang` | R 4.1+ | native pipe `\|>` (4.1), raw strings (4.0); full lexing surface engine-verified (%op%, slots, hex floats, Conformance.txt + Examples.txt) |
+| Ruby | `Ruby` | Ruby 2.3+ | safe navigation `&.` (2.3), `refine` (2.0); full lexing surface engine-verified (symbols, %sigils, ivars/gvars, Conformance.txt + Examples.txt) |
 | Rust | `Rust2021` | Rust 2021 edition | named; full lexing surface engine-verified (raw strings, byte strings, lifetimes, suffixed numbers, Conformance.txt + Examples.txt) |
-| Scala | `Scala` | Scala 3 (subset) | `export`, `given`, `opaque`, `end` (all 3.0) |
-| Swift | `Swift` | Swift 5.5 (subset) | actors, async/await (5.5), wrappers (5.1) |
+| Scala | `Scala` | Scala 3 | `export`, `given`, `opaque`, `end` (all 3.0); full lexing surface engine-verified (symbolic idents, interpolated strings, Conformance.txt + Examples.txt) |
+| Swift | `Swift` | Swift 5.5 | actors, async/await (5.5), wrappers (5.1); full lexing surface engine-verified (raw strings, ..<, $0, Conformance.txt + Examples.txt) |
 | TypeScript | `TypeScript` | TS 4.1–5.0 features on ES2022 base | template literal types (4.1), `infer` (4.7), decorators (5.0); no `satisfies` (4.9) |
 | VB.NET | `VisualBasic` | VB.NET 8+ (VS 2005) | `Using` statement (VB8) |
 | WebAssembly | `WebAssembly20` | WASM 2.0 (text format) | named |

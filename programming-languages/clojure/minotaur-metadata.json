@@ -5,7 +5,7 @@
   "DisplayName": "Clojure",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "Minotaur grammar for Clojure covering the core language subset.",
+  "Description": "Clojure 1.2+ grammar for the Minotaur parser platform (defrecord/deftype, atoms). Full lexing surface engine-verified via Conformance.txt: ; comments, symbols/keywords, \\ chars, strings, numbers incl. ratios and radix. Junk auto_* productions removed.",
   "License": "MIT",
   "Tags": [
     "programming-languages"

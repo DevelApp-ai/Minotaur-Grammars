@@ -5,7 +5,7 @@
   "DisplayName": "Kotlin",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "Minotaur grammar for Kotlin covering the core language subset.",
+  "Description": "Kotlin 1.9+ grammar for the Minotaur parser platform (data object). Full lexing surface engine-verified via Conformance.txt: raw triple strings, backtick identifiers, underscore/hex/bin literals with suffixes, elvis ?:, ranges .., all operators.",
   "License": "MIT",
   "Tags": [
     "programming-languages"
