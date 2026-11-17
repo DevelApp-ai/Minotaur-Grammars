@@ -15,7 +15,7 @@
 # mechanism covers both.
 
 Grammar: CEBNF
-BaseGrammar: TypeScript001.grammar
+BaseGrammar: TypeScript001001.grammar
 MergeStrategy: Additive
 
 /* Labyrinth pattern operators (added; never replace base productions).

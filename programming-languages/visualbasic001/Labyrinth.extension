@@ -15,7 +15,7 @@
 # mechanism covers both.
 
 Grammar: CEBNF
-BaseGrammar: VisualBasic001.grammar
+BaseGrammar: VisualBasic001001.grammar
 MergeStrategy: Additive
 
 /* Labyrinth pattern operators (added; never replace base productions).

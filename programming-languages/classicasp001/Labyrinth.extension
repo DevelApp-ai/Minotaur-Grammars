@@ -15,7 +15,7 @@
 # mechanism covers both.
 
 Grammar: CEBNF
-BaseGrammar: ClassicASP001.grammar
+BaseGrammar: ClassicASP001001.grammar
 MergeStrategy: Additive
 
 /* Labyrinth pattern operators (added; never replace base productions).
