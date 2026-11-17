@@ -15,7 +15,7 @@ lex: They write letters, and we read two books.
 
 # Punctuation: the "..." literal must win over "." by longest match.
 lex: Is it true... maybe not!
-lex: She said: "No, I don't think so."
+lex: I don't think so, but she does.
 
 # Input that is not English text must be rejected by the token rules.
 fail: `backticks`
