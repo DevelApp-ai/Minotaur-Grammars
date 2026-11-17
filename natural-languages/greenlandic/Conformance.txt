@@ -1,0 +1,18 @@
+# Conformance cases for Greenlandic.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
+# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
+# engine CI as well.
+grammar: Greenlandic.grammar
+
+lex: Aliikusersuillammassuaanerartassagaluarpaalli
+lex: Qimmeq amerlerpoq.
+lex: Angut qimmip amerlerpaa.
+lex: -ppat, -ppassi
+lex: Ilinniartut-qar-punga
+lex: Uanga qimmeq amerappara.
+lex: Uanga Nuummoorpunga.
+lex: Illit ilinniartorpit.
+
+# Inputs that must be rejected by the token rules (LX1001).
+fail: €
+fail: `

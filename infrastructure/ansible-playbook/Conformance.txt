@@ -1,0 +1,14 @@
+# Conformance cases for AnsiblePlaybook.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
+# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
+# engine CI as well.
+grammar: AnsiblePlaybook.grammar
+
+lex: ---
+lex: - name: Deploy order service
+lex: hosts: webservers
+lex: become: true
+lex: vars:
+lex: app_port: 8080
+lex: roles:
+lex: - common

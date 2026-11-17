@@ -1,0 +1,17 @@
+# Conformance cases for Bind9ZoneFile.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
+# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
+# engine CI as well.
+grammar: Bind9ZoneFile.grammar
+
+lex: @ IN SOA ns1.example.com. hostmaster.example.com. ( 1 3600 600 604800 300 )
+lex: @ IN NS ns1.example.com.
+lex: mail IN A 192.0.2.20
+lex: $INCLUDE db.sub.example.com
+lex: @ DNSKEY 256 3 8 AwEAAc...
+lex: sub DS 12345 8 2 ABCDEF...
+lex: host A 192.0.2.1
+lex: A 192.0.2.2
+
+# Whole example corpus as a lex case (raw content; '#' lines are comments).
+lexfile: Examples.txt

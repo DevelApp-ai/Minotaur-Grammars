@@ -3,7 +3,7 @@
   "Name": "Makefile",
   "Vendor": "DevelApp",
   "DisplayName": "Makefile",
-  "Version": "1.0.0",
+  "Version": "2.0.0",
   "MinotaurVersion": "*",
   "Description": "Grammar for GNU Makefiles: rules with targets and prerequisites, recipes with tab indentation, variables, pattern rules, conditionals, include and .PHONY declarations.",
   "License": "MIT",
@@ -19,5 +19,7 @@
     "FirstName": "Lars",
     "LastName": "Buch-Jepsen"
   },
-  "PricingModel": "free"
+  "PricingModel": "free",
+  "EngineVerified": true,
+  "EngineVerifiedBy": "ENFAStepLexer-StepParser@e6d1ae5cf748 (grammar-repository-tests, GreedyLongestMatch)"
 }

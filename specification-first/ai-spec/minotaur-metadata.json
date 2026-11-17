@@ -3,7 +3,7 @@
   "Name": "AiSpec",
   "Vendor": "DevelApp",
   "DisplayName": "AI Component Specification (.ai)",
-  "Version": "1.0.0",
+  "Version": "2.0.0",
   "MinotaurVersion": "*",
   "Description": "Grammar for hierarchical .ai component specification files (SpecTree): component identity, dependencies, requirements, API endpoints, data model references and ADR compliance. Used by Specification-First Development to drive .NET code generation.",
   "License": "MIT",
@@ -20,5 +20,7 @@
     "FirstName": "Lars",
     "LastName": "Buch-Jepsen"
   },
-  "PricingModel": "free"
+  "PricingModel": "free",
+  "EngineVerified": true,
+  "EngineVerifiedBy": "ENFAStepLexer-StepParser@e6d1ae5cf748 (grammar-repository-tests, GreedyLongestMatch)"
 }

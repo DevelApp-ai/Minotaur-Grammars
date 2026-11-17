@@ -1,0 +1,17 @@
+# Conformance cases for LaTeX.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
+# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
+# engine CI as well.
+grammar: LaTeX.grammar
+
+lex: \\begin{itemize}
+lex: \\item First
+lex: \\item Second
+lex: \\end{itemize}
+lex: \\begin{equation} E = mc^2 \\end{equation}
+lex: \\begin{align} a &= b \\\\ c &= d \\end{align}
+lex: \\begin{itemize} \\item first \\item second \\end{itemize}
+lex: \\documentclass{article}
+
+# Whole example corpus as a lex case (raw content; '#' lines are comments).
+lexfile: Examples.txt

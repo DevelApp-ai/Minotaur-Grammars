@@ -1,0 +1,17 @@
+# Conformance cases for ChefRecipe.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
+# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
+# engine CI as well.
+grammar: ChefRecipe.grammar
+
+lex: package 'nginx' do
+lex: action :install
+lex: end
+lex: template '/etc/nginx/conf.d/orders.conf' do
+lex: source 'orders.nginx.conf.erb'
+lex: owner 'root'
+lex: group 'root'
+lex: mode '0644'
+
+# Whole example corpus as a lex case (raw content; '#' lines are comments).
+lexfile: Examples.txt

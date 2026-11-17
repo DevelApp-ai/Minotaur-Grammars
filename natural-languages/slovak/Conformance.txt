@@ -1,0 +1,21 @@
+# Conformance cases for Slovak.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
+# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
+# engine CI as well.
+grammar: Slovak.grammar
+
+lex: Ja čítam knihu.
+lex: Ty píšeš list.
+lex: On študuje slovenčinu.
+lex: Ona pracuje.
+lex: Čítal som knihu.
+lex: Písala si list.
+lex: Budem čítať.
+lex: Budeš písať.
+
+# Inputs that must be rejected by the token rules (LX1001).
+fail: €
+fail: `
+
+# Whole example corpus as a lex case (raw content; '#' lines are comments).
+lexfile: Examples.txt

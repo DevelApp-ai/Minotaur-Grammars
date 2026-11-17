@@ -1,0 +1,21 @@
+# Conformance cases for Finnish.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
+# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
+# engine CI as well.
+grammar: Finnish.grammar
+
+lex: 404: Not Found
+lex: Minä juon kahvia.
+lex: I drink coffee.
+lex: Täällä puhutaan suomea.
+lex: Tiedän, että Maria uskoo, että hänen veljensä, joka asuu Lontoossa, tietää, missä heidän äitinsä on.
+lex: Mies, joka asuu naapurissa, on lääkäri.
+lex: Jos sataa, emme mene ulos.
+lex: Kun tulen kotiin, syön illallisen.
+
+# Inputs that must be rejected by the token rules (LX1001).
+fail: €
+fail: `
+
+# Whole example corpus as a lex case (raw content; '#' lines are comments).
+lexfile: Examples.txt

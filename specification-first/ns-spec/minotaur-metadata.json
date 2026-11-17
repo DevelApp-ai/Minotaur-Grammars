@@ -3,7 +3,7 @@
   "Name": "NsSpec",
   "Vendor": "DevelApp",
   "DisplayName": "Non-Functional Specification (.ns)",
-  "Version": "1.0.0",
+  "Version": "2.0.0",
   "MinotaurVersion": "*",
   "Description": "Grammar for .ns non-functional specification files (SpecTree): measurable performance budgets, security requirements, scalability/availability SLOs and compliance constraints, bound to components or the whole solution and traceable to ADRs.",
   "License": "MIT",
@@ -20,5 +20,7 @@
     "FirstName": "Lars",
     "LastName": "Buch-Jepsen"
   },
-  "PricingModel": "free"
+  "PricingModel": "free",
+  "EngineVerified": true,
+  "EngineVerifiedBy": "ENFAStepLexer-StepParser@e6d1ae5cf748 (grammar-repository-tests, GreedyLongestMatch)"
 }

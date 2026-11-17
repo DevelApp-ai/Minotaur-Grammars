@@ -3,7 +3,7 @@
   "Name": "FlatBuffers",
   "Vendor": "DevelApp",
   "DisplayName": "FlatBuffers",
-  "Version": "1.0.0",
+  "Version": "2.0.0",
   "MinotaurVersion": "*",
   "Description": "Grammar for FlatBuffers schema definition files: namespaces, tables, structs, enums, unions, attributes and RPC services.",
   "License": "MIT",
@@ -19,5 +19,7 @@
     "FirstName": "Lars",
     "LastName": "Buch-Jepsen"
   },
-  "PricingModel": "free"
+  "PricingModel": "free",
+  "EngineVerified": true,
+  "EngineVerifiedBy": "ENFAStepLexer-StepParser@e6d1ae5cf748 (grammar-repository-tests, GreedyLongestMatch)"
 }

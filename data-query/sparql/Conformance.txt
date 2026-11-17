@@ -1,0 +1,17 @@
+# Conformance cases for SPARQL.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
+# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
+# engine CI as well.
+grammar: SPARQL.grammar
+
+lex: SELECT ?s ?o WHERE { ?s <http://example.org/knows> ?o . }
+lex: SELECT ?x WHERE { SERVICE <http://remote/sparql> { ?x a :Thing } }
+lex: FILTER NOT EXISTS { ?x :deprecated true }
+lex: SELECT ?o WHERE { GRAPH <http://graph> { ?s :p ?o } }
+lex: ?s :knows+ ?o
+lex: ?s :parent* ?o
+lex: PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+lex: SELECT ?name WHERE {
+
+# Whole example corpus as a lex case (raw content; '#' lines are comments).
+lexfile: Examples.txt

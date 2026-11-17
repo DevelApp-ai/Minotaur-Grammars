@@ -1,0 +1,17 @@
+# Conformance cases for TestSpec.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
+# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
+# engine CI as well.
+grammar: TestSpec.grammar
+
+lex: - Given a valid customer When creating an order with multiple items Then the order is created with all items
+lex: - Given an out-of-stock item When creating an order Then the order is rejected
+lex: - Should update order status correctly
+lex: - Should retrieve customer orders correctly
+lex: - Should handle concurrent order processing
+lex: - Given an empty cart When creating an order Then the order is rejected
+lex: - Given a payment failure When confirming an order Then the order stays in Created state
+lex: - Should handle 100 concurrent order creations under 500ms
+
+# Whole example corpus as a lex case (raw content; '#' lines are comments).
+lexfile: Examples.txt

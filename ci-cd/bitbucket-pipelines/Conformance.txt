@@ -1,0 +1,18 @@
+# Conformance cases for BitbucketPipelines.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
+# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
+# engine CI as well.
+grammar: BitbucketPipelines.grammar
+
+lex: pipelines:
+lex: branches:
+lex: main:
+lex: - step:
+lex: script: [ dotnet test ]
+lex: default:
+lex: name: build
+lex: oidc: true
+
+# Inputs that must be rejected by the token rules (LX1001).
+fail: €
+fail: `

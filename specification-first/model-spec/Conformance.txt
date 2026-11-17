@@ -1,0 +1,14 @@
+# Conformance cases for ModelSpec.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
+# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
+# engine CI as well.
+grammar: ModelSpec.grammar
+
+lex: - enum OrderStatus
+lex: - Created: int default=0
+lex: - Paid: int default=1
+lex: - Shipped: int default=2
+lex: - Cancelled: int default=3
+lex: - entity Order extends AggregateRoot
+lex: - Id: Guid key
+lex: - CustomerId: Guid required indexed
