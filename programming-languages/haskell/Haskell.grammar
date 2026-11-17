@@ -1,68 +1,126 @@
 Grammar: Haskell
 FormatType: EBNF
 
+/*
+ * Haskell grammar for the Minotaur parser platform.
+ *
+ * Coverage: Haskell 2010 core (modules with export lists, imports incl.
+ * qualified/as/hiding, data/type/newtype with deriving, class/instance,
+ * type signatures, function bindings with guards and where-clauses, lambda,
+ * let/in, if/then/else, case, do-notation, list comprehensions and ranges,
+ * operator sections, record construction) plus MultiWayIf and LambdaCase -
+ * pinned in docs/language-versions.md.
+ *
+ * Lexer core at the bottom: single-terminal token rules only. Regex
+ * alternatives inside productions do not materialize into lexer rules in the
+ * engine (ENFAStepLexer-StepParser #129/#133); string/char patterns are the
+ * proven CSharp10 ones, '/' is written \x2F inside regexes.
+ */
+
 <module> ::= <module_decl>? <import_stmt>* <top_decl>* ;
-<module_decl> ::= 'module' <identifier> '(' <export_list>? ')' 'where' ;
-<export_list> ::= <identifier> (',' <identifier>)* ;
-<import_stmt> ::= 'import' ('qualified')? <qualified_id> ('(' <import_list>? ')')? ;
-<import_list> ::= <identifier> (',' <identifier>)* ;
-<top_decl> ::= <data_decl> | <type_decl> | <func_decl> | <signature> ;
-<data_decl> ::= 'data' <identifier> <type_vars>? '=' <constructor> (' | ' <constructor>)* 'deriving' <identifier_list>? ;
-<type_vars> ::= <identifier>+ ;
-<constructor> ::= <identifier> ('{' <field>* '}')? <type>* ;
-<field> ::= <identifier> '::' <type> ;
-<type_decl> ::= 'type' <identifier> <type_vars>? '=' <type> ;
-<signature> ::= <identifier> '::' <type> ;
-<func_decl> ::= <identifier> <pattern>* '=' <expr> | <identifier> <pattern>* <guards> ;
-<guards> ::= (' | ' <expr> '=' <expr>)+ ;
-<pattern> ::= <identifier> | <literal> | '_' | '(' <pattern> ',' <pattern> ')' ;
-<expr> ::= <literal> | <identifier> | <call> | <lambda> | <expr> <binop> <expr> | '(' <expr> ')' | <let_expr> | <case_expr> | <do_block> ;
-<call> ::= <expr> <expr> ;
-<lambda> ::= '\\' <pattern>+ '->' <expr> ;
+
+<module_decl> ::= 'module' <modid> '(' <export_list>? ')' 'where' ;
+<export_list> ::= <export> (',' <export>)* ;
+<export> ::= <qname> ('(' <export_list>? ')')? | 'module' <modid> ;
+<modid> ::= <conid> ('.' <conid>)* ;
+<qname> ::= <identifier> ('.' <identifier>)* ;
+
+<import_stmt> ::= 'import' 'qualified'? <modid> ('as' <modid>)? ('hiding'? '(' <import_list>? ')')? ;
+<import_list> ::= <import_item> (',' <import_item>)* ;
+<import_item> ::= <qname> ('(' <import_list> ')')? | 'module' <modid> ;
+
+<top_decl> ::= <data_decl> | <type_decl> | <newtype_decl> | <class_decl> | <instance_decl> | <decl> ;
+<decl> ::= <signature> | <func_decl> | <infix_decl> ;
+
+<data_decl> ::= 'data' <context>? <conid> <type_var>* ('=' <constructor> ('|' <constructor>)*)? <deriving>? ;
+<newtype_decl> ::= 'newtype' <context>? <conid> <type_var>* '=' <constructor> <deriving>? ;
+<type_decl> ::= 'type' <conid> <type_var>* '=' <type> ;
+<deriving> ::= 'deriving' ('(' <conid> (',' <conid>)* ')' | <conid>) ;
+<constructor> ::= <conid> ('{' <field> (',' <field>)* '}')? <btype>*
+                | <btype>+ <conop> <btype>+ ;
+<field> ::= <var> '::' <type> ;
+<context> ::= <type> (',' <type>)* '=>' ;
+<class_decl> ::= 'class' <context>? <conid> <type_var> 'where' <decl>* ;
+<instance_decl> ::= 'instance' <context>? <conid> <type>* 'where' <decl>* ;
+<signature> ::= <var> (',' <var>)* '::' <type> ;
+<infix_decl> ::= ('infix' | 'infixl' | 'infixr') <number>? <op> (',' <op>)* ;
+<op> ::= <symop> | '`' <qname> '`' ;
+<func_decl> ::= <var> <apat>* ('=' <expr> | <guard>+ '=' <expr>) <where_clause>? ;
+<guard> ::= '|' <expr> ;
+<where_clause> ::= 'where' <decls> ;
+<decls> ::= <decl> (';' <decl>)* ;
+
+<type> ::= <btype> ('->' <type>)? ;
+<btype> ::= <atype>+ ;
+<atype> ::= <identifier> | '(' <type> ')' | '[' <type> ']' | '(' ')' | '(' <type> (',' <type>)* ')' ;
+
+<expr> ::= <infixexp> | <lambda> | <let_expr> | <if_expr> | <case_expr> | <do_expr> | <list_comp> ;
+<infixexp> ::= <lexp> (<binop> <lexp>)* ;
+<binop> ::= <symop> | '`' <qname> '`' | 'and' | 'or' ;
+<lexp> ::= '-'? <aexp>+ ;
+<aexp> ::= <qname> | <literal> | '(' <expr> ')' | <list> | <section> | <record_con> ;
+<list> ::= '[' (<expr> (',' <expr>)*)? ']' | '[' <expr> '..' <expr>? ']' ;
+<section> ::= '(' <expr>? <binop> <expr>? ')' ;
+<record_con> ::= <qname> '{' (<field_val> (',' <field_val>)*)? '}' ;
+<field_val> ::= <qname> '=' <expr> | <qname> | '.' ;
+<list_comp> ::= '[' <expr> '|' <qual> (',' <qual>)* ']' ;
+<qual> ::= <apat> '<-' <expr> | 'let' <decls> | <expr> ;
+<lambda> ::= <backslash> <apat>+ '->' <expr> | <backslash> 'case' <alt>+ ;
 <let_expr> ::= 'let' <decls> 'in' <expr> ;
-<decls> ::= <func_decl> (';' <func_decl>)* ;
-<case_expr> ::= 'case' <expr> 'of' <case_alt>+ ;
-<case_alt> ::= <pattern> '->' <expr> ;
-<do_block> ::= 'do' <stmt>+ ;
-<stmt> ::= <identifier> '<-' <expr> | 'let' <decls> | <expr> ;
-<type> ::= <identifier> | '[' <type> ']' | '(' <type> '->' <type> ')' | <type> '->' <type> ;
-<literal> ::= <number> | <text> | <char> ;
-<binop> ::= '+' | '-' | '*' | '/' | '==' | '/=' | '<' | '>' | ':' | '++' | '>>=' | '<$>' ;
-<qualified_id> ::= <identifier> ('.' <identifier>)* ;
-<identifier_list> ::= <identifier> (',' <identifier>)* ;
-<identifier> ::= /[a-zA-Z_][a-zA-Z0-9_']*/ ;
-<char> ::= '\'' <auto_char_0> '\'' ;
-<text> ::= /'"'[^"]*'"'/ ;
-<number> ::= /[0-9]+/ ;
+<if_expr> ::= 'if' <expr> 'then' <expr> 'else' <expr>
+            | 'if' '|' <guard>+ '->' <expr> ;
+<case_expr> ::= 'case' <expr> 'of' <alt>+ ;
+<alt> ::= <pat> <guard>* '->' <expr> <where_clause>? ;
+<do_expr> ::= 'do' <stmt>+ ;
+<stmt> ::= <apat> '<-' <expr> | 'let' <decls> | <expr> ;
+<pat> ::= <apat> (<conop> <apat>)* ;
+<conop> ::= ':' <symop> ;
+<apat> ::= '_'
+         | <qvar>
+         | <qcon> <apat>*
+         | <literal>
+         | '-' <number>
+         | '(' <pat> ')'
+         | '[' <pat> (',' <pat>)* ']'
+         | <qcon> '{' (<qname> '=' <pat> | '.') (',' (<qname> '=' <pat> | '.'))* '}'
+         | '~' <apat>
+         | '!' <apat> ;
+<literal> ::= <number> | <string> | <char> ;
+<var> ::= <identifier> ;
+<conid> ::= <identifier> ;
+<qvar> ::= <identifier> ('.' <identifier>)* ;
+<qcon> ::= <identifier> ('.' <identifier>)* ;
+<type_var> ::= <identifier> ;
 
-# --- Coverage completion: remaining language constructs ---
-<multi_way_if> ::= "if" " | " guard expression "->" expression ( " | " guard expression "->" expression )* ;
-<lambda_case> ::= "\\" "case" alt ( ";" alt )* ;
-<record_wildcards> ::= constructor_name "{" ".." "}" ;
-<tuple_section> ::= /"("[expression]","[expression(","[expression])*]")"/ ;
-<bang_pattern> ::= "!" <pattern> ;
-<template_splice> ::= "$" "(" expression ")" | "$" <identifier> ;
-<quasi_quote> ::= "[" quasi_quoter " | " quasi_body " | " "]" ;
-<auto_char_0> ::= /[^\']*/ ;
+/* --- Lexer core: single-terminal token rules only (engine #129/#133) --- */
 
-/* Comments (issue #189) */
-<haskell-line-comment> ::= /--[^\n]*/
-<haskell-block-comment> ::= /\{-([^-]|-[^}])*-\}/
-<comment> ::= <haskell-line-comment> | <haskell-block-comment>
+<whitespace> ::= /[ \t\r\n]+/ => { skip }
 
-/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
-   identifier, number, string/char literals, punctuation and comments as token
-   rules. String/char/block-comment patterns are the proven CSharp10 ones. */
-<lx_ws> ::= /[ \t\r\n]+/ => { skip }
-<lx_backslash> ::= /\\/
-<lx_identifier> ::= /[A-Za-z_][A-Za-z0-9_]*/
-<lx_number> ::= /[0-9]+(\.[0-9]+)?([eE][+-]?[0-9]+)?/
-<lx_string> ::= /"([^"\\\n]|\\.)*"/
-<lx_char0> ::= /'[^'\n]'/
-<lx_char1> ::= /'\x5C.'/
-<lx_char2> ::= /'\x5Cu[0-9a-fA-F]{4}'/
-<lx_char3> ::= /'\x5Cx[0-9a-fA-F]{1,4}'/
-<lx_block_comment0> ::= /\x2F\*([^*]|\*+[^*\x2F])*\*+\x2F/ => { skip }
+/* Haskell line comment: '--' to end of line (greedy longest match lets this
+   win over <symop> whenever anything follows on the line). */
+<line_comment> ::= /--[^\n]*/ => { skip }
+
+/* Haskell block comment {- ... -} (non-nested; pragmas {-# ... #-} match
+   this rule too and are skipped). */
+<block_comment> ::= /\x7B-([^-]|-+[^-}])*-+\x7D/ => { skip }
+
+<identifier> ::= /[a-zA-Z_][a-zA-Z0-9_']*/
+<symop> ::= /[:!#$%&*+.\x2F<=>?@^|~-]+/
+<backslash> ::= /\\/
+
+<number> ::= /0[xX][0-9a-fA-F]+/
+<number> ::= /0[oO][0-7]+/
+<number> ::= /[0-9]+\.[0-9]+([eE][+-]?[0-9]+)?/
+<number> ::= /[0-9]+[eE][+-]?[0-9]+/
+<number> ::= /[0-9]+/
+
+<string> ::= /"([^"\\\n]|\\.)*"/
+<char0> ::= /'[^'\n]'/
+<char1> ::= /'\x5C.'/
+<char2> ::= /'\x5Cu[0-9a-fA-F]{4}'/
+<char3> ::= /'\x5Cx[0-9a-fA-F]{1,4}'/
+<char> ::= <char0> | <char1> | <char2> | <char3>
+
 <lx_p0> ::= "("
 <lx_p1> ::= ")"
 <lx_p2> ::= "{"
@@ -71,51 +129,6 @@ FormatType: EBNF
 <lx_p5> ::= "]"
 <lx_p6> ::= ";"
 <lx_p7> ::= ","
-<lx_p8> ::= "."
-<lx_p9> ::= "?"
-<lx_p10> ::= ":"
-<lx_p11> ::= "!"
-<lx_p12> ::= "+"
-<lx_p13> ::= "-"
-<lx_p14> ::= "*"
-<lx_p15> ::= "/"
-<lx_p16> ::= "%"
-<lx_p17> ::= "="
-<lx_p18> ::= "<"
-<lx_p19> ::= ">"
-<lx_p20> ::= "&"
-<lx_p21> ::= "|"
-<lx_p22> ::= "^"
-<lx_p23> ::= "~"
-<lx_p24> ::= "@"
-<lx_p25> ::= "`"
-<lx_p26> ::= '"'
-<lx_p27> ::= "'"
-<lx_p28> ::= "=>"
-<lx_p29> ::= "->"
-<lx_p30> ::= "=="
-<lx_p31> ::= "!="
-<lx_p32> ::= "<="
-<lx_p33> ::= ">="
-<lx_p34> ::= "&&"
-<lx_p35> ::= "||"
-<lx_p36> ::= "++"
-<lx_p37> ::= "--"
-<lx_p38> ::= "+="
-<lx_p39> ::= "-="
-<lx_p40> ::= "*="
-<lx_p41> ::= "/="
-<lx_p42> ::= "%="
-<lx_p43> ::= "&="
-<lx_p44> ::= "|="
-<lx_p45> ::= "^="
-<lx_p46> ::= "<<"
-<lx_p47> ::= ">>"
-<lx_p48> ::= "::"
-<lx_p49> ::= ".."
-<lx_p50> ::= "..."
-<lx_p51> ::= "**"
-<lx_p52> ::= "??"
-<lx_p53> ::= "?."
-<lx_p54> ::= "<>"
-<lx_dash_comment> ::= /--[^\n]*/ => { skip }
+<lx_p8> ::= "`"
+<lx_p9> ::= '"'
+<lx_p10> ::= "'"

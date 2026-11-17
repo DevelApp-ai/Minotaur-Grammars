@@ -5,7 +5,7 @@
   "DisplayName": "Haskell",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "Minotaur grammar for Haskell covering the core language subset.",
+  "Description": "Haskell grammar for the Minotaur parser platform: Haskell 2010 core plus MultiWayIf/LambdaCase (modules, imports with as/hiding, data/type/newtype with deriving, class/instance, guards, do/case/let, list comprehensions, sections). Full lexing surface engine-verified via Conformance.txt (symop operator class, primes, hex/octal, {- -} and -- comments, pragmas).",
   "License": "MIT",
   "Tags": [
     "programming-languages"

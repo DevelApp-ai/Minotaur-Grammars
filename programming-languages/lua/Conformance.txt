@@ -1,18 +1,37 @@
-# Conformance cases for Lua.grammar - engine-verified lexing pin.
-# Run by the ENFAStepLexer-StepParser integration suite in
-# GreedyLongestMatch mode (engine issues #129/#133); grammar-repository-tests
-# job runs this in engine CI as well.
+# Conformance cases for Lua.grammar - engine-verified lexing pin (Lua 5.4 surface: long strings/comments, hex floats, //, bitwise ops, varargs, <close>).
+# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
+# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
+# engine CI as well.
 grammar: Lua.grammar
 
-lex: local t = { x = 1, y = 2 }
-lex: for k, v in pairs(t) do
-lex: print(k, v)
-lex: end
-lex: local a, b, c = 1, 2
-lex: local x, y = f()
+lex: local x = 42
+lex: local f = 3.14e-3; local h = 0x1p4; local d = .5; local i = 10
+lex: local s = "dq" .. 'sq'
+lex: local long = [[multi\nline]]
+lex: local lv = [==[a ] b]==]
+lex: local t = { 1, 2, name = "n", [3] = true }
+lex: local function f(a, ...) return {...} end
+lex: function obj:m(x) return x end
+lex: if a and not b then x() elseif c ~= d then y() else z() end
+lex: while x < 10 do x = x + 1 end
+lex: for i = 1, 10, 2 do print(i) end
+lex: for k, v in pairs(t) do print(k, v) end
+lex: repeat x = x - 1 until x <= 0
+lex: do local y = 1 end
+lex: goto done\n::done::
+lex: break
+lex: local q = a // b + c % d ^ 2
+lex: local bits = a & b | c ~ d << 1 >> 2
+lex: local n = #t
+lex: return f(1, 2)
+lex: local g = function() return 1 end
+lex: print(("s"):upper())
+lex: local closed <close> = io.open("f")
+lex: x = a == b and c <= d or e >= f
 
-# Input that must be rejected by the token rules (LX1001).
+# Inputs that must be rejected by the token rules (LX1001).
 fail: €
+fail: \\\\
 
-# Whole real corpus file as a lex case (raw content).
+# Whole example corpus as a lex case (raw content).
 lexfile: Examples.txt

@@ -1,6 +1,6 @@
 # Haskell
 
-Minotaur grammar for Haskell, covering the core language subset.
+Minotaur grammar for Haskell 2010 core plus MultiWayIf/LambdaCase; lexing surface engine-verified (Conformance.txt + Examples.txt pin, GreedyLongestMatch).
 
 ## Syntax sketch
 
