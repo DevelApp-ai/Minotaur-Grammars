@@ -89,6 +89,9 @@
     "ExtensionFile001.grammar": "programming-languages/extensionfile001/ExtensionFile001.grammar",
     "FolderProject001.grammar": "programming-languages/folderproject001/FolderProject001.grammar",
     "GrammarFile001.grammar": "programming-languages/grammarfile001/GrammarFile001.grammar",
-    "DotNetProject001.grammar": "programming-languages/dotnetproject001/DotNetProject001.grammar"
+    "DotNetProject001.grammar": "programming-languages/dotnetproject001/DotNetProject001.grammar",
+    "PHP85.grammar": "programming-languages/php85/PHP85.grammar",
+    "SQL2023.grammar": "data-query/sql2023/SQL2023.grammar",
+    "TSQL2022.grammar": "data-query/tsql2022/TSQL2022.grammar"
   }
 }

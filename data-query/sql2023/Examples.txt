@@ -1,0 +1,15 @@
+-- ANSI SQL:2023 DDL example
+CREATE TABLE "app"."users"
+(
+    "id" BIGINT NOT NULL,
+    "name" VARCHAR(100) NULL,
+    "status" VARCHAR(20) NULL DEFAULT 'new' CHECK ("status" IN ('new', 'done')),
+    CONSTRAINT "pk_users" PRIMARY KEY ("id")
+);
+CREATE TABLE "app"."orders"
+(
+    "id" BIGINT NOT NULL,
+    "user_id" BIGINT NOT NULL,
+    CONSTRAINT "pk_orders" PRIMARY KEY ("id"),
+    CONSTRAINT "fk_orders_user" FOREIGN KEY ("user_id") REFERENCES "app"."users" ("id")
+);

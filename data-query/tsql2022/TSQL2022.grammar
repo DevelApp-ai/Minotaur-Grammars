@@ -1,0 +1,93 @@
+Grammar: TSQL2022
+Keywords: IF, NOT, EXISTS, SELECT, FROM, WHERE, EXEC, CREATE, SCHEMA, TABLE, DROP, GO, IDENTITY, NULL, CONSTRAINT, PRIMARY, KEY, FOREIGN, REFERENCES, CHECK, IN, DEFAULT, IS, BIGINT, NVARCHAR, BIT, DATE, TIME, DATETIMEOFFSET
+
+
+<line_comment> ::= /\x2D\x2D[^\n]*/ => { skip }
+<block_comment> ::= /\x2F\x2A([^*]|\*+[^*\x2F])*\*+\x2F/ => { skip }
+<whitespace> ::= /[ \t\r\n]+/ => { skip }
+
+<identifier> ::= /[A-Za-z_][A-Za-z0-9_]*/
+<bracket_id> ::= /\x5B[^\x5D\n]+\x5D/
+<int_literal> ::= /[0-9]+/
+<n_string> ::= /N'([^']|'')*'/
+<string_literal> ::= /'([^']|'')*'/
+
+<if(priority:10)> ::= 'IF'
+<not_kw(priority:10)> ::= 'NOT'
+<exists(priority:10)> ::= 'EXISTS'
+<select(priority:10)> ::= 'SELECT'
+<from(priority:10)> ::= 'FROM'
+<where(priority:10)> ::= 'WHERE'
+<exec(priority:10)> ::= 'EXEC'
+<create(priority:10)> ::= 'CREATE'
+<schema_kw(priority:10)> ::= 'SCHEMA'
+<create_table(priority:10)> ::= 'TABLE'
+<drop(priority:10)> ::= 'DROP'
+<go(priority:10)> ::= 'GO'
+<identity(priority:10)> ::= 'IDENTITY'
+<null_kw(priority:10)> ::= 'NULL'
+<constraint(priority:10)> ::= 'CONSTRAINT'
+<primary(priority:10)> ::= 'PRIMARY'
+<key(priority:10)> ::= 'KEY'
+<foreign(priority:10)> ::= 'FOREIGN'
+<references(priority:10)> ::= 'REFERENCES'
+<check(priority:10)> ::= 'CHECK'
+<in_kw(priority:10)> ::= 'IN'
+<default_kw(priority:10)> ::= 'DEFAULT'
+<is_kw(priority:10)> ::= 'IS'
+<bigint_kw(priority:10)> ::= 'BIGINT'
+<nvarchar(priority:10)> ::= 'NVARCHAR'
+<bit_kw(priority:10)> ::= 'BIT'
+<date_kw(priority:10)> ::= 'DATE'
+<time_kw(priority:10)> ::= 'TIME'
+<datetimeoffset(priority:10)> ::= 'DATETIMEOFFSET'
+
+
+<sql_script> ::= <batch_unit>
+<sql_script> ::= <batch_unit> <batch_unit>
+<sql_script> ::= <batch_unit> <batch_unit> <batch_unit>
+<sql_script> ::= <batch_unit> <batch_unit> <batch_unit> <batch_unit>
+<sql_script> ::= <batch_unit> <batch_unit> <batch_unit> <batch_unit> <batch_unit>
+<sql_script> ::= <batch_unit> <batch_unit> <batch_unit> <batch_unit> <batch_unit> <batch_unit>
+<sql_script> ::= <batch_unit> <batch_unit> <batch_unit> <batch_unit> <batch_unit> <batch_unit> <batch_unit>
+<sql_script> ::= <batch_unit> <batch_unit> <batch_unit> <batch_unit> <batch_unit> <batch_unit> <batch_unit> <batch_unit>
+
+<batch_unit> ::= <schema_unit>
+<batch_unit> ::= <drop_unit>
+<batch_unit> ::= <create_unit>
+
+<schema_unit> ::= 'IF' 'NOT' 'EXISTS' '(' 'SELECT' <int_literal> 'FROM' <identifier> '.' <identifier> 'WHERE' <identifier> '=' <n_string> ')' 'EXEC' '(' <n_string> ')' ';' 'GO'
+
+<drop_unit> ::= 'IF' <identifier> '(' <n_string> ',' <n_string> ')' 'IS' 'NOT' 'NULL' 'DROP' 'TABLE' <bracket_id> '.' <bracket_id> ';' 'GO'
+
+<create_unit> ::= 'CREATE' 'TABLE' <bracket_id> '.' <bracket_id> '(' <coldef_seq> ')' ';' 'GO'
+
+<coldef_seq> ::= <coldef_seq> ',' <coldef>
+<coldef_seq> ::= <coldef>
+
+<coldef> ::= <bracket_id> <data_type> 'NULL'
+<coldef> ::= <bracket_id> <data_type> 'NOT' 'NULL'
+<coldef> ::= <bracket_id> <data_type> 'NULL' 'DEFAULT' <string_value>
+<coldef> ::= <bracket_id> <data_type> 'NOT' 'NULL' 'DEFAULT' <string_value>
+<coldef> ::= <bracket_id> <data_type> 'NULL' 'DEFAULT' <string_value> 'CHECK' '(' <check_expr> ')'
+<coldef> ::= <bracket_id> <data_type> 'NOT' 'NULL' 'CHECK' '(' <check_expr> ')'
+<coldef> ::= <bracket_id> <data_type> 'NULL' 'CHECK' '(' <check_expr> ')'
+<coldef> ::= <bracket_id> 'BIGINT' 'IDENTITY' '(' <int_literal> ',' <int_literal> ')' 'NOT' 'NULL'
+<coldef> ::= <bracket_id> 'BIGINT' 'IDENTITY' '(' <int_literal> ',' <int_literal> ')' 'NULL'
+<coldef> ::= <bracket_id> <data_type> 'IDENTITY' '(' <int_literal> ',' <int_literal> ')' 'NOT' 'NULL'
+<coldef> ::= <bracket_id> <data_type> 'IDENTITY' '(' <int_literal> ',' <int_literal> ')' 'NULL'
+<coldef> ::= 'CONSTRAINT' <bracket_id> 'PRIMARY' 'KEY' '(' <bracket_id> ')'
+<coldef> ::= 'CONSTRAINT' <bracket_id> 'FOREIGN' 'KEY' '(' <bracket_id> ')' 'REFERENCES' <bracket_id> '.' <bracket_id> '(' <bracket_id> ')'
+
+<data_type> ::= 'BIGINT' | 'BIT' | 'DATE' | 'TIME' | 'DATETIMEOFFSET'
+<data_type> ::= 'NVARCHAR' '(' <identifier> ')'
+<data_type> ::= 'NVARCHAR' '(' <int_literal> ')'
+
+<string_value> ::= <string_literal>
+<string_value> ::= <n_string>
+
+<check_expr> ::= <identifier> '(' <bracket_id> ')' '>=' <int_literal>
+<check_expr> ::= <bracket_id> 'IN' '(' <n_string> ')'
+<check_expr> ::= <bracket_id> 'IN' '(' <n_string> ',' <n_string> ')'
+<check_expr> ::= <bracket_id> 'IN' '(' <n_string> ',' <n_string> ',' <n_string> ')'
+<check_expr> ::= <bracket_id> 'IN' '(' <n_string> ',' <n_string> ',' <n_string> ',' <n_string> ')'

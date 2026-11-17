@@ -1,0 +1,27 @@
+{
+  "Id": "develapp.sql2023",
+  "Name": "SQL2023",
+  "Vendor": "DevelApp",
+  "DisplayName": "SQL2023",
+  "Version": "2.0.0",
+  "MinotaurVersion": "*",
+  "Description": "ANSI SQL:2023 DDL grammar for the Minotaur parser platform, hand-authored and engine-verified (CREATE TABLE subset used by JsonSchemaBuilder data-first schemas).",
+  "License": "MIT",
+  "Tags": [
+    "data-query",
+    "minotaur"
+  ],
+  "MainFile": "SQL2023.grammar",
+  "LabyrinthExtension": false,
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free",
+  "EngineVerified": true,
+  "EngineVerifiedBy": "DevelApp.StepParser 1.75.0 (GreedyLongestMatch; jsb corpus harness, 21/21 files)"
+}

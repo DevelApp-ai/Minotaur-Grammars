@@ -1,0 +1,27 @@
+{
+  "Id": "develapp.tsql2022",
+  "Name": "TSQL2022",
+  "Vendor": "DevelApp",
+  "DisplayName": "TSQL2022",
+  "Version": "2.0.0",
+  "MinotaurVersion": "*",
+  "Description": "T-SQL (SQL Server 2022) DDL grammar for the Minotaur parser platform, hand-authored and engine-verified against the JsonSchemaBuilder TSQL generator output (21/21 corpus files).",
+  "License": "MIT",
+  "Tags": [
+    "data-query",
+    "minotaur"
+  ],
+  "MainFile": "TSQL2022.grammar",
+  "LabyrinthExtension": false,
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free",
+  "EngineVerified": true,
+  "EngineVerifiedBy": "DevelApp.StepParser 1.75.0 (GreedyLongestMatch; jsb corpus harness, 21/21 files)"
+}
