@@ -14,7 +14,7 @@
 # Minotaur's GrammarExtensionLoader (DevelApp-ai/Minotaur#88), so one
 # mechanism covers both.
 
-Grammar: JavaScript001
+Grammar: CEBNF
 BaseGrammar: JavaScript001.grammar
 MergeStrategy: Additive
 
