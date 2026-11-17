@@ -8,6 +8,7 @@
     "COBOL2023.grammar": "programming-languages/cobol2023/COBOL2023.grammar",
     "Cpp20.grammar": "programming-languages/cpp20/Cpp20.grammar",
     "CSharp10.grammar": "programming-languages/csharp10/CSharp10.grammar",
+    "CSharp14.grammar": "programming-languages/csharp14/CSharp14.grammar",
     "CSS.grammar": "programming-languages/css/CSS.grammar",
     "FSharp.grammar": "programming-languages/fsharp/FSharp.grammar",
     "Go119.grammar": "programming-languages/go119/Go119.grammar",

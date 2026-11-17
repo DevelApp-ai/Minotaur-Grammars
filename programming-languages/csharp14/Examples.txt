@@ -1,0 +1,50 @@
+using System;
+using System.Collections.Generic;
+
+namespace Examples.Models
+{
+    /// <summary>
+    /// OrderDefinition: example order
+    /// </summary>
+    public partial class OrderDefinition
+    {
+        public enum OrderState
+        {
+            Draft,
+            Placed,
+            Shipped
+        }
+
+        /// <summary>
+        /// Customer: the customer
+        /// </summary>
+        [JsonProperty("customer")]
+        public Customer Customer { get; set; }
+
+        /// <summary>
+        /// Items: order items
+        /// </summary>
+        public List<OrderItem> Items { get; set; } = new List<OrderItem>();
+
+        /// <summary>
+        /// State: order state
+        /// </summary>
+        [JsonProperty("state"), JsonConverter(typeof(StringEnumConverter))]
+        public OrderState? State { get; set; }
+    }
+
+    public partial class Customer
+    {
+        /// <summary>
+        /// Name: customer name
+        /// </summary>
+        [JsonProperty("name")]
+        public string Name { get; set; } = new DataString("x");
+
+        /// <summary>
+        /// Created: creation timestamp
+        /// </summary>
+        [JsonProperty("created")]
+        public DateTime? Created { get; set; } = DateTime.Parse("2026-11-17T10:00:00+00:00");
+    }
+}
