@@ -1,0 +1,123 @@
+Grammar: Clojure001
+Language version: Clojure 1.2+ (defrecord/deftype; atoms since 1.0).
+FormatType: EBNF
+
+<program> ::= <form>* ;
+<form> ::= <list> | <vector> | <map> | <set> | <literal> | <symbol> | <keyword> | <quote> ;
+<quote> ::= '\'' <form> ;
+<list> ::= '(' <form>* ')' ;
+<vector> ::= '[' <form>* ']' ;
+<map> ::= '{' (<form> <form>)* '}' ;
+<set> ::= '#{' <form>* '}' ;
+<symbol> ::= <ns_symbol> | <plain_symbol> ;
+<ns_symbol> ::= <plain_symbol> '/' <plain_symbol> ;
+<plain_symbol> ::= /[a-zA-Z*+!_?<>=.\/-][a-zA-Z0-9*+!_?<>=.\/-]*/ ;
+<keyword> ::= ':' (<plain_symbol> | <ns_symbol>) ;
+<literal> ::= <number> | <text> | <char> | 'nil' | 'true' | 'false' ;
+<char> ::= '\\' <auto_char_0> ;
+<text> ::= /'"'[^"]*'"'/ ;
+<number> ::= /[0-9]+('.'[0-9]+)?/ ;
+
+# --- Coverage completion: remaining language constructs ---
+<atom_creation> ::= "(" "def" <identifier> "(" "atom" <expression> ")" ")" ;
+<atom_update> ::= "(" ( "swap!" | "reset!" | "compare-and-set!" ) <expression> <expression>* ")" ;
+<deref_expression> ::= ( "@" <form> | "(" "deref" <form> ")" ) ;
+<defrecord> ::= "(" "defrecord" <symbol> <auto_defrecord_0><auto_defrecord_1> body* ")" ;
+<deftype> ::= "(" "deftype" <symbol> <auto_deftype_0><auto_deftype_1> implementation* ")" ;
+<ns_clause> ::= "(" "ns" <symbol> ns_options* ")" ;
+<var_quote> ::= "#'" <symbol> ;
+<syntax_quote> ::= "`" <form> ;
+<expression> ::= <literal> | <symbol> | <keyword> | <list> | <vector> | <map> | <set> ;
+<pair> ::= <expression> <expression> ;
+<identifier> ::= <symbol_text> ;
+<string> ::= <string_text> ;
+<nil> ::= 'nil' ;
+<true> ::= 'true' ;
+<false> ::= 'false' ;
+<symbol_text> ::= /<auto_symbol_text_0><auto_symbol_text_1>/ ;
+<number_text> ::= /<auto_number_text_0><auto_number_text_1>(\.<auto_number_text_2>)?/ ;
+<string_text> ::= /"[^"]*"/ ;
+<auto_char_0> ::= /[a-zA-Z]/ ;
+<auto_defrecord_0> ::= /[ "[" field_list "]/ ;
+<auto_defrecord_1> ::= /" ]/ ;
+<auto_deftype_0> ::= /[ "[" field_list "]/ ;
+<auto_deftype_1> ::= /" ]/ ;
+<auto_symbol_text_0> ::= /[a-zA-Z*+!?_<>=\-\/]/ ;
+<auto_symbol_text_1> ::= /[a-zA-Z0-9*+!?_<>=\-\\/]*/ ;
+<auto_number_text_0> ::= /[+-]?/ ;
+<auto_number_text_1> ::= /[0-9]+/ ;
+<auto_number_text_2> ::= /[0-9]+/ ;
+
+/* Comments (issue #189) */
+<semicolon-comment> ::= /;[^\n]*/
+<comment> ::= <semicolon-comment>
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   identifier, number, string/char literals, punctuation and comments as token
+   rules. String/char/block-comment patterns are the proven CSharp10 ones. */
+<lx_ws> ::= /[ \t\r\n]+/ => { skip }
+<lx_backslash> ::= /\\/
+<lx_identifier> ::= /[A-Za-z_][A-Za-z0-9_]*/
+<lx_number> ::= /[0-9]+(\.[0-9]+)?([eE][+-]?[0-9]+)?/
+<lx_string> ::= /"([^"\\\n]|\\.)*"/
+<lx_char0> ::= /'[^'\n]'/
+<lx_char1> ::= /'\x5C.'/
+<lx_char2> ::= /'\x5Cu[0-9a-fA-F]{4}'/
+<lx_char3> ::= /'\x5Cx[0-9a-fA-F]{1,4}'/
+<lx_block_comment0> ::= /\x2F\*([^*]|\*+[^*\x2F])*\*+\x2F/ => { skip }
+<lx_p0> ::= "("
+<lx_p1> ::= ")"
+<lx_p2> ::= "{"
+<lx_p3> ::= "}"
+<lx_p4> ::= "["
+<lx_p5> ::= "]"
+<lx_p6> ::= ";"
+<lx_p7> ::= ","
+<lx_p8> ::= "."
+<lx_p9> ::= "?"
+<lx_p10> ::= ":"
+<lx_p11> ::= "!"
+<lx_p12> ::= "+"
+<lx_p13> ::= "-"
+<lx_p14> ::= "*"
+<lx_p15> ::= "/"
+<lx_p16> ::= "%"
+<lx_p17> ::= "="
+<lx_p18> ::= "<"
+<lx_p19> ::= ">"
+<lx_p20> ::= "&"
+<lx_p21> ::= "|"
+<lx_p22> ::= "^"
+<lx_p23> ::= "~"
+<lx_p24> ::= "@"
+<lx_p25> ::= "`"
+<lx_p26> ::= '"'
+<lx_p27> ::= "'"
+<lx_p28> ::= "=>"
+<lx_p29> ::= "->"
+<lx_p30> ::= "=="
+<lx_p31> ::= "!="
+<lx_p32> ::= "<="
+<lx_p33> ::= ">="
+<lx_p34> ::= "&&"
+<lx_p35> ::= "||"
+<lx_p36> ::= "++"
+<lx_p37> ::= "--"
+<lx_p38> ::= "+="
+<lx_p39> ::= "-="
+<lx_p40> ::= "*="
+<lx_p41> ::= "/="
+<lx_p42> ::= "%="
+<lx_p43> ::= "&="
+<lx_p44> ::= "|="
+<lx_p45> ::= "^="
+<lx_p46> ::= "<<"
+<lx_p47> ::= ">>"
+<lx_p48> ::= "::"
+<lx_p49> ::= ".."
+<lx_p50> ::= "..."
+<lx_p51> ::= "**"
+<lx_p52> ::= "??"
+<lx_p53> ::= "?."
+<lx_p54> ::= "<>"
+<lx_semicolon_comment> ::= /;[^\n]*/ => { skip }

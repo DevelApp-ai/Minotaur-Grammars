@@ -1,0 +1,15 @@
+# Conformance cases for Bash.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); grammar-repository-tests
+# job runs this in engine CI as well.
+grammar: Bash001.grammar
+
+lex: set -euo pipefail
+lex: greet() {
+lex: local name="$1"
+lex: printf 'Hello, %s!\\n' "$name"
+lex: }
+lex: greet 'World' > greetings.txt
+
+# Whole real corpus file as a lex case (raw content).
+lexfile: Examples.txt

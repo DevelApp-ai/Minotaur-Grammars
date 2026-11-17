@@ -1,0 +1,18 @@
+# Conformance cases for Ruby.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); grammar-repository-tests
+# job runs this in engine CI as well.
+grammar: Ruby001.grammar
+
+lex: def add(a, b)
+lex: a + b
+lex: end
+lex: puts add(1, 2)
+lex: names.each { |n| puts n }
+lex: double = ->(x) { x * 2 }
+
+# Input that must be rejected by the token rules (LX1001).
+fail: €
+
+# Whole real corpus file as a lex case (raw content).
+lexfile: Examples.txt
