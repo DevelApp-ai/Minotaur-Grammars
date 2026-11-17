@@ -4,7 +4,6 @@
 # engine CI as well.
 grammar: TSQL2022.grammar
 
-lex: -- TSQL DDL example
 lex: IF NOT EXISTS (SELECT 1 FROM sys.schemas WHERE name = N'Funny.Onion')
 lex: EXEC(N'CREATE SCHEMA [Funny.Onion];');
 lex: GO

@@ -4,7 +4,6 @@
 # engine CI as well.
 grammar: SQL2023.grammar
 
-lex: -- ANSI SQL:2023 DDL example
 lex: CREATE TABLE "app"."users"
 lex: (
 lex: "id" BIGINT NOT NULL,
