@@ -79,7 +79,9 @@ FormatType: EBNF
                      | <assignment>
                      | <short-var-decl>
                      | <inc-dec-statement>
-<inc-dec-statement> ::= <expression> ("++" | "--")
+<inc-dec-statement> ::= <expression> <inc-op>
+<inc-op> ::= "++"
+<inc-op> ::= "--"
 <expression-statement> ::= <expression>
 <assignment> ::= <expression-list> <whitespace>? <assign-op> <whitespace>? <expression-list>
 <assign-op> ::= "=" | "+=" | "-=" | "*=" | "/=" | "%=" | "&=" | "|=" | "^=" | "<<=" | ">>=" | "&^="
@@ -97,7 +99,8 @@ FormatType: EBNF
 <for-statement> ::= "for" <whitespace>? <for-clause>? <whitespace>? <block>
 <for-clause> ::= <for-condition> | <for-range> | <simple-statement> ";" <whitespace>? <expression>? ";" <whitespace>? <simple-statement>
 <for-condition> ::= <expression>
-<for-range> ::= <expression-list> <whitespace>? (":=" | "=") <whitespace>? "range" <whitespace> <expression>
+<for-range> ::= <expression-list> <whitespace>? ":=" <whitespace>? "range" <whitespace> <expression>
+             | <expression-list> <whitespace>? "=" <whitespace>? "range" <whitespace> <expression>
 <switch-statement> ::= "switch" <whitespace> <expression> <whitespace>? "{" <case-clauses>? "}"
                     | "switch" <whitespace>? "{" <case-clauses>? "}"
                     | "switch" <whitespace> <simple-statement> ";" <whitespace> <expression> <whitespace>? "{" <case-clauses>? "}"
@@ -111,8 +114,10 @@ FormatType: EBNF
 <comm-case> ::= "case" <whitespace> <comm-op> | "default"
 <comm-op> ::= <expression> "<-" <whitespace> <expression>
            | "<-" <whitespace> <expression>
-           | <identifier-list> <whitespace>? (":=" | "=") <whitespace>? "range" <whitespace> <expression>
-           | <identifier-list> <whitespace>? (":=" | "=") <whitespace>? "<-" <whitespace> <expression>
+           | <identifier-list> <whitespace>? ":=" <whitespace>? "range" <whitespace> <expression>
+           | <identifier-list> <whitespace>? "=" <whitespace>? "range" <whitespace> <expression>
+           | <identifier-list> <whitespace>? ":=" <whitespace>? "<-" <whitespace> <expression>
+           | <identifier-list> <whitespace>? "=" <whitespace>? "<-" <whitespace> <expression>
 <go-statement> ::= "go" <whitespace> <expression>
 <defer-statement> ::= "defer" <whitespace> <expression>
 <type-expression> ::= <type-name>
@@ -159,12 +164,16 @@ FormatType: EBNF
 <key> ::= <identifier> | <expression>
 <func-literal> ::= "func" <signature> <function-body>
 <literal> ::= <int-literal> | <float-literal> | <imaginary-literal> | <string-literal> | <raw-string-literal> | <rune-literal> | <bool-literal> | <nil-literal>
-<int-literal> ::= /0[xX][0-9a-fA-F][0-9a-fA-F_]*[0-9a-fA-F]|0[xX][0-9a-fA-F]/
-                | /0[oO][0-7][0-7_]*[0-7]|0[oO][0-7]/
-                | /0[bB][01][01_]*[01]|0[bB][01]/
-                | /[0-9][0-9_]*[0-9]|[0-9]/
+<int-literal> ::= /0[xX][0-9a-fA-F][0-9a-fA-F_]*[0-9a-fA-F]/
+<int-literal> ::= /0[xX][0-9a-fA-F]/
+<int-literal> ::= /0[oO][0-7][0-7_]*[0-7]/
+<int-literal> ::= /0[oO][0-7]/
+<int-literal> ::= /0[bB][01][01_]*[01]/
+<int-literal> ::= /0[bB][01]/
+<int-literal> ::= /[0-9][0-9_]*[0-9]/
+<int-literal> ::= /[0-9]/
 <float-literal> ::= /([0-9]+\\.[0-9]*|\\.[0-9]+)([eE][+-]?[0-9]+)?/
-                  | /[0-9]+[eE][+-]?[0-9]+/
+<float-literal> ::= /[0-9]+[eE][+-]?[0-9]+/
 <imaginary-literal> ::= /([0-9]+\\.[0-9]*|\\.[0-9]+|[0-9]+)([eE][+-]?[0-9]+)?i/
 <string-literal> ::= /"([^"\\\n]|\\.)*"/
 <raw-string-literal> ::= /`[^`]*`/
