@@ -1,0 +1,22 @@
+# Conformance cases for SQL2023.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
+# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
+# engine CI as well.
+grammar: SQL2023.grammar
+
+lex: -- ANSI SQL:2023 DDL example
+lex: CREATE TABLE "app"."users"
+lex: (
+lex: "id" BIGINT NOT NULL,
+lex: "name" VARCHAR(100) NULL,
+lex: "status" VARCHAR(20) NULL DEFAULT 'new' CHECK ("status" IN ('new', 'done')),
+lex: CONSTRAINT "pk_users" PRIMARY KEY ("id")
+lex: );
+
+# Inputs that must be rejected by the token rules (LX1001).
+fail: €
+fail: `
+fail: 
+
+# Whole example corpus as a lex case (raw content; '#' lines are comments).
+lexfile: Examples.txt

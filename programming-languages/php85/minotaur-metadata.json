@@ -3,7 +3,7 @@
   "Name": "PHP85",
   "Vendor": "DevelApp",
   "DisplayName": "PHP85",
-  "Version": "1.0.0",
+  "Version": "2.0.0",
   "MinotaurVersion": "*",
   "Description": "PHP 8.5 grammar for the Minotaur parser platform, hand-authored and engine-verified against the JsonSchemaBuilder PHP generator output (21/21 corpus files).",
   "License": "MIT",

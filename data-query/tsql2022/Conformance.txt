@@ -1,0 +1,22 @@
+# Conformance cases for TSQL2022.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
+# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
+# engine CI as well.
+grammar: TSQL2022.grammar
+
+lex: -- TSQL DDL example
+lex: IF NOT EXISTS (SELECT 1 FROM sys.schemas WHERE name = N'Funny.Onion')
+lex: EXEC(N'CREATE SCHEMA [Funny.Onion];');
+lex: GO
+lex: IF OBJECT_ID(N'[Funny.Onion].[Example]', N'U') IS NOT NULL
+lex: DROP TABLE [Funny.Onion].[Example];
+lex: GO
+lex: CREATE TABLE [Funny.Onion].[Example]
+
+# Inputs that must be rejected by the token rules (LX1001).
+fail: €
+fail: `
+fail: 
+
+# Whole example corpus as a lex case (raw content; '#' lines are comments).
+lexfile: Examples.txt

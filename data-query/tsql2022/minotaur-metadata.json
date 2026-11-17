@@ -3,7 +3,7 @@
   "Name": "TSQL2022",
   "Vendor": "DevelApp",
   "DisplayName": "TSQL2022",
-  "Version": "1.0.0",
+  "Version": "2.0.0",
   "MinotaurVersion": "*",
   "Description": "T-SQL (SQL Server 2022) DDL grammar for the Minotaur parser platform, hand-authored and engine-verified against the JsonSchemaBuilder TSQL generator output (21/21 corpus files).",
   "License": "MIT",

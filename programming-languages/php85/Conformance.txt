@@ -1,0 +1,22 @@
+# Conformance cases for PHP85.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
+# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
+# engine CI as well.
+grammar: PHP85.grammar
+
+lex: <?php
+lex: declare(strict_types=1);
+lex: namespace Funny\\Onion;
+lex: /**
+lex: * Example: a generated schema definition class
+lex: */
+lex: class ExampleDefinition
+lex: {
+
+# Inputs that must be rejected by the token rules (LX1001).
+fail: €
+fail: `
+fail: 
+
+# Whole example corpus as a lex case (raw content; '#' lines are comments).
+lexfile: Examples.txt
