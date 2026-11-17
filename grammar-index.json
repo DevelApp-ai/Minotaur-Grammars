@@ -9,12 +9,8 @@
     "Cpp20.grammar": "programming-languages/cpp20/Cpp20.grammar",
     "CSharp10.grammar": "programming-languages/csharp10/CSharp10.grammar",
     "CSS.grammar": "programming-languages/css/CSS.grammar",
-    "DotNetProject.grammar": "programming-languages/dotnetproject/DotNetProject.grammar",
-    "ExtensionFile.grammar": "programming-languages/extensionfile/ExtensionFile.grammar",
-    "FolderProject.grammar": "programming-languages/folderproject/FolderProject.grammar",
     "FSharp.grammar": "programming-languages/fsharp/FSharp.grammar",
     "Go119.grammar": "programming-languages/go119/Go119.grammar",
-    "GrammarFile.grammar": "programming-languages/grammarfile/GrammarFile.grammar",
     "HTMLEmbedded.grammar": "programming-languages/htmlembedded/HTMLEmbedded.grammar",
     "Java.grammar": "programming-languages/java8/Java8.grammar",
     "Java8.grammar": "programming-languages/java8/Java8.grammar",
@@ -89,6 +85,10 @@
     "PostalCoding_Enhanced.grammar": "postal-codes/postal-coding-enhanced/PostalCoding_Enhanced.grammar",
     "PostalCoding.grammar": "postal-codes/postal-coding/PostalCoding.grammar",
     "UK_Postal_Code.grammar": "postal-codes/uk-postal-code/UK_Postal_Code.grammar",
-    "US_Postal_Code.grammar": "postal-codes/us-postal-code/US_Postal_Code.grammar"
+    "US_Postal_Code.grammar": "postal-codes/us-postal-code/US_Postal_Code.grammar",
+    "ExtensionFile001.grammar": "programming-languages/extensionfile001/ExtensionFile001.grammar",
+    "FolderProject001.grammar": "programming-languages/folderproject001/FolderProject001.grammar",
+    "GrammarFile001.grammar": "programming-languages/grammarfile001/GrammarFile001.grammar",
+    "DotNetProject001.grammar": "programming-languages/dotnetproject001/DotNetProject001.grammar"
   }
 }

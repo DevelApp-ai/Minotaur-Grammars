@@ -1,17 +1,17 @@
 {
-  "Id": "develapp.folderproject",
-  "Name": "FolderProject",
+  "Id": "develapp.extensionfile001",
+  "Name": "ExtensionFile001",
   "Vendor": "DevelApp",
-  "DisplayName": "FolderProject",
+  "DisplayName": "ExtensionFile",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "FolderProject programming-language grammar for the Minotaur parser platform.",
+  "Description": "ExtensionFile programming-language grammar for the Minotaur parser platform.",
   "License": "MIT",
   "Tags": [
     "programming-language",
     "minotaur"
   ],
-  "MainFile": "FolderProject.grammar",
+  "MainFile": "ExtensionFile.grammar",
   "Dependencies": [],
   "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
   "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",

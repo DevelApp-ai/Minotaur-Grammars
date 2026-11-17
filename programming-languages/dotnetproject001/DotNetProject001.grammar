@@ -1,4 +1,4 @@
-Grammar: DotNetProject
+Grammar: DotNetProject001
 # DotNet Project Grammar (EBNF, StepLexer/StepParser syntax)
 # Supports .NET solution and project file parsing for cross-file analysis.
 # Rewritten from the legacy ANTLR-style draft to EBNF so it parses with

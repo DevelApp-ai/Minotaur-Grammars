@@ -1,17 +1,17 @@
 {
-  "Id": "develapp.extensionfile",
-  "Name": "ExtensionFile",
+  "Id": "develapp.grammarfile001",
+  "Name": "GrammarFile001",
   "Vendor": "DevelApp",
-  "DisplayName": "ExtensionFile",
+  "DisplayName": "GrammarFile",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "ExtensionFile programming-language grammar for the Minotaur parser platform.",
+  "Description": "GrammarFile programming-language grammar for the Minotaur parser platform.",
   "License": "MIT",
   "Tags": [
     "programming-language",
     "minotaur"
   ],
-  "MainFile": "ExtensionFile.grammar",
+  "MainFile": "GrammarFile.grammar",
   "Dependencies": [],
   "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
   "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",

@@ -2,6 +2,6 @@
 # Run by the ENFAStepLexer-StepParser integration suite in
 # GreedyLongestMatch mode (engine issues #129/#133); grammar-repository-tests
 # job runs this in engine CI as well.
-grammar: DotNetProject.grammar
+grammar: DotNetProject001.grammar
 
 lex: <Project Sdk="Microsoft.NET.Sdk" />

@@ -1,14 +1,13 @@
-Grammar: GrammarFile
+Grammar: ExtensionFile001
 FormatType: EBNF
 
 ﻿Grammar: CEBNF
 
 <grammar contents> ::= <start-lines> <EOL> <additional lines>
 <start-lines>      ::= <first-line> [<second-line>]
-<first-line>       ::= "Grammar:" <opt-whitespace> <word> <opt-whitespace> <EOL>
-<second-line>      ::= "TokenSplitter:" <opt-whitespace> ( "None" | "Space" | <regex> ) <opt-whitespace> <EOL>
-<regex>            ::= "\"" <text> "\""
-<text>             ::= ("a-zA-Z0-9" | "_" | "-" | "(" | ")" | "*" | ".")+
+<first-line>       ::= "Extends Grammar:" <opt-whitespace> <word> <opt-whitespace> <EOL>
+<second-line>      ::= "Include:" <opt-whitespace> <includes> <opt-whitespace> <EOL>
+<includes>         ::= ANSI_WORD (<opt-whitespace> "," <opt-whitespace> ANSI_WORD)*
 <additional lines> ::= TOKEN* <EOL>
 
 /* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
@@ -81,3 +80,4 @@ FormatType: EBNF
 <lx_p54> ::= "<>"
 <lx_hash_comment> ::= /#[^\n]*/ => { skip }
 <lx_line_comment> ::= /\x2F\x2F[^\n]*/ => { skip }
+<lx_xml_comment> ::= /<!--([^\x2D]|\x2D[^\x2D])*-->/ => { skip }

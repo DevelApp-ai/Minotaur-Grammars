@@ -12,7 +12,13 @@ productions for X's defining features.
 
 1. **Versioned identity**: a grammar's folder, `Grammar:` header, and metadata
    must name the supported version (e.g. `Java17`, `Python311`, `CSharp10`).
-   "Java" alone is ambiguous and forbidden for new grammars.
+   "Java" alone is ambiguous and forbidden for new grammars. The version in the
+   name is the *language* version the grammar targets (e.g. `PHP` targets
+   PHP 8.2 - see the matrix; do not invent a `001` language version). The
+   `001` counter is reserved for the meta/project grammars that have no
+   internal format version (`ExtensionFile001`, `FolderProject001`,
+   `GrammarFile001`, `DotNetProject001`): their number is the grammar's own
+   revision, so a future format change becomes `002`, `003`, ...
 2. **One grammar per version family, not per version**: grammars are supersets —
    `CSharp10` parses C# 1.0–10 code because it contains all older constructs.
    Declare support as a **range** (`baseline..X`) where verified. Split into a

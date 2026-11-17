@@ -1,4 +1,4 @@
-Grammar: FolderProject
+Grammar: FolderProject001
 # Folder Project Grammar (EBNF, StepLexer/StepParser syntax)
 # Generic folder-based project structure for cross-file analysis: project
 # type detection via file patterns, file discovery and cross-file
