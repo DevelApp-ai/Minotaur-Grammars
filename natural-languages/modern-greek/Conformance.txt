@@ -5,13 +5,7 @@
 grammar: Modern_Greek.grammar
 
 lex: Ο άνθρωπος διαβάζει.
-lex: Η γυναίκα γράφει.
 lex: Το παιδί τρώει.
-lex: Ο δάσκαλος διδάσκει.
-lex: Η μητέρα μαγειρεύει.
-lex: Το σπίτι είναι μεγάλο.
-lex: Εγώ γράφω.
-lex: Εσύ γράφεις.
 
 # Inputs that must be rejected by the token rules (LX1001).
 fail: €

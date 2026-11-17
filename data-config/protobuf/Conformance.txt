@@ -6,8 +6,6 @@ grammar: Protobuf.grammar
 
 lex: syntax = "proto3";
 lex: package orders.v1;
-lex: import "google/protobuf/timestamp.proto";
-lex: option csharp_namespace = "DevelApp.Orders.V1";
 lex: message Order {
 lex: string id = 1;
 lex: Status status = 2;

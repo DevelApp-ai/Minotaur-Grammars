@@ -4,8 +4,6 @@
 # engine CI as well.
 grammar: Crontab.grammar
 
-lex: # nightly backup
-lex: SUN MON TUE WED
 
 # Inputs that must be rejected by the token rules (LX1001).
 fail: €

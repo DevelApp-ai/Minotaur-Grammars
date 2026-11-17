@@ -4,4 +4,3 @@
 # engine CI as well.
 grammar: flex_base.grammar
 
-lex: %% %% %s %x

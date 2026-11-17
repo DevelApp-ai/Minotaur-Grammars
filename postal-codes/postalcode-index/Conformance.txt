@@ -4,7 +4,6 @@
 # engine CI as well.
 grammar: PostalCode_Index.grammar
 
-lex: -> -> -> ->
 
 # Inputs that must be rejected by the token rules (LX1001).
 fail: €

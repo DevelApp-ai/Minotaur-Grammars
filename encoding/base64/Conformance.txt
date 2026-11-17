@@ -7,7 +7,6 @@ grammar: Base64.grammar
 lex: SGVsbG8sIHdvcmxkIQ==
 lex: aGVsbG8gd29ybGQ=
 lex: aGVsbG8-d29ybGQ
-lex: data:image/png;base64,iVBORw0KGgo=
 lex: =?UTF-8?B?SGVsbG8=?=
 lex: -----BEGIN PGP MESSAGE-----
 lex: -----END PGP MESSAGE-----

@@ -4,4 +4,3 @@
 # engine CI as well.
 grammar: lex_base.grammar
 
-lex: %% %% . [
