@@ -1,0 +1,136 @@
+Grammar: FolderProject001
+# Folder Project Grammar (EBNF, StepLexer/StepParser syntax)
+# Generic folder-based project structure for cross-file analysis: project
+# type detection via file patterns, file discovery and cross-file
+# relationship tracking. Rewritten from the legacy ANTLR-style draft to
+# EBNF so it parses with StepParserEngine.LoadGrammarFromContent (issue #18).
+
+Context: default
+
+# --- Lexical tokens ---
+
+<WS> ::= /[ \t\r\n]+/
+<COMMENT> ::= /(#|\/\/|--)[^\r\n]*/
+<BLOCK_COMMENT> ::= /\/\*[\s\S]*?\*\/|<!--[\s\S]*?-->/
+<IDENTIFIER> ::= /[A-Za-z_][A-Za-z0-9_]*/
+<QUALIFIED_NAME> ::= /[A-Za-z_][A-Za-z0-9_]*(\.[A-Za-z_][A-Za-z0-9_]*)*/
+<INTEGER> ::= /[0-9]+/
+<BOOLEAN> ::= /true|false/
+<DIRECTORY_PATH> ::= /[A-Za-z]:[\/\\]([^\/\\<>:"|?*]+[\/\\])*/
+<ABSOLUTE_PATH> ::= /[A-Za-z]:[\/\\][^\/\\<>:"|?*]+([\/\\][^\/\\<>:"|?*]+)*/
+<FILE_PATH> ::= /[^"'\s]+/
+<FILE_EXTENSION> ::= /\.[A-Za-z0-9]+/
+<VERSION_CONSTRAINT> ::= /[0-9]+(\.[0-9]+)*([<>=!~^]+[0-9]+(\.[0-9]+)*)?/
+<STRING_LITERAL> ::= /"[^"]*"|'[^']*'/
+
+# --- Entry point ---
+
+<folder_project> ::= <project_root> <file_discovery> <cross_references>
+
+# --- Project type detection ---
+
+<project_root> ::= <DIRECTORY_PATH> <detected_project_type> <configuration_files>
+
+<detected_project_type> ::= <dotnet_project>
+                          | <node_project>
+                          | <python_project>
+                          | <java_project>
+                          | <cpp_project>
+                          | <rust_project>
+                          | <go_project>
+                          | <generic_project>
+
+<dotnet_project> ::= <indicator_file> 'DotNetProject.grammar'
+<node_project> ::= <indicator_file> 'JavaScript.grammar'
+<python_project> ::= <indicator_file> 'Python311.grammar'
+<java_project> ::= <indicator_file> 'Java17.grammar'
+<cpp_project> ::= <indicator_file> 'Cpp20.grammar'
+<rust_project> ::= <indicator_file> 'Rust2021.grammar'
+<go_project> ::= <indicator_file> 'Go119.grammar'
+<generic_project> ::= <indicator_file> 'GrammarFile.grammar'
+
+<indicator_file> ::= 'package.json' | 'tsconfig.json' | 'requirements.txt'
+                   | 'setup.py' | 'pyproject.toml' | 'pom.xml' | 'build.gradle'
+                   | 'CMakeLists.txt' | 'Makefile' | 'Cargo.toml' | 'go.mod'
+                   | <FILE_PATH>
+
+# --- File discovery and classification ---
+
+<configuration_files> ::= <configuration_file> <configuration_files>
+<configuration_file> ::= <ABSOLUTE_PATH> <FILE_EXTENSION>
+
+<file_discovery> ::= <file_entry> <file_discovery>
+<file_entry> ::= <ABSOLUTE_PATH> <detected_file_type> <cross_file_relationships>
+
+<detected_file_type> ::= <source_code_file>
+                       | <configuration_file>
+                       | <documentation_file>
+                       | <resource_file>
+                       | <build_file>
+
+<source_code_file> ::= <FILE_EXTENSION> <IDENTIFIER> <extracted_symbols> <file_dependencies>
+<documentation_file> ::= <FILE_EXTENSION> <doc_references>
+<resource_file> ::= <FILE_EXTENSION> <resource_usage>
+<build_file> ::= <build_system> <build_targets> <build_dependencies>
+
+<build_system> ::= 'cmake' | 'make' | 'msbuild' | 'gradle' | 'maven' | 'npm' | 'cargo'
+
+# --- Cross-file relationship analysis ---
+
+<cross_references> ::= <cross_file_relationships>
+
+<cross_file_relationships> ::= <cross_file_relationship> <cross_file_relationships>
+<cross_file_relationship> ::= <include_relationship>
+                            | <import_relationship>
+                            | <reference_relationship>
+                            | <dependency_relationship>
+
+<include_relationship> ::= <FILE_PATH> <FILE_PATH> <include_type> <INTEGER>
+<include_type> ::= 'header' | 'module' | 'component' | 'library'
+
+<import_relationship> ::= <FILE_PATH> <QUALIFIED_NAME> <FILE_PATH> <import_type>
+<import_type> ::= 'namespace' | 'class' | 'function' | 'variable' | 'type'
+
+<reference_relationship> ::= <FILE_PATH> <FILE_PATH> <reference_type> <IDENTIFIER>
+<reference_type> ::= 'resource' | 'configuration' | 'documentation' | 'test'
+
+<dependency_relationship> ::= <FILE_PATH> <FILE_PATH> <dependency_type> <strength>
+<dependency_type> ::= 'compilation' | 'runtime' | 'test' | 'build'
+<strength> ::= 'strong' | 'weak' | 'optional'
+
+# --- Symbol extraction ---
+
+<extracted_symbols> ::= <extracted_symbol> <extracted_symbols>
+<extracted_symbol> ::= <IDENTIFIER> <symbol_type> <visibility> <source_location> <symbol_signature>
+
+<symbol_type> ::= 'class' | 'interface' | 'function' | 'variable' | 'constant' | 'type' | 'namespace'
+<visibility> ::= 'public' | 'private' | 'protected' | 'internal' | 'package'
+
+<source_location> ::= <INTEGER> <INTEGER> <INTEGER>
+<symbol_signature> ::= <parameter_list> <QUALIFIED_NAME> <generic_parameter_list>
+<parameter_list> ::= <parameter> <parameter_list>
+<parameter> ::= <IDENTIFIER> ':' <QUALIFIED_NAME>
+<generic_parameter_list> ::= '<' <IDENTIFIER> '>'
+
+<file_dependencies> ::= <file_dependency> <file_dependencies>
+<file_dependency> ::= <FILE_PATH> <dependency_nature> <ABSOLUTE_PATH> <BOOLEAN>
+<dependency_nature> ::= 'import' | 'include' | 'reference' | 'embed'
+
+# --- Build tracking and resources ---
+
+<build_targets> ::= <build_target> <build_targets>
+<build_target> ::= <IDENTIFIER> <target_type> <file_path_list> <dependency_list>
+<target_type> ::= 'executable' | 'library' | 'test' | 'documentation'
+
+<file_path_list> ::= <FILE_PATH> <file_path_list>
+<dependency_list> ::= <IDENTIFIER> <dependency_list>
+
+<build_dependencies> ::= <build_dependency> <build_dependencies>
+<build_dependency> ::= <IDENTIFIER> <VERSION_CONSTRAINT> <dependency_source>
+<dependency_source> ::= 'local' | 'remote' | 'system'
+
+<resource_usage> ::= <FILE_PATH> <usage_context> <source_location>
+<usage_context> ::= 'embedded' | 'referenced' | 'linked'
+
+<doc_references> ::= <FILE_PATH> <doc_reference_type> <IDENTIFIER>
+<doc_reference_type> ::= 'code' | 'resource' | 'external'

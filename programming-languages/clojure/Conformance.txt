@@ -1,0 +1,18 @@
+# Conformance cases for Clojure.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); grammar-repository-tests
+# job runs this in engine CI as well.
+grammar: Clojure.grammar
+
+lex: (ns my.core)
+lex: (defn add [a b] (+ a b))
+lex: (let [x 1 y 2] (+ x y))
+lex: (def counter (atom 0))
+lex: (swap! counter inc)
+lex: (reset! counter 10)
+
+# Input that must be rejected by the token rules (LX1001).
+fail: €
+
+# Whole real corpus file as a lex case (raw content).
+lexfile: Examples.txt

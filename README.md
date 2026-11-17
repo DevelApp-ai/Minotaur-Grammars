@@ -108,7 +108,7 @@ mechanism covers both.
   java, java17, javascript, javascriptes2022, json, jsonschema, kotlin, lua,
   perl, php, pl1, python311, r, ruby, rust2021, scala, swift, typescript,
   visualbasic, webassembly20, xaml, xml). Only the meta/project grammars
-  (`extensionfile`, `folderproject`, `grammarfile`, `sample`, `dotnetproject`)
+  (`extensionfile001`, `folderproject001`, `grammarfile001`, `sample`, `dotnetproject001`)
   are excluded — they describe Minotaur project formats, not languages.
 
 ## Validation

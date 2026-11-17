@@ -1,0 +1,18 @@
+# Conformance cases for Kotlin.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); grammar-repository-tests
+# job runs this in engine CI as well.
+grammar: Kotlin.grammar
+
+lex: fun max(a: Int, b: Int): Int = if (a > b) a else b
+lex: inline fun <reified T> tag(): String = T::class.simpleName ?: "?"
+lex: crossinline body check
+lex: fun sum(vararg values: Int) = values.sum()
+lex: operator fun Times.dec() = this - 1
+lex: infix fun Int.pow(n: Int): Int = if (n == 0) 1 else this * pow(n - 1)
+
+# Input that must be rejected by the token rules (LX1001).
+fail: €
+
+# Whole real corpus file as a lex case (raw content).
+lexfile: Examples.txt

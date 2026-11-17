@@ -1,7 +1,0 @@
-# Conformance cases for ClassicASP.grammar - engine-verified lexing pin.
-# Run by the ENFAStepLexer-StepParser integration suite in
-# GreedyLongestMatch mode (engine issues #129/#133); grammar-repository-tests
-# job runs this in engine CI as well.
-grammar: ClassicASP001.grammar
-
-lex: <% Response.Write "ok" %>

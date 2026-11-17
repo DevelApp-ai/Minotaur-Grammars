@@ -1,0 +1,115 @@
+Grammar: DotNetProject001
+# DotNet Project Grammar (EBNF, StepLexer/StepParser syntax)
+# Supports .NET solution and project file parsing for cross-file analysis.
+# Rewritten from the legacy ANTLR-style draft to EBNF so it parses with
+# StepParserEngine.LoadGrammarFromContent (issue #18).
+
+Context: default
+
+# --- Lexical tokens ---
+
+<WS> ::= /[ \t\r\n]+/
+<COMMENT> ::= /#[^\r\n]*/
+<XML_COMMENT> ::= /<!--[\s\S]*?-->/
+<IDENTIFIER> ::= /[A-Za-z_][A-Za-z0-9_]*/
+<QUALIFIED_IDENTIFIER> ::= /[A-Za-z_][A-Za-z0-9_]*(\.[A-Za-z_][A-Za-z0-9_]*)*/
+<GUID> ::= /\{[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}\}/
+<VERSION_NUMBER> ::= /[0-9]+\.[0-9]+/
+<PACKAGE_VERSION> ::= /[0-9]+\.[0-9]+\.[0-9]+(\.[0-9]+)?(-[A-Za-z0-9]+)?/
+<FILE_PATH> ::= /[^"'\s]+/
+<STRING_LITERAL> ::= /"[^"]*"|'[^']*'/
+
+# --- Solution file (.sln) structure ---
+
+<project_root> ::= <solution_file> <project_files> <source_files>
+
+<solution_file> ::= 'Microsoft Visual Studio Solution File, Format Version' <VERSION_NUMBER> <solution_projects> <solution_configurations>
+
+<solution_projects> ::= <solution_project> <solution_projects>
+<solution_project> ::= 'Project(' <GUID> ')' '=' <STRING_LITERAL> ',' <STRING_LITERAL> ',' <GUID> 'EndProject'
+
+<solution_configurations> ::= <solution_configuration> <solution_configurations>
+<solution_configuration> ::= <STRING_LITERAL> '=' <STRING_LITERAL>
+
+# --- Project file (.csproj/.vbproj/...) structure ---
+
+<project_files> ::= <project_file> <project_files>
+<project_file> ::= <xml_declaration> <project_element>
+
+<xml_declaration> ::= '<?xml version="1.0" encoding="UTF-8"?>'
+
+<project_element> ::= '<Project' <project_attributes> '>' <property_groups> <item_groups> <imports> <targets> '</Project>'
+
+<project_attributes> ::= <project_attribute> <project_attributes>
+<project_attribute> ::= <STRING_LITERAL> '=' <STRING_LITERAL>
+
+<property_groups> ::= <property_group> <property_groups>
+<property_group> ::= '<PropertyGroup' <condition> '>' <properties> '</PropertyGroup>'
+
+<properties> ::= <property> <properties>
+<property> ::= '<' <IDENTIFIER> '>' <STRING_LITERAL> '</' <IDENTIFIER> '>'
+
+<condition> ::= 'Condition="' <STRING_LITERAL> '"'
+
+<item_groups> ::= <item_group> <item_groups>
+<item_group> ::= '<ItemGroup' <condition> '>' <items> '</ItemGroup>'
+
+<items> ::= <item> <items>
+<item> ::= <compile_include>
+        | <content_include>
+        | <embedded_resource>
+        | <package_reference>
+        | <project_reference>
+        | <assembly_reference>
+
+<compile_include> ::= '<Compile Include="' <FILE_PATH> '"' '/>'
+<content_include> ::= '<Content Include="' <FILE_PATH> '"' '/>'
+<embedded_resource> ::= '<EmbeddedResource Include="' <FILE_PATH> '"' '/>'
+<package_reference> ::= '<PackageReference Include="' <IDENTIFIER> '" Version="' <PACKAGE_VERSION> '"' '/>'
+<project_reference> ::= '<ProjectReference Include="' <FILE_PATH> '"' '/>'
+<assembly_reference> ::= '<Reference Include="' <IDENTIFIER> '"' '/>'
+
+<imports> ::= <import> <imports>
+<import> ::= '<Import Project="' <FILE_PATH> '"' '/>'
+
+<targets> ::= <target> <targets>
+<target> ::= '<Target Name="' <IDENTIFIER> '"' '</Target>'
+
+# --- Source file classification (embedded grammars) ---
+
+<source_files> ::= <source_file> <source_files>
+<source_file> ::= <csharp_file>
+               | <vb_file>
+               | <fsharp_file>
+               | <razor_file>
+               | <xaml_file>
+               | <json_file>
+               | <xml_file>
+
+<csharp_file> ::= <FILE_PATH> '.cs'
+<vb_file> ::= <FILE_PATH> '.vb'
+<fsharp_file> ::= <FILE_PATH> '.fs'
+<razor_file> ::= <FILE_PATH> '.razor'
+<xaml_file> ::= <FILE_PATH> '.xaml'
+<json_file> ::= <FILE_PATH> '.json'
+<xml_file> ::= <FILE_PATH> '.xml'
+
+# --- Cross-file reference tracking ---
+
+<cross_file_references> ::= <cross_file_reference> <cross_file_references>
+<cross_file_reference> ::= <namespace_usage>
+                         | <type_dependency>
+                         | <resource_dependency>
+                         | <configuration_dependency>
+
+<namespace_usage> ::= <FILE_PATH> <QUALIFIED_IDENTIFIER> <usage_type>
+<usage_type> ::= 'using' | 'import' | 'open' | 'include'
+
+<type_dependency> ::= <FILE_PATH> <QUALIFIED_IDENTIFIER> <dependency_type>
+<dependency_type> ::= 'inheritance' | 'composition' | 'usage' | 'reference'
+
+<resource_dependency> ::= <FILE_PATH> <FILE_PATH> <resource_type>
+<resource_type> ::= 'embedded' | 'content' | 'link' | 'reference'
+
+<configuration_dependency> ::= <FILE_PATH> <FILE_PATH> <config_type>
+<config_type> ::= 'appsettings' | 'web.config' | 'app.config' | 'project'
