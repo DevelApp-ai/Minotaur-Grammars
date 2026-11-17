@@ -1,0 +1,17 @@
+# Conformance cases for UnixPsOutput.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
+# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
+# engine CI as well.
+grammar: UnixPsOutput.grammar
+
+lex: PID TTY TIME CMD
+lex: 1 ? 00:01:02 systemd
+lex: 42 pts/0 00:00:05 bash
+lex: STAT  %CPU %MEM COMMAND
+lex: Ss     0.0  0.1 -zsh
+lex: R+     1.5  2.0 [kworker/0:2]
+lex: UID PID PPID C STIME TTY TIME COMMAND
+lex: USER  PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+
+# Whole example corpus as a lex case (raw content; '#' lines are comments).
+lexfile: Examples.txt

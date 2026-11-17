@@ -1,0 +1,17 @@
+# Conformance cases for YAML.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
+# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
+# engine CI as well.
+grammar: YAML.grammar
+
+lex: ---
+lex: name: example-service
+lex: version: 2
+lex: enabled: true
+lex: released: 2026-09-23
+lex: tags: [dev, staging]
+lex: defaults: &defaults
+lex: timeout: 30
+
+# Whole example corpus as a lex case (raw content; '#' lines are comments).
+lexfile: Examples.txt

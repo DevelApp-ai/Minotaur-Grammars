@@ -1,0 +1,17 @@
+# Conformance cases for HTML.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
+# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
+# engine CI as well.
+grammar: HTML.grammar
+
+lex: <div id="main">
+lex: <p>Some text</p>
+lex: <br/>
+lex: </div>
+lex: <my-widget data-id="7"><span>custom</span></my-widget>
+lex: <svg viewBox="0 0 10 10"><circle cx="5" cy="5" r="4"/></svg>
+lex: <math><mi>x</mi></math>
+lex: &#169; &#x1F600;
+
+# Whole example corpus as a lex case (raw content; '#' lines are comments).
+lexfile: Examples.txt

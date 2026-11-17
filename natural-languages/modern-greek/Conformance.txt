@@ -1,0 +1,12 @@
+# Conformance cases for Modern_Greek.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
+# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
+# engine CI as well.
+grammar: Modern_Greek.grammar
+
+lex: Ο άνθρωπος διαβάζει.
+lex: Το παιδί τρώει.
+
+# Inputs that must be rejected by the token rules (LX1001).
+fail: €
+fail: `

@@ -1,0 +1,21 @@
+# Conformance cases for Croatian.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
+# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
+# engine CI as well.
+grammar: Croatian.grammar
+
+lex: Ja čitam knjigu.
+lex: Ti pišeš pismo.
+lex: On studira.
+lex: Čitao sam knjigu.
+lex: Ću čitati.
+lex: Tko si?
+lex: Što radiš?
+lex: , , ja ti
+
+# Inputs that must be rejected by the token rules (LX1001).
+fail: €
+fail: `
+
+# Whole example corpus as a lex case (raw content; '#' lines are comments).
+lexfile: Examples.txt

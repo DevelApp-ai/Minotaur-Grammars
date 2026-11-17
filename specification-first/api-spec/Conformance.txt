@@ -1,0 +1,17 @@
+# Conformance cases for ApiSpec.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
+# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
+# engine CI as well.
+grammar: ApiSpec.grammar
+
+lex: - POST /orders: Creates a new order => 201: OrderResponse
+lex: - GET /orders/{id}: Retrieves order details => 200: OrderResponse
+lex: - PUT /orders/{id}/status: Updates order status => 200: OrderResponse
+lex: - GET /orders/customer/{customerId}: Lists customer orders => 200: OrderResponse[]
+lex: - OrderRequest: CustomerId: Guid required; Items: OrderItem[] required min=1; Notes: string? max=500
+lex: - OrderResponse: Id: Guid readOnly; Status: string required; CreatedAt: DateTime readOnly
+lex: - 400: Invalid order payload code=ORDER_INVALID
+lex: - 404: Order not found code=ORDER_NOT_FOUND
+
+# Whole example corpus as a lex case (raw content; '#' lines are comments).
+lexfile: Examples.txt

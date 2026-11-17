@@ -1,0 +1,17 @@
+# Conformance cases for SrsSpec.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
+# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
+# engine CI as well.
+grammar: SrsSpec.grammar
+
+lex: - M-001: Orders must persist durably across restarts accept: Order survives a process crash without data loss => order-service.ai
+lex: - M-002: Inventory must be validated before order confirmation => inventory-service.ai
+lex: - M-003: Payment failures must leave the order in a recoverable state => order-service.ai, payment-service.ai
+lex: - S-001: Customers should receive email notifications on status changes => notification-service.ai
+lex: - S-002: Order history should be searchable by date range
+lex: - C-001: Orders could be exported to CSV for finance reconciliation
+lex: - W-001: Voice-order capture is out of scope for this release
+lex: - M-001 -> order-service.ai
+
+# Whole example corpus as a lex case (raw content; '#' lines are comments).
+lexfile: Examples.txt

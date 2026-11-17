@@ -1,0 +1,18 @@
+# Conformance cases for Bulgarian.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
+# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
+# engine CI as well.
+grammar: Bulgarian.grammar
+
+lex: Аз чета книга.
+lex: Ти пишеш писмо.
+lex: Той учи математика.
+lex: Тя работи в училище.
+lex: Ние живеем в София.
+lex: Вие имате време.
+lex: Те учат български.
+lex: Аз прочетох книгата.
+
+# Inputs that must be rejected by the token rules (LX1001).
+fail: €
+fail: `

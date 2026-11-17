@@ -3,7 +3,7 @@
   "Name": "CloudFormation",
   "Vendor": "DevelApp",
   "DisplayName": "AWS CloudFormation",
-  "Version": "1.0.0",
+  "Version": "2.0.0",
   "MinotaurVersion": "*",
   "Description": "Grammar for AWS CloudFormation templates: Resources with types and properties, Parameters, Outputs, Mappings, Conditions and intrinsic functions.",
   "License": "MIT",
@@ -19,5 +19,7 @@
     "FirstName": "Lars",
     "LastName": "Buch-Jepsen"
   },
-  "PricingModel": "free"
+  "PricingModel": "free",
+  "EngineVerified": true,
+  "EngineVerifiedBy": "ENFAStepLexer-StepParser@e6d1ae5cf748 (grammar-repository-tests, GreedyLongestMatch)"
 }

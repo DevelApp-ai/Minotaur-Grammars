@@ -1,0 +1,21 @@
+# Conformance cases for Spanish.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
+# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
+# engine CI as well.
+grammar: Spanish.grammar
+
+lex: Yo hablo español.
+lex: Tú hablas inglés.
+lex: Él habla francés.
+lex: Ella trabaja en Madrid.
+lex: Nosotros estudiamos mucho.
+lex: Vosotros cantáis bien.
+lex: Ellos bailan salsa.
+lex: Ustedes compran libros.
+
+# Inputs that must be rejected by the token rules (LX1001).
+fail: €
+fail: `
+
+# Whole example corpus as a lex case (raw content; '#' lines are comments).
+lexfile: Examples.txt

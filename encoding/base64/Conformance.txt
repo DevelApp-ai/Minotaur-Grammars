@@ -1,0 +1,19 @@
+# Conformance cases for Base64.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
+# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
+# engine CI as well.
+grammar: Base64.grammar
+
+lex: SGVsbG8sIHdvcmxkIQ==
+lex: aGVsbG8gd29ybGQ=
+lex: aGVsbG8-d29ybGQ
+lex: =?UTF-8?B?SGVsbG8=?=
+lex: -----BEGIN PGP MESSAGE-----
+lex: -----END PGP MESSAGE-----
+lex: aGVsbG8gd29ybGQ
+
+# Inputs that must be rejected by the token rules (LX1001).
+fail: €
+fail: `
+
+# Whole example corpus as a lex case (raw content; '#' lines are comments).

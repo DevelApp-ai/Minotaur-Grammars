@@ -1,0 +1,21 @@
+# Conformance cases for Portuguese.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
+# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
+# engine CI as well.
+grammar: Portuguese.grammar
+
+lex: Eu falo português.
+lex: Tu falas inglês.
+lex: Você fala francês.
+lex: Ele trabalha em Lisboa.
+lex: Ela canta bem.
+lex: Nós estudamos muito.
+lex: Vós cantais.
+lex: Vocês compram livros.
+
+# Inputs that must be rejected by the token rules (LX1001).
+fail: €
+fail: `
+
+# Whole example corpus as a lex case (raw content; '#' lines are comments).
+lexfile: Examples.txt

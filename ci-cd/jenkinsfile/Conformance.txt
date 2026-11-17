@@ -1,0 +1,17 @@
+# Conformance cases for Jenkinsfile.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
+# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
+# engine CI as well.
+grammar: Jenkinsfile.grammar
+
+lex: pipeline {
+lex: agent { label 'linux' }
+lex: stages {
+lex: stage('Test') {
+lex: steps { sh 'dotnet test' }
+lex: }
+lex: stage('Deploy') {
+lex: when {
+
+# Whole example corpus as a lex case (raw content; '#' lines are comments).
+lexfile: Examples.txt

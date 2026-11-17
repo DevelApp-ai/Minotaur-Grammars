@@ -1,0 +1,21 @@
+# Conformance cases for Vagrantfile.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
+# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
+# engine CI as well.
+grammar: Vagrantfile.grammar
+
+lex: Vagrant.configure("2") do |config|
+lex: config.vm.box = "ubuntu/jammy64"
+lex: config.vm.network "forwarded_port", guest: 80, host: 8080
+lex: config.vm.synced_folder ".", "/vagrant"
+lex: config.vm.define "web" do |web|
+lex: web.vm.hostname = "web.local"
+lex: web.vm.provider "virtualbox" do |vb|
+lex: vb.memory = 2048
+
+# Inputs that must be rejected by the token rules (LX1001).
+fail: €
+fail: `
+
+# Whole example corpus as a lex case (raw content; '#' lines are comments).
+lexfile: Examples.txt

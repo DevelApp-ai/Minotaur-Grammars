@@ -1,0 +1,17 @@
+# Conformance cases for EDN.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
+# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
+# engine CI as well.
+grammar: EDN.grammar
+
+lex: {:name "order-service"
+lex: :replicas 3
+lex: :tags #{:api :critical}
+lex: :limits {:cpu 2.0 :memory "512Mi"}
+lex: :items [1 2 3]
+lex: :meta #inst "2026-01-15T00:00:00.000-00:00"}
+lex: :person/name
+lex: foo.core/bar
+
+# Whole example corpus as a lex case (raw content; '#' lines are comments).
+lexfile: Examples.txt
