@@ -1,0 +1,411 @@
+
+Grammar: PHP85
+Keywords: abstract, and, array, as, break, callable, case, catch, class, clone, const, continue, declare, default, do, echo, else, elseif, empty, enddeclare, endfor, endforeach, endif, endswitch, endwhile, enum, extends, final, finally, fn, for, foreach, from, function, global, goto, if, implements, instanceof, insteadof, interface, isset, list, match, mixed, namespace, new, never, null, or, print, private, protected, public, readonly, return, self, static, switch, throw, trait, try, unset, use, var, while, xor, yield, true, false, int, float, string, bool, object, iterable, void, parent
+
+
+<open_tag> ::= '<?php'
+
+<identifier> ::= /[a-zA-Z_][a-zA-Z0-9_]*/
+
+<variable> ::= /\$[a-zA-Z_][a-zA-Z0-9_]*/
+
+<int_literal> ::= /[0-9]+/
+
+<float_literal> ::= /([0-9]+\.[0-9]*|\.[0-9]+)([eE][+-]?[0-9]+)?/
+
+<string_literal> ::= /'([^'\\]|\\.)*'/
+<string_literal> ::= /"([^"\\]|\\.)*"/
+
+<qualified_name> ::= /[a-zA-Z_][a-zA-Z0-9_]*(\\[a-zA-Z_][a-zA-Z0-9_]*)+/
+<qualified_name> ::= /\\[a-zA-Z_][a-zA-Z0-9_]*(\\[a-zA-Z_][a-zA-Z0-9_]*)*/
+
+<question> ::= '?'
+<variadic> ::= '...'
+<by_ref> ::= '&'
+
+<line_comment> ::= /\x2F\x2F[^\n]*/ => { skip }
+<block_comment> ::= /\x2F\*([^*]|\*+[^*\x2F])*\*+\x2F/ => { skip }
+<whitespace> ::= /[ \t\r\n]+/ => { skip }
+
+<abstract(priority:10)> ::= 'abstract'
+<and(priority:10)> ::= 'and'
+<array(priority:10)> ::= 'array'
+<as(priority:10)> ::= 'as'
+<break(priority:10)> ::= 'break'
+<callable(priority:10)> ::= 'callable'
+<case(priority:10)> ::= 'case'
+<catch(priority:10)> ::= 'catch'
+<clone(priority:10)> ::= 'clone'
+<const(priority:10)> ::= 'const'
+<continue(priority:10)> ::= 'continue'
+<declare(priority:10)> ::= 'declare'
+<default(priority:10)> ::= 'default'
+<do(priority:10)> ::= 'do'
+<echo(priority:10)> ::= 'echo'
+<else(priority:10)> ::= 'else'
+<elseif(priority:10)> ::= 'elseif'
+<empty(priority:10)> ::= 'empty'
+<enddeclare(priority:10)> ::= 'enddeclare'
+<endfor(priority:10)> ::= 'endfor'
+<endforeach(priority:10)> ::= 'endforeach'
+<endif(priority:10)> ::= 'endif'
+<endswitch(priority:10)> ::= 'endswitch'
+<endwhile(priority:10)> ::= 'endwhile'
+<enum(priority:10)> ::= 'enum'
+<extends(priority:10)> ::= 'extends'
+<final(priority:10)> ::= 'final'
+<finally(priority:10)> ::= 'finally'
+<fn(priority:10)> ::= 'fn'
+<for(priority:10)> ::= 'for'
+<foreach(priority:10)> ::= 'foreach'
+<from(priority:10)> ::= 'from'
+<function(priority:10)> ::= 'function'
+<global(priority:10)> ::= 'global'
+<goto(priority:10)> ::= 'goto'
+<if(priority:10)> ::= 'if'
+<implements(priority:10)> ::= 'implements'
+<instanceof(priority:10)> ::= 'instanceof'
+<insteadof(priority:10)> ::= 'insteadof'
+<interface(priority:10)> ::= 'interface'
+<isset(priority:10)> ::= 'isset'
+<list(priority:10)> ::= 'list'
+<match(priority:10)> ::= 'match'
+<namespace(priority:10)> ::= 'namespace'
+<new(priority:10)> ::= 'new'
+<or(priority:10)> ::= 'or'
+<print(priority:10)> ::= 'print'
+<private(priority:10)> ::= 'private'
+<protected(priority:10)> ::= 'protected'
+<public(priority:10)> ::= 'public'
+<readonly(priority:10)> ::= 'readonly'
+<return(priority:10)> ::= 'return'
+<self(priority:10)> ::= 'self'
+<static(priority:10)> ::= 'static'
+<switch(priority:10)> ::= 'switch'
+<throw(priority:10)> ::= 'throw'
+<trait(priority:10)> ::= 'trait'
+<try(priority:10)> ::= 'try'
+<unset(priority:10)> ::= 'unset'
+<use(priority:10)> ::= 'use'
+<var(priority:10)> ::= 'var'
+<while(priority:10)> ::= 'while'
+<xor(priority:10)> ::= 'xor'
+<yield(priority:10)> ::= 'yield'
+<true(priority:10)> ::= 'true'
+<false(priority:10)> ::= 'false'
+<null(priority:10)> ::= 'null'
+<int(priority:10)> ::= 'int'
+<float(priority:10)> ::= 'float'
+<string(priority:10)> ::= 'string'
+<bool(priority:10)> ::= 'bool'
+<object(priority:10)> ::= 'object'
+<iterable(priority:10)> ::= 'iterable'
+<void(priority:10)> ::= 'void'
+<mixed(priority:10)> ::= 'mixed'
+<never(priority:10)> ::= 'never'
+<parent(priority:10)> ::= 'parent'
+<get_kw> ::= 'get'
+<set_kw> ::= 'set'
+<__construct> ::= '__construct'
+<__destruct> ::= '__destruct'
+<__get> ::= '__get'
+<__set> ::= '__set'
+<__isset> ::= '__isset'
+<__unset> ::= '__unset'
+<__call> ::= '__call'
+<__callStatic> ::= '__callStatic'
+<__toString> ::= '__toString'
+<__invoke> ::= '__invoke'
+<__serialize> ::= '__serialize'
+<__unserialize> ::= '__unserialize'
+<__clone> ::= '__clone'
+<__debugInfo> ::= '__debugInfo'
+
+
+<script> ::= <open_tag>
+<script> ::= <open_tag> <top_statement>
+<script> ::= <open_tag> <top_statement> <top_statement>
+<script> ::= <open_tag> <top_statement> <top_statement> <top_statement>
+<script> ::= <open_tag> <top_statement> <top_statement> <top_statement> <top_statement>
+<script> ::= <open_tag> <top_statement> <top_statement> <top_statement> <top_statement> <top_statement>
+<script> ::= <open_tag> <top_statement> <top_statement> <top_statement> <top_statement> <top_statement> <top_statement>
+
+<top_statement> ::= <declare_block> | <namespace_statement> | <use_declaration> | <class_declaration> | <interface_declaration> | <trait_declaration> | <enum_declaration> | <function_declaration>
+
+
+<declare_block> ::= 'declare' '(' <declare_item> ')' ';'
+<declare_block> ::= 'declare' '(' <declare_item> ',' <declare_item> ')' ';'
+<declare_item> ::= <identifier> '=' <expr>
+<declare_item> ::= <type_ref> '=' <expr>
+
+<namespace_statement> ::= 'namespace' <expr> ';'
+<namespace_statement> ::= 'namespace' <type_ref> ';'
+
+<use_declaration> ::= 'use' <qualified_name> ';'
+<use_declaration> ::= 'use' <use_type>? <qualified_name> ';'
+<use_type> ::= 'function' | 'const'
+
+
+<statement> ::= <function_declaration>
+
+<statement_seq> ::= <statement_seq> <statement>
+<statement_seq> ::= <statement>
+
+<if_statement> ::= 'if' '(' <expr> ')' <statement_or_block> <elseif_seq>? <else_clause>?
+<elseif_seq> ::= <elseif_seq> <elseif_clause>
+<elseif_seq> ::= <elseif_clause>
+<elseif_clause> ::= 'elseif' '(' <expr> ')' <statement_or_block>
+<else_clause> ::= 'else' <statement_or_block>
+
+<while_statement> ::= 'while' '(' <expr> ')' <statement_or_block>
+<do_statement> ::= 'do' <statement_or_block> 'while' '(' <expr> ')' ';'
+<for_statement> ::= 'for' '(' <expr> ';' <expr> ';' <expr> ')' <statement_or_block>
+<foreach_statement> ::= 'foreach' '(' <expr> 'as' <variable> ')' <statement_or_block>
+<foreach_statement> ::= 'foreach' '(' <expr> 'as' <variable> '=>' <variable> ')' <statement_or_block>
+
+<try_statement> ::= 'try' '{' <statement_seq>? '}' <catch_clause> <finally_clause>?
+<try_statement> ::= 'try' '{' <statement_seq>? '}' <finally_clause>
+<catch_clause> ::= 'catch' '(' <type_ref> <variable> ')' '{' <statement_seq>? '}'
+<catch_clause> ::= 'catch' '(' <type_ref> ')' '{' <statement_seq>? '}'
+<finally_clause> ::= 'finally' '{' <statement_seq>? '}'
+
+<break_statement> ::= 'break' ';'
+<continue_statement> ::= 'continue' ';'
+<return_statement> ::= 'return' ';'
+<return_statement> ::= 'return' <expr> ';'
+<throw_statement> ::= 'throw' <expr> ';'
+<goto_statement> ::= 'goto' <identifier> ';'
+
+<echo_statement> ::= 'echo' <expr> ';'
+<echo_statement> ::= 'echo' <expr> ',' <expr> ';'
+
+<unset_statement> ::= 'unset' '(' <unset_list> ';'
+<unset_list> ::= <expr> ')'
+<unset_list> ::= <expr> ',' <unset_list>
+
+<statement_or_block> ::= <statement>
+<statement_or_block> ::= '{' <statement_seq>? '}'
+
+
+<attribute_groups> ::= <attribute_groups> <attribute_group>
+<attribute_groups> ::= <attribute_group>
+<attribute_group> ::= '#[' <attribute_list>
+<attribute_list> ::= <qualified_name> ']'
+<attribute_list> ::= <qualified_name> '(' ')' ']'
+<attribute_list> ::= <qualified_name> '(' <argument_list> ']'
+<attribute_list> ::= <qualified_name> ',' <attribute_list>
+<attribute_list> ::= <qualified_name> '(' ')' ',' <attribute_list>
+<attribute_list> ::= <qualified_name> '(' <argument_list> ',' <attribute_list>
+
+
+<class_declaration> ::= <attribute_groups>?  'class' <identifier> <extends_clause>? <implements_clause>? '{' <class_member_seq>? '}'
+<class_declaration> ::= <attribute_groups>?  <class_modifier> 'class' <identifier> <extends_clause>? <implements_clause>? '{' <class_member_seq>? '}'
+<class_declaration> ::= <attribute_groups>?  <class_modifier> <class_modifier> 'class' <identifier> <extends_clause>? <implements_clause>? '{' <class_member_seq>? '}'
+<class_declaration> ::= <attribute_groups>?  <class_modifier> <class_modifier> <class_modifier> 'class' <identifier> <extends_clause>? <implements_clause>? '{' <class_member_seq>? '}'
+<class_declaration> ::= <attribute_groups>?  'class' <expr> '{' <class_member_seq>? '}'
+<class_declaration> ::= <attribute_groups>?  'class' <type_ref> '{' <class_member_seq>? '}'
+<class_declaration> ::= <attribute_groups>?  <class_modifier> 'class' <expr> '{' <class_member_seq>? '}'
+<class_declaration> ::= <attribute_groups>?  <class_modifier> <class_modifier> 'class' <expr> '{' <class_member_seq>? '}'
+<class_declaration> ::= <attribute_groups>?  <class_modifier> <class_modifier> <class_modifier> 'class' <expr> '{' <class_member_seq>? '}'
+<class_declaration> ::= <attribute_groups>?  'class' <expr> <extends_clause>? '{' <class_member_seq>? '}'
+<class_declaration> ::= <attribute_groups>?  <class_modifier> 'class' <expr> <extends_clause>? '{' <class_member_seq>? '}'
+<class_declaration> ::= <attribute_groups>?  <class_modifier> <class_modifier> 'class' <expr> <extends_clause>? '{' <class_member_seq>? '}'
+<class_declaration> ::= <attribute_groups>?  <class_modifier> <class_modifier> <class_modifier> 'class' <expr> <extends_clause>? '{' <class_member_seq>? '}'
+<class_declaration> ::= <attribute_groups>?  'class' <expr> <extends_clause>? <implements_clause>? '{' <class_member_seq>? '}'
+<class_declaration> ::= <attribute_groups>?  <class_modifier> 'class' <expr> <extends_clause>? <implements_clause>? '{' <class_member_seq>? '}'
+<class_declaration> ::= <attribute_groups>?  <class_modifier> <class_modifier> 'class' <expr> <extends_clause>? <implements_clause>? '{' <class_member_seq>? '}'
+<class_declaration> ::= <attribute_groups>?  <class_modifier> <class_modifier> <class_modifier> 'class' <expr> <extends_clause>? <implements_clause>? '{' <class_member_seq>? '}'
+
+<interface_declaration> ::= <attribute_groups>? 'interface' <identifier> <extends_clause>? '{' <class_member_seq>? '}'
+<interface_declaration> ::= <attribute_groups>? 'interface' <expr> <extends_clause>? '{' <class_member_seq>? '}'
+<interface_declaration> ::= <attribute_groups>? 'interface' <type_ref> <extends_clause>? '{' <class_member_seq>? '}'
+
+<trait_declaration> ::= <attribute_groups>? 'trait' <identifier> '{' <class_member_seq>? '}'
+<trait_declaration> ::= <attribute_groups>? 'trait' <expr> '{' <class_member_seq>? '}'
+<trait_declaration> ::= <attribute_groups>? 'trait' <type_ref> '{' <class_member_seq>? '}'
+
+<enum_declaration> ::= <attribute_groups>? 'enum' <identifier> ':' <type_ref> '{' <class_member_seq>? '}'
+<enum_declaration> ::= <attribute_groups>? 'enum' <expr> ':' <type_ref> '{' <class_member_seq>? '}'
+<enum_declaration> ::= <attribute_groups>? 'enum' <type_ref> ':' <type_ref> '{' <class_member_seq>? '}'
+<enum_declaration> ::= <attribute_groups>? 'enum' <expr> '{' <class_member_seq>? '}'
+<enum_declaration> ::= <attribute_groups>? 'enum' <type_ref> '{' <class_member_seq>? '}'
+<enum_declaration> ::= <attribute_groups>? 'enum' <identifier> '{' <class_member_seq>? '}'
+
+<class_modifier> ::= 'abstract' | 'final' | 'readonly'
+
+<extends_clause> ::= 'extends' <type_ref>
+<extends_clause> ::= 'extends' <expr>
+<implements_clause> ::= 'implements' <type_ref>
+<implements_clause> ::= 'implements' <expr>
+
+<class_member_seq> ::= <class_member_seq> <class_member>
+<class_member_seq> ::= <class_member>
+<class_member_seq> ::= <class_member_seq> <class_member_seq>
+
+
+<class_member> ::= 'case' <identifier> '=' <expr> ';'
+<class_member> ::= 'case' <type_ref> '=' <expr> ';'
+<class_member> ::= 'case' <identifier> <assignment_op> <expr> ';'
+<class_member> ::= 'case' <type_ref> <assignment_op> <expr> ';'
+<class_member> ::= 'case' <type_ref> ';'
+<class_member> ::= 'case' <identifier> ';'
+
+<class_member> ::= <member_modifier> 'function' <method_declaration>
+<class_member> ::= <member_modifier> <member_modifier> 'function' <method_declaration>
+<class_member> ::= <member_modifier> <member_modifier> <member_modifier> 'function' <method_declaration>
+
+<class_member> ::= <property_declaration>
+<class_member> ::= <member_modifier> <property_hook_seq>
+
+<member_modifier> ::= 'public' | 'protected' | 'private' | 'static' | 'readonly' | 'var'
+
+<property_declaration> ::= <member_modifier> <type_ref> <property_item>
+<property_declaration> ::= <member_modifier> <member_modifier> <type_ref> <property_item>
+<property_declaration> ::= <member_modifier> <member_modifier> <member_modifier> <type_ref> <property_item>
+<property_declaration> ::= <member_modifier> <type_ref> <expr> ';'
+<property_declaration> ::= <member_modifier> <member_modifier> <type_ref> <expr> ';'
+<property_declaration> ::= <member_modifier> <member_modifier> <member_modifier> <type_ref> <expr> ';'
+<property_declaration> ::= <member_modifier> <expr> <expr> ';'
+<property_declaration> ::= <member_modifier> <question> <expr> <expr> ';'
+<property_declaration> ::= <member_modifier> <question> <type_ref> <property_item>
+<property_declaration> ::= <member_modifier> <member_modifier> <question> <type_ref> <property_item>
+<property_declaration> ::= <member_modifier> <member_modifier> <member_modifier> <question> <type_ref> <property_item>
+<property_declaration> ::= <member_modifier> <member_modifier> <expr> <expr> ';'
+<property_declaration> ::= <member_modifier> <member_modifier> <question> <expr> <expr> ';'
+<property_declaration> ::= <member_modifier> <member_modifier> <member_modifier> <expr> <expr> ';'
+<property_declaration> ::= <member_modifier> <member_modifier> <member_modifier> <question> <expr> <expr> ';'
+<property_item> ::= <variable> ';'
+
+<property_hook_seq> ::= <property_hook_seq> <property_hook>
+<property_hook_seq> ::= <property_hook>
+<property_hook> ::= <hook_name> ';'
+<property_hook> ::= <hook_name> '(' ')' ';'
+<property_hook> ::= <hook_name> '(' ')' '=>' <expr> ';'
+<property_hook> ::= <hook_name> '(' ')' '{' <statement_seq>? '}'
+<property_hook> ::= <hook_name> '(' <parameter_list> ';'
+<property_hook> ::= <hook_name> '(' <parameter_list> '=>' <expr> ';'
+<property_hook> ::= <hook_name> '(' <parameter_list> '{' <statement_seq>? '}'
+<hook_name> ::= <get_kw> | <set_kw>
+
+<method_declaration> ::= <expr> '(' ')' '{' <statement_seq>? '}'
+<method_declaration> ::= <expr> '(' <parameter_list> '{' <statement_seq>? '}'
+<method_declaration> ::= <expr> '(' ')' ';'
+<method_declaration> ::= <expr> '(' <parameter_list> ';'
+<method_declaration> ::= <type_ref> '(' ')' '{' <statement_seq>? '}'
+<method_declaration> ::= <type_ref> '(' ')' ';'
+<method_declaration> ::= <type_ref> '(' <parameter_list> '{' <statement_seq>? '}'
+<method_declaration> ::= <type_ref> '(' <parameter_list> ';'
+
+<parameter_list> ::= <type_ref> <variable> ')'
+<parameter_list> ::= <type_ref> <variable> '=' <expr> ')'
+<parameter_list> ::= <variable> ')'
+<parameter_list> ::= <variable> '=' <expr> ')'
+<parameter_list> ::= <type_ref> <variable> ',' <parameter_list>
+<parameter_list> ::= <type_ref> <variable> '=' <expr> ',' <parameter_list>
+<parameter_list> ::= <variable> ',' <parameter_list>
+<parameter_list> ::= <variable> '=' <expr> ',' <parameter_list>
+<parameter_list> ::= <type_ref> <expr> ')'
+<parameter_list> ::= <type_ref> <expr> '=' <expr> ')'
+<parameter_list> ::= <expr> ')'
+<parameter_list> ::= <expr> '=' <expr> ')'
+<parameter_list> ::= <type_ref> <expr> ',' <parameter_list>
+<parameter_list> ::= <type_ref> <expr> '=' <expr> ',' <parameter_list>
+<parameter_list> ::= <expr> ',' <parameter_list>
+<parameter_list> ::= <expr> '=' <expr> ',' <parameter_list>
+
+<function_declaration> ::= <attribute_groups>? 'function' <expr> '(' <parameter_list> '{' <statement_seq>? '}'
+<function_declaration> ::= <attribute_groups>? 'function' <expr> '(' ')' '{' <statement_seq>? '}'
+
+
+<type_ref> ::= <union_type>
+<type_ref> ::= <identifier>
+<type_ref> ::= <qualified_name>
+<union_type> ::= <intersection_type>
+<union_type> ::= <union_type> '|' <intersection_type>
+<intersection_type> ::= <nullable_type>
+<intersection_type> ::= <intersection_type> '&' <nullable_type>
+<nullable_type> ::= <question> <simple_type>
+<nullable_type> ::= <simple_type>
+<simple_type> ::= 'string' | 'int' | 'float' | 'bool' | 'void' | 'null' | 'mixed' | 'never' | 'false' | 'true' | 'iterable' | 'object' | 'self' | 'static' | 'parent' | 'array' | 'callable'
+<simple_type> ::= <qualified_name>
+
+
+<expr> ::= <variable>
+<expr> ::= <literal>
+<expr> ::= <primary>
+<expr> ::= <postfix_expr>
+<expr> ::= <closure_expr>
+<expr> ::= <arrow_fn_expr>
+<expr> ::= <new_expr>
+<expr> ::= <match_expr>
+<expr> ::= <array_paren_expr>
+<expr> ::= <expr> <assignment_op> <expr>
+<expr> ::= <expr> <binary_op> <expr>
+
+<assignment_op> ::= '=' | '+=' | '-=' | '*=' | '/=' | '.=' | '??=' | '|=' | '&=' | '^='
+<binary_op> ::= '+' | '-' | '*' | '/' | '.' | '%' | '==' | '===' | '!=' | '!==' | '<>' | '<' | '>' | '<=' | '>=' | '<=>' | '&&' | '||' | '??' | 'instanceof'
+
+<primary> ::= <variable>
+<primary> ::= <literal>
+<primary> ::= '(' <expr> ')'
+
+<literal> ::= <int_literal> | <float_literal> | <string_literal> | 'true' | 'false' | 'null'
+
+
+<postfix_expr> ::= <primary>
+<postfix_expr> ::= <postfix_expr> <postfix_tail>
+<postfix_tail> ::= <postfix_tail> <postfix_op>
+<postfix_tail> ::= <postfix_op>
+<postfix_op> ::= '->' <identifier>
+<postfix_op> ::= '->' <member_call>
+<postfix_op> ::= '?->' <identifier>
+<postfix_op> ::= '?->' <member_call>
+<postfix_op> ::= '::' <identifier>
+<postfix_op> ::= <member_call>
+<postfix_op> ::= '[' <expr> ']'
+<member_call> ::= '(' <argument_list>
+
+<argument_list> ::= <expr> ')'
+<argument_list> ::= <variadic> <expr> ')'
+<argument_list> ::= <identifier> ':' <expr> ')'
+<argument_list> ::= <expr> ',' <argument_list>
+<argument_list> ::= <variadic> <expr> ',' <argument_list>
+<argument_list> ::= <identifier> ':' <expr> ',' <argument_list>
+<argument_list> ::= <expr> ',' ')'
+<argument_list> ::= <variadic> <expr> ',' ')'
+<argument_list> ::= <identifier> ':' <expr> ',' ')'
+
+<array_paren_expr> ::= 'array' '(' <array_paren_item>
+<array_paren_item> ::= <expr> ')'
+<array_paren_item> ::= <expr> ',' <array_paren_item>
+<array_paren_item> ::= <expr> ',' ')'
+
+<isset_expr> ::= 'isset' '(' <isset_list>
+<isset_list> ::= <expr> ')'
+<isset_list> ::= <expr> ',' <isset_list>
+<list_expr> ::= 'list' '(' <list_list>
+<list_list> ::= <expr> ')'
+<list_list> ::= <expr> ',' <list_list>
+
+<closure_expr> ::= <attribute_groups>? 'function' <by_ref>? '(' ')' <closure_use_clause>? '{' <statement_seq>? '}'
+<closure_expr> ::= <attribute_groups>? 'function' <by_ref>? '(' <parameter_list> <closure_use_clause>? '{' <statement_seq>? '}'
+<closure_use_clause> ::= 'use' '(' ')'
+<closure_use_clause> ::= 'use' '(' <use_var_list> ')'
+<use_var_list> ::= <use_var_list> ',' <by_ref>? <variable>
+<use_var_list> ::= <by_ref>? <variable>
+
+<arrow_fn_expr> ::= <attribute_groups>? 'fn' <by_ref>? '(' ')' '=>' <expr>
+<arrow_fn_expr> ::= <attribute_groups>? 'fn' <by_ref>? '(' <parameter_list> '=>' <expr>
+
+<new_expr> ::= 'new' 'class' '{' <class_member_seq>? '}'
+<new_expr> ::= 'new' 'class' <member_call> '{' <class_member_seq>? '}'
+<new_expr> ::= 'new' 'class' <member_call> <extends_clause>? <implements_clause>? '{' <class_member_seq>? '}'
+<new_expr> ::= 'new' <type_ref>
+<new_expr> ::= 'new' <type_ref> <member_call>
+
+<match_expr> ::= 'match' '(' <expr> ')' '{' <match_arm_seq> '}'
+<match_arm_seq> ::= <match_arm_seq> <match_arm>
+<match_arm_seq> ::= <match_arm>
+<match_arm> ::= <expr> ',' <expr> '=>' <expr> ','
+<match_arm> ::= <expr> '=>' <expr> ','
+<match_arm> ::= 'default' '=>' <expr> ','

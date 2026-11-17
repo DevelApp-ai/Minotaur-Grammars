@@ -1,0 +1,19 @@
+-- TSQL DDL example
+IF NOT EXISTS (SELECT 1 FROM sys.schemas WHERE name = N'Funny.Onion')
+    EXEC(N'CREATE SCHEMA [Funny.Onion];');
+GO
+
+IF OBJECT_ID(N'[Funny.Onion].[Example]', N'U') IS NOT NULL
+    DROP TABLE [Funny.Onion].[Example];
+GO
+
+CREATE TABLE [Funny.Onion].[Example]
+(
+    [Id] BIGINT IDENTITY(1,1) NOT NULL,
+    [Name] NVARCHAR(100) NOT NULL,
+    [Kind] NVARCHAR(MAX) NOT NULL CHECK ([Kind] IN (N'Auto', N'Manual')),
+    [Created] DATE NULL DEFAULT '2015-05-16',
+    CONSTRAINT [PK_Example] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_Example_Parent] FOREIGN KEY ([ParentId]) REFERENCES [Funny.Onion].[Parent] ([Id])
+);
+GO

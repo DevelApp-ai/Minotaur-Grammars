@@ -1,0 +1,32 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Funny\Onion;
+
+/**
+ * Example: a generated schema definition class
+ */
+class ExampleDefinition
+{
+    /**
+     * Id: The primary key
+     * @var int|null
+     */
+    public ?int $id;
+
+    /**
+     * Name: The display name
+     */
+    public string $name;
+
+}
+
+/**
+ * ExampleEnum: A string-backed enum
+ */
+enum ExampleEnum: string
+{
+    case Alpha = 'Alpha';
+    case Beta = 'Beta';
+}

@@ -1,0 +1,86 @@
+Grammar: SQL2023
+Keywords: CREATE, TABLE, NOT, NULL, DEFAULT, CHECK, CONSTRAINT, PRIMARY, KEY, FOREIGN, REFERENCES, UNIQUE, BIGINT, VARCHAR, CHAR, BIT, DATE, TIME, TIMESTAMP
+
+
+<line_comment> ::= /\x2D\x2D[^\n]*/ => { skip }
+<block_comment> ::= /\x2F\x2A([^*]|\*+[^*\x2F])*\*+\x2F/ => { skip }
+<whitespace> ::= /[ \t\r\n]+/ => { skip }
+
+<identifier> ::= /[A-Za-z_][A-Za-z0-9_]*/
+<delimited_name> ::= /"[^"\n]+"/
+<int_literal> ::= /[0-9]+/
+<string_literal> ::= /'([^']|'')*'/
+
+<create(priority:10)> ::= 'CREATE'
+<create_table(priority:10)> ::= 'TABLE'
+<not_kw(priority:10)> ::= 'NOT'
+<null_kw(priority:10)> ::= 'NULL'
+<default_kw(priority:10)> ::= 'DEFAULT'
+<check(priority:10)> ::= 'CHECK'
+<constraint(priority:10)> ::= 'CONSTRAINT'
+<primary(priority:10)> ::= 'PRIMARY'
+<key(priority:10)> ::= 'KEY'
+<foreign(priority:10)> ::= 'FOREIGN'
+<references(priority:10)> ::= 'REFERENCES'
+<unique(priority:10)> ::= 'UNIQUE'
+<bigint_kw(priority:10)> ::= 'BIGINT'
+<varchar(priority:10)> ::= 'VARCHAR'
+<char_kw(priority:10)> ::= 'CHAR'
+<bit_kw(priority:10)> ::= 'BIT'
+<date_kw(priority:10)> ::= 'DATE'
+<time_kw(priority:10)> ::= 'TIME'
+<timestamp_kw(priority:10)> ::= 'TIMESTAMP'
+
+
+<sql_script> ::= <statement>
+<sql_script> ::= <statement> <statement>
+<sql_script> ::= <statement> <statement> <statement>
+<sql_script> ::= <statement> <statement> <statement> <statement>
+<sql_script> ::= <statement> <statement> <statement> <statement> <statement>
+<sql_script> ::= <statement> <statement> <statement> <statement> <statement> <statement>
+<sql_script> ::= <statement> <statement> <statement> <statement> <statement> <statement> <statement>
+<sql_script> ::= <statement> <statement> <statement> <statement> <statement> <statement> <statement> <statement>
+
+<statement> ::= <create_table_statement>
+
+<create_table_statement> ::= 'CREATE' 'TABLE' <qualified_name> '(' <table_element_seq> ')' ';'
+<create_table_statement> ::= 'CREATE' 'TABLE' <qualified_name> '(' ')' ';'
+
+<qualified_name> ::= <delimited_name> '.' <delimited_name>
+<qualified_name> ::= <delimited_name>
+
+<table_element_seq> ::= <table_element_seq> ',' <table_element>
+<table_element_seq> ::= <table_element>
+
+<table_element> ::= <column_definition>
+<table_element> ::= <table_constraint>
+
+<column_definition> ::= <column_name> <data_type> 'NOT' 'NULL'
+<column_definition> ::= <column_name> <data_type> 'NULL'
+<column_definition> ::= <column_name> <data_type> 'NOT' 'NULL' 'DEFAULT' <string_literal>
+<column_definition> ::= <column_name> <data_type> 'NULL' 'DEFAULT' <string_literal>
+<column_definition> ::= <column_name> <data_type> 'NOT' 'NULL' 'CHECK' '(' <check_expr> ')'
+<column_definition> ::= <column_name> <data_type> 'NULL' 'CHECK' '(' <check_expr> ')'
+<column_definition> ::= <column_name> <data_type> 'NOT' 'NULL' 'DEFAULT' <string_literal> 'CHECK' '(' <check_expr> ')'
+<column_definition> ::= <column_name> <data_type> 'NULL' 'DEFAULT' <string_literal> 'CHECK' '(' <check_expr> ')'
+
+<column_name> ::= <delimited_name>
+<column_name> ::= <identifier>
+
+<data_type> ::= 'BIGINT' | 'BIT' | 'DATE' | 'TIME' | 'TIMESTAMP'
+<data_type> ::= 'VARCHAR' '(' <int_literal> ')'
+<data_type> ::= 'CHAR' '(' <int_literal> ')'
+
+<table_constraint> ::= 'CONSTRAINT' <constraint_name> 'PRIMARY' 'KEY' '(' <column_name> ')'
+<table_constraint> ::= 'CONSTRAINT' <constraint_name> 'UNIQUE' '(' <column_name> ')'
+<table_constraint> ::= 'CONSTRAINT' <constraint_name> 'FOREIGN' 'KEY' '(' <column_name> ')' 'REFERENCES' <qualified_name> '(' <column_name> ')'
+<table_constraint> ::= 'CONSTRAINT' <constraint_name> 'CHECK' '(' <check_expr> ')'
+
+<constraint_name> ::= <delimited_name>
+<constraint_name> ::= <identifier>
+
+<check_expr> ::= <column_name> 'IN' '(' <string_literal> ')'
+<check_expr> ::= <column_name> 'IN' '(' <string_literal> ',' <string_literal> ')'
+<check_expr> ::= <column_name> 'IN' '(' <string_literal> ',' <string_literal> ',' <string_literal> ')'
+<check_expr> ::= <column_name> 'IN' '(' <string_literal> ',' <string_literal> ',' <string_literal> ',' <string_literal> ')'
+<check_expr> ::= <identifier> '(' <column_name> ')' '>=' <int_literal>
