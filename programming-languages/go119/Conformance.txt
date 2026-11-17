@@ -1,11 +1,49 @@
-# Conformance cases for Go119.grammar - engine-verified lexing pin.
-# Run by the ENFAStepLexer-StepParser integration suite in
-# GreedyLongestMatch mode (engine issues #129/#133); grammar-repository-tests
-# job runs this in engine CI as well.
+# Conformance cases for Go119.grammar - engine-verified lexing pin (full Go 1.19 surface).
+# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
+# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
+# engine CI as well.
 grammar: Go119.grammar
 
 lex: package main
-lex: func main() { }
+lex: import "fmt"
+lex: import (\n\t"os"\n\talias "strings"\n\t. "math"\n\t_ "net/http/pprof"\n)
+lex: const Pi = 3.14159
+lex: const (\n\tA = iota\n\tB\n)
+lex: var name string = "go"
+lex: type Pair struct {\n\tKey string\n\tValue int `json:"value"`\n}
+lex: type Stringer interface {\n\tString() string\n}
+lex: type Alias = Pair
+lex: type List[T any] struct {\n\titems []T\n}
+lex: type Number interface {\n\t~int | ~float64\n}
+lex: func add(a, b int) int {\n\treturn a + b\n}
+lex: func (p Pair) String() string {\n\treturn p.Key\n}
+lex: func sum[T Number](xs []T) T {\n\tvar total T\n\tfor _, x := range xs {\n\t\ttotal += x\n\t}\n\treturn total\n}
+lex: x := 1_000\nx++\nx--
+lex: y := 0xFF + 0o17 + 0b101 + 1e5 + 3.14i
+lex: s := "escaped \\"quote\\"" + `raw string`
+lex: c := '\\n'
+lex: if x > 0 && y != 0 || !false {\n} else if x < 0 {\n} else {\n}
+lex: for i := 0; i < 10; i++ {\n}
+lex: for x > 0 {\n\tx--\n}
+lex: for i, v := range xs {\n}
+lex: for k = range m {\n}
+lex: switch x {\ncase 1, 2:\n\tfallthrough\ndefault:\n}
+lex: switch {\ncase x > 0:\n}
+lex: switch v := any(x).(type) {\ncase int:\ndefault:\n}
+lex: select {\ncase v := <-ch:\ncase ch <- 2:\ncase x, ok := <-ch:\ndefault:\n}
+lex: go func() { ch <- 1 }()
+lex: defer fmt.Println("done")
+lex: m := map[string]int{"a": 1}
+lex: p := &Pair{Key: "k"}
+lex: _ = l[0:2:3]
+lex: _ = any(x).(int)
+lex: f := func(a int) int { return a * 2 }
+lex: goto Done\nDone:\nbreak
 
-# Input that must be rejected by the token rules (LX1001).
+# Inputs that must be rejected by the token rules (LX1001).
 fail: €
+fail: `unclosed
+fail: "unclosed
+
+# Whole example corpus as a lex case (raw content; '#' lines are comments).
+lexfile: Examples.txt

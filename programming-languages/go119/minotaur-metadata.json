@@ -5,7 +5,7 @@
   "DisplayName": "Go119",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "Go 1.19 grammar for the Minotaur parser platform (authored for issue #8).",
+  "Description": "Go 1.19 grammar for the Minotaur parser platform: full Go 1.19 surface incl. generics (type parameters, constraints with ~), type aliases, all literal forms (hex/octal/binary/underscore ints, exponent floats, imaginary, escaped and raw strings, rune escapes), and all statement forms (if/for/range/switch/type-switch/select/go/defer/goto/labels/inc-dec). Engine-verified via Conformance.txt.",
   "License": "MIT",
   "Tags": [
     "programming-language",

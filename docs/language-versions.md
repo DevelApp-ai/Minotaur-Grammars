@@ -43,7 +43,7 @@ productions for X's defining features.
 | Elixir | `Elixir` | Elixir 1.x (subset) | core syntax, sigils, multi-clause `fn` |
 | Erlang | `Erlang` | Erlang/OTP 17+ | maps (`#{}`), bit syntax |
 | F# | `FSharp` | F# core (version not pinned) | records, unions, object expressions — needs pinning (follow-up) |
-| Go | `Go119` | Go 1.18–1.19 | generics (1.18), named for 1.19 |
+| Go | `Go119` | Go 1.18–1.19 | full surface engine-verified (Conformance.txt: generics + `~` constraints, type aliases, all literals incl. raw strings/imaginary, all statement forms); named for 1.19 |
 | Haskell | `Haskell` | GHC 7.6+ | `MultiWayIf`, `LambdaCase` |
 | **Java (legacy)** | `Java` | **Java ≤ 7 — legacy, superseded** | **no lambdas / method refs (pre-8)**; use `Java17` |
 | Java | `Java17` | Java 8–17 | named; records, sealed, `var` |

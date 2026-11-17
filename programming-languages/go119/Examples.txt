@@ -1,0 +1,125 @@
+# Go 1.19 example corpus for Go119.grammar (lex conformance pin via lexfile:).
+# Lines starting with '#' are comments for the harness (skipped by the
+# engine's default comment rule); code lines are real Go constructs.
+
+package main
+
+import "fmt"
+import (
+	"os"
+	alias "strings"
+	. "math"
+	_ "net/http/pprof"
+)
+
+const Pi = 3.14159
+const (
+	A = iota
+	B
+	C = 1 << 10
+)
+
+var (
+	name string = "go"
+	count int
+)
+
+type Celsius float64
+type HandlerFunc func(w int, r string)
+type Pair struct {
+	Key   string
+	Value int `json:"value"`
+	*Embedded
+}
+
+type Stringer interface {
+	String() string
+}
+
+type Number interface {
+	~int | ~float64
+}
+
+type List[T any] struct {
+	items []T
+}
+
+type Alias = Pair
+
+func add(a, b int) int {
+	return a + b
+}
+
+func (p Pair) String() string {
+	return p.Key
+}
+
+func sum[T Number](xs []T) T {
+	var total T
+	for _, x := range xs {
+		total += x
+	}
+	return total
+}
+
+func main() {
+	x := 1_000
+	x++
+	x--
+	y := 0xFF + 0o17 + 0b101 + 1e5 + 3.14i
+	s := "escaped \"quote\" and \\ backslash" + `raw
+string`
+	c := '\n'
+	if x > 0 && y != 0 || !false {
+		fmt.Println(x)
+	} else if x < 0 {
+		fmt.Println("neg")
+	} else {
+		fmt.Println("zero")
+	}
+	for i := 0; i < 10; i++ {
+		fmt.Println(i)
+	}
+	for x > 0 {
+		x--
+	}
+	for i, v := range []int{1, 2, 3} {
+		fmt.Println(i, v)
+	}
+	for k = range map[string]int{"a": 1} {
+		fmt.Println(k)
+	}
+	switch x {
+	case 1, 2:
+		fallthrough
+	default:
+	}
+	switch {
+	case x > 0:
+	}
+	switch v := any(x).(type) {
+	case int:
+		fmt.Println(v)
+	default:
+	}
+	ch := make(chan int, 1)
+	go func() { ch <- 1 }()
+	defer fmt.Println("done")
+	select {
+	case v := <-ch:
+		fmt.Println(v)
+	case ch <- 2:
+	default:
+	}
+	m := map[string]int{"a": 1}
+	l := []int{1, 2, 3}
+	p := &Pair{Key: "k", Value: 1}
+	_ = l[0:2:3]
+	_ = p.Value
+	_ = any(x).(int)
+	f := func(a int) int { return a * 2 }
+	_ = f(x)
+	goto Done
+Done:
+	break
+}
