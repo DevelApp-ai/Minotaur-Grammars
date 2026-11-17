@@ -15,7 +15,7 @@
 # mechanism covers both.
 
 Grammar: CEBNF
-BaseGrammar: Haskell001001.grammar
+BaseGrammar: Haskell001.grammar
 MergeStrategy: Additive
 
 /* Labyrinth pattern operators (added; never replace base productions).
