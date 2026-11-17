@@ -15,6 +15,7 @@
     "Java.grammar": "programming-languages/java8/Java8.grammar",
     "Java8.grammar": "programming-languages/java8/Java8.grammar",
     "Java17.grammar": "programming-languages/java17/Java17.grammar",
+    "JavaJsb.grammar": "programming-languages/javajsb/JavaJsb.grammar",
     "JavaScript.grammar": "programming-languages/javascript/JavaScript.grammar",
     "JavaScriptES2022.grammar": "programming-languages/javascriptes2022/JavaScriptES2022.grammar",
     "JSON.grammar": "programming-languages/json/JSON.grammar",

@@ -1,0 +1,63 @@
+Grammar: JavaJsb
+Keywords: package, import, public, private, static, final, class, enum, void, return, new, List, String, Boolean, Long, Object
+
+<whitespace> ::= /[ \t\r\n]+/ => { skip }
+<block_comment> ::= /\x2F\x2A([^*]|\*+[^*\x2F])*\*+\x2F/ => { skip }
+
+<identifier> ::= /[A-Za-z_][A-Za-z0-9_]*/
+<qualified_name> ::= /[A-Za-z_][A-Za-z0-9_]*(\.[A-Za-z_][A-Za-z0-9_]*)+/
+<string_literal> ::= /"([^"\\]|\\.)*"/
+<json_property_anno> ::= /@JsonProperty\("([^"\\]|\\.)*"\)/
+<json_value_anno> ::= /@JsonValue/
+<import_block> ::= /import[ \t\r\n]+[A-Za-z_][A-Za-z0-9_]*(\.[A-Za-z_][A-Za-z0-9_]*)*;([ \t\r\n]+import[ \t\r\n]+[A-Za-z_][A-Za-z0-9_]*(\.[A-Za-z_][A-Za-z0-9_]*)*;)*/
+
+<package_kw(priority:10)> ::= 'package'
+<import_kw(priority:10)> ::= 'import'
+<public_kw(priority:10)> ::= 'public'
+<private_kw(priority:10)> ::= 'private'
+<static_kw(priority:10)> ::= 'static'
+<final_kw(priority:10)> ::= 'final'
+<class_kw(priority:10)> ::= 'class'
+<enum_kw(priority:10)> ::= 'enum'
+<void_kw(priority:10)> ::= 'void'
+<return_kw(priority:10)> ::= 'return'
+<new_kw(priority:10)> ::= 'new'
+<list_kw(priority:10)> ::= 'List'
+<string_kw(priority:10)> ::= 'String'
+<boolean_kw(priority:10)> ::= 'Boolean'
+<long_kw(priority:10)> ::= 'Long'
+<object_kw(priority:10)> ::= 'Object'
+
+<compilation_unit> ::= <package_decl> <import_block> <class_decl>
+<package_decl> ::= 'package' <package_name> ';'
+<package_name> ::= <identifier> | <qualified_name>
+
+<class_decl> ::= 'public' 'class' <identifier> '{' <class_item_seq> '}'
+<class_decl> ::= 'public' 'class' <identifier> '{' '}'
+<class_decl> ::= 'public' 'static' 'class' <identifier> '{' <class_item_seq> '}'
+<class_decl> ::= 'public' 'static' 'class' <identifier> '{' '}'
+<class_item_seq> ::= <class_item_seq> <class_item>
+<class_item_seq> ::= <class_item>
+<class_item_seq> ::= <class_item_seq> <class_item_seq>
+<class_item> ::= <member>
+<class_item> ::= <class_decl>
+<class_item> ::= <enum_decl>
+
+<member> ::= <json_property_anno> 'private' <java_type> <identifier> ';' <getter> <setter>
+<member> ::= <json_property_anno> 'private' <java_type> <identifier> '=' <init_expr> ';' <getter> <setter>
+<getter> ::= 'public' <java_type> <identifier> '(' ')' '{' 'return' <identifier> ';' '}'
+<setter> ::= 'public' 'void' <identifier> '(' <java_type> <identifier> ')' '{' <qualified_name> '=' <identifier> ';' '}'
+<java_type> ::= 'String' | 'Boolean' | 'Long' | 'Object' | <identifier> | <list_type>
+<list_type> ::= 'List' '<' <type_arg> '>'
+<type_arg> ::= 'String' | 'Boolean' | 'Long' | 'Object' | <identifier> | <list_type>
+<init_expr> ::= 'new' <identifier> '<' '>' '(' ')'
+<init_expr> ::= <string_literal>
+<init_expr> ::= <qualified_name> '(' <string_literal> ')'
+
+<enum_decl> ::= 'public' 'enum' <identifier> '{' <enum_last> ';' <enum_body> '}'
+<enum_decl> ::= 'public' 'enum' <identifier> '{' <enum_item> <enum_last> ';' <enum_body> '}'
+<enum_decl> ::= 'public' 'enum' <identifier> '{' <enum_item> <enum_item> <enum_last> ';' <enum_body> '}'
+<enum_decl> ::= 'public' 'enum' <identifier> '{' <enum_item> <enum_item> <enum_item> <enum_last> ';' <enum_body> '}'
+<enum_item> ::= <identifier> '(' <string_literal> ')' ','
+<enum_last> ::= <identifier> '(' <string_literal> ')'
+<enum_body> ::= 'private' 'final' 'String' <identifier> ';' <identifier> '(' 'String' <identifier> ')' '{' <qualified_name> '=' <identifier> ';' '}' <json_value_anno> 'public' 'String' <identifier> '(' ')' '{' 'return' <identifier> ';' '}'

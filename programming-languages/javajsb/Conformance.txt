@@ -1,0 +1,41 @@
+# Conformance cases for JavaJsb.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
+# mode; the grammar-repository-tests job runs this in engine CI as well.
+grammar: JavaJsb.grammar
+
+# jsb Java prologue: package declaration and the import block (one or more
+# qualified imports, absorbed as a single token), plus the class head with
+# its doc comment (one skip token).
+lex: package default_;
+lex: import java.util.List;
+lex: import java.util.List;\nimport java.time.LocalDate;\n
+lex: /**\n * Example: a generated schema class\n */\npublic class ExampleDefinition\n{\n
+
+# Jackson annotations (greedy tokens: the @JsonProperty form includes its
+# string literal).
+lex: @JsonProperty("name")
+lex: @JsonValue
+
+# Members: private fields in all emitted type shapes and initializer kinds,
+# plus the getter/setter pair (this.name is one qualified_name token).
+lex: private String name;
+lex: private List<ModuleDefinition> moduleDefinitions = new ArrayList<>();
+lex: private LocalDate myTopPartDate = LocalDate.parse("2015-05-16");
+lex: public String getName() {\n    return name;\n}\n
+lex: public void setName(String name) {\n    this.name = name;\n}\n
+
+# Nested enums: the public enum head with string-literal values.
+lex: public enum FtpTypeEnum\n{\n    Auto("Auto"),\n
+
+# Inputs that must be rejected by the token rules (LX1001). The jsb Java
+# generator emits no numeric literals, no char literals, no line comments
+# and no other Java tokens, so digits, single quotes, '//', backticks and
+# the euro sign are not JavaJsb tokens by design.
+fail: `
+fail: int x = 42;
+fail: private String name = 'x';
+fail: // line comment
+fail: €
+
+# Whole example corpus as a lex case (raw content; '#' lines are comments).
+lexfile: Examples.txt

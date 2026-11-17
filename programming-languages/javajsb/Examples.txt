@@ -1,0 +1,108 @@
+package default_;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import java.time.OffsetTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.net.URI;
+import java.util.UUID;
+
+/**
+ * WorkflowDefinition: example workflow definition
+ */
+public class WorkflowDefinition
+{
+    public enum FtpTypeEnum
+    {
+        Auto("Auto"),
+        FTP("FTP"),
+        FTPS("FTPS");
+
+        private final String value;
+
+        FtpTypeEnum(String value) {
+            this.value = value;
+        }
+
+        @JsonValue
+        public String getValue() {
+            return value;
+        }
+    }
+
+    /**
+     * Name: workflow name
+     */
+    @JsonProperty("name")
+    private String name;
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+
+
+    /**
+     * Nodes: workflow nodes
+     */
+    @JsonProperty("nodes")
+    private List<Node> nodes = new ArrayList<>();
+    public List<Node> getNodes() {
+        return nodes;
+    }
+    public void setNodes(List<Node> nodes) {
+        this.nodes = nodes;
+    }
+
+
+    /**
+     * MyTopPartDate: date top part
+     */
+    @JsonProperty("myTopPartDate")
+    private LocalDate myTopPartDate = LocalDate.parse("2015-05-16");
+    public LocalDate getMyTopPartDate() {
+        return myTopPartDate;
+    }
+    public void setMyTopPartDate(LocalDate myTopPartDate) {
+        this.myTopPartDate = myTopPartDate;
+    }
+
+
+    /**
+     * Node: definition of a node
+     */
+    public static class Node
+    {
+        /**
+         * NodeKey: node key
+         */
+        @JsonProperty("nodeKey")
+        private String nodeKey;
+        public String getNodeKey() {
+            return nodeKey;
+        }
+        public void setNodeKey(String nodeKey) {
+            this.nodeKey = nodeKey;
+        }
+
+
+        /**
+         * Count: a count
+         */
+        @JsonProperty("count")
+        private Long count;
+        public Long getCount() {
+            return count;
+        }
+        public void setCount(Long count) {
+            this.count = count;
+        }
+
+
+    }
+}
