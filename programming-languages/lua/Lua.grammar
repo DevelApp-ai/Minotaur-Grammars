@@ -1,69 +1,116 @@
 Grammar: Lua
 FormatType: EBNF
 
+/*
+ * Lua grammar for the Minotaur parser platform.
+ *
+ * Coverage: Lua 5.4 (pinned in docs/language-versions.md): assignments,
+ * local declarations with <close>/<const> attributes (5.4), function
+ * definitions (incl. method ':' names and string/table call args), if/
+ * while/for (numeric and generic)/repeat-until, do/end, goto/labels/break
+ * (5.2), return, varargs '...', tables, long strings [[..]]/[==[..]==],
+ * long comments --[[..]]/--[==[..]==], string escapes, hex floats (0x1p4),
+ * integer division '//' and bitwise operators (5.3).
+ *
+ * Lexer core at the bottom: single-terminal token rules only. Regex
+ * alternatives inside productions do not materialize into lexer rules in the
+ * engine (ENFAStepLexer-StepParser #129/#133); short-string patterns are the
+ * proven CSharp10 ones, '/' is written \x2F inside regexes.
+ */
+
 <chunk> ::= <block> ;
-<block> ::= <stmt>* ;
-<stmt> ::= <comment> | <assignment> | <local_decl> | <func_def> | <if_stmt> | <while_stmt> | <for_stmt> | <repeat_stmt> | <return_stmt> | <expr_stmt> ;
+<block> ::= <stmt>* <return_stmt>? ;
+<stmt> ::= <comment>
+         | ';'
+         | <assignment>
+         | <local_decl>
+         | <func_def>
+         | <if_stmt>
+         | <while_stmt>
+         | <for_stmt>
+         | <repeat_stmt>
+         | <do_stmt>
+         | <goto_stmt>
+         | <label_stmt>
+         | <break_stmt>
+         | <expr_stmt> ;
+<do_stmt> ::= 'do' <block> 'end' ;
+<goto_stmt> ::= 'goto' <identifier> ;
+<label_stmt> ::= '::' <identifier> '::' ;
+<break_stmt> ::= 'break' ;
 <assignment> ::= <var_list> '=' <expr_list> ;
 <var_list> ::= <var> (',' <var>)* ;
 <var> ::= <identifier> | <prefixexp> '[' <expr> ']' | <prefixexp> '.' <identifier> ;
 <prefixexp> ::= <var> | '(' <expr> ')' ;
-<local_decl> ::= 'local' (<attnamelist> | <func_def>) ;
+<local_decl> ::= 'local' <attnamelist> | 'local' <func_def> ;
 <attnamelist> ::= <name_attrib> (',' <name_attrib>)* ('=' <expr_list>)? ;
 <name_attrib> ::= <identifier> ('<' <identifier> '>')? ;
 <expr_list> ::= <expr> (',' <expr>)* ;
 <func_def> ::= 'function' <funcname> '(' <params>? ')' <block> 'end' ;
 <funcname> ::= <identifier> ('.' <identifier>)* (':' <identifier>)? ;
-<params> ::= <identifier> (',' <identifier>)* ;
+<params> ::= <namelist> (',' '...')? | '...' ;
+<namelist> ::= <identifier> (',' <identifier>)* ;
 <if_stmt> ::= 'if' <expr> 'then' <block> ('elseif' <expr> 'then' <block>)* ('else' <block>)? 'end' ;
 <while_stmt> ::= 'while' <expr> 'do' <block> 'end' ;
 <for_stmt> ::= <numeric_for> | <generic_for> ;
 <numeric_for> ::= 'for' <identifier> '=' <expr> ',' <expr> (',' <expr>)? 'do' <block> 'end' ;
-<generic_for> ::= 'for' <identifier> (',' <identifier>)* 'in' <expr_list> 'do' <block> 'end' ;
+<generic_for> ::= 'for' <namelist> 'in' <expr_list> 'do' <block> 'end' ;
 <repeat_stmt> ::= 'repeat' <block> 'until' <expr> ;
-<return_stmt> ::= 'return' <expr_list>? ';' ;
+<return_stmt> ::= 'return' <expr_list>? ';'?
 <expr_stmt> ::= <prefixexp> | <call> ;
-<call> ::= <prefixexp> '(' <args>? ')' | <prefixexp> ':' <identifier> '(' <args>? ')' ;
-<args> ::= <expr_list> | <table> | <text> ;
-<expr> ::= <literal> | <var> | <call> | <expr> <binop> <expr> | '(' <expr> ')' | <function_expr> ;
+<call> ::= <prefixexp> <args> | <prefixexp> ':' <identifier> <args> ;
+<args> ::= '(' <expr_list>? ')' | <string> | <table> ;
+<expr> ::= 'nil' | 'true' | 'false' | '...'
+         | <literal> | <var> | <call> | <table> | <function_expr>
+         | <unop> <expr>
+         | <expr> <binop> <expr>
+         | '(' <expr> ')' ;
 <function_expr> ::= 'function' '(' <params>? ')' <block> 'end' ;
-<binop> ::= '+' | '-' | '*' | '/' | '%' | '^' | '==' | '~=' | '<' | '>' | '<=' | '>=' | '..' | 'and' | 'or' ;
-<literal> ::= <number> | <text> | <boolean> | 'nil' | <table> ;
+<binop> ::= '+' | '-' | '*' | '/' | '//' | '%' | '^' | '..'
+          | '==' | '~=' | '<=' | '>=' | '<' | '>'
+          | 'and' | 'or' | '&' | '|' | '~' | '<<' | '>>' ;
+<unop> ::= 'not' | '-' | '#' | '~' ;
+<literal> ::= <number> | <string> ;
 <table> ::= '{' <field>* '}' ;
 <field> ::= '[' <expr> ']' '=' <expr> | <identifier> '=' <expr> | <expr> ;
-<boolean> ::= 'true' | 'false' ;
-<identifier> ::= /[a-zA-Z_][a-zA-Z0-9_]*/ ;
-<text> ::= /'"'[^"]*'"'/ ;
-<number> ::= /[0-9]+('.'[0-9]+)?/ ;
 
-# --- Coverage completion: remaining language constructs ---
-<multiple_assignment> ::= target_list "=" expression_list ;
-<multiple_return> ::= "return" expression_list <auto_multiple_return_0> ;
-<select_expression> ::= "select" "(" "#" varargs ")" ;
-<goto_statement> ::= "goto" <identifier> ;
-<label_statement> ::= "::" <identifier> "::" ;
-<string_escape> ::= "\\" ( escape_char | line_terminator | "x" hex_digit hex_digit | digit digit digit ) ;
-<long_comment> ::= "--" long_open comment_body long_close ;
-<auto_multiple_return_0> ::= /[ ";" ]/ ;
+/* --- Lexer core: single-terminal token rules only (engine #129/#133) --- */
 
-/* Comments (issue #189) */
-<lua-line-comment> ::= /--[^\n]*/
-<lua-block-comment> ::= /--\[\[([^\]]|\]+[^\]])*\]+\//
-<comment> ::= <lua-line-comment> | <lua-block-comment>
+<whitespace> ::= /[ \t\r\n]+/ => { skip }
 
-/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
-   identifier, number, string/char literals, punctuation and comments as token
-   rules. String/char/block-comment patterns are the proven CSharp10 ones. */
-<lx_ws> ::= /[ \t\r\n]+/ => { skip }
-<lx_backslash> ::= /\\/
-<lx_identifier> ::= /[A-Za-z_][A-Za-z0-9_]*/
-<lx_number> ::= /[0-9]+(\.[0-9]+)?([eE][+-]?[0-9]+)?/
-<lx_string> ::= /"([^"\\\n]|\\.)*"/
-<lx_char0> ::= /'[^'\n]'/
-<lx_char1> ::= /'\x5C.'/
-<lx_char2> ::= /'\x5Cu[0-9a-fA-F]{4}'/
-<lx_char3> ::= /'\x5Cx[0-9a-fA-F]{1,4}'/
-<lx_block_comment0> ::= /\x2F\*([^*]|\*+[^*\x2F])*\*+\x2F/ => { skip }
+/* Long comments first: greedy longest match lets them win over <line_comment>
+   when the bracket form is present. */
+<long_comment> ::= /--\[\[([^\]]|\][^\]])*\]\]/ => { skip }
+<long_comment> ::= /--\[=\[([^\]]|\][^\]])*\]=\]/ => { skip }
+<long_comment> ::= /--\[==\[([^\]]|\][^\]])*\]==\]/ => { skip }
+<line_comment> ::= /--[^\n]*/ => { skip }
+
+<identifier> ::= /[a-zA-Z_][a-zA-Z0-9_]*/
+
+<number> ::= /0[xX][0-9a-fA-F]+(\.[0-9a-fA-F]*)?([pP][+-]?[0-9]+)?/
+<number> ::= /[0-9]+\.[0-9]+([eE][+-]?[0-9]+)?/
+<number> ::= /[0-9]+[eE][+-]?[0-9]+/
+<number> ::= /\.[0-9]+([eE][+-]?[0-9]+)?/
+<number> ::= /[0-9]+/
+
+<string> ::= /"([^"\\\n]|\\.)*"/
+<string> ::= /'([^'\\\n]|\\.)*'/
+<long_string> ::= /\[\[([^\]]|\][^\]])*\]\]/
+<long_string> ::= /\[=\[([^\]]|\][^\]])*\]=\]/
+<long_string> ::= /\[==\[([^\]]|\][^\]])*\]==\]/
+
+<lx_op0> ::= "=="
+<lx_op1> ::= "~="
+<lx_op2> ::= "<="
+<lx_op3> ::= ">="
+<lx_op4> ::= ".."
+<lx_op5> ::= "..."
+<lx_op6> ::= "//"
+<lx_op7> ::= "<<"
+<lx_op8> ::= ">>"
+<lx_op9> ::= "::"
+<lx_op_single> ::= /[-+*\x2F%^&|~<>=#:.]/
+
 <lx_p0> ::= "("
 <lx_p1> ::= ")"
 <lx_p2> ::= "{"
@@ -72,51 +119,7 @@ FormatType: EBNF
 <lx_p5> ::= "]"
 <lx_p6> ::= ";"
 <lx_p7> ::= ","
-<lx_p8> ::= "."
-<lx_p9> ::= "?"
-<lx_p10> ::= ":"
-<lx_p11> ::= "!"
-<lx_p12> ::= "+"
-<lx_p13> ::= "-"
-<lx_p14> ::= "*"
-<lx_p15> ::= "/"
-<lx_p16> ::= "%"
-<lx_p17> ::= "="
-<lx_p18> ::= "<"
-<lx_p19> ::= ">"
-<lx_p20> ::= "&"
-<lx_p21> ::= "|"
-<lx_p22> ::= "^"
-<lx_p23> ::= "~"
-<lx_p24> ::= "@"
-<lx_p25> ::= "`"
-<lx_p26> ::= '"'
-<lx_p27> ::= "'"
-<lx_p28> ::= "=>"
-<lx_p29> ::= "->"
-<lx_p30> ::= "=="
-<lx_p31> ::= "!="
-<lx_p32> ::= "<="
-<lx_p33> ::= ">="
-<lx_p34> ::= "&&"
-<lx_p35> ::= "||"
-<lx_p36> ::= "++"
-<lx_p37> ::= "--"
-<lx_p38> ::= "+="
-<lx_p39> ::= "-="
-<lx_p40> ::= "*="
-<lx_p41> ::= "/="
-<lx_p42> ::= "%="
-<lx_p43> ::= "&="
-<lx_p44> ::= "|="
-<lx_p45> ::= "^="
-<lx_p46> ::= "<<"
-<lx_p47> ::= ">>"
-<lx_p48> ::= "::"
-<lx_p49> ::= ".."
-<lx_p50> ::= "..."
-<lx_p51> ::= "**"
-<lx_p52> ::= "??"
-<lx_p53> ::= "?."
-<lx_p54> ::= "<>"
-<lx_dash_comment> ::= /--[^\n]*/ => { skip }
+<lx_p8> ::= '"'
+<lx_p9> ::= "'"
+
+<comment> ::= <line_comment> | <long_comment>

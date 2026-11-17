@@ -1,18 +1,83 @@
-add :: Int -> Int -> Int
-add x y = x + y
+{-# LANGUAGE OverloadedStrings #-}
+-- Haskell example corpus for Haskell.grammar (lex conformance pin via lexfile:).
+module Main (main, Person(..), describe) where
+
+import Data.List (sort, nub)
+import qualified Data.Map as Map
+import Data.Maybe (fromMaybe) hiding (maybe)
+import Control.Monad (forM_, when)
+
+data Shape
+  = Circle { radius :: Double }
+  | Rect Double Double
+  deriving (Eq, Show)
+
+newtype UserId = UserId Int deriving (Show)
+
+type Pair a = (a, a)
+
+class (Eq a, Show a) => Named a where
+  name :: a -> String
+
+instance Named Shape where
+  name (Circle r) = "circle " ++ show r
+  name (Rect w h) = "rect"
+
+data Color = Red | Green | Blue
+  deriving (Eq, Ord, Show)
+
+infixr 5 .++
+(.++) :: [a] -> [a] -> [a]
+xs .++ ys = xs ++ ys
+
+answer :: Int
+answer = 42
+
+pi' :: Double
+pi' = 3.14159
+
+hex :: Int
+hex = 0xFF
+
+oct :: Int
+oct = 0o17
+
+big :: Integer
+big = 1000000
+
+exp' :: Double
+exp' = 1e-3
 
 main :: IO ()
 main = do
-  let z = add 1 2
-  print z
+  let xs = [x * 2 | x <- [1..10], even x]
+  putStrLn "hello"
+  print (sum xs)
+  case lookup' of
+    Just v -> print v
+    Nothing -> putStrLn "none"
+  if null xs then putStrLn "empty" else print (head xs)
+  if | answer > 0 -> putStrLn "pos"
+     | otherwise -> putStrLn "neg"
+  forM_ xs $ \x -> print x
+  let f = \x y -> x + y
+  print (f 1 2)
+  print (map (*2) [1, 2, 3])
+  print (filter even [1..10])
+  print ((+1) 41)
+  print [1 .. 10]
+  print (sort [3, 1, 2])
+  let s = "a string with \"escape\""
+      c = 'x'
+      nl = '\n'
+  print (s, c, nl)
+  print (1 + 2 * 3 - 4 `div` 2)
+  print (True && False || not False)
+  print (Map.fromList [(1, 'a')])
+  print (fromMaybe 0 Nothing)
+  let p = Circle { radius = 2.5 }
+  print (name p)
+  print (radius p)
 
-# --- Coverage completion constructs ---
-
-if | x < 0 -> 'neg' | x == 0 -> 'zero' | otherwise -> 'pos'
-\case Left e -> e; Right v -> v
-data P = P { px, py :: Double }; norm P{..} = px + py
-curry3 f = \(a, b, c) -> f a b c
-map (, True) xs
-f !x = x + 1
-$(deriveJSON defaultOptions ''Person)
-[qq| raw string here |]
+lookup' :: Maybe Int
+lookup' = Just 7

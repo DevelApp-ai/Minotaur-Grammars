@@ -5,7 +5,7 @@
   "DisplayName": "Lua",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "Minotaur grammar for Lua covering the core language subset.",
+  "Description": "Lua 5.4 grammar for the Minotaur parser platform: full statement set incl. goto/labels/break, <close>/<const> attributes, varargs, long strings/comments, method and string/table calls, integer division and bitwise operators. Full lexing surface engine-verified via Conformance.txt.",
   "License": "MIT",
   "Tags": [
     "programming-languages"

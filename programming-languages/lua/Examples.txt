@@ -1,14 +1,82 @@
-local t = { x = 1, y = 2 }
-for k, v in pairs(t) do
-  print(k, v)
+-- Lua 5.4 example corpus for Lua.grammar (lex conformance pin via lexfile:).
+local pi = 3.14159
+local hex = 0xFF
+local hexfloat = 0x1p4
+local big = 1e10
+local neg = -2.5e-3
+local dot = .5
+
+local greeting = "hello"
+local single = 'world'
+local esc = "tab\t newline\n quote\" x\x41"
+local long = [[long
+string]]
+local leveled = [==[has ] inside]==]
+
+-- a line comment
+--[[ a long
+   comment ]]
+--[==[ leveled
+comment ]==]
+
+local t = { 1, 2, 3, name = "n", [10] = "ten" }
+local x = t[1] + t.name:len()
+
+local function add(a, b, ...)
+    local rest = {...}
+    return a + b + #rest
 end
 
-# --- Coverage completion constructs ---
+function obj:method(arg)
+    return self.name .. arg
+end
 
-local a, b, c = 1, 2
-local x, y = f()
-return 1, 2, 3
-local n = select('#', ...)
-goto skip ::skip:: print('here')
-local s = "line\nbreak\ttab\"quote\""
---[==[ long comment ]==]
+local s = add(1, 2, 3, 4)
+print(s)
+print("method call:", obj:method("!"))
+print("string call:", ("abc"):upper())
+print("table call:", require { "x" })
+
+if x > 0 and not false then
+    print("pos")
+elseif x == 0 or x ~= 1 then
+    print("zero-ish")
+else
+    print("neg")
+end
+
+while x < 10 do
+    x = x + 1
+end
+
+for i = 1, 10, 2 do
+    print(i)
+end
+
+for k, v in pairs(t) do
+    print(k, v)
+end
+
+repeat
+    x = x - 1
+until x <= 0
+
+do
+    local y = x // 2
+    print(y)
+end
+
+local bits = 0xF0 & 0x0F | 0x01 ~ 0xFF
+local shifted = 1 << 4 >> 2
+
+goto done
+::done::
+
+local f = function(a) return a * 2 end
+print(f(21))
+
+local co = coroutine.create(function() coroutine.yield(1) end)
+local ok, v = coroutine.resume(co)
+print(ok, v)
+
+return x

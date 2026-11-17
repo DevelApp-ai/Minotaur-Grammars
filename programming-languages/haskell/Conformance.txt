@@ -1,15 +1,40 @@
-# Conformance cases for Haskell.grammar - engine-verified lexing pin.
-# Run by the ENFAStepLexer-StepParser integration suite in
-# GreedyLongestMatch mode (engine issues #129/#133); grammar-repository-tests
-# job runs this in engine CI as well.
+# Conformance cases for Haskell.grammar - engine-verified lexing pin (Haskell 2010 + LambdaCase/MultiWayIf surface: symop class, primes, hex/oct, {- -} and -- comments, pragmas).
+# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
+# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
+# engine CI as well.
 grammar: Haskell.grammar
 
-lex: add :: Int -> Int -> Int
-lex: add x y = x + y
-lex: main :: IO ()
-lex: main = do
-lex: let z = add 1 2
-lex: print z
+lex: module Main where
+lex: import Data.List (sort, nub)
+lex: import qualified Data.Map as Map
+lex: import Data.Maybe hiding (maybe)
+lex: data Shape = Circle Double | Rect Double Double deriving (Eq, Show)
+lex: data Point = Point { x :: Int, y :: Int } deriving Show
+lex: newtype UserId = UserId Int deriving (Show)
+lex: type Pair a = (a, a)
+lex: class (Eq a) => Named a where name :: a -> String
+lex: instance Named Int where name n = show n
+lex: answer :: Int
+lex: answer = 42
+lex: f x | x > 0 = x\n  | otherwise = -x
+lex: main = do\n  let xs = [1..10]\n  print xs
+lex: xs = [x * 2 | x <- [1..10], even x]
+lex: lambda = \\x y -> x + y
+lex: lcase = \\case\n  Just v -> v\n  Nothing -> 0
+lex: if' x = if x > 0 then x else -x
+lex: mw x = if | x > 0 -> "pos"\n         | otherwise -> "neg"
+lex: s = "str" ++ 'c' : []
+lex: n = 0xFF + 0o17 + 1e-3 + 42
+lex: sec = (+1)
+lex: rng = [1..10]
+lex: rec = Circle { radius = 2.5 }
+lex: infixr 5 .++
+lex: a = f x y . g z
+lex: op = x <$> y <*> z >>= w
 
-# Whole real corpus file as a lex case (raw content).
+# Inputs that must be rejected by the token rules (LX1001).
+fail: €
+fail: §
+
+# Whole example corpus as a lex case (raw content).
 lexfile: Examples.txt

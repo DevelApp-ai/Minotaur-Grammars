@@ -1,6 +1,6 @@
 # Lua
 
-Minotaur grammar for Lua, covering the core language subset.
+Minotaur grammar for Lua 5.4 (full statement set incl. goto/labels, attributes, varargs, long strings); lexing surface engine-verified (Conformance.txt + Examples.txt pin, GreedyLongestMatch).
 
 ## Syntax sketch
 

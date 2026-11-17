@@ -44,13 +44,13 @@ productions for X's defining features.
 | Erlang | `Erlang` | Erlang/OTP 17+ | maps (`#{}`), bit syntax |
 | F# | `FSharp` | F# core (version not pinned) | records, unions, object expressions — needs pinning (follow-up) |
 | Go | `Go119` | Go 1.18–1.19 | full surface engine-verified (Conformance.txt: generics + `~` constraints, type aliases, all literals incl. raw strings/imaginary, all statement forms); named for 1.19 |
-| Haskell | `Haskell` | GHC 7.6+ | `MultiWayIf`, `LambdaCase` |
+| Haskell | `Haskell` | Haskell 2010 + MultiWayIf/LambdaCase (GHC 7.6+ evidence) | `MultiWayIf`, `LambdaCase`; full lexing surface engine-verified (symop class, hex/octal, `{- -}`/`--` comments, pragmas; Conformance.txt + Examples.txt) |
 | **Java (legacy)** | `Java` | **Java ≤ 7 — legacy, superseded** | **no lambdas / method refs (pre-8)**; use `Java17` |
 | Java | `Java17` | Java 8–17 | named; records, sealed, `var`; full lexing surface engine-verified (text blocks, suffixed literals, Conformance.txt + Examples.txt) |
 | JavaScript (legacy) | `JavaScript` | ES2015+ (embedded-HTML profile) | classes, arrows, template strings (ES6) |
 | JavaScript | `JavaScriptES2022` | ES2022 | named; full ES2022 spec coverage; full lexing surface engine-verified (templates, bigint, Conformance.txt + Examples.txt) |
 | Kotlin | `Kotlin` | Kotlin 1.9+ (subset) | `data object` (1.9) |
-| Lua | `Lua` | Lua 5.2–5.4 | `goto`/labels (5.2), attributes (5.4) |
+| Lua | `Lua` | Lua 5.4 | `goto`/labels (5.2), integer div + bitwise (5.3), `<close>` attributes (5.4); full lexing surface engine-verified (long strings/comments, hex floats, `//`, varargs; Conformance.txt + Examples.txt) |
 | Perl | `Perl` | Perl 5.36+ (subset) | subroutine signatures |
 | PHP | `PHP` | PHP 8.2 (subset) | `readonly` class (8.2), enums (8.1), `match` (8.0) |
 | Python | `Python311` | Python 3.11 | named; match, `except*`, `type` statement; full lexing surface engine-verified (prefixed/triple strings, all number forms, Conformance.txt + Examples.txt) |
