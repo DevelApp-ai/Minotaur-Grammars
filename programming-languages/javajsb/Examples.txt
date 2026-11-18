@@ -106,3 +106,19 @@ public class WorkflowDefinition
 
     }
 }
+
+/**
+ * RawPart: raw schema referenced through a json pointer
+ */
+class RawPart
+{
+    @JsonProperty("street")
+    private String street;
+    public String getStreet() {
+        return street;
+    }
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+}

@@ -28,9 +28,17 @@ Keywords: package, import, public, private, static, final, class, enum, void, re
 <long_kw(priority:10)> ::= 'Long'
 <object_kw(priority:10)> ::= 'Object'
 
-<compilation_unit> ::= <package_decl> <import_block> <class_decl>
+<compilation_unit> ::= <package_decl> <import_block> <top_class_seq>
 <package_decl> ::= 'package' <package_name> ';'
 <package_name> ::= <identifier> | <qualified_name>
+
+<top_class_seq> ::= <top_class_seq> <class_decl>
+<top_class_seq> ::= <class_decl>
+<top_class_seq> ::= <top_class_seq> <raw_class_decl>
+<top_class_seq> ::= <raw_class_decl>
+
+<raw_class_decl> ::= 'class' <identifier> '{' <class_item_seq> '}'
+<raw_class_decl> ::= 'class' <identifier> '{' '}'
 
 <class_decl> ::= 'public' 'class' <identifier> '{' <class_item_seq> '}'
 <class_decl> ::= 'public' 'class' <identifier> '{' '}'

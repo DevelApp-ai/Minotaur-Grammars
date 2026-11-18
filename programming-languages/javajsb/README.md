@@ -3,8 +3,8 @@
 Minotaur grammar for the Java dialect emitted by the
 JsonSchemaBuilder (jsb) generator, hand-authored for the
 ENFAStepLexer-StepParser engine and validated against the jsb Java
-corpus (`JsonSchemaBuilder.Test/Java/{Default,Funny/Onion}`, 21
-files), all passing with contiguous byte coverage under
+corpus (`JsonSchemaBuilder.Test/Java/{Default,Funny/Onion}`, 22
+files, regenerated 2026-11 after jsb PRs #36/#37-#40 merged), all passing with contiguous byte coverage under
 `LexingMode.GreedyLongestMatch`.
 
 ## Why a new grammar
@@ -31,8 +31,13 @@ Java grammar.
 - The import block: one or more `import <qualified>;` lines, absorbed
   as ONE token (the jsb prologue is 10 fixed imports; probes with 1-3
   imports pass). Import contents are not restricted to the jsb set.
-- Exactly one `public class <Name> { ... }` per file, with doc
-  comments as skip tokens (single or doubled, both occur in the corpus)
+- One or two top-level classes per file: the `public class <Name>`
+  plus an optional package-private companion `class <Name> { ... }`
+  (jsb raw allOf subschemas, e.g. `JsonPointerRef.java`); handled by
+  a `top_class_seq` merge that is deliberately TOP-LEVEL-ONLY (`class_item`
+  does not reach it - a bare-class rule reachable from member context
+  forks rhs-position-0 zombie paths and evicts the correct parse)
+- Doc comments as skip tokens (single or doubled, both occur in the corpus)
 - Class items in any order and count: members, `public static class`
   nested classes (corpus depth 2, probes to depth 3 pass), `public
   enum` string-value enums
