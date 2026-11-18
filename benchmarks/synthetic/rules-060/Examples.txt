@@ -1,0 +1,2 @@
+# Synthetic example for rules-060.grammar (#192).
+kw0 kw15 kw30 kw45 some words here

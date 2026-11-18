@@ -1,0 +1,26 @@
+{
+  "Id": "develapp.syslog",
+  "Name": "Syslog",
+  "Vendor": "DevelApp",
+  "DisplayName": "Syslog",
+  "Version": "2.0.0",
+  "MinotaurVersion": "*",
+  "Description": "Syslog line format (RFC 5424 subset) grammar for benchmark corpora (issue #192). Full lexing surface engine-verified via Conformance.txt.",
+  "License": "MIT",
+  "Tags": [
+    "system-output",
+    "benchmark"
+  ],
+  "MainFile": "Syslog.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free",
+  "EngineVerified": true,
+  "EngineVerifiedBy": "ENFAStepLexer-StepParser@48b9a9baaded (grammar-repository-tests, GreedyLongestMatch)"
+}

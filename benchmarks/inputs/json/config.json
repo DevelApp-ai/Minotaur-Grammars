@@ -1,0 +1,57 @@
+{
+  "name": "benchmark-service",
+  "version": "1.4.2",
+  "server": {
+    "host": "0.0.0.0",
+    "port": 8080,
+    "workers": 8,
+    "tls": true,
+    "timeouts": {
+      "connect": 5,
+      "read": 30,
+      "write": 30
+    }
+  },
+  "database": {
+    "driver": "postgres",
+    "host": "db.internal",
+    "port": 5432,
+    "name": "bench",
+    "pool": {
+      "min": 2,
+      "max": 20
+    }
+  },
+  "cache": {
+    "enabled": true,
+    "ttl": 300,
+    "hosts": [
+      "10.0.0.2",
+      "10.0.0.3"
+    ]
+  },
+  "logging": {
+    "level": "info",
+    "format": "json",
+    "outputs": [
+      "stdout",
+      "file"
+    ],
+    "file": "/var/log/app.log"
+  },
+  "features": {
+    "newParser": true,
+    "batching": false,
+    "metrics": true
+  },
+  "tags": [
+    "benchmark",
+    "corpus",
+    "json"
+  ],
+  "limits": {
+    "rps": 10000,
+    "burst": 500,
+    "bodyBytes": 1048576
+  }
+}

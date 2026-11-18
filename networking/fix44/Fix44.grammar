@@ -1,0 +1,15 @@
+Grammar: Fix44
+FormatType: EBNF
+
+/*
+ * FIX 4.2/4.4 message subset for benchmark corpora (Minotaur-Grammars #192).
+ * A message is a sequence of tag=value fields separated by SOH (0x01):
+ *   8=FIX.4.4<SOH>9=65<SOH>35=D<SOH>55=AAPL<SOH>54=1<SOH>38=100<SOH>10=123<SOH>
+ * Covers the common session/application tags used in benchmark traffic.
+ */
+
+<message> ::= <field>+ ;
+<field> ::= <tag> '=' <value> <soh> ;
+<tag> ::= /[0-9]+/ ;
+<value> ::= /[^\x01\n]+/ ;
+<soh> ::= /\x01/ ;

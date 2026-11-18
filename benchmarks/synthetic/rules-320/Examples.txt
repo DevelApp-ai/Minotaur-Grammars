@@ -1,0 +1,2 @@
+# Synthetic example for rules-320.grammar (#192).
+kw0 kw80 kw160 kw240 some words here

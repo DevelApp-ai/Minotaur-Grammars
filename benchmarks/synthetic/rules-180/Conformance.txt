@@ -1,0 +1,9 @@
+# Conformance cases for rules-180.grammar - synthetic benchmark grammar (#192).
+# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch mode.
+grammar: rules-180.grammar
+
+lex: kw0 kw22 kw44 kw66 kw88 kw110 kw132 kw154 kw176
+lex: hello kw1 world
+
+# Inputs that must be rejected by the token rules (LX1001).
+fail: \u20ac
