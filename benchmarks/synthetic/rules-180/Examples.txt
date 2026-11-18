@@ -1,0 +1,2 @@
+# Synthetic example for rules-180.grammar (#192).
+kw0 kw45 kw90 kw135 some words here

@@ -1,0 +1,4 @@
+# Syslog sample lines (benchmarks corpus, #192).
+Oct 10 13:55:36 myhost myapp[123]: connection from 10.0.0.8 accepted
+Oct 10 13:55:37 myhost sshd[991]: Accepted publickey for alice from 192.168.1.20 port 51234 ssh2
+Oct 11 08:01:12 web01 nginx[2311]: 10.0.0.8 - - "GET /index.html HTTP/1.1" 200 612

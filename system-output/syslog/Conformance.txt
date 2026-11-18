@@ -1,0 +1,13 @@
+# Conformance cases for Syslog.grammar - engine-verified lexing pin (benchmarks corpus, issue #192).
+# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
+# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
+# engine CI as well.
+grammar: Syslog.grammar
+
+lex: Oct 10 13:55:36 myhost myapp[123]: connection from 10.0.0.8 accepted
+lex: Oct 11 08:01:12 web01 nginx[2311]: 10.0.0.8 - - "GET /index.html HTTP/1.1" 200 612
+lex: Jan  1 00:00:00 gw kernel: interface eth0 up
+
+
+# Whole example corpus as a lex case (raw content).
+lexfile: Examples.txt

@@ -1,0 +1,18 @@
+Grammar: Syslog
+FormatType: EBNF
+
+/*
+ * Syslog line format (RFC 5424 subset, traditional priority form) for
+ * benchmark corpora (#192):
+ *   Oct 10 13:55:36 myhost myapp[123]: message text here
+ */
+
+<line> ::= <month> <day> <time> <host> <app> <msg> ;
+<month> ::= /Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec/ ;
+<day> ::= /[0-9]{1,2}/ ;
+<time> ::= /[0-9]{2}:[0-9]{2}:[0-9]{2}/ ;
+<host> ::= /[a-zA-Z0-9._-]+/ ;
+<app> ::= /[a-zA-Z0-9._\x2F-]+/ ;
+<pid> ::= /\[[0-9]+\]/ ;
+<msg> ::= /[^\n]+/ ;
+<ws> ::= /[ \t\r\n]+/ => { skip } ;

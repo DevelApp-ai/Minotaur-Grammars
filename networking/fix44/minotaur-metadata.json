@@ -1,0 +1,26 @@
+{
+  "Id": "develapp.fix44",
+  "Name": "Fix44",
+  "Vendor": "DevelApp",
+  "DisplayName": "Fix44",
+  "Version": "2.0.0",
+  "MinotaurVersion": "*",
+  "Description": "FIX 4.2/4.4 message subset (SOH-delimited tag=value fields) for benchmark corpora (issue #192). Full lexing surface engine-verified via Conformance.txt.",
+  "License": "MIT",
+  "Tags": [
+    "networking",
+    "benchmark"
+  ],
+  "MainFile": "Fix44.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free",
+  "EngineVerified": true,
+  "EngineVerifiedBy": "ENFAStepLexer-StepParser@48b9a9baaded (grammar-repository-tests, GreedyLongestMatch)"
+}
