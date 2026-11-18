@@ -10,6 +10,7 @@
 	"$comment" : "Generated with JsonSchemaBuilder",
 	"examples" : [],
 	"enum" : [],
+	"default" : "plainDefault",
 	"type" : "object",
 	"additionalProperties" : false,
 	"properties" : {

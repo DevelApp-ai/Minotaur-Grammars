@@ -12,6 +12,7 @@ Grammar: JSONSchemaDraft7
 <comment_kw(priority:10)> ::= /"\$comment"/
 <examples_kw(priority:10)> ::= /"examples"/
 <enum_kw(priority:10)> ::= /"enum"/
+<default_kw(priority:10)> ::= /"default"/
 <type_kw(priority:10)> ::= /"type"/
 <format_kw(priority:10)> ::= /"format"/
 <maxlength_kw(priority:10)> ::= /"maxLength"/
@@ -50,6 +51,7 @@ Grammar: JSONSchemaDraft7
 <member> ::= <enum_kw> ':' '[' <json_string> ']'
 <member> ::= <enum_kw> ':' '[' <json_string> ',' <json_string> ']'
 <member> ::= <enum_kw> ':' '[' <json_string> ',' <json_string> ',' <json_string> ']'
+<member> ::= <default_kw> ':' <json_string>
 <member> ::= <type_kw> ':' <type_value>
 <member> ::= <format_kw> ':' <format_value>
 <member> ::= <maxlength_kw> ':' <int_literal>

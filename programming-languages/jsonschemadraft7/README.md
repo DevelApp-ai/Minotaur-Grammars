@@ -2,7 +2,7 @@
 
 Minotaur grammar for JSON Schema draft-07, hand-authored for the
 ENFAStepLexer-StepParser engine and validated against machine-generated
-schemas: the JsonSchemaBuilder (jsb) corpus (21 files: `Default/` +
+schemas: the JsonSchemaBuilder (jsb) corpus (22 files: `Default/` +
 `Funny/Onion/`), all passing with contiguous byte coverage under
 `LexingMode.GreedyLongestMatch`.
 
@@ -25,7 +25,8 @@ for validating jsb output; it is NOT a general-purpose draft-07 grammar.
 
 - Draft-07 document: single root object schema (`$schema`, `$id`, ...)
 - Keyword members: `title`, `description`, `$comment`, `examples` (`[]`),
-  `enum` (0-3 string items), `type`, `format`, `maxLength`/`minLength`
+  `enum` (0-3 string items), `default` (string value, emitted by jsb
+  since PR #40), `type`, `format`, `maxLength`/`minLength`
   (integers), `pattern`, `items` (single object schema),
   `additionalProperties: false`, `$ref`, `required` (0-7 string items)
 - `properties`/`definitions` maps with 1-9 entries; entries accept any

@@ -41,5 +41,9 @@ fail: 3.5
 fail: €
 fail: `
 
+# New 2026-11 corpus construct: root-level "default" (jsb PR #40) must lex
+# as the default member keyword, not LX1001.
+lex: "default" : "plainDefault",
+
 # Whole example corpus as a lex case (raw content; '#' lines are comments).
 lexfile: Examples.txt
