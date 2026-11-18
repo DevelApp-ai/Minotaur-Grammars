@@ -8,7 +8,8 @@ main file; `Labyrinth.extension` is an optional overlay.
 ## Scope (inclusion)
 
 Exactly the shapes the jsb corpus (`JsonSchemaBuilder.Test/VB/{Default,Funny/Onion}`,
-21 files) emits:
+22 files, regenerated 2026-11 after jsb PRs #36/#37-#40
+merged) emits:
 
 - Fixed five-line `Imports` block, absorbed as ONE greedy `imports_block` token
   (issue #223 finding 7, like php85's `<?php` and CSharp14's using block).
@@ -65,7 +66,7 @@ CSharp14/JSONSchemaDraft7/TypeScriptJsb/JavaJsb findings:
    combining a 3-value enum + a nested class + a converter annotation + an
    initializer member in ONE class can exceed the 10-active-path budget:
    reduction-inflated skip-prefix paths (resting depth-1 paths that skip the
-   prologue, then shift mid-file) crowd out the correct parse. All 21 corpus
+   prologue, then shift mid-file) crowd out the correct parse. All 22 corpus
    files and all realistic stress probes stay well under the budget; the
   limitation only bites when every fork-heavy construct is stacked in one
   class.
@@ -76,7 +77,7 @@ CSharp14/JSONSchemaDraft7/TypeScriptJsb/JavaJsb findings:
 
 ## Validation (DevelApp.StepParser 1.75.0, GreedyLongestMatch)
 
-- jsb corpus: **21/21 PASS** with the honest harness (winning path consumed
+- jsb corpus: **22/22 PASS** with the honest harness (winning path consumed
   the full token stream contiguously).
 - Stress probes PASS beyond corpus maxima: 12 members with all type and
   initializer shapes, 3-level class nesting, 4-value enum.

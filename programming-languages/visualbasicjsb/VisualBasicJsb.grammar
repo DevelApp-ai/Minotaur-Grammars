@@ -23,8 +23,11 @@ Keywords: Imports, Namespace, End, Partial, Public, Class, Property, Enum
 <enum_kw(priority:10)> ::= 'Enum'
 
 <compilation_unit> ::= <imports_block> <namespace_decl>
-<namespace_decl> ::= 'Namespace' <ns_name> <class_decl> 'End' 'Namespace'
+<namespace_decl> ::= 'Namespace' <ns_name> <class_seq> 'End' 'Namespace'
 <ns_name> ::= <bracketed_name> | <qualified_name>
+
+<class_seq> ::= <class_seq> <class_decl>
+<class_seq> ::= <class_decl>
 
 <class_decl> ::= 'Partial' 'Public' 'Class' <identifier> <class_item_seq> 'End' 'Class'
 <class_decl> ::= 'Partial' 'Public' 'Class' <identifier> 'End' 'Class'

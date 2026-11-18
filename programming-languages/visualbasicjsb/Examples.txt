@@ -58,4 +58,19 @@ Namespace [Default]
         Public Property Tags As List(Of List(Of String)) = New List(Of List(Of String))()
 
     End Class
+
+    ''' <summary>
+    ''' RawPart: raw schema referenced through a json pointer
+    ''' </summary>
+    Partial Public Class RawPart
+        <JsonProperty("street")>
+        Public Property Street As String
+
+        ''' <summary>
+        ''' Labels: free-form labels
+        ''' </summary>
+        <JsonProperty("labels")>
+        Public Property Labels As List(Of String) = New List(Of String)()
+
+    End Class
 End Namespace
