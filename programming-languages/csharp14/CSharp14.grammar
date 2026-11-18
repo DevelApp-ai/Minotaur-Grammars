@@ -66,7 +66,7 @@ Keywords: namespace, public, partial, class, enum, get, set, new, string, bool, 
 <type_ref> ::= <list_type>
 <simple_type> ::= 'string' | 'bool' | 'object' | 'long'
 <list_type> ::= 'List' '<' <type_arg> '>'
-<type_arg> ::= 'long' | <identifier> | <list_type>
+<type_arg> ::= 'long' | 'string' | 'bool' | 'object' | <identifier> | <list_type>
 
 <init_expr> ::= 'new' <list_type> '(' ')'
 <init_expr> ::= 'new' <identifier> '(' ')'

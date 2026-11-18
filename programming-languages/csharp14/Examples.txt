@@ -47,4 +47,22 @@ namespace Examples.Models
         [JsonProperty("created")]
         public DateTime? Created { get; set; } = DateTime.Parse("2026-11-17T10:00:00+00:00");
     }
+
+    /// <summary>
+    /// RawPart: raw schema referenced through a json pointer
+    /// </summary>
+    public partial class RawPart
+    {
+        /// <summary>
+        /// Street: the street
+        /// </summary>
+        [JsonProperty("street")]
+        public string Street { get; set; }
+
+        /// <summary>
+        /// Labels: free-form string labels
+        /// </summary>
+        [JsonProperty("labels")]
+        public List<string> Labels { get; set; } = new List<string>();
+    }
 }

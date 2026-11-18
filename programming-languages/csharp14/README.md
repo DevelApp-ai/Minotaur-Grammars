@@ -2,13 +2,14 @@
 
 Minotaur grammar for C# 14, hand-authored for the ENFAStepLexer-StepParser
 engine and validated against machine-generated C#: the JsonSchemaBuilder
-(jsb) C# generator corpus (63 files: `CSharp/`, `CSharpEntities/` and
+(jsb) C# generator corpus (66 files: `CSharp/`, `CSharpEntities/` and
 `CSharpSystemTextJson/` variants, `Default/` + `Funny/Onion/` each), all
 passing with contiguous byte coverage under `LexingMode.GreedyLongestMatch`.
 
 ## Why a new grammar
 
-The existing `CSharp10.grammar` fails the entire jsb C# corpus (0/63:
+The existing `CSharp10.grammar` fails the entire jsb C# corpus (0/63 at authoring time,
+structurally unchanged by the 2026-11 corpus regeneration; now 66 files::
 parse errors around the third `using` directive and GLR budget exhaustion
 on multi-member class bodies; see issue #220). This grammar accepts the
 language shapes jsb actually emits and rejects everything else. It is the
@@ -36,7 +37,9 @@ The grammar is a **disciplined subset**, not full C# 14.
 - Attributes with one or two comma-separated items, including
   `[JsonProperty("..."), JsonConverter(typeof(X))]`
 - Types: `string`, `bool`, `object`, `long` (optional `?`), identifiers,
-  `List<T>` including `List<List<T>>`, `List<long>`, `List<X>`
+  `List<T>` including `List<List<T>>`, `List<long>`, `List<X>`; type
+  arguments also accept the keyword types (corpus: `List<string>`,
+  `List<bool>`, `List<object>`)
 
 ### Excluded (documented, by design)
 
@@ -89,7 +92,8 @@ The grammar is a **disciplined subset**, not full C# 14.
 
 ## Validation
 
-- jsb corpus: 63/63 files PASS (three C# output variants, 21 files each).
+- jsb corpus: 66/66 files PASS (three C# output variants, 22 files
+each, regenerated 2026-11 after jsb PRs #36/#37-#40 merged).
 - Negative controls: methods, private fields, malformed usings and
   expression-bodied properties are rejected (FAIL by design).
 - `Examples.txt` parses PASS under this grammar.

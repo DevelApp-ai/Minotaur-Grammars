@@ -12,9 +12,10 @@ lex: public enum OrderState\n{\nDraft,\nPlaced,\nShipped\n}\n
 
 # Members: attributes (single and two-item), properties with nullable types,
 # List<T> generics and the inlined property initializers.
-lex: /// <summary>
-lex: /// Example: a generated schema definition class
-lex: /// </summary>
+# Doc comments are skip-only tokens: per finding 15 a lex pin must also
+# carry a real token, so the comment pins include the member head after
+# the docblock.
+lex: /// <summary>\n[JsonProperty("myTopPartString")]
 lex: [JsonProperty("myTopPartString")]
 lex: [JsonProperty("myTopPartString"), JsonConverter(typeof(StringEnumConverter))]
 lex: public DateTime? MyTopPartTime { get; set; } = DateTime.Parse("15:30:48.7650000+00:00");
@@ -30,6 +31,9 @@ lex: public object Payload { get; set; }
 fail: `
 fail: x = 42;
 fail: €
+
+# New 2026-11 corpus constructs (jsb regeneration after PRs #36/#37-#40).
+lex: public List<string> Labels { get; set; } = new List<string>();
 
 # Whole example corpus as a lex case (raw content; '#' lines are comments).
 lexfile: Examples.txt
