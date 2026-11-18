@@ -3,8 +3,9 @@
 Minotaur grammar for the TypeScript dialect emitted by the
 JsonSchemaBuilder (jsb) generator, hand-authored for the
 ENFAStepLexer-StepParser engine and validated against the jsb TypeScript
-corpus (`JsonSchemaBuilder.Test/TypeScript/{Default,Funny/Onion}`, 21
-files), all passing with contiguous byte coverage under
+corpus (`JsonSchemaBuilder.Test/TypeScript/{Default,Funny/Onion}`, 22
+files, regenerated 2026-11 after jsb PRs #36/#37-#40 merged; the
+TypeScriptJsb grammar parses it unchanged), all passing with contiguous byte coverage under
 `LexingMode.GreedyLongestMatch`.
 
 ## Why a new grammar
