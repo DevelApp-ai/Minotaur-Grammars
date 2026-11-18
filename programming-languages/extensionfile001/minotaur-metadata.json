@@ -11,7 +11,7 @@
     "programming-language",
     "minotaur"
   ],
-  "MainFile": "ExtensionFile.grammar",
+  "MainFile": "ExtensionFile001.grammar",
   "Dependencies": [],
   "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
   "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
