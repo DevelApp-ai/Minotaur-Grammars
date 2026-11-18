@@ -30,3 +30,27 @@ enum ExampleEnum: string
     case Alpha = 'Alpha';
     case Beta = 'Beta';
 }
+
+/**
+ * ExtraOne: companion raw schema
+ */
+class ExtraOne
+{
+    public string $street;
+}
+
+/**
+ * ExtraTwo: companion raw schema
+ */
+class ExtraTwo
+{
+    public ?string $city;
+}
+
+/**
+ * ExtraThree: companion raw schema
+ */
+class ExtraThree
+{
+    public ?array $tags;
+}

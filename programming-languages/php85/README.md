@@ -2,8 +2,8 @@
 
 Minotaur grammar for PHP 8.5, hand-authored for the ENFAStepLexer-StepParser
 engine and validated against machine-generated PHP: the JsonSchemaBuilder
-(jsb) PHP generator corpus (21 files: `Default/` + `Funny/Onion/`), all
-passing with contiguous byte coverage under `LexingMode.GreedyLongestMatch`.
+(jsb) PHP generator corpus (22 files: `Default/` + `Funny/Onion/`,
+regenerated 2026-11 after jsb PRs #36/#37-#40 merged), all passing with contiguous byte coverage under `LexingMode.GreedyLongestMatch`.
 
 ## Why a new grammar
 
@@ -65,8 +65,13 @@ upstream engine findings worth fixing in ENFAStepLexer-StepParser:
 1. **Left-recursive lists** (`seq ::= seq item | item`) fold correctly;
    CEBNF `*`/`+` generate right-recursive helpers that never fold
    left-to-right lists, so counts are enumerated instead.
-2. **Root rules only reduce at end of input**, so `<script>` enumerates
-   `open_tag` + 0..6 `top_statement`s instead of using a list.
+2. **Root sequence**: `<script> ::= <open_tag> <top_statement_seq>`
+   with the separator-free binary merge `seq ::= seq seq | seq_item`
+   (corpus max 8 top statements: `declare` + `namespace` + 5 top-level
+   classes in `JsonPointerRef.php`). An enumerated `open_tag + 0..N
+   top_statement` root died at 7+ statements, and a LINEAR merge
+   `seq ::= seq item` also evicts the correct path at 8 statements;
+   the binary merge folds correctly within the 10-path budget.
 3. **Path budget (10)**: the parser keeps 10 GLR paths, pruned by
    (TokenPosition, Score). Ambiguous rule families spawn junk
    interpretations that can evict the correct path on long inputs. Rules
