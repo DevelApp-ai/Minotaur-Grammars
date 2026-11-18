@@ -1,0 +1,39 @@
+# Conformance cases for VisualBasicJsb.grammar (issue #220, VB row).
+#
+# Each lex: input must lex to completion with at least one real token
+# (skip-only inputs are rejected by the conformance harness). Each fail:
+# input must be rejected by the token rules (LX1001: no token rule matches
+# at some position). Escapes \n, \t and \\ are honoured in lex:/fail:.
+grammar: VisualBasicJsb.grammar
+
+# Prologue token layer.
+lex: Imports System\nImports Newtonsoft.Json\nImports DevelApp.JsonSchemaBuilder.DataTypes
+lex: Namespace [Default]
+lex: Namespace Funny.Onion
+lex: ''' doc comment\nPartial Public Class Thing
+lex: <JsonProperty("id")>
+lex: <JsonProperty("kind"), JsonConverter(GetType(StringEnumConverter))>
+
+# Declaration fragments (annotation + member + type forms).
+lex: <JsonProperty("id")>\nPublic Property Id As String
+lex: <JsonProperty("count")>\nPublic Property Count As Long?
+lex: <JsonProperty("when")>\nPublic Property When As Date?
+lex: <JsonProperty("blob")>\nPublic Property Blob As Object
+lex: <JsonProperty("items")>\nPublic Property Items As List(Of String) = New List(Of String)()
+lex: <JsonProperty("grid")>\nPublic Property Grid As List(Of List(Of Long)) = New List(Of List(Of Long))()
+lex: <JsonProperty("tag")>\nPublic Property Tag As DataString = New DataString("abc123")
+lex: <JsonProperty("mail")>\nPublic Property Mail As Email = New Email("riger@support.com")
+lex: <JsonProperty("at")>\nPublic Property At As Date? = DateTime.Parse("2015-05-16")
+lex: Partial Public Class Thing
+lex: Public Enum Kind\nAlpha\nBeta\nGamma\nEnd Enum
+lex: End Class\nEnd Namespace
+
+# A complete realistic file (must lex AND, per README, full-parse).
+lexfile: Examples.txt
+
+# Inputs that are not this VB dialect must be rejected by the token rules.
+fail: `backticks`
+fail: Public Property X As String = 3.5
+fail: Public Enum Kind\nAlpha = 1
+fail: Public Property X As String €
+fail: Sub DoWork()

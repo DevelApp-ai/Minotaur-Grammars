@@ -1,0 +1,61 @@
+Imports System
+Imports Newtonsoft.Json
+Imports Newtonsoft.Json.Converters
+Imports System.Collections.Generic
+Imports DevelApp.JsonSchemaBuilder.DataTypes
+
+Namespace [Default]
+    ''' <summary>
+    ''' PurchaseOrder: example purchase order definition
+    ''' </summary>
+    Partial Public Class PurchaseOrder
+        Public Enum Status
+            Draft
+            Submitted
+            Received
+        End Enum
+
+        ''' <summary>
+        ''' OrderNumber: the order number
+        ''' </summary>
+        <JsonProperty("orderNumber")>
+        Public Property OrderNumber As String
+
+        ''' <summary>
+        ''' OrderedAt: when the order was placed
+        ''' </summary>
+        <JsonProperty("orderedAt")>
+        Public Property OrderedAt As Date? = DateTime.Parse("2015-05-16")
+
+        ''' <summary>
+        ''' Line: definition of an order line
+        ''' </summary>
+        Partial Public Class Line
+            ''' <summary>
+            ''' Sku: the item sku
+            ''' </summary>
+            <JsonProperty("sku")>
+            Public Property Sku As String
+
+            ''' <summary>
+            ''' Quantity: how many units
+            ''' </summary>
+            <JsonProperty("quantity")>
+            Public Property Quantity As Long?
+
+        End Class
+
+        ''' <summary>
+        ''' Lines: lines of the order
+        ''' </summary>
+        <JsonProperty("lines")>
+        Public Property Lines As List(Of Line) = New List(Of Line)()
+
+        ''' <summary>
+        ''' Tags: free-form tags
+        ''' </summary>
+        <JsonProperty("tags")>
+        Public Property Tags As List(Of List(Of String)) = New List(Of List(Of String))()
+
+    End Class
+End Namespace

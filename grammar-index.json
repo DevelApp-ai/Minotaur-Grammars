@@ -26,6 +26,7 @@
     "sample.grammar": "programming-languages/sample/sample.grammar",
     "TypeScript.grammar": "programming-languages/typescript/TypeScript.grammar",
     "VisualBasic.grammar": "programming-languages/visualbasic/VisualBasic.grammar",
+    "VisualBasicJsb.grammar": "programming-languages/visualbasicjsb/VisualBasicJsb.grammar",
     "WebAssembly20.grammar": "programming-languages/webassembly20/WebAssembly20.grammar",
     "XAML.grammar": "programming-languages/xaml/XAML.grammar",
     "XML.grammar": "programming-languages/xml/XML.grammar",

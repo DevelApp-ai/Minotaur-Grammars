@@ -1,0 +1,27 @@
+{
+  "Id": "develapp.visualbasicjsb",
+  "Name": "VisualBasicJsb",
+  "Vendor": "DevelApp",
+  "DisplayName": "VisualBasicJsb",
+  "Version": "2.0.0",
+  "MinotaurVersion": "*",
+  "Description": "Visual Basic (jsb dialect) programming-language grammar for the Minotaur parser platform.",
+  "License": "MIT",
+  "Tags": [
+    "programming-language",
+    "minotaur"
+  ],
+  "MainFile": "VisualBasicJsb.grammar",
+  "LabyrinthExtension": true,
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free",
+  "EngineVerified": true,
+  "EngineVerifiedBy": "DevelApp.StepParser 1.75.0 (GreedyLongestMatch; jsb corpus harness, 21/21 files)"
+}
