@@ -1,0 +1,17 @@
+Attribute VB_Name = "Demo"
+Option Strict On
+
+Module Greeter
+    Sub Main()
+        Dim name As String = "world"
+        Dim msg As String = "Hello, " & name & "!"
+        Console.WriteLine(msg)
+        Dim n As Integer = 42
+        Dim h As Integer = &HFF
+        Dim d As Double = 1.5E+3
+        Dim dt As Date = #12/31/2024 10:30:00 AM#
+        If n > 0 AndAlso h <> 0 Then
+            Console.WriteLine("ok")
+        End If
+    End Sub
+End Module

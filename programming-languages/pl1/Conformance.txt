@@ -1,7 +1,18 @@
 # Conformance cases for PL1.grammar - engine-verified lexing pin.
 # Run by the ENFAStepLexer-StepParser integration suite in
-# GreedyLongestMatch mode (engine issues #129/#133); grammar-repository-tests
-# job runs this in engine CI as well.
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
 grammar: PL1.grammar
 
-lex: DCL X FIXED; X = 1;
+lex: DECLARE X FIXED BIN(31);
+lex: S = 'it''s';
+lex: X = 3.14 + 2.5E-2 - 42;
+lex: H = X'FF'; B = B'1010';
+lex: IF A <= B AND C /= D THEN CALL F;
+lex: DO I = 1 TO 10; END;
+lex: /* comment */ X = 1;
+lex: P->NEXT = NULL;
+lex: PUT SKIP LIST(A || B);
+lex: X = A ** 2 + B * C;
+
+lexfile: Examples.txt

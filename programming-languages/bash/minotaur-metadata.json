@@ -5,7 +5,7 @@
   "DisplayName": "Bash 5",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "Bash 5 grammar (POSIX shell superset) for the Minotaur parser platform: scripts, pipelines and lists, all compound commands, functions, here-documents, arrays, and the full expansion surface (authored for SBOB-Forge M5 Phase B).",
+  "Description": "Bash grammar with engine-verified lexer core (ws, # comments, sq/dq/ansi strings, $var/${...} expansions, base#n numbers, operators incl. redirections/heredocs).",
   "License": "MIT",
   "Tags": [
     "programming-language",

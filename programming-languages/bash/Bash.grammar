@@ -100,7 +100,6 @@ FormatType: EBNF
 <function-definition> ::= <function-name> <whitespace>? '(' <whitespace>? ')' <whitespace>? <function-body>
                        | 'function' <whitespace> <function-name> (<whitespace>? '(' <whitespace>? ')')? <whitespace>? <function-body>
 <function-name> ::= <identifier>
-<identifier> ::= /[_a-zA-Z][_a-zA-Z0-9]*/
 <function-body> ::= <compound-command> <redirection>*
 
 <coproc-command> ::= 'coproc' (<whitespace> <identifier>)? <whitespace>? <compound-command>
@@ -110,7 +109,8 @@ FormatType: EBNF
 <redirection> ::= <whitespace>? (<fd-number>? <redirection-operator> <whitespace>? <redirection-target> | <here-document>)
 <redirection-operator> ::= '<' | '>' | '>>' | '<&' | '>&' | '<>' | '>|' | '&>' | '&>>' | '<<<'
 <fd-number> ::= /[0-9]+/
-<redirection-target> ::= <word> | <fd-number> | '-'
+<redirection-target> ::= '-' ;
+<redirection-target> ::= <word> | <fd-number> ;
 
 <here-document> ::= ('<<' | '<<-') <heredoc-word> <newline> <heredoc-body>? <newline> <whitespace>? <heredoc-word>
 <heredoc-word> ::= /["'_a-zA-Z0-9]+/
@@ -128,7 +128,6 @@ FormatType: EBNF
 <single-quoted> ::= "'" /[^']*/ "'"
 <double-quoted> ::= '"' <dq-part>* '"'
 <dq-part> ::= /[^"`$\\]+/ | '\\' /./ | <expansion> | <ansi-c-quoted>
-<ansi-c-quoted> ::= '$\'' /([^'\\]|\\.)*/ '\''
 
 <expansion> ::= <parameter-expansion>
              | <command-substitution>
@@ -145,7 +144,8 @@ FormatType: EBNF
                          | '#' <braced-parameter-name>
                          | '!' <braced-parameter-name>
                          | <braced-parameter-name> '[' <word>? ']'
-<braced-parameter-name> ::= <identifier> | <special-parameter> | /[0-9]+/
+<braced-parameter-name> ::= /[0-9]+/ ;
+<braced-parameter-name> ::= <identifier> | <special-parameter> ;
 <parameter-operator> ::= ':'? ('-' | '=' | '?' | '+') <word>
                       | ':-' <word> | ':=' <word> | ':?' <word> | ':+' <word>
                       | '##' <pattern> | '#' <pattern> | '%%' <pattern> | '%' <pattern>
@@ -177,7 +177,9 @@ FormatType: EBNF
 <arithmetic-multiplicative> ::= <arithmetic-exponent> (<whitespace>? ('*' | '/' | '%') <whitespace>? <arithmetic-exponent>)*
 <arithmetic-exponent> ::= <arithmetic-unary> (<whitespace>? '**' <whitespace>? <arithmetic-unary>)*
 <arithmetic-unary> ::= ('+' | '-' | '!' | '~' | '++' | '--')? <arithmetic-unary> | <arithmetic-primary>
-<arithmetic-primary> ::= /[0-9]+/ | /[0-9]+#[0-9a-zA-Z]+/ | <simple-parameter-expansion> | <braced-parameter-expansion>
+<arithmetic-primary> ::= /[0-9]+/ ;
+<arithmetic-primary> ::= /[0-9]+#[0-9a-zA-Z]+/ ;
+<arithmetic-primary> ::= <simple-parameter-expansion> | <braced-parameter-expansion> ;
                       | <identifier> | '(' <whitespace>? <arithmetic-expression> <whitespace>? ')'
 
 # --- Declarations and misc builtins with syntax-relevant shapes ---
@@ -190,6 +192,20 @@ FormatType: EBNF
 
 # --- Whitespace, newlines, comments ---
 
-<whitespace> ::= /[ \t]+/
-<newline> ::= /\r?\n/
 <comment> ::= '#' /[^\n]*/
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   Bash: ws, # comments, sq/dq/ansi strings, $var/${...} expansions, base#n numbers, operators incl. redirections and heredocs. */
+<whitespace> ::= /[ \t\r\n]+/ => { skip }
+<newline> ::= /\r?\n/ => { skip }
+<hash-comment> ::= /#[^\n]*/ => { skip }
+<sq-string> ::= /'[^']*'/
+<dq-string> ::= /"([^"\\\n]|\\.)*"/
+<ansi-c-quoted> ::= /\x24'([^'\\]|\\.)*'/
+<variable> ::= /\$(\{[^}\n]*\}|[_a-zA-Z][_a-zA-Z0-9_]*|[0-9#?@$!*-])/
+<number> ::= /[0-9]+#[0-9a-zA-Z]+|[0-9]+/
+<identifier> ::= /[_a-zA-Z][_a-zA-Z0-9]*/
+<op> ::= /\|\||\x2F|<<<|<<-|\|&|<<|>>|>&|&>|&&|;&|;;|\||\(|\)|\{|\}|\+|\*|\$|;|&|>|<|!|-|%|=|~|,|:/

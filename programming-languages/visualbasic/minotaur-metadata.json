@@ -5,7 +5,7 @@
   "DisplayName": "VisualBasic",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "Visual Basic (.NET) grammar for the Minotaur parser platform (authored for issue #8).",
+  "Description": "Visual Basic grammar with engine-verified lexer core (ws, apostrophe comments, doubled-quote strings, &H/&O/decimal + type suffixes, #date#, identifiers, operators).",
   "License": "MIT",
   "Tags": [
     "programming-language",

@@ -5,7 +5,7 @@
   "DisplayName": "PowerShell 7",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "PowerShell 7 grammar for the Minotaur parser platform: scripts, param blocks, functions, classes, enums, pipelines, redirection, command invocation with named parameters, and the full expression surface (authored for SBOB-Forge M5 Phase B).",
+  "Description": "PowerShell grammar with engine-verified lexer core (ws, # and lookahead-free <# #> comments, sq/dq/here-strings, variables, numbers with 0x and KB/MB/GB/TB suffixes, words, redirection operators).",
   "License": "MIT",
   "Tags": [
     "programming-language",

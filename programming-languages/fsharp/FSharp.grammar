@@ -160,19 +160,30 @@ FormatType: EBNF
 <parameter-list> ::= <simple-parameter> ("," <simple-parameter>)*
 <literal> ::= <bool-literal> | <int32-literal> | <float-literal> | <string-literal> | <char-literal> | <unit-literal> | <null-literal>
 <bool-literal> ::= "true" | "false"
-<int32-literal> ::= /-?[0-9]+/
-<float-literal> ::= /-?[0-9]+\.[0-9]+([eE][+-]?[0-9]+)?/
-<string-literal> ::= /@?"([^"\\]|\\.)*"/
-<char-literal> ::= /'([^'\\]|\\.)'/
 <unit-literal> ::= "()"
 <null-literal> ::= "null"
-<identifier> ::= /[_a-zA-Z][_a-zA-Z0-9']*/
 <dotted-name> ::= <identifier> ("." <identifier>)*
 <attributes> ::= <attribute-list> <newline>
-<whitespace> ::= /[ \t]+/
-<newline> ::= /\n|\r\n/
 
 /* Comments (issue #189) */
-<single-line-comment> ::= /\/\/[^\n]*/
-<fsharp-block-comment> ::= /\(\*([^*]|\*+[^\)])*\*+\)/
 <comment> ::= <single-line-comment> | <fsharp-block-comment>
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   F#: ws, // and (* *) comments, strings incl. verbatim and triple-quoted, chars, numbers, identifiers (with quote), operators. */
+<whitespace> ::= /[ \t\r\n]+/ => { skip }
+<newline> ::= /\r\n|\n/ => { skip }
+<single-line-comment> ::= /\x2F\x2F[^\n]*/ => { skip }
+<fsharp-block-comment> ::= /\x28([^*]|\*+[^*\x29])*\*+\x29/ => { skip }
+<string-literal> ::= /"""([^"]|"[^"]|""[^"])*"""/
+<string-literal> ::= /@"([^"]|"")*"/
+<interpolated-string> ::= /\$"([^"]|"")*"/
+<string-literal> ::= /"([^"\\\n]|\\.)*"/
+<char-literal> ::= /'[^'\n]'/
+<char-literal> ::= /'\x5C.'/
+<int32-literal> ::= /0[xX][0-9a-fA-F_]+|0[oO][0-7_]+|[0-9][0-9_]*[a-zA-Z]?/
+<float-literal> ::= /[0-9][0-9_]*\x2E[0-9_]*([eE][+-]?[0-9]+)?[fFmM]?/
+<identifier> ::= /[_a-zA-Z][_a-zA-Z0-9']*/
+<op> ::= /\.\.\.|\|\|>|\.\.|\|\||\x2F|\|>|<\||->|=>|::|:=|<-|@@|&&|<>|<=|>=|\^|\+|\*|\?|\.|\(|\)|\[|\]|\{|\}|\||@|-|%|=|<|>|:|,|;|&|!|~/

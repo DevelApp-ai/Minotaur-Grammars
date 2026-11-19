@@ -1,15 +1,21 @@
 # Conformance cases for PowerShell.grammar - engine-verified lexing pin.
 # Run by the ENFAStepLexer-StepParser integration suite in
-# GreedyLongestMatch mode (engine issues #129/#133); grammar-repository-tests
-# job runs this in engine CI as well.
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
 grammar: PowerShell.grammar
 
-lex: param(
-lex: [Parameter(Mandatory = $true)]
-lex: [string]$Name
-lex: )
-lex: function Get-Greeting {
-lex: param([string]$Name = 'World')
+lex: $x = 1; Get-ChildItem .
+lex: Write-Output "hello $name"
+lex: $s = 'it''s'
+lex: $hs = @"\nline1\nline2"@
+lex: <# block comment #> $y = 2
+lex: # line comment
+lex: $z = $x + 1; $PSVersionTable
+lex: Get-Process | Where-Object { $_.CPU -gt 10 } | Select-Object Name
+lex: cmd.exe 2>&1 | Out-File log.txt
+lex: $n = 0xFF; $big = 10GB; $k = 512kb
+lex: if ($a -eq $b) { "yes" } else { "no" }
+lex: foreach ($f in Get-ChildItem) { $f.Name }
+lex: $h = @'\nsingle line'@
 
-# Whole real corpus file as a lex case (raw content).
 lexfile: Examples.txt

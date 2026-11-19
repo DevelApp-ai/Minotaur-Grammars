@@ -1,0 +1,17 @@
+// sample F# module
+module Demo.Greeter
+
+let greet name =
+    let msg = $"Hello, {name}!"
+    printfn "%s" msg
+    msg.Length
+
+type Person = { Name: string; Age: int }
+
+let people = [ { Name = "ada"; Age = 36 }; { Name = "grace"; Age = 85 } ]
+
+let total = people |> List.sumBy (fun p -> p.Age)
+(* block comment
+   spanning lines *)
+let pi = 3.14159
+let flags = 0xFF

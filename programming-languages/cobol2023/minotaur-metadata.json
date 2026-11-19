@@ -5,7 +5,7 @@
   "DisplayName": "COBOL2023",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "COBOL2023 programming-language grammar for the Minotaur parser platform.",
+  "Description": "COBOL 2023 grammar with engine-verified lexer core (ws, *> line comments, sq/dq doubled-quote strings, level numbers, ints/decimals, picture strings, dashed identifiers, operators).",
   "License": "MIT",
   "Tags": [
     "programming-language",
