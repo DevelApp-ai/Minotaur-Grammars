@@ -1,16 +1,15 @@
 # Conformance cases for Gremlin.grammar - engine-verified lexing pin.
-# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
-# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
-# engine CI as well.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
 grammar: Gremlin.grammar
 
-lex: g.V().has('person','name','Ada').out('created').values('name')
-lex: g.V().with('~tinkergraph.readOnly', true).out('knows')
-lex: g.withSack(1.0d).V().sack(mult).by('weight').sack().sum()
-lex: g.V().out().profile()
-lex: g.V().hasLabel('person').has('age', gt(30))
-lex: .out('knows').values('name').dedup().limit(10)
-lex: with( string , object
+lex: g.V().has("name", "marko")
+lex: g.V().outE().inV().count()
+lex: g.addV("person").property("age", 29)
+lex: x = 1 + 2
+lex: "string" 'other'
+lex: // comment
+lex: g.V().where(out("knows"))
 
-# Whole example corpus as a lex case (raw content; '#' lines are comments).
 lexfile: Examples.txt

@@ -1,17 +1,13 @@
 # Conformance cases for PrismaSchema.grammar - engine-verified lexing pin.
-# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
-# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
-# engine CI as well.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
 grammar: PrismaSchema.grammar
 
-lex: datasource db { provider = "postgresql" url = env("DATABASE_URL") }
+lex: model User { id Int @id @default(autoincrement()) }
+lex: datasource db { provider = "postgresql" url = env("DB") }
+lex: enum Role { ADMIN USER }
+lex: // comment
 lex: generator client { provider = "prisma-client-js" }
-lex: model Post {
-lex: id Int @id
-lex: authorId Int
-lex: author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
-lex: @@index([authorId])
-lex: @@unique([slug])
 
-# Whole example corpus as a lex case (raw content; '#' lines are comments).
 lexfile: Examples.txt

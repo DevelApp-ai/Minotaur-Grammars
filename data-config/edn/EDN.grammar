@@ -9,14 +9,13 @@ FormatType: EBNF
 <map> ::= "{" <edn-value>* "}" => { buildMap($2); }
 <set> ::= "#{" <edn-value>* "}" => { buildSet($2); }
 <tagged> ::= "#" <symbol> <edn-value> => { buildTagged($2, $3); }
-<scalar> ::= <keyword> | <symbol> | <string> | <character> | <number> | <boolean> | "nil"
+<scalar> ::= "nil" ;
+<scalar> ::= <keyword> | <symbol> | <string> | <character> | <number> | <boolean> ;
 <keyword> ::= ":" <symbol-chars> => { buildKeyword($1); }
           | "::" <symbol-chars> => { buildResolvedKeyword($1); }
 <symbol> ::= <symbol-chars>
 <symbol-chars> ::= /[a-zA-Z*+!_?<>=./-][a-zA-Z0-9*+!_?<>=./#-]*/
-<string> ::= '"' <char>* '"'
 <character> ::= "\\" /./ | "\\" /[a-zA-Z]+/ | "\\u" /[0-9a-fA-F]{4}/ | "\\space" | "\\newline" | "\\tab"
-<number> ::= /[+-]?[0-9]+/ | /[+-]?[0-9]+\.[0-9]+/ | /[+-]?[0-9]+\/[0-9]+/ | /[0-9]+N/ | /[0-9]+\.[0-9]+M/
 <boolean> ::= "true" | "false"
 <char> ::= /[^"\\]/ | "\\" /./
 
@@ -25,3 +24,17 @@ FormatType: EBNF
 <namespaced_symbol> ::= <symbol> "/" <symbol> ;
 <char_lit> ::= "\\" [a-zA-Z0-9] ;
 <set_literal> ::= "#{" <form>* "}" ;
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   EDN data */
+<ws> ::= /[ \t\r\n]+/ => { skip }
+<comment> ::= /#[^\n]*/ => { skip }
+<comment> ::= /;[^\n]*/ => { skip }
+<string> ::= /"([^"\\\n]|\\.)*"/
+<string> ::= /'([^'\\n]|\\.)*'/
+<number> ::= /[+-]?(0[xX][0-9a-fA-F_]+|[0-9][0-9_]*(\x2E[0-9_]+)?([eE][+-]?[0-9]+)?)/
+<identifier> ::= /[a-zA-Z_$][a-zA-Z0-9_$-]*/
+<op> ::= /\.\.\.|\|\||\.\.|\x2F|->|=>|==|!=|<=|>=|&&|::|\.|\+|\*|\?|\(|\)|\[|\]|\{|\}|\||\^|\$|:|;|,|=|-|%|<|>|!|&|~|@/

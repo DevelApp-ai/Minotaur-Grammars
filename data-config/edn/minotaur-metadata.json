@@ -5,7 +5,7 @@
   "DisplayName": "EDN",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "Grammar for extensible data notation (EDN): lists, vectors, maps, sets, keywords, symbols, tags and scalar literals.",
+  "Description": "EDN data with engine-verified lexer core.",
   "License": "MIT",
   "Tags": [
     "data-config"

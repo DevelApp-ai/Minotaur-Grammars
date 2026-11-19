@@ -5,7 +5,7 @@
   "DisplayName": "YAML",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "Grammar for YAML documents: block and flow mappings and sequences, scalars (plain, quoted, block), anchors and aliases, tags, directives, comments and multi-document streams.",
+  "Description": "YAML document with engine-verified lexer core.",
   "License": "MIT",
   "Tags": [
     "data-config"

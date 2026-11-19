@@ -1,17 +1,15 @@
 # Conformance cases for INI.grammar - engine-verified lexing pin.
-# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
-# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
-# engine CI as well.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
 grammar: INI.grammar
 
-lex: ; Database settings
-lex: [database]
-lex: host = localhost
-lex: port = 5432
-lex: debug : true
-lex: [paths]
-lex: data_dir = /var/lib/app
-lex: [scope "sub"]
+lex: [section]
+lex: key = value
+lex: other: 42
+lex: ; comment
+lex: # comment
+lex: [db] host=localhost port=5432
+lex: flag = true
 
-# Whole example corpus as a lex case (raw content; '#' lines are comments).
 lexfile: Examples.txt

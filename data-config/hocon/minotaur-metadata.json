@@ -5,7 +5,7 @@
   "DisplayName": "HOCON",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "Grammar for HOCON (Human-Optimized Config Object Notation): nested objects, key-value pairs, substitutions, arrays and includes.",
+  "Description": "HOCON config with engine-verified lexer core.",
   "License": "MIT",
   "Tags": [
     "data-config"
