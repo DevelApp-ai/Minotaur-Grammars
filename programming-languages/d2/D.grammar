@@ -1,0 +1,67 @@
+Grammar: D
+FormatType: EBNF
+
+<module> ::= <decl>*
+<decl> ::= <import> | <func-def> | <struct-def> | <class-def> | <enum-def> | <var-decl> | <template-decl> | <mixin>
+<import> ::= "import" <name-list> ";"
+<name-list> ::= <name> ("," <name>)*
+<name> ::= <identifier> ("." <identifier>)*
+<func-def> ::= <type>? <identifier> "(" <params>? ")" <func-attrs>? <block>
+<params> ::= <param> ("," <param>)*
+<param> ::= <type>? <identifier> ("=" <expr>)?
+<func-attrs> ::= ("pure" | "nothrow" | "@safe" | "@nogc" | "immutable")*
+<struct-def> ::= "struct" <identifier> <block>
+<class-def> ::= "class" <identifier> (":" <name-list>)? <block>
+<enum-def> ::= "enum" <identifier> (":" <type>)? "{" <enum-members> "}"
+<enum-members> ::= <identifier> ("=" <expr>)? ("," <identifier> ("=" <expr>)?)*
+<var-decl> ::= <type> <ident-list> ";"
+<ident-list> ::= <identifier> ("=" <expr>)? ("," <identifier> ("=" <expr>)?)*
+<template-decl> ::= "template" <identifier> "(" <params> ")" <block>
+<mixin> ::= "mixin" <expr> ";"
+<block> ::= "{" <decl>* <stmt>* "}"
+<stmt> ::= <var-decl> ";"? | <if> | <for> | <foreach> | <while> | <do> | <return> | <expr> ";" | <block>
+<if> ::= "if" "(" <expr> ")" <stmt> ("else" <stmt>)?
+<for> ::= "for" "(" <init>? ";" <cond>? ";" <incr>? ")" <stmt>
+<foreach> ::= "foreach" "(" <type>? <name-list> ";" <expr> ")" <stmt>
+<while> ::= "while" "(" <expr> ")" <stmt>
+<do> ::= "do" <stmt> "while" "(" <expr> ")" ";"
+<return> ::= "return" <expr>? ";"
+<init> ::= <type> <ident-list> | <expr>
+<cond> ::= <expr>
+<incr> ::= <expr>
+<expr> ::= <assignment>
+<assignment> ::= <lvalue> ("=" | "+=" | "-=") <expr> | <ternary>
+<lvalue> ::= <identifier> ("." <identifier> | "[" <expr> "]")*
+<ternary> ::= <or> ("?" <expr> ":" <expr>)?
+<or> ::= <and> ("||" <and>)*
+<and> ::= <bit> ("&&" <bit>)*
+<bit> ::= <eq> (("&" | "|" | "^") <eq>)*
+<eq> ::= <rel> (("==" | "!=" | "is" | "!is") <rel>)*
+<rel> ::= <shift> (("<" | "<=" | ">" | ">=" | "in" | "!in") <shift>)*
+<shift> ::= <add> (("<<" | ">>" | ">>>") <add>)*
+<add> ::= <mul> (("+" | "-" | "~") <mul>)*
+<mul> ::= <unary> (("*" | "/" | "%") <unary>)*
+<unary> ::= ("-" | "+" | "!" | "~" | "*" | "&" | "++" | "--")? <postfix>
+<postfix> ::= <primary> ("(" <args>? ")" | "." <identifier> | "[" <expr> (":" <expr>)? "]" | "." <number>)*
+<args> ::= <expr> ("," <expr>)*
+<primary> ::= <identifier> | <number> | <string> | <raw-string> | <backtick-string> | "true" | "false" | "null" | "(" <expr> ")" | "[" <args> "]" | "[" <expr> ":" <expr> "]"
+<type> ::= <name> ("*")* ("[" <expr>? "]")* | "typeof" "(" <expr> ")" | "const" <type>
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   D 2.x: ws, // /* */ and /+ +/ comments, strings incl r".." and backtick strings, numbers, identifiers, operators. */
+<ws> ::= /[ \t\r\n]+/ => { skip }
+<comment> ::= /\x2F\x2F[^\n]*/ => { skip }
+<comment> ::= /\x2F\*([^*]|\*+[^*\x2F])*\*+\x2F/ => { skip }
+<comment> ::= /\x2F\+([^+]|\+[^\x2F])*\+\x2F/ => { skip }
+<string> ::= /"""([^"]|"[^"]|""[^"])*"""/
+<string> ::= /"([^"\\\n]|\\.)*"/
+<string> ::= /'([^'\\\n]|\\.)*'/
+<char> ::= /'([^'\\\n]|\\.)*'/
+<number> ::= /[+-]?(0[xX][0-9a-fA-F_]+|0[oO][0-7_]+|0[bB][01_]+|[0-9][0-9_]*(\x2E[0-9_]*)?([eE][+-]?[0-9]+)?[a-zA-Z]?)/
+<identifier> ::= /[a-zA-Z_][a-zA-Z0-9_]*/
+<raw-string> ::= /r"([^"\\]|\\.)*"/
+<backtick-string> ::= /`[^`]*`/
+<op> ::= /\.\.\.|\x2F=|\.\.|\|\||\+\+|\*\*|\x2F|\+=|\*=|\|=|\^=|<<=|>>=|->|=>|::|:=|==|!=|<=|>=|&&|--|-=|%=|&=|<<|>>|\+|\*|\||\^|\?|\.|\(|\)|\[|\]|\{|\}|\$|\\|-|%|&|!|~|<|>|=|:|,|;|@|"|'/

@@ -1,0 +1,18 @@
+! quadratic solver
+program quad
+  implicit none
+  real :: a, b, c, disc
+  a = 1.0; b = -3.0; c = 2.0
+  disc = b**2 - 4.0*a*c
+  if (disc >= 0.0) then
+     print *, "roots:", (-b + sqrt(disc)) / (2.0*a)
+  else
+     print *, "no real roots"
+  end if
+  call banner("done")
+end program quad
+
+subroutine banner(msg)
+  character(len=*), intent(in) :: msg
+  write(*,*) "-- ", msg
+end subroutine banner

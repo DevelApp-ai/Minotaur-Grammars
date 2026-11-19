@@ -1,0 +1,15 @@
+with Ada.Text_IO; use Ada.Text_IO;
+
+procedure Hello is
+   Count : Integer := 0;
+begin
+   for I in 1 .. 3 loop
+      Put_Line ("Hello" & Integer'Image (I));
+      Count := Count + 1;
+   end loop;
+   case Count is
+      when 0 => Put_Line ("none");
+      when 1 .. 10 => Put_Line ("few");
+      when others => Put_Line ("many");
+   end case;
+end Hello;

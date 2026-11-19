@@ -1,0 +1,43 @@
+Grammar: ABAP
+FormatType: EBNF
+
+<program> ::= <statement>*
+<statement> ::= <write> | <data-decl> | <types-decl> | <select> | <loop> | <if> | <do> | <call> | <assign>
+<write> ::= "WRITE" ":"? <expr-list> ";"
+<data-decl> ::= "DATA" <ident> "TYPE" <type> ("VALUE" <literal>)? ";"
+<types-decl> ::= "TYPES" <ident> "TYPE" <type> ";"
+<type> ::= <ident> ("(" <number> ("," <number>)? ")")? | "TYPE" "REF" "TO" <ident>
+<select> ::= "SELECT" <select-list> "FROM" <ident> ("WHERE" <condition>)? "INTO" <target> ";"
+<loop> ::= "LOOP" "AT" <ident> <stmt>* "ENDLOOP" ";"
+<if> ::= "IF" <condition> ";" <stmt>* ("ELSEIF" <condition> ";" <stmt>)* ("ELSE" ";" <stmt>*)? "ENDIF" ";"
+<do> ::= "DO" <expr>? "TIMES" ";" <stmt>* "ENDDO" ";"
+<call> ::= "CALL" <method> ";"
+<method> ::= <ident> "=>" <ident>
+<assign> ::= <target> "=" <expr> ";"
+<target> ::= <ident> ("-" <ident>)?
+<condition> ::= <expr> (<relop> <expr>)?
+<relop> ::= "=" | "<>" | "<" | ">" | "<=" | ">=" | "EQ" | "NE" | "LT" | "GT" | "LE" | "GE" | "CO" | "CN" | "IN"
+<expr> ::= <term> (("+" | "-") <term>)*
+<term> ::= <factor> (("*" | "/") <factor>)*
+<factor> ::= <ident> ("-" <ident>)? | <literal> | "(" <expr> ")" | <field-symbol>
+<field-symbol> ::= "<" <ident> ">"
+<literal> ::= <string> | <number>
+<expr-list> ::= <expr> ("/" <expr>)*
+<stmt> ::= <statement>
+<ident> ::= <identifier>
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   ABAP (SAP): ws, " line comments, single-quoted strings with '' escape, numbers, identifiers, operators. */
+<ws> ::= /[ \t\r\n]+/ => { skip }
+<comment> ::= /"[^\n]*/ => { skip }
+<string> ::= /"""([^"]|"[^"]|""[^"])*"""/
+<string> ::= /"([^"\\\n]|\\.)*"/
+<string> ::= /'([^'\\\n]|\\.)*'/
+<char> ::= /'([^'\\\n]|\\.)*'/
+<number> ::= /[+-]?(0[xX][0-9a-fA-F_]+|0[oO][0-7_]+|0[bB][01_]+|[0-9][0-9_]*(\x2E[0-9_]*)?([eE][+-]?[0-9]+)?[a-zA-Z]?)/
+<identifier> ::= /[a-zA-Z_][a-zA-Z0-9_]*/
+<string> ::= /'([^']|'')*'/
+<op> ::= /\.\.\.|\x2F=|\.\.|\|\||\+\+|\*\*|\x2F|\+=|\*=|\|=|\^=|<<=|>>=|->|=>|::|:=|==|!=|<=|>=|&&|--|-=|%=|&=|<<|>>|\+|\*|\||\^|\?|\.|\(|\)|\[|\]|\{|\}|\$|\\|-|%|&|!|~|<|>|=|:|,|;|@|"|'/

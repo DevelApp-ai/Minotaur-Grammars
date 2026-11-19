@@ -1,0 +1,17 @@
+# Conformance cases for Apex.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
+grammar: Apex.grammar
+
+lex: public class C { }
+lex: @HttpGet
+lex: List<String> xs = new List<String>{ "a", "b" };
+lex: return [SELECT Id FROM Account WHERE Name = :n LIMIT 5];
+lex: if (a > 0) { b(); } else { c(); }
+lex: for (Account a : [SELECT Id FROM Account]) { }
+lex: try { risky(); } catch (Exception e) { }
+lex: x = a == b ? 1 : 2;
+lex: Integer n = 0xFF + 1.5e3;
+
+lexfile: Examples.txt

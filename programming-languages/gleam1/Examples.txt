@@ -1,0 +1,16 @@
+import gleam/io
+import gleam/list as l
+
+pub type Color { Red Green Blue }
+
+pub const greeting = "hello"
+
+pub fn main() {
+  let name = "world"
+  io.println(greeting <> ", " <> name)
+  let xs = [1, 2, 3] |> l.map(fn(x) { x * 2 }) |> l.fold(0, fn(a, b) { a + b })
+  case xs {
+    [x, ..] -> io.println("first: " <> int.to_string(x))
+    [] -> io.println("empty")
+  }
+}

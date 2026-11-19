@@ -1,0 +1,17 @@
+# Conformance cases for Ada2022.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
+grammar: Ada2022.grammar
+
+lex: procedure P is begin null; end P;
+lex: X : Integer := 16#FF#;
+lex: S : constant String := "hi""there";
+lex: if A > 0 then B := 1; else B := 2; end if;
+lex: for I in reverse 1 .. 10 loop null; end loop;
+lex: case X is when 1 | 2 => null; when others => null; end case;
+lex: while X < 5 loop X := X + 1; end loop;
+lex: Put_Line ("hi");
+lex: Y := A**2 + B rem 3;
+
+lexfile: Examples.txt
