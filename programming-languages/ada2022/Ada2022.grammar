@@ -1,0 +1,55 @@
+Grammar: Ada2022
+FormatType: EBNF
+
+<compilation-unit> ::= <with-clause>* <unit>
+<with-clause> ::= "with" <name-list> ";"
+<name-list> ::= <name> ("," <name>)*
+<name> ::= <identifier> ("." <identifier>)*
+<unit> ::= <package-decl> | <package-body> | <procedure-decl> | <function-decl> | <generic-decl>
+<package-decl> ::= "package" <name> "is" <decl>* "end" <name>? ";"
+<package-body> ::= "package" "body" <name> "is" <decl>* "begin" <stmt>* "end" <name>? ";"
+<procedure-decl> ::= "procedure" <name> ("(" <params> ")")? "is" <decl>* "begin" <stmt>* "end" <name>? ";"
+<function-decl> ::= "function" <name> ("(" <params> ")")? "return" <type> "is" <decl>* "begin" <stmt>* "end" <name>? ";"
+<generic-decl> ::= "generic" <decl>* "package" <name> "is" <decl>* "end" <name>? ";"
+<params> ::= <param> (";" <param>)*
+<param> ::= <name-list> ":" ("in" | "out" | "in" "out")? <type> (":=" <expr>)?
+<type> ::= <name> ("(" <expr> ("," <expr>)* ")")?
+<decl> ::= <name-list> ":" <type> (":=" <expr>)? ";" | <subprog-decl> | "use" <name-list> ";"
+<subprog-decl> ::= <procedure-decl> | <function-decl>
+<stmt> ::= <assign> ";" | <if> | <case> | <loop> | <while> | <for> | <return> | <call> ";" | <block> | "null" ";"
+<assign> ::= <name> ("." <identifier> | "(" <args> ")")* ":=" <expr>
+<if> ::= "if" <expr> "then" <stmt>* ("elsif" <expr> "then" <stmt>*)* ("else" <stmt>*)? "end" "if" ";"
+<case> ::= "case" <expr> "is" ("when" <choice> ("|" <choice>)* "=>" <stmt>)+ "end" "case" ";"
+<choice> ::= <expr> | <expr> ".." <expr> | "others"
+<loop> ::= "loop" <stmt>* "end" "loop" ";" | "while" <expr> "loop" <stmt>* "end" "loop" ";"
+<for> ::= "for" <name> "in" ("reverse")? <expr> ".." <expr> "loop" <stmt>* "end" "loop" ";"
+<return> ::= "return" <expr>? ";"
+<call> ::= <name> ("(" <args> ")")?
+<block> ::= "begin" <stmt>* "end" (";" | <name> ";")
+<args> ::= <expr> ("," <expr>)*
+<expr> ::= <or-expr>
+<or-expr> ::= <and-expr> ("or" <and-expr>)*
+<and-expr> ::= <not-expr> ("and" <not-expr>)*
+<not-expr> ::= "not" <not-expr> | <rel>
+<rel> ::= <add> (("=" | "/=" | "<" | "<=" | ">" | ">=") <add>)?
+<add> ::= <mul> (("+" | "-" | "&") <mul>)*
+<mul> ::= <unary> (("*" | "/" | "mod" | "rem") <unary>)*
+<unary> ::= ("-" | "+" | "abs")? <power>
+<power> ::= <primary> ("**" <unary>)?
+<primary> ::= <name> ("(" <args> ")" | "." <identifier> | "'" <identifier>)? | <number> | <string> | "(" <expr> ")" | "true" | "false"
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   Ada 2022: ws, -- comments, strings with doubling, based literals 16#FF#, attributes, identifiers, operators. */
+<ws> ::= /[ \t\r\n]+/ => { skip }
+<comment> ::= /--[^\n]*/ => { skip }
+<string> ::= /"""([^"]|"[^"]|""[^"])*"""/
+<string> ::= /"([^"\\\n]|\\.)*"/
+<string> ::= /'([^'\\\n]|\\.)*'/
+<char> ::= /'([^'\\\n]|\\.)*'/
+<number> ::= /[0-9][0-9_]*#[0-9a-fA-F_]+#|[0-9][0-9_]*(\x2E[0-9_]*)?([eE][+-]?[0-9]+)?/
+<identifier> ::= /[a-zA-Z_][a-zA-Z0-9_]*/
+<string> ::= /'([^']|'')*'/
+<op> ::= /\x2F=|\.\.|\*\*|\x2F|=>|:=|==|<=|>=|<>|\+|\*|\(|\)|\[|\]|\.|\\|<|>|-|&|;|:|,|'|"/

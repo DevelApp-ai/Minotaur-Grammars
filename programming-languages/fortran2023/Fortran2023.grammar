@@ -1,0 +1,58 @@
+Grammar: Fortran2023
+FormatType: EBNF
+
+<program-unit> ::= <program> | <module> | <subroutine> | <function>
+<program> ::= "program" <name> <stmt>* "end" "program" <name>?
+<module> ::= "module" <name> <decl>* <contains>? <sub-prog>* "end" "module" <name>?
+<subroutine> ::= "subroutine" <name> ("(" <params>? ")")? <decl>* <stmt>* "end" "subroutine" <name>?
+<function> ::= <type>? "function" <name> "(" <params>? ")" <decl>* <stmt>* "end" "function" <name>?
+<sub-prog> ::= <subroutine> | <function>
+<params> ::= <name> ("," <name>)*
+<name> ::= <identifier>
+<decl> ::= <type> ("," <attr>)* "::" <decl-list> | "implicit" "none" | "use" <name> ("," "only" ":" <name-list>)?
+<attr> ::= "intent" "(" "in" | "out" | "inout" ")" | "dimension" "(" <dims> ")" | "allocatable" | "parameter"
+<dims> ::= ":" ("," ":")*
+<decl-list> ::= <name> ("=" <expr>)? ("," <name> ("=" <expr>)?)*
+<type> ::= <name> ("(" <expr> ("," <expr>)* ")")? ("*" <expr>)?
+<stmt> ::= <assign> | <if> | <do> | <do-while> | <call> | <write> | <read> | <allocate> | <return> | <print>
+<assign> ::= <lvalue> "=" <expr>
+<lvalue> ::= <name> ("(" <expr> ("," <expr>)* ")" | "%" <name>)*
+<if> ::= "if" "(" <expr> ")" "then" <stmt>* ("else" "if" "(" <expr> ")" "then" <stmt>)* ("else" <stmt>*)? "end" "if"
+<do> ::= "do" <name>? "=" <expr> "," <expr> ("," <expr>)? <stmt>* "end" "do"
+<do-while> ::= "do" "while" "(" <expr> ")" <stmt>* "end" "do"
+<call> ::= "call" <name> "(" <args>? ")"
+<write> ::= "write" "(" <unit> ("," <format>)? ")" <expr-list>
+<print> ::= "print" "*" "," <expr-list>
+<read> ::= "read" "(" <unit> ("," <format>)? ")" <name-list>
+<allocate> ::= "allocate" "(" <name> "(" <dims> ")" ")"
+<return> ::= "return" <expr>?
+<unit> ::= "*" | <expr>
+<format> ::= <string>
+<expr-list> ::= <expr> ("," <expr>)*
+<args> ::= <expr> ("," <expr>)*
+<expr> ::= <or-expr>
+<or-expr> ::= <and-expr> (".or." <and-expr>)*
+<and-expr> ::= <not-expr> (".and." <not-expr>)*
+<not-expr> ::= ".not." <not-expr> | <rel>
+<rel> ::= <add> (("==" | "/=" | "<" | "<=" | ">" | ">=" | ".eq." | ".ne.") <add>)?
+<add> ::= <mul> (("+" | "-") <mul>)*
+<mul> ::= <power> (("*" | "/") <power>)*
+<power> ::= <unary> ("**" <unary>)?
+<unary> ::= ("-" | "+")? <primary>
+<primary> ::= <name> ("(" <args> ")" | "%" <name>)* | <number> | <string> | "(" <expr> ")" | ".true." | ".false."
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   Fortran 2023 (free-form): ws, ! comments, single/double-quoted strings with doubling, numbers incl. kind suffixes, identifiers, operators. */
+<ws> ::= /[ \t\r\n]+/ => { skip }
+<comment> ::= /![^\n]*/ => { skip }
+<string> ::= /"""([^"]|"[^"]|""[^"])*"""/
+<string> ::= /"([^"\\\n]|\\.)*"/
+<string> ::= /'([^'\\\n]|\\.)*'/
+<char> ::= /'([^'\\\n]|\\.)*'/
+<number> ::= /[+-]?[0-9][0-9_]*(\x2E[0-9_]*)?([eEdDqQ][+-]?[0-9]+)?(_[a-zA-Z0-9]+)?/
+<identifier> ::= /[a-zA-Z_][a-zA-Z0-9_]*/
+<string> ::= /'([^']|'')*'/
+<op> ::= /\.\.\.|\x2F=|\.\.|\|\||\+\+|\*\*|\x2F|\+=|\*=|\|=|\^=|<<=|>>=|->|=>|::|:=|==|!=|<=|>=|&&|--|-=|%=|&=|<<|>>|\+|\*|\||\^|\?|\.|\(|\)|\[|\]|\{|\}|\$|\\|-|%|&|!|~|<|>|=|:|,|;|@|"|'/

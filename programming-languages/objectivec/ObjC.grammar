@@ -1,0 +1,55 @@
+Grammar: ObjC
+FormatType: EBNF
+
+<translation-unit> ::= <decl>*
+<decl> ::= <import> | <interface> | <implementation> | <function> | <global-decl>
+<import> ::= "#" "import" <string> | "#" "include" <string> | "#" "define" <identifier> <tokens>
+<tokens> ::= <any-token>*
+<interface> ::= "@interface" <name> ("(" <name> ")")? (":" <name>)? <ivar-block>? <method-decl>* "@end"
+<implementation> ::= "@implementation" <name> ("(" <name> ")")? <method-def>* "@end"
+<ivar-block> ::= "{" <ivar-decl>* "}"
+<ivar-decl> ::= <type> <name> ";" 
+<method-decl> ::= ("+" | "-") <type> <selector> ";"
+<method-def> ::= ("+" | "-") <type> <selector> "{" <stmt>* "}"
+<selector> ::= <ident> (":" <type> <ident>)*
+<ident> ::= <identifier>
+<name> ::= <identifier>
+<type> ::= <ident> ("*")* ("<" <name> ("," <name>)* ">")?
+<global-decl> ::= <type> <name> "=" <expr> ";"
+<function> ::= <type> <name> "(" <params>? ")" "{" <stmt>* "}"
+<params> ::= <type> <name> ("," <type> <name>)*
+<stmt> ::= <decl> | <expr> ";" | "{" <stmt>* "}" | "if" "(" <expr> ")" <stmt> ("else" <stmt>)? | "return" <expr>? ";" | "while" "(" <expr> ")" <stmt> | "for" "(" <expr>? ";" <expr>? ";" <expr>? ")" <stmt>
+<expr> ::= <msg-expr> | <assignment>
+<msg-expr> ::= "[" <expr> <selector-parts> "]"
+<selector-parts> ::= <ident> (":" <expr> <ident>?)*
+<assignment> ::= <lvalue> "=" <expr> | <ternary>
+<lvalue> ::= <ident> ("." <ident> | "->" <ident> | "[" <expr> "]")*
+<ternary> ::= <or> ("?" <expr> ":" <expr>)?
+<or> ::= <and> ("||" <and>)*
+<and> ::= <eq> ("&&" <eq>)*
+<eq> ::= <rel> (("==" | "!=") <rel>)*
+<rel> ::= <add> (("<" | "<=" | ">" | ">=") <add>)*
+<add> ::= <mul> (("+" | "-") <mul>)*
+<mul> ::= <unary> (("*" | "/" | "%") <unary>)*
+<unary> ::= ("-" | "!" | "~" | "*" | "&")? <postfix>
+<postfix> ::= <primary> ("(" <args>? ")" | "." <ident> | "[" <expr> "]" | "->" <ident>)*
+<args> ::= <expr> ("," <expr>)*
+<primary> ::= <ident> | <number> | <string> | <at-string> | "@" <string> | "(" <expr> ")" | <array> | <dict>
+<array> ::= "@" "[" <expr>? ("," <expr>)* "]"
+<dict> ::= "@" "{" <expr> ":" <expr> ("," <expr> ":" <expr>)* "}"
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   Objective-C 2.0: ws, // and /* */ comments, strings incl @"...", numbers, identifiers, operators. */
+<ws> ::= /[ \t\r\n]+/ => { skip }
+<comment> ::= /\x2F\x2F[^\n]*/ => { skip }
+<comment> ::= /\x2F\*([^*]|\*+[^*\x2F])*\*+\x2F/ => { skip }
+<string> ::= /"([^"\\\n]|\\.)*"/
+<string> ::= /'([^'\\\n]|\\.)*'/
+<char> ::= /'([^'\\\n]|\\.)*'/
+<number> ::= /[+-]?(0[xX][0-9a-fA-F_]+|0[oO][0-7_]+|0[bB][01_]+|[0-9][0-9_]*(\x2E[0-9_]*)?([eE][+-]?[0-9]+)?[a-zA-Z]?)/
+<identifier> ::= /[a-zA-Z_][a-zA-Z0-9_]*/
+<at-string> ::= /@"([^"\\\n]|\\.)*"/
+<op> ::= /\.\.\.|\x2F=|\.\.|\|\||\+\+|\*\*|\x2F|\+=|\*=|\|=|\^=|<<=|>>=|->|=>|::|:=|==|!=|<=|>=|&&|--|-=|%=|&=|<<|>>|\+|\*|\||\^|\?|\.|\(|\)|\[|\]|\{|\}|\$|\\|-|%|&|!|~|<|>|=|:|,|;|@|"|'/

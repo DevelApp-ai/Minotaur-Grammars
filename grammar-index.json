@@ -111,6 +111,14 @@
     "Groovy.grammar": "programming-languages/groovy4/Groovy.grammar",
     "OCaml.grammar": "programming-languages/ocaml5/OCaml.grammar",
     "Crystal.grammar": "programming-languages/crystal1/Crystal.grammar",
-    "Nim.grammar": "programming-languages/nim2/Nim.grammar"
+    "Nim.grammar": "programming-languages/nim2/Nim.grammar",
+    "ABAP.grammar": "programming-languages/abap/ABAP.grammar",
+    "Apex.grammar": "programming-languages/apex/Apex.grammar",
+    "ObjC.grammar": "programming-languages/objectivec/ObjC.grammar",
+    "Fortran2023.grammar": "programming-languages/fortran2023/Fortran2023.grammar",
+    "Ada2022.grammar": "programming-languages/ada2022/Ada2022.grammar",
+    "D.grammar": "programming-languages/d2/D.grammar",
+    "Gleam.grammar": "programming-languages/gleam1/Gleam.grammar",
+    "GDScript.grammar": "programming-languages/gdscript4/GDScript.grammar"
   }
 }

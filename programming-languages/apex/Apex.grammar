@@ -1,0 +1,63 @@
+Grammar: Apex
+FormatType: EBNF
+
+<compilation-unit> ::= <annotation>* <type-decl>
+<annotation> ::= "@" <name> ("(" <ann-args>? ")")?
+<ann-args> ::= <ann-arg> ("," <ann-arg>)*
+<ann-arg> ::= <identifier> "=" <literal> | <literal>
+<type-decl> ::= "class" <name> ("extends" <name>)? ("implements" <name-list>)? <class-body>
+           | "interface" <name> ("extends" <name-list>)? <class-body>
+           | "enum" <name> "{" <name> ("," <name>)* "}"
+<class-body> ::= "{" <member>* "}"
+<member> ::= <annotation>* <modifier>* <type> <name> ("=" <expr>)? (";" | <method-body>)
+<modifier> ::= "public" | "private" | "protected" | "global" | "static" | "final" | "abstract" | "virtual" | "override" | "with" "sharing" | "without" "sharing"
+<method-body> ::= "(" <params>? ")" "{" <stmt>* "}"
+<params> ::= <param> ("," <param>)*
+<param> ::= <type> <name>
+<type> ::= <name> ("<" <type> ("," <type>)* ">")? ("[" "]")*
+<name-list> ::= <name> ("," <name>)*
+<name> ::= <identifier> ("." <identifier>)*
+<stmt> ::= <local-decl> ";" | <if> | <for> | <while> | <do> | <try> | <return> | <throw> | <expr> ";" | "{" <stmt>* "}"
+<local-decl> ::= <type> <name> ("=" <expr>)?
+<if> ::= "if" "(" <expr> ")" <stmt> ("else" <stmt>)?
+<for> ::= "for" "(" <local-decl>? ";" <expr>? ";" <expr>? ";" ")" <stmt> | "for" "(" <type> <name> ":" <expr> ")" <stmt>
+<while> ::= "while" "(" <expr> ")" <stmt>
+<do> ::= "do" <stmt> "while" "(" <expr> ")" ";"
+<try> ::= "try" <stmt> ("catch" "(" <type> <name> ")" <stmt>)+ ("finally" <stmt>)?
+<return> ::= "return" <expr>? ";"
+<throw> ::= "throw" <expr> ";"
+<expr> ::= <assignment>
+<assignment> ::= <lvalue> ("=" | "+=" | "-=" | "*=" | "/=") <expr> | <ternary>
+<lvalue> ::= <identifier> ("." <identifier> | "[" <expr> "]" | <soql>)*
+<soql> ::= "[" <select> "]"
+<select> ::= "SELECT" <expr-list> "FROM" <name> ("WHERE" <expr>)? ("LIMIT" <number>)?
+<ternary> ::= <or> ("?" <expr> ":" <expr>)?
+<or> ::= <and> ("||" <and>)*
+<and> ::= <eq> ("&&" <eq>)*
+<eq> ::= <rel> (("==" | "!=" | "===") <rel>)*
+<rel> ::= <add> (("<" | "<=" | ">" | ">=") <add>)*
+<add> ::= <mul> (("+" | "-") <mul>)*
+<mul> ::= <unary> (("*" | "/" | "%") <unary>)*
+<unary> ::= ("-" | "!" | "~")? <postfix>
+<postfix> ::= <primary> ("(" <args>? ")" | "." <identifier> ("(" <args>? ")")? | "[" <expr> "]")*
+<args> ::= <expr> ("," <expr>)*
+<primary> ::= <identifier> | <number> | <string> | "true" | "false" | "null" | "this" | "super" | "(" <expr> ")" | <list> | <soql>
+<list> ::= "new" <type> "[" <expr>? ("," <expr>)* "]" | "new" <type> "{" <expr>? ("," <expr>)* "}"
+<expr-list> ::= <expr> ("," <expr>)*
+<literal> ::= <string> | <number> | "true" | "false" | "null"
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   Salesforce Apex: ws, // and /* */ comments, strings, annotations @..., SOQL brackets, numbers, identifiers, operators. */
+<ws> ::= /[ \t\r\n]+/ => { skip }
+<comment> ::= /\x2F\x2F[^\n]*/ => { skip }
+<comment> ::= /\x2F\*([^*]|\*+[^*\x2F])*\*+\x2F/ => { skip }
+<string> ::= /"""([^"]|"[^"]|""[^"])*"""/
+<string> ::= /"([^"\\\n]|\\.)*"/
+<string> ::= /'([^'\\\n]|\\.)*'/
+<char> ::= /'([^'\\\n]|\\.)*'/
+<number> ::= /[+-]?(0[xX][0-9a-fA-F_]+|0[oO][0-7_]+|0[bB][01_]+|[0-9][0-9_]*(\x2E[0-9_]*)?([eE][+-]?[0-9]+)?[a-zA-Z]?)/
+<identifier> ::= /[a-zA-Z_][a-zA-Z0-9_]*/
+<op> ::= /\.\.\.|\x2F=|\.\.|\|\||\+\+|\*\*|\x2F|\+=|\*=|\|=|\^=|<<=|>>=|->|=>|::|:=|==|!=|<=|>=|&&|--|-=|%=|&=|<<|>>|\+|\*|\||\^|\?|\.|\(|\)|\[|\]|\{|\}|\$|\\|-|%|&|!|~|<|>|=|:|,|;|@|"|'/

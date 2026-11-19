@@ -1,0 +1,19 @@
+" comment line
+REPORT z_demo.
+
+DATA: lv_name TYPE string VALUE 'world',
+      lv_count TYPE i VALUE 0.
+
+SELECT name INTO lv_name FROM users WHERE id = 1.
+
+WRITE: / 'Hello,', lv_name.
+
+IF lv_count > 0.
+  WRITE: / 'positive'.
+ELSE.
+  WRITE: / 'zero'.
+ENDIF.
+
+DO 3 TIMES.
+  lv_count = lv_count + 1.
+ENDDO.

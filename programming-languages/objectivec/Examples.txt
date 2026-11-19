@@ -1,0 +1,19 @@
+#import <Foundation/Foundation.h>
+#import "MyClass.h"
+
+@interface Greeter : NSObject
+{
+    NSString *_name;
+}
+- (NSString *)greet;
++ (instancetype)shared;
+@end
+
+@implementation Greeter
+- (NSString *)greet {
+    return [NSString stringWithFormat:@"Hello, %@!", _name];
+}
+@end
+
+NSArray *xs = @[@"a", @"b"];
+NSDictionary *d = @{@"k": @1};

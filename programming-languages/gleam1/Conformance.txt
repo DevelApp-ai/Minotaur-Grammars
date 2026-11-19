@@ -1,0 +1,17 @@
+# Conformance cases for Gleam.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
+grammar: Gleam.grammar
+
+lex: import gleam/io
+lex: pub fn add(a: Int, b: Int) -> Int { a + b }
+lex: let x = 1
+lex: case xs { [x, ..] -> x [] -> 0 }
+lex: xs |> map(f) |> fold(0, g)
+lex: pub type T { A B(Int) }
+lex: const c = "s"
+lex: if x > 0 { y } else { z }
+lex: f(1, label: 2)
+
+lexfile: Examples.txt
