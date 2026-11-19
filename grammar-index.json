@@ -97,6 +97,14 @@
     "Properties.grammar": "data-config/properties/Properties.grammar",
     "CSV.grammar": "data-config/csv/CSV.grammar",
     "GraphQL.grammar": "data-query/graphql/GraphQL.grammar",
-    "Rego.grammar": "data-query/rego1/Rego.grammar"
+    "Rego.grammar": "data-query/rego1/Rego.grammar",
+    "PLSQL2023.grammar": "data-query/plsql2023/PLSQL2023.grammar",
+    "XPath31.grammar": "data-query/xpath31/XPath31.grammar",
+    "XQuery31.grammar": "data-query/xquery31/XQuery31.grammar",
+    "Jq.grammar": "data-query/jq1/Jq.grammar",
+    "CMake.grammar": "infrastructure/cmake/CMake.grammar",
+    "HCL2.grammar": "infrastructure/hcl2/HCL2.grammar",
+    "Starlark.grammar": "infrastructure/starlark/Starlark.grammar",
+    "Ninja.grammar": "infrastructure/ninja/Ninja.grammar"
   }
 }

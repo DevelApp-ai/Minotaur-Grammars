@@ -1,0 +1,9 @@
+(: report generator :)
+declare namespace xs = "http://www.w3.org/2001/XMLSchema";
+
+for $b in doc("books.xml")//book
+where $b/year > 2020
+order by $b/title
+return <hit title="{$b/title}" year="{$b/year}"/>
+
+let $x := count(//item) return $x

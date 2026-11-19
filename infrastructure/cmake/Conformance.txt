@@ -1,0 +1,15 @@
+# Conformance cases for CMake.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
+grammar: CMake.grammar
+
+lex: cmake_minimum_required(VERSION 3.20)
+lex: project(demo CXX)
+lex: set(X "a b c")
+lex: add_executable(demo main.cpp ${SRC})
+lex: if(X STREQUAL "Release")
+lex: target_link_libraries(demo PRIVATE m)
+lex: message(STATUS "hello ${X}")
+
+lexfile: Examples.txt

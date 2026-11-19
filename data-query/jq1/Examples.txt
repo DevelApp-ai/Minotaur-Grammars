@@ -1,0 +1,6 @@
+.users[] | select(.age > 30) | {name, email}
+# top-level comment
+.map(.price * 1.2) | add
+.items[0].name
+@json
+[$x, $y | floor]

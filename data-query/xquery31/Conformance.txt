@@ -1,0 +1,15 @@
+# Conformance cases for XQuery31.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
+grammar: XQuery31.grammar
+
+lex: for $x in //a return $x
+lex: let $n := 1 + 2 return $n
+lex: <a>{$x}</a>
+lex: doc("f.xml")//book[year > 2020]
+lex: (: comment :) 42
+lex: xs:integer("5")
+lex: for $i in 1 to 10 where $i mod 2 = 0 return $i
+
+lexfile: Examples.txt

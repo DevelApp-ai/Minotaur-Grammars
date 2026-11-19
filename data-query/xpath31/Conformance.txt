@@ -1,0 +1,16 @@
+# Conformance cases for XPath31.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
+grammar: XPath31.grammar
+
+lex: /a/b/c
+lex: //book[@id='42']/title
+lex: child::div/parent::body
+lex: count(//x)
+lex: a[b = 'c' or d != "e"]
+lex: $v//item[1]
+lex: //*[contains(@class, "x")]
+lex: 1 + 2 * 3 div 4
+
+lexfile: Examples.txt

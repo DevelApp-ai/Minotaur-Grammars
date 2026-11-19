@@ -1,0 +1,16 @@
+load(":mylib.bzl", "helper")
+
+def my_rule_impl(ctx):
+    srcs = ctx.files.srcs
+    out = ctx.actions.declare_file(ctx.label.name + ".out")
+    ctx.actions.run(
+        outputs = [out],
+        inputs = srcs,
+        executable = ctx.executable._tool,
+    )
+    return [DefaultInfo(files = depset([out]))]
+
+my_rule = rule(
+    implementation = my_rule_impl,
+    attrs = {"srcs": attr.label_list()},
+)

@@ -1,0 +1,39 @@
+Grammar: Starlark
+FormatType: EBNF
+
+<file> ::= <stmt>*
+<stmt> ::= <simple-stmt> | <compound-stmt>
+<simple-stmt> ::= <expr-stmt> | <assign> | "return" <expr>? | "pass" | "break" | <load-stmt>
+<load-stmt> ::= "load" "(" <string> ("," <binding>)* ")"
+<binding> ::= <string> "=" <identifier>
+<assign> ::= <target> "=" <expr>
+<compound-stmt> ::= "def" <identifier> "(" <params>? ")" ":" <block>
+                 | "if" <expr> ":" <block> ("elif" <expr> ":" <block>)* ("else" ":" <block>)?
+                 | "for" <target> "in" <expr> ":" <block>
+<block> ::= <stmt>+
+<expr> ::= <or-expr>
+<or-expr> ::= <and-expr> ("or" <and-expr>)*
+<and-expr> ::= <not-expr> ("and" <not-expr>)*
+<not-expr> ::= "not" <not-expr> | <comparison>
+<comparison> ::= <arith> (<relop> <arith>)?
+<arith> ::= <term> (("+" | "-") <term>)*
+<term> ::= <factor> (("*" | "/" | "//" | "%") <factor>)*
+<factor> ::= <primary> ("[" <expr> (":" <expr>?)? "]" | "." <identifier> | "(" <args>? ")")?
+<primary> ::= <identifier> | <string> | <number> | "(" <expr> ")" | <list> | <dict> | <listcomp>
+<list> ::= "[" <expr>? ("," <expr>)* "]"
+<dict> ::= "{" (<expr> ":" <expr> ("," <expr> ":" <expr>)*)? "}"
+<listcomp> ::= "[" <expr> "for" <target> "in" <expr> ("if" <expr>)* "]"
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   Starlark (Bazel): ws, # comments, strings (incl triple), numbers, identifiers, python-like operators. */
+<ws> ::= /[ \t\r\n]+/ => { skip }
+<comment> ::= /#[^\n]*/ => { skip }
+<string> ::= /"([^"\\\n]|\\.)*"/
+<string> ::= /'([^'\\\n]|\\.)*'/
+<string> ::= /"""([^"]|"[^"]|""[^"])*"""/
+<number> ::= /[+-]?[0-9][0-9_]*(\x2E[0-9_]+)?([eE][+-]?[0-9]+)?/
+<identifier> ::= /[A-Za-z_][A-Za-z0-9_]*/
+<op> ::= /\x2F\x2F|\*\*|\x2F|==|!=|<=|>=|\+|\*|\(|\)|\[|\]|\{|\}|\.|\\|<|>|-|%|,|:|=|"|'/
