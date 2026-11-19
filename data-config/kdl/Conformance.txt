@@ -1,17 +1,13 @@
 # Conformance cases for KDL.grammar - engine-verified lexing pin.
-# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
-# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
-# engine CI as well.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
 grammar: KDL.grammar
 
-lex: author "Alex" {
-lex: name "Alex"
-lex: email="alex@example.com"
-lex: }
-lex: window width=800 height=600 {
-lex: title "My App"
-lex: numbers 1 2 3
-lex: /-node /-"arg" /-{ child }
+lex: node "child" 1 2 { grandchild }
+lex: (type)value
+lex: node prop="quoted"
+lex: node 0xFF 1_000
+lex: - flag
 
-# Whole example corpus as a lex case (raw content; '#' lines are comments).
 lexfile: Examples.txt

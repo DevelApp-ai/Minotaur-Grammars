@@ -1,0 +1,13 @@
+(module
+  ;; line comment
+  (; block comment ;)
+  (func $add (param i32 i32) (result i32)
+    local.get 0
+    local.get 1
+    i32.add)
+  (memory 1)
+  (global $g (mut i32) (i32.const 0))
+  (export "add" (func $add))
+  (data (i32.const 0) "hello\n")
+  (func (result f64) f64.const 0x1.8p3)
+)

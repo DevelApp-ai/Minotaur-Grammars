@@ -17,7 +17,8 @@ FormatType: EBNF
 <ellipsis> ::= "..." <type>?
 <embed-decl> ::= <expr>
 <expr> ::= <unary-expr> | <binary-expr> | <primary>
-<primary> ::= <literal> | <operand-name> | <struct-lit> | <list-lit> | <disjunction> | <comprehension> | "(" <expr> ")"
+<primary> ::= "(" <expr> ")" ;
+<primary> ::= <literal> | <operand-name> | <struct-lit> | <list-lit> | <disjunction> | <comprehension> ;
 <operand-name> ::= <qualified-ident> | <selector-expr>
 <selector-expr> ::= <primary> "." <label>
 <struct-lit> ::= "{" <declaration>* "}" => { buildStruct($2); }
@@ -27,10 +28,11 @@ FormatType: EBNF
 <clause> ::= <for-clause> | <if-clause> | <let-clause>
 <for-clause> ::= "for" <identifier> ("," <identifier>)? "in" <expr> => { addFor($2, $4, $6); }
 <if-clause> ::= "if" <expr> => { addIf($2); }
-<literal> ::= <number> | <string> | "true" | "false" | "null" | <bottom>
+<literal> ::= "true" ;
+<literal> ::= "false" ;
+<literal> ::= "null" ;
+<literal> ::= <number> | <string> | <bottom> ;
 <bottom> ::= "_" | "⊥"
-<number> ::= /[0-9]+(\.[0-9]+)?([KMGTP]?i?|[kKmM]?)/ | /[0-9]+(\.[0-9]+)?([eE][+-]?[0-9]+)?/
-<string> ::= '"' <str-char>* '"' | "'" /[^']*/ "'" | /#[^"]+#/ | /"""[\s\S]*?"""/
 <str-char> ::= /[^"\\]/ | "\\" /./
 <qualified-ident> ::= <identifier> ("." <identifier>)*
 <identifier> ::= /[a-zA-Z$_][a-zA-
@@ -44,3 +46,18 @@ Z0-9$_]*/ | /[a-zA-Z$_][a-zA-Z0-9$_-]*/
 <if_clause> ::= "if" <expr> "{" <field>* "}" ;
 <ellipsis_top> ::= "..." ;
 <bounds_expr> ::= (">" | "<" | ">=" | "<=" | "!=" | "=") <number> ;
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   CUE config */
+<ws> ::= /[ \t\r\n]+/ => { skip }
+<comment> ::= /#[^\n]*/ => { skip }
+<comment> ::= /\x2F\x2F[^\n]*/ => { skip }
+<comment> ::= /\x2F\*([^*]|\*+[^*\x2F])*\*+\x2F/ => { skip }
+<string> ::= /"([^"\\\n]|\\.)*"/
+<string> ::= /'([^'\\n]|\\.)*'/
+<number> ::= /[+-]?(0[xX][0-9a-fA-F_]+|[0-9][0-9_]*(\x2E[0-9_]+)?([eE][+-]?[0-9]+)?)/
+<identifier> ::= /[a-zA-Z_$][a-zA-Z0-9_$-]*/
+<op> ::= /\.\.\.|\|\||\.\.|\x2F|->|=>|==|!=|<=|>=|&&|::|\.|\+|\*|\?|\(|\)|\[|\]|\{|\}|\||\^|\$|:|;|,|=|-|%|<|>|!|&|~|@/

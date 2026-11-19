@@ -5,7 +5,7 @@
   "DisplayName": "SPARQL",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "Minotaur grammar for SPARQL covering the core language subset.",
+  "Description": "SPARQL query with engine-verified lexer core.",
   "License": "MIT",
   "Tags": [
     "data-query"

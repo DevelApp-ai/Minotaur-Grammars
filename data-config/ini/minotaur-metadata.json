@@ -5,7 +5,7 @@
   "DisplayName": "INI",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "Grammar for INI configuration files: sections, key-value pairs, comments and inline values.",
+  "Description": "INI file with engine-verified lexer core.",
   "License": "MIT",
   "Tags": [
     "data-config"

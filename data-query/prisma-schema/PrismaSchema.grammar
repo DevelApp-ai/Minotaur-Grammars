@@ -6,7 +6,8 @@ FormatType: EBNF
 <datasource> ::= 'datasource' <identifier> '{' <provider> <url> '}' ;
 <provider> ::= 'provider' '=' <text> ;
 <url> ::= 'url' '='( <text> | 'env' '(' <text> ')') ;
-<generator> ::= 'generator' <identifier> '{' <gen_provider> <output>? '}'  | <preview_features>  | <multi_schema_option> ;
+<generator> ::= 'generator' <identifier> '{' <gen_provider> <output>? '}' ;
+<generator> ::= <preview_features> | <multi_schema_option> ;
 <gen_provider> ::= 'provider' '=' <text> ;
 <output> ::= 'output' '=' <text> ;
 <model> ::= 'model' <identifier> '{' <field_def>*( <model_attr>)* '}' ;
@@ -21,7 +22,8 @@ FormatType: EBNF
 <arg> ::= <identifier> ':' <scalar> | <scalar>  | <default_now> ;
 <enum_block> ::= 'enum' <identifier> '{' <enum_value>* '}' ;
 <enum_value> ::= <identifier> ;
-<scalar> ::= <text> | <number> | <boolean> | '[' <scalars> ']' ;
+<scalar> ::= '[' <scalars> ']' ;
+<scalar> ::= <text> | <number> | <boolean> ;
 <scalars> ::= <scalar>( ',' <scalar>)* ;
 <boolean> ::= 'true' | 'false' ;
 <identifier> ::= <auto_identifier_1> <auto_identifier_2> ;
@@ -50,3 +52,16 @@ FormatType: EBNF
 <auto_text_3> ::= /[^"]*/ ;
 <auto_number_4> ::= /[0-9]+/ ;
 <auto_preview_features_5> ::= /[ string ( "," string )* ]/ ;
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   Prisma schema */
+<ws> ::= /[ \t\r\n]+/ => { skip }
+<comment> ::= /\x2F\x2F[^\n]*/ => { skip }
+<string> ::= /"([^"\\\n]|\\.)*"/
+<string> ::= /'([^'\\n]|\\.)*'/
+<number> ::= /[+-]?(0[xX][0-9a-fA-F_]+|[0-9][0-9_]*(\x2E[0-9_]+)?([eE][+-]?[0-9]+)?)/
+<identifier> ::= /[a-zA-Z_$][a-zA-Z0-9_$-]*/
+<op> ::= /\.\.\.|\|\||\.\.|\x2F|->|=>|==|!=|<=|>=|&&|::|\.|\+|\*|\?|\(|\)|\[|\]|\{|\}|\||\^|\$|:|;|,|=|-|%|<|>|!|&|~|@/
