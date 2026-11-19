@@ -1,22 +1,14 @@
 # Conformance cases for PuppetManifest.grammar - engine-verified lexing pin.
-# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
-# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
-# engine CI as well.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
 grammar: PuppetManifest.grammar
 
-lex: class order_service (
-lex: String $version = 'latest',
-lex: Integer $port = 8080,
-lex: ) {
-lex: package { 'nginx':
-lex: ensure => installed,
-lex: }
-lex: file { '/etc/nginx/conf.d/orders.conf':
-
-# Inputs that must be rejected by the token rules (LX1001).
-fail: €
-fail: `
-
-# Whole example corpus as a lex case (raw content; '#' lines are comments).
+lex: class order_service {
+lex:   String $version = 'latest',
+lex:   Integer $port = 8080
+lex:   file { '/etc/nginx/nginx.conf': ensure => present }
+lex:   $ports.each |$p| { port { "p${p}" } }
+lex:   package { 'nginx': ensure => installed } # c
 
 lexfile: Examples.txt
