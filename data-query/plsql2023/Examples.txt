@@ -1,0 +1,17 @@
+-- employee report package
+DECLARE
+    v_name  employees.last_name%TYPE;
+    v_sal   NUMBER(8,2) := 0;
+BEGIN
+    FOR rec IN (SELECT * FROM employees WHERE department_id = 10 ORDER BY last_name) LOOP
+        v_name := rec.last_name;
+        v_sal  := rec.salary * 1.10;
+        DBMS_OUTPUT.PUT_LINE(v_name || ': ' || TO_CHAR(v_sal));
+    END LOOP;
+    IF v_sal > 5000 THEN
+        RAISE_APPLICATION_ERROR(-20001, 'salary too high');
+    END IF;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN NULL;
+    WHEN OTHERS THEN RAISE;
+END;

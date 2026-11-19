@@ -1,0 +1,5 @@
+//book[@id='42']/title/text()
+/workspaces/workspace[@name="main"]/project/dependencies/dependency
+count(//order/item)
+$doc//a[contains(@href, 'pdf') and not(@external)]
+//*[position() > 1 and position() <= 10]

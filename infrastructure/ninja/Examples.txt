@@ -1,0 +1,13 @@
+# build.ninja
+rule cc
+  command = gcc -c $in -o $out
+  description = CC $out
+
+rule link
+  command = gcc $in -o $out
+
+build foo.o: cc foo.c
+build bar.o: cc bar.c
+build app: link foo.o bar.o
+
+default app

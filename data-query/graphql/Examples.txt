@@ -1,0 +1,24 @@
+# schema
+type Query {
+  user(id: ID!): User
+  users(filter: UserFilter, limit: Int = 10): [User!]!
+}
+
+type User {
+  id: ID!
+  name: String!
+  email: String
+  friends: [User]
+}
+
+# query
+query GetUser($id: ID!) {
+  user(id: $id) {
+    name
+    friends { name }
+  }
+}
+
+mutation AddUser($input: UserInput!) {
+  addUser(input: $input) { id name }
+}

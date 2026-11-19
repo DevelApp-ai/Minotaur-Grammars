@@ -1,0 +1,31 @@
+Grammar: XQuery31
+FormatType: EBNF
+
+<module> ::= <prolog> <query>
+<prolog> ::= ("declare" <decl> ";")*
+<query> ::= <flwor> | <expr>
+<flwor> ::= ("for" | "let") <binding> ("," <binding>)* ("where" <expr>)? ("order" "by" <expr>)? ("return" <expr>)
+<binding> ::= "$" <qname> ("in" | ":=") <expr>
+<expr> ::= <or-expr>
+<or-expr> ::= <and-expr> ("or" <and-expr>)*
+<and-expr> ::= <comparison> ("and" <comparison>)*
+<comparison> ::= <path> (<relop> <path>)?
+<path> ::= <primary> ("/" | "//") <step>?
+<step> ::= <qname> <predicate>*
+<predicate> ::= "[" <expr> "]"
+<primary> ::= "(" <expr> ")" | <string> | <number> | <var> | <constructor>
+<constructor> ::= "<" <qname> ">" <expr>* "</" <qname> ">"
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   XQuery 3.1: ws, (: :) comments, strings, numbers, QNames (with :), operators incl := << >> and FLWOR keywords as names. */
+<ws> ::= /[ \t\r\n]+/ => { skip }
+<comment> ::= /\(:([^:]|:[^)])*:\)/ => { skip }
+<string> ::= /"([^"\\\n]|\\.)*"/
+<string> ::= /'([^'\\\n]|\\.)*'/
+<number> ::= /[+-]?[0-9][0-9_]*(\x2E[0-9_]+)?([eE][+-]?[0-9]+)?/
+<qname> ::= /[A-Za-z_][A-Za-z0-9_.-]*:[A-Za-z_][A-Za-z0-9_.-]*|[A-Za-z_][A-Za-z0-9_.-]*/
+<var> ::= /\$[A-Za-z_][A-Za-z0-9_.$-]*/
+<op> ::= /\x2F\x2F|idiv|\x2F|\.\.|div|mod|:=|<<|>>|==|!=|<=|>=|\+|\*|\(|\)|\[|\]|\{|\}|\||\.|\\|=|<|>|-|,|:|"|'/

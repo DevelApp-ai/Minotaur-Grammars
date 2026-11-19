@@ -1,0 +1,36 @@
+Grammar: PLSQL2023
+FormatType: EBNF
+
+<block> ::= "DECLARE"? <declaration>* "BEGIN" <statement>+ ("EXCEPTION" <exception-handler>*)? "END" ";"?
+<declaration> ::= <identifier> "CONSTANT"? <type> (":=" <expression>)? ";"
+<type> ::= <identifier> ("(" <number> ("," <number>)? ")")? "%" ("ROWTYPE" | "TYPE")?
+<statement> ::= <assignment> | <if-stmt> | <loop> | <cursor-for> | <select-into> | <call> ";"
+<assignment> ::= <target> ":=" <expression>
+<target> ::= <identifier> ("." <identifier> | "(" <expression> ")")*
+<if-stmt> ::= "IF" <condition> "THEN" <statement>+ ("ELSIF" <condition> "THEN" <statement>)* ("ELSE" <statement>*)? "END" "IF" ";"
+<condition> ::= <expression> (<relop> <expression>)*
+<relop> ::= "=" | "<>" | "!=" | "<" | "<=" | ">" | ">=" | "LIKE" | "IS" "NOT"? "NULL"
+<loop> ::= "LOOP" <statement>+ "END" "LOOP" ";" | "WHILE" <condition> "LOOP" <statement>+ "END" "LOOP" ";"
+<cursor-for> ::= "FOR" <identifier> "IN" <cursor> "LOOP" <statement>+ "END" "LOOP" ";"
+<cursor> ::= <select-stmt> | <identifier>
+<select-stmt> ::= "SELECT" <select-list> "FROM" <table> ("WHERE" <condition>)? ("ORDER" "BY" <identifier> ("ASC" | "DESC")? ("," <identifier>)*)?
+<select-into> ::= <select-stmt> "INTO" <target> ("," <target>)* ";"
+<call> ::= <identifier> "(" <expression>? ("," <expression>)* ")"
+<expression> ::= <term> (("+" | "-" | "||") <term>)*
+<term> ::= <factor> (("*" | "/") <factor>)*
+<factor> ::= <identifier> | <string> | <number> | "(" <expression> ")" | <call>
+<exception-handler> ::= "WHEN" <identifier> ("OR" <identifier>)* "THEN" <statement>+
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   PL/SQL: ws, -- and /* */ comments, single-quoted strings with '' escape, q-quoted strings, numbers, identifiers (incl $ #), operators. */
+<ws> ::= /[ \t\r\n]+/ => { skip }
+<comment> ::= /--[^\n]*/ => { skip }
+<comment> ::= /\x2F\*([^*]|\*+[^*\x2F])*\*+\x2F/ => { skip }
+<string> ::= /'([^']|'')*'/
+<qstring> ::= /[qQ]'([^']|'')*'/
+<number> ::= /[+-]?[0-9][0-9_]*(\x2E[0-9_]+)?([eE][+-]?[0-9]+)?/
+<identifier> ::= /[A-Za-z][A-Za-z0-9_$#]*/
+<op> ::= /\|\||\.\.|\*\*|\x2F|:=|=>|<>|!=|<=|>=|==|\+|\*|\(|\)|\.|\[|\]|\{|\}|<|>|-|%|,|;|:/

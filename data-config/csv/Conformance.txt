@@ -1,0 +1,16 @@
+# Conformance cases for CSV.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
+grammar: CSV.grammar
+
+lex: a,b,c
+lex: "quoted, field",x
+lex: "with ""escape""",y
+lex: a,,b
+lex: single
+lex: a,b\nc,d
+
+fail: "unterminated
+
+lexfile: Examples.txt

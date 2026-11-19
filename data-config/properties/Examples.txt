@@ -1,0 +1,8 @@
+# database settings
+! alternative comment style
+db.host=localhost
+db.port = 5432
+db.url=jdbc:postgresql://localhost:5432/demo
+app.name=Demo App
+app.debug=true
+welcome=Hello\, world!

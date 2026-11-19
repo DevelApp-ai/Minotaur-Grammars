@@ -1,0 +1,15 @@
+# Conformance cases for Ninja.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
+grammar: Ninja.grammar
+
+lex: rule cc
+lex:   command = gcc -c $in -o $out
+lex: build a.o: cc a.c
+lex: build app: link a.o b.o || lib.a
+lex: default app bin
+lex: include other.ninja
+lex: x = $y.z
+
+lexfile: Examples.txt

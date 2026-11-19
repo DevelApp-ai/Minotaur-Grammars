@@ -1,0 +1,16 @@
+# Conformance cases for PLSQL2023.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
+grammar: PLSQL2023.grammar
+
+lex: DECLARE x NUMBER := 1; BEGIN NULL; END;
+lex: SELECT * FROM t WHERE a = 1 AND b <> 2 ORDER BY c DESC;
+lex: v := rec.field + 1.5e3;
+lex: s := 'it''s';
+lex: FOR r IN (SELECT id FROM t) LOOP NULL; END LOOP;
+lex: IF a IS NOT NULL THEN b := 1; ELSE b := 2; END IF;
+lex: x := f(1, 2) || g();
+lex: CREATE OR REPLACE PROCEDURE p(a IN NUMBER) IS BEGIN NULL; END;
+
+lexfile: Examples.txt
