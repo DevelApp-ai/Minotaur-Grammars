@@ -1,0 +1,24 @@
+package types_pkg;
+  typedef logic [7:0] byte_t;
+endpackage
+
+class FIFO #(parameter int DEPTH = 16);
+  private logic [7:0] mem [0:DEPTH-1];
+  public int count;
+  function new();
+    count = 0;
+  endfunction
+  task push(input byte_t d);
+    mem[count] <= d;
+    count <= count + 1;
+  endtask
+endclass
+
+module top(input logic clk, input logic rst);
+  logic [3:0] state;
+  always_ff @(posedge clk) begin
+    if (rst) state <= 4'h0;
+    else state <= state + 1'b1;
+  end
+  assert (state inside {[0:15]});
+endmodule

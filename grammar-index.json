@@ -131,6 +131,18 @@
     "sed.grammar": "programming-languages/sed/sed.grammar",
     "CommonLisp.grammar": "programming-languages/lisp/CommonLisp.grammar",
     "Scheme.grammar": "programming-languages/scheme/Scheme.grammar",
-    "Prolog.grammar": "programming-languages/prolog/Prolog.grammar"
+    "Prolog.grammar": "programming-languages/prolog/Prolog.grammar",
+    "Verilog2005.grammar": "specialized/verilog2005/Verilog2005.grammar",
+    "SystemVerilog2017.grammar": "specialized/systemverilog2017/SystemVerilog2017.grammar",
+    "VHDL2008.grammar": "specialized/vhdl2008/VHDL2008.grammar",
+    "LLVMIR.grammar": "specialized/llvmir/LLVMIR.grammar",
+    "MLIR.grammar": "specialized/mlir/MLIR.grammar",
+    "WGSL.grammar": "specialized/wgsl/WGSL.grammar",
+    "GLSL.grammar": "specialized/glsl/GLSL.grammar",
+    "HLSL.grammar": "specialized/hlsl/HLSL.grammar",
+    "CUDA12.grammar": "specialized/cuda12/CUDA12.grammar",
+    "XSLT30.grammar": "specialized/xslt30/XSLT30.grammar",
+    "OpenAPI3.grammar": "specification-first/openapi3/OpenAPI3.grammar",
+    "PCRE2.grammar": "compiler-compilers/pcre2/PCRE2.grammar"
   }
 }

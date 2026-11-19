@@ -1,0 +1,15 @@
+# Conformance cases for GLSL.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
+grammar: GLSL.grammar
+
+lex: #version 450 core
+lex: layout(location = 0) in vec3 aPos;
+lex: void main() { gl_Position = vec4(1.0); }
+lex: for (int i = 0; i < 10; i++) { sum += float(i); }
+lex: if (x > 0.0) y = 1.0; else y = 0.0;
+lex: vec3 v = normalize(vec3(1.0, 2.0, 3.0));
+lex: uniform sampler2D uTex;
+
+lexfile: Examples.txt

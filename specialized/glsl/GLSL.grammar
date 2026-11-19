@@ -1,0 +1,52 @@
+Grammar: GLSL
+FormatType: EBNF
+
+<shader> ::= <decl>*
+<decl> ::= <preproc> | <func> | <global-decl>
+<preproc> ::= "#" <identifier> <text>*
+<text> ::= <identifier> | <number> | "(" | ")"
+<global-decl> ::= ("layout" "(" <qual> ")")? <type> <name> ("=" <expr>)? ";" | <type> <name> "(" <params>? ")" (";" | <block>)
+<qual> ::= <name> ("=" <expr>)? ("," <name> ("=" <expr>)?)*
+<func> ::= <type>? <name> "(" <params>? ")" <block>
+<params> ::= <param> ("," <param>)* | "void"
+<param> ::= ("in" | "out" | "inout" | "const")? <type> <name>
+<type> ::= ("highp" | "mediump" | "lowp")? <name> ("[" <expr>? "]")*
+<block> ::= "{" <stmt>* "}"
+<stmt> ::= <global-decl> | <if> | <for> | <while> | <do> | <return> | <break> | "continue" ";" | <assign> | <expr> ";"
+<assign> ::= <lvalue> ("=" | "+=" | "-=" | "*=" | "/=") <expr> ";"
+<lvalue> ::= <name> ("." <name> | "[" <expr> "]" | "(" <args> ")")*
+<if> ::= "if" "(" <expr> ")" <stmt> ("else" <stmt>)?
+<for> ::= "for" "(" <stmt> <expr>? ";" <expr>? ")" <stmt>
+<while> ::= "while" "(" <expr> ")" <stmt>
+<do> ::= "do" <stmt> "while" "(" <expr> ")" ";"
+<return> ::= "return" <expr>? ";"
+<break> ::= "break" ";"
+<name> ::= <identifier>
+<args> ::= <expr> ("," <expr>)*
+<expr> ::= <ternary>
+<ternary> ::= <or> ("?" <expr> ":" <expr>)?
+<or> ::= <and> ("||" <and>)*
+<and> ::= <bit> ("&&" <bit>)*
+<bit> ::= <eq> (("&" | "|" | "^") <eq>)*
+<eq> ::= <rel> (("==" | "!=") <rel>)*
+<rel> ::= <add> (("<" | "<=" | ">" | ">=") <add>)*
+<add> ::= <mul> (("+" | "-") <mul>)*
+<mul> ::= <unary> (("*" | "/" | "%") <unary>)*
+<unary> ::= ("-" | "+" | "!" | "~")? <primary>
+<primary> ::= <name> ("(" <args>? ")")? | <number> | "(" <expr> ")" | "true" | "false"
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   GLSL (OpenGL shading): ws, // and /* */ comments, preprocessor #, numbers with f/u suffixes, identifiers, C-like operators. */
+<ws> ::= /[ \t\r\n]+/ => { skip }
+<comment> ::= /\x2F\x2F[^\n]*/ => { skip }
+<comment> ::= /\x2F\*([^*]|\*+[^*\x2F])*\*+\x2F/ => { skip }
+<string> ::= /"""([^"]|"[^"]|""[^"])*"""/
+<string> ::= /"([^"\\\n]|\\.)*"/
+<string> ::= /'([^'\\\n]|\\.)*'/
+<char> ::= /'([^'\\\n]|\\.)*'/
+<number> ::= /0[xX][0-9a-fA-F]+[uU]?|[0-9][0-9_]*(\x2E[0-9_]*)?([eE][+-]?[0-9]+)?[fFuU]?/
+<identifier> ::= /[a-zA-Z_][a-zA-Z0-9_]*/
+<op> ::= /\x2F=|\+\+|\|\||\*\*|\x2F|\+=|\*=|\|=|\^=|<<=|>>=|--|-=|%=|&=|==|!=|<=|>=|&&|<<|>>|\+|\*|\||\^|\?|\(|\)|\[|\]|\{|\}|\.|\\|-|%|&|~|!|<|>|=|:|,|;|#|"|'/

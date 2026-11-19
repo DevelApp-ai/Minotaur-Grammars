@@ -1,0 +1,14 @@
+# Conformance cases for WGSL.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
+grammar: WGSL.grammar
+
+lex: @vertex fn vs(@builtin(vertex_index) i: u32) -> @builtin(position) vec4f { return vec4f(0.0); }
+lex: var x: f32 = 1.5e-3;
+lex: let h = 0xFFu;
+lex: if (a > 0.0) { b = 1.0; } else { b = 0.0; }
+lex: for (var i = 0u; i < 10u; i = i + 1u) { sum += f32(i); }
+lex: return vec4f(1.0, 0.0, 0.0, 1.0);
+
+lexfile: Examples.txt

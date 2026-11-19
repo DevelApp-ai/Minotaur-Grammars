@@ -1,0 +1,16 @@
+# Conformance cases for SystemVerilog2017.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
+grammar: SystemVerilog2017.grammar
+
+lex: class C extends B implements I; endclass
+lex: typedef logic [7:0] byte_t;
+lex: always_ff @(posedge clk) q <= d;
+lex: if (x inside {1, 2, 3}) y = 1;
+lex: x = a ** 2 + b <<< 2;
+lex: obj.method(arg);
+lex: for (int i = 0; i < 10; i++) sum += i;
+lex: assert (x === y);
+
+lexfile: Examples.txt

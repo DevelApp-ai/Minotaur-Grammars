@@ -1,0 +1,14 @@
+# Conformance cases for HLSL.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
+grammar: HLSL.grammar
+
+lex: float4 main(float4 pos : SV_POSITION) : SV_TARGET { return pos; }
+lex: Texture2D tex : register(t0);
+lex: float4 c = tex.Sample(smp, uv);
+lex: for (int i = 0; i < 4; i++) { sum += a[i]; }
+lex: if (x > 1.0f) y = 2.0h; else y = 0.0f;
+lex: #define PI 3.14159
+
+lexfile: Examples.txt

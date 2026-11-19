@@ -1,0 +1,15 @@
+# Conformance cases for LLVMIR.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
+grammar: LLVMIR.grammar
+
+lex: @g = global i32 42
+lex: define i32 @f(i32 %x) { ret i32 %x }
+lex: %r = add i32 1, 2
+lex: br i1 %c, label %a, label %b
+lex: call i32 @printf(ptr @fmt, i32 %r)
+lex: store i32 0, ptr %p
+lex: %v = load i32, ptr %p
+
+lexfile: Examples.txt

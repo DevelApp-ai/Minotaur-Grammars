@@ -1,0 +1,5 @@
+^(?:[a-z]+\d{2,4})-(?P<year>\d{4})$
+\bword\b|\Bedge\B
+[\w.-]+@[\w-]+\.[a-z]{2,}
+(?<name>[A-Z][a-z]+)\s+(?<age>\d+)
+(foo|bar)+?\d{1,3}\.

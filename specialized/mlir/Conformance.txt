@@ -1,0 +1,13 @@
+# Conformance cases for MLIR.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
+grammar: MLIR.grammar
+
+lex: func.func @f(%arg0: i32) -> i32 { return %arg0 : i32 }
+lex: %r = arith.constant 42 : i64
+lex: %m = tensor<4x8xf32>
+lex: scf.for %i = %c0 to %c10 step %c1 { }
+lex: ^bb0(%x: i32):
+
+lexfile: Examples.txt

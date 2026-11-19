@@ -1,0 +1,16 @@
+# Conformance cases for PCRE2.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
+grammar: PCRE2.grammar
+
+lex: ^[a-z]+$
+lex: \\d{2,4}
+lex: (?P<name>\\w+)
+lex: [\\w.-]+
+lex: (foo|bar)+?
+lex: \\b\\w+\\b
+lex: a{1,3}?
+lex: # comment in x mode
+
+lexfile: Examples.txt

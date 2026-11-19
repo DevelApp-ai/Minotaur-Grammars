@@ -1,0 +1,33 @@
+Grammar: MLIR
+FormatType: EBNF
+
+<module> ::= <op>*
+<op> ::= <result>* <name> <operands>? <attrs>? <region>? <succ>*
+<result> ::= "%" <name> "="
+<name> ::= <identifier> | '"' <identifier> '"'
+<operands> ::= "(" <operand-list> ")"
+<operand-list> ::= <operand> ("," <operand>)*
+<operand> ::= "%" <name> ":" <type>
+<type> ::= <identifier> ("<" <type-params> ">")? ("*")*
+<type-params> ::= <type> ("," <type>)* | <number> "x" <type>
+<attrs> ::= "{" (<name> "=" <value> ("," <name> "=" <value>)*)? "}"
+<value> ::= <number> | <string> | <identifier> | "[" <value> ("," <value>)* "]"
+<region> ::= "{" <block>* "}"
+<block> ::= ("^" <name> "(" <args> ")")? <op>*
+<args> ::= <operand> ("," <operand>)*
+<succ> ::= "->" "^" <name> ("(" <args> ")")?
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   MLIR: ws, // comments, double-quoted strings, @globals %locals ^blocks, types incl i32/tensor<...>, numbers, operators. */
+<ws> ::= /[ \t\r\n]+/ => { skip }
+<comment> ::= /\x2F\x2F[^\n]*/ => { skip }
+<string> ::= /"""([^"]|"[^"]|""[^"])*"""/
+<string> ::= /"([^"\\\n]|\\.)*"/
+<string> ::= /'([^'\\\n]|\\.)*'/
+<char> ::= /'([^'\\\n]|\\.)*'/
+<number> ::= /[+-]?(0[xX][0-9a-fA-F]+|[0-9][0-9_]*(\x2E[0-9_]*)?([eE][+-]?[0-9]+)?)/
+<identifier> ::= /[a-zA-Z_$.][a-zA-Z0-9_$.]*/
+<op> ::= /\x2F|\+|\*|\(|\)|\[|\]|\{|\}|\^|\\|=|-|<|>|,|:|@|%|#|!|"|'/

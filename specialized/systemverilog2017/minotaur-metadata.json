@@ -1,0 +1,27 @@
+{
+  "Id": "develapp.systemverilog2017",
+  "Name": "SystemVerilog2017",
+  "Vendor": "DevelApp",
+  "DisplayName": "SystemVerilog2017",
+  "Version": "2.0.0",
+  "MinotaurVersion": "*",
+  "Description": "SystemVerilog-2017 (IEEE 1800-2017) grammar with engine-verified lexer core.",
+  "License": "MIT",
+  "Tags": [
+    "programming-language",
+    "hdl",
+    "minotaur"
+  ],
+  "MainFile": "SystemVerilog2017.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free",
+  "EngineVerified": true,
+  "EngineVerifiedBy": "ENFAStepLexer-StepParser@e6d1ae5cf748 (grammar-repository-tests, GreedyLongestMatch)"
+}

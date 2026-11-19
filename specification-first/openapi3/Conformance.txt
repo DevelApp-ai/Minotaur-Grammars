@@ -1,0 +1,20 @@
+# Conformance cases for OpenAPI3.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
+grammar: OpenAPI3.grammar
+
+lex: openapi: 3.1.0
+lex: info:
+lex:   title: My API
+lex: paths:
+lex:   /pets:
+lex:     get:
+lex:       responses:
+lex:         '200':
+lex:           description: OK
+lex:           schema: { $ref: "#/x" }
+lex: - item1
+lex: - item2
+
+lexfile: Examples.txt
