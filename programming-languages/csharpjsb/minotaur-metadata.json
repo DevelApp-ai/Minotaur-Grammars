@@ -1,0 +1,27 @@
+{
+  "Id": "develapp.csharpjsb",
+  "Name": "CSharpJsb",
+  "Vendor": "DevelApp",
+  "DisplayName": "CSharpJsb",
+  "Version": "2.0.0",
+  "MinotaurVersion": "*",
+  "Description": "Disciplined grammar for the C# dialect emitted by the JsonSchemaBuilder (jsb) generator: using directives, namespace blocks, public partial classes and enums, and annotated auto-properties. Hand-authored for the ENFAStepLexer-StepParser engine and validated against the jsb C# generator output (66/66 corpus files across three C# output variants).",
+  "License": "MIT",
+  "Tags": [
+    "programming-language",
+    "minotaur"
+  ],
+  "MainFile": "CSharpJsb.grammar",
+  "LabyrinthExtension": true,
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free",
+  "EngineVerified": true,
+  "EngineVerifiedBy": "DevelApp.StepParser 1.75.0 (GreedyLongestMatch; jsb corpus harness, 66/66 files across 3 C# output variants)"
+}

@@ -1,0 +1,39 @@
+# Conformance cases for CSharpJsb.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
+# mode; the grammar-repository-tests job runs this in engine CI as well.
+grammar: CSharpJsb.grammar
+
+# jsb prologue: the using_block token (one or more using directives,
+# simple or qualified names) and the declaration keywords.
+lex: using System;
+lex: using System;\nusing System.Collections.Generic;\nusing DevelApp.JsonSchemaBuilder.DataTypes;\nusing Newtonsoft.Json.Converters;\nusing Ardalis.SmartEnum;\nnamespace Funny.Onion\n{\n
+lex: public partial class ExampleDefinition\n{\n
+lex: public enum OrderState\n{\nDraft,\nPlaced,\nShipped\n}\n
+
+# Members: attributes (single and two-item), properties with nullable types,
+# List<T> generics and the inlined property initializers.
+# Doc comments are skip-only tokens: per finding 15 a lex pin must also
+# carry a real token, so the comment pins include the member head after
+# the docblock.
+lex: /// <summary>\n[JsonProperty("myTopPartString")]
+lex: [JsonProperty("myTopPartString")]
+lex: [JsonProperty("myTopPartString"), JsonConverter(typeof(StringEnumConverter))]
+lex: public DateTime? MyTopPartTime { get; set; } = DateTime.Parse("15:30:48.7650000+00:00");
+lex: public List<List<string>> MyTopPartArray { get; set; } = new List<List<string>>();
+lex: public string Name { get; set; } = new DataString("x");
+lex: public bool? BooleanPart { get; set; }
+lex: public long? IntegerPart { get; set; }
+lex: public object Payload { get; set; }
+
+# Inputs that must be rejected by the token rules (LX1001). Numeric literals
+# are excluded by design (the jsb C# generator emits none) so digits must
+# fail; backticks and the euro sign are not C# tokens.
+fail: `
+fail: x = 42;
+fail: €
+
+# New 2026-11 corpus constructs (jsb regeneration after PRs #36/#37-#40).
+lex: public List<string> Labels { get; set; } = new List<string>();
+
+# Whole example corpus as a lex case (raw content; '#' lines are comments).
+lexfile: Examples.txt

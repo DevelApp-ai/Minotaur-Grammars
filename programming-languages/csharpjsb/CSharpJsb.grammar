@@ -1,0 +1,75 @@
+Grammar: CSharpJsb
+Keywords: namespace, public, partial, class, enum, get, set, new, string, bool, object, long, List
+
+<line_comment> ::= /\x2F\x2F[^\n]*/ => { skip }
+<whitespace> ::= /[ \t\r\n]+/ => { skip }
+
+<identifier> ::= /[A-Za-z_][A-Za-z0-9_]*/
+<qualified_name> ::= /[A-Za-z_][A-Za-z0-9_]*(\.[A-Za-z_][A-Za-z0-9_]*)+/
+<string_literal> ::= /"([^"\\]|\\.)*"/
+<using_block> ::= /using[ \t\r\n]+[A-Za-z_][A-Za-z0-9_]*(\.[A-Za-z_][A-Za-z0-9_]*)*;([ \t\r\n]+using[ \t\r\n]+[A-Za-z_][A-Za-z0-9_]*(\.[A-Za-z_][A-Za-z0-9_]*)*;)*/
+
+<namespace_kw(priority:10)> ::= 'namespace'
+<public_kw(priority:10)> ::= 'public'
+<partial_kw(priority:10)> ::= 'partial'
+<class_kw(priority:10)> ::= 'class'
+<enum_kw(priority:10)> ::= 'enum'
+<get_kw(priority:10)> ::= 'get'
+<set_kw(priority:10)> ::= 'set'
+<new_kw(priority:10)> ::= 'new'
+<string_kw(priority:10)> ::= 'string'
+<bool_kw(priority:10)> ::= 'bool'
+<object_kw(priority:10)> ::= 'object'
+<long_kw(priority:10)> ::= 'long'
+<list_kw(priority:10)> ::= 'List'
+
+<compilation_unit> ::= <namespace_declaration>
+<compilation_unit> ::= <using_block> <namespace_declaration>
+
+<namespace_declaration> ::= 'namespace' <ns_name> '{' <ns_member_seq> '}'
+<namespace_declaration> ::= 'namespace' <ns_name> '{' '}'
+<ns_name> ::= <identifier> | <qualified_name>
+
+<ns_member_seq> ::= <ns_member_seq> <ns_member>
+<ns_member_seq> ::= <ns_member>
+<ns_member_seq> ::= <ns_member_seq> <ns_member_seq>
+<ns_member> ::= <class_declaration>
+<ns_member> ::= <enum_declaration>
+
+<class_declaration> ::= 'public' 'partial' 'class' <identifier> '{' <class_member_seq> '}'
+<class_declaration> ::= 'public' 'partial' 'class' <identifier> '{' '}'
+
+<class_member_seq> ::= <class_member_seq> <class_member>
+<class_member_seq> ::= <class_member>
+<class_member_seq> ::= <class_member_seq> <class_member_seq>
+<class_member> ::= <class_declaration>
+<class_member> ::= <enum_declaration>
+<class_member> ::= <property>
+
+<property> ::= 'public' <type_ref> <identifier> '{' 'get' ';' 'set' ';' '}'
+<property> ::= 'public' <type_ref> <identifier> '{' 'get' ';' 'set' ';' '}' '=' <init_expr> ';'
+<property> ::= <attribute> 'public' <type_ref> <identifier> '{' 'get' ';' 'set' ';' '}'
+<property> ::= <attribute> 'public' <type_ref> <identifier> '{' 'get' ';' 'set' ';' '}' '=' <init_expr> ';'
+
+<attribute> ::= '[' <identifier> '(' <string_literal> ')' ']'
+<attribute> ::= '[' <identifier> '(' <string_literal> ')' ',' <identifier> '(' <identifier> '(' <identifier> ')' ')' ']'
+
+<enum_declaration> ::= 'public' 'enum' <identifier> '{' <enum_member_seq> '}'
+<enum_member_seq> ::= <enum_member_seq> ',' <enum_member>
+<enum_member_seq> ::= <enum_member>
+<enum_member> ::= <identifier>
+
+<type_ref> ::= <simple_type>
+<type_ref> ::= <simple_type> '?'
+<type_ref> ::= <identifier>
+<type_ref> ::= <identifier> '?'
+<type_ref> ::= <list_type>
+<simple_type> ::= 'string' | 'bool' | 'object' | 'long'
+<list_type> ::= 'List' '<' <type_arg> '>'
+<type_arg> ::= 'long' | 'string' | 'bool' | 'object' | <identifier> | <list_type>
+
+<init_expr> ::= 'new' <list_type> '(' ')'
+<init_expr> ::= 'new' <identifier> '(' ')'
+<init_expr> ::= 'new' <identifier> '(' <string_literal> ')'
+<init_expr> ::= <identifier> '.' <identifier> '(' <string_literal> ')'
+<init_expr> ::= <qualified_name> '(' <string_literal> ')'
