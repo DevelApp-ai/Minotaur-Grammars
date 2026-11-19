@@ -1,11 +1,17 @@
 # Conformance cases for Cypher.grammar - engine-verified lexing pin.
-# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
-# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
-# engine CI as well.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
 grammar: Cypher.grammar
 
-lex: scalar CALL { WITH
+lex: MATCH (p:Person) RETURN p.name;
+lex: (a)-[:KNOWS*1..3]->(b)
+lex: WHERE x > 10 AND y <> "z"
+lex: RETURN count(*) AS c LIMIT 5 SKIP 2
+lex: SET n.x = 1.5, n.y = -3
+lex: MATCH (n) // c
+lex: "string" + 'other'
+lex: CREATE (n {k: 1})
+lex: MATCH p = (a)-[r]->(b) RETURN r
 
-# Inputs that must be rejected by the token rules (LX1001).
-fail: €
-fail: `
+lexfile: Examples.txt

@@ -113,3 +113,14 @@ Context: default
 
 <configuration_dependency> ::= <FILE_PATH> <FILE_PATH> <config_type>
 <config_type> ::= 'appsettings' | 'web.config' | 'app.config' | 'project'
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   DotNet project meta grammar (.csproj): ws, xml-ish comments, strings, identifiers, paths. */
+<whitespace> ::= /[ \t\r\n]+/ => { skip }
+<comment> ::= /<!--([^-]|-[^-]|--[^>])*-->/ => { skip }
+<string> ::= /"([^"\\\n]|\\.)*"/
+<identifier> ::= /[a-zA-Z_][a-zA-Z0-9_]*/
+<path> ::= /[^"<>|]+/

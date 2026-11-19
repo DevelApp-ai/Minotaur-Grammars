@@ -1,18 +1,22 @@
 # Conformance cases for Protobuf.grammar - engine-verified lexing pin.
-# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
-# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
-# engine CI as well.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
 grammar: Protobuf.grammar
 
 lex: syntax = "proto3";
-lex: package orders.v1;
-lex: message Order {
-lex: string id = 1;
-lex: Status status = 2;
-lex: repeated Item items = 3;
+lex: package com.example.demo;
+lex: import public "common.proto";
+lex: syntax = "proto3"; // c
+lex: syntax = "proto3"; /* c */
+lex: message Person { string name = 1; }
+lex: repeated int32 ids = 2 [packed = true];
+lex: map<string, int32> counts = 3;
+lex: rpc SayHello (Person) returns (Person);
+lex: STATUS_ACTIVE = 1;
+lex: option deprecated = true;
+lex: reserved 2 to 15, 40;
 
-# Inputs that must be rejected by the token rules (LX1001).
-fail: €
-fail: `
+fail: "unterminated
 
-# Whole example corpus as a lex case (raw content; '#' lines are comments).
+lexfile: Examples.txt

@@ -40,7 +40,8 @@ ContextSensitive: true
 <plain-attribute> ::= <attr-name> <eq> <att-value>
 <attr-name> ::= (<xml-namespace-prefix> ":")? <identifier>
 <markup-extension-attribute> ::= <attr-name> <eq> <markup-extension-string>
-<markup-extension-string> ::= '"' "{" <markup-extension> "}" '"' | "'" "{" <markup-extension> "}" "'"
+<markup-extension-string> ::= '"' "{" <markup-extension> "}" '"' ;
+<markup-extension-string> ::= "'" "{" <markup-extension> "}" "'" ;
 
 <markup-extension> ::= <static-resource>
                      | <dynamic-resource>
@@ -62,18 +63,20 @@ ContextSensitive: true
 <positional-arg> ::= <ext-value>
 <named-arg> ::= <identifier> "=" <ext-value>
 <ext-value> ::= <ext-literal> | <nested-markup-extension>
-<ext-literal> ::= /[^{},= ]+/ | "'" /[^']+/ "'"
+<ext-literal> ::= /[^{},= ]+/ ;
+<ext-literal> ::= "'" /[^']+/ "'" ;
 <nested-markup-extension> ::= "{" <markup-extension> "}"
 
-<att-value> ::= '"' <att-value-content> '"' | "'" <att-value-content> "'"
+<att-value> ::= '"' <att-value-content> '"' ;
+<att-value> ::= "'" <att-value-content> "'" ;
 <att-value-content> ::= /[^"]*/
 
 <char-data> ::= /[^<&]+/
 <reference> ::= "&" <identifier> ";" | "&#" /[0-9]+/ ";"
 <cd-sect> ::= "<![CDATA[" <cdata-content> "]]>"
-<cdata-content> ::= /(?!\]\]>)[\s\S]*/
+<cdata-content> ::= /([^\]]|\][^\]]|\]\][^>])*/
 <comment> ::= "<!--" <comment-content> "-->"
-<comment-content> ::= /(?!-->)[\s\S]*/
+<comment-content> ::= /([^-]|-[^-]|--[^>])*/
 <pi> ::= "<?" <pitarget> (<s> <pi-content>)? "?>"
 <pitarget> ::= <identifier>
 <pi-content> ::= /[^?]*/

@@ -22,7 +22,9 @@ FormatType: EBNF
 <int-subset> ::= (<markup-decl> | <decl-sep>)*
 <markup-decl> ::= <elementdecl> | <attlistdecl> | <entitydecl> | <notationdecl> | <comment> | <pi>
 <elementdecl> ::= "<!ELEMENT" <s> <name> <s> <contentspec> <s>? ">"
-<contentspec> ::= "EMPTY" | "ANY" | <mixed> | <children>
+<contentspec> ::= "EMPTY" ;
+<contentspec> ::= "ANY" ;
+<contentspec> ::= <mixed> | <children> ;
 <children> ::= "(" <s>? <cp> (<s>? ("," | "|") <s>? <cp>)* <s>? ")" <cardinality>?
 <mixed> ::= "(" <s>? "#PCDATA" (<s>? "|" <s>? <name>)* <s>? ")*" | "(" <s>? "#PCDATA" <s>? ")"
 <cardinality> ::= "?" | "*" | "+"
@@ -48,13 +50,14 @@ FormatType: EBNF
 <empty-elem-tag> ::= "<" <name> (<s> <attribute>)* <s>? "/>"
 <stag> ::= "<" <name> (<s> <attribute>)* <s>? ">"
 <attribute> ::= <name> <eq> <att-value>
-<att-value> ::= '"' <att-value-content> '"' | "'" <att-value-content> "'"
+<att-value> ::= '"' <att-value-content> '"' ;
+<att-value> ::= "'" <att-value-content> "'" ;
 <att-value-content> ::= /[^<"]*/
 <etag> ::= "</" <name> <s>? ">"
 <content> ::= (<element> | <char-data> | <reference> | <cd-sect> | <comment> | <pi>)*
 
 <cd-sect> ::= "<![CDATA[" <cdata-content> "]]>"
-<cdata-content> ::= /(?!\]\]>)[\s\S]*/
+<cdata-content> ::= /([^\]]|\][^\]]|\]\][^>])*/
 <char-data> ::= /[^<&]+/
 <reference> ::= <entity-ref> | <char-ref>
 <entity-ref> ::= "&" <name> ";"
@@ -62,7 +65,7 @@ FormatType: EBNF
 <pe-reference> ::= "%" <name> ";"
 
 <comment> ::= "<!--" <comment-content> "-->"
-<comment-content> ::= /(?!-->)[\s\S]*/
+<comment-content> ::= /([^-]|-[^-]|--[^>])*/
 <pi> ::= "<?" <pitarget> (<s> <pi-content>)? "?>"
 <pitarget> ::= <name>
 <pi-content> ::= /[^?]*/
@@ -73,11 +76,14 @@ FormatType: EBNF
 <name-start-char> ::= /[A-Za-z_:]/
 <name-char> ::= /[A-Za-z0-9._:-]/
 <nmtoken> ::= <name-char>+
-<entity-value> ::= '"' <entity-value-content> '"' | "'" <entity-value-content> "'"
+<entity-value> ::= '"' <entity-value-content> '"' ;
+<entity-value> ::= "'" <entity-value-content> "'" ;
 <entity-value-content> ::= /[^%&'"]*/
-<system-literal> ::= '"' <system-literal-content> '"' | "'" <system-literal-content> "'"
+<system-literal> ::= '"' <system-literal-content> '"' ;
+<system-literal> ::= "'" <system-literal-content> "'" ;
 <system-literal-content> ::= /[^"]*/
-<pubid-literal> ::= '"' <pubid-char>* '"' | "'" <pubid-char-p>* "'"
+<pubid-literal> ::= '"' <pubid-char>* '"' ;
+<pubid-literal> ::= "'" <pubid-char-p>* "'" ;
 <pubid-char> ::= /[ -#%-;-~]/
 <pubid-char-p> ::= /[ -#%-!(-.0-;=-~]/
 <eq> ::= <s>? "=" <s>?

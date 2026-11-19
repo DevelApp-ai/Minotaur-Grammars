@@ -49,7 +49,10 @@ SymbolTableSharing: hierarchical
 
 /* Combinators */
 <combinator> ::= <opt-whitespace> <combinator-symbol> <opt-whitespace>
-<combinator-symbol> ::= ">" | "+" | "~" | <whitespace>
+<combinator-symbol> ::= ">" ;
+<combinator-symbol> ::= "+" ;
+<combinator-symbol> ::= "~" ;
+<combinator-symbol> ::= <whitespace> ;
 
 /* Declarations */
 <declaration-list> ::= <opt-whitespace> <declaration>? <declaration-tail>*
@@ -89,7 +92,9 @@ SymbolTableSharing: hierarchical
 
 <keyframes-rule> ::= "@keyframes" <whitespace> <keyframes-name> "{" <keyframe-rule>* "}"
 <keyframe-rule> ::= <keyframe-selector> "{" <declaration-list> "}"
-<keyframe-selector> ::= <percentage> | "from" | "to"
+<keyframe-selector> ::= "from" ;
+<keyframe-selector> ::= "to" ;
+<keyframe-selector> ::= <percentage> ;
 
 <font-face-rule> ::= "@font-face" <whitespace> "{" <declaration-list> "}"
 
@@ -105,7 +110,11 @@ SymbolTableSharing: hierarchical
 <media-query> ::= <media-type> <media-expression>*
                 | <media-expression> <media-expression>*
 
-<media-type> ::= "all" | "screen" | "print" | "speech" | <identifier>
+<media-type> ::= "all" ;
+<media-type> ::= "screen" ;
+<media-type> ::= "print" ;
+<media-type> ::= "speech" ;
+<media-type> ::= <identifier> ;
 <media-expression> ::= "and" <whitespace> "(" <media-feature> <media-value>? ")"
 <media-feature> ::= <identifier>
 <media-value> ::= ":" <opt-whitespace> <value-item>
@@ -139,12 +148,15 @@ SymbolTableSharing: hierarchical
 <unquoted-url> ::= <url-char>+
 
 /* Strings and Identifiers */
-<string> ::= "\"" <string-content> "\"" | "'" <string-content> "'"
 <string-content> ::= <string-char>*
 
 <identifier> ::= <identifier-start> <identifier-char>*
-<identifier-start> ::= <letter> | "_" | "-"
-<identifier-char> ::= <letter> | <digit> | "_" | "-"
+<identifier-start> ::= "_" ;
+<identifier-start> ::= "-" ;
+<identifier-start> ::= <letter> ;
+<identifier-char> ::= "_" ;
+<identifier-char> ::= "-" ;
+<identifier-char> ::= <letter> | <digit> ;
 
 <property-name> ::= <identifier>
 <tag-name> ::= <identifier>
@@ -163,7 +175,19 @@ SymbolTableSharing: hierarchical
 
 /* Character Classes */
 <digit> ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
-<hex-digit> ::= <digit> | "A" | "B" | "C" | "D" | "E" | "F" | "a" | "b" | "c" | "d" | "e" | "f"
+<hex-digit> ::= "A" ;
+<hex-digit> ::= "B" ;
+<hex-digit> ::= "C" ;
+<hex-digit> ::= "D" ;
+<hex-digit> ::= "E" ;
+<hex-digit> ::= "F" ;
+<hex-digit> ::= "a" ;
+<hex-digit> ::= "b" ;
+<hex-digit> ::= "c" ;
+<hex-digit> ::= "d" ;
+<hex-digit> ::= "e" ;
+<hex-digit> ::= "f" ;
+<hex-digit> ::= <digit> ;
 
 <letter> ::= "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M"
            | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z"
@@ -175,7 +199,16 @@ SymbolTableSharing: hierarchical
                      | "/" | ":" | ";" | "<" | "=" | ">" | "?" | "@" | "[" | "]" | "^" | "_"
                      | "`" | "{" | "|" | "}" | "~"
 
-<url-char> ::= <letter> | <digit> | "!" | "#" | "$" | "&" | "'" | "(" | ")" | "*" | "+"
+<url-char> ::= "!" ;
+<url-char> ::= "#" ;
+<url-char> ::= "$" ;
+<url-char> ::= "&" ;
+<url-char> ::= "'" ;
+<url-char> ::= "(" ;
+<url-char> ::= ")" ;
+<url-char> ::= "*" ;
+<url-char> ::= "+" ;
+<url-char> ::= <letter> | <digit> ;
              | "," | "-" | "." | "/" | ":" | ";" | "=" | "?" | "@" | "_" | "~"
 
 <escape-sequence> ::= "\\" <escape-char>
@@ -191,7 +224,6 @@ SymbolTableSharing: hierarchical
 <opt-whitespace> ::= <space>*
 
 /* Comments */
-<comment> ::= "/*" <comment-content> "*/"
 <comment-content> ::= <comment-char>*
 <comment-char> ::= <letter> | <digit> | <space> | <safe-comment-char>
 <safe-comment-char> ::= "!" | "#" | "$" | "%" | "&" | "'" | "(" | ")" | "+" | "," | "-"
@@ -205,3 +237,16 @@ SymbolTableSharing: hierarchical
     css_property: <property>
 }
 
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   CSS3+: ws, comments, strings, numbers, identifiers, hash colors. */
+<whitespace> ::= /[ \t\r\n]+/ => { skip }
+<comment> ::= /\x2F\*([^*]|\*+[^*\x2F])*\*+\x2F/ => { skip }
+<string> ::= /"([^"\\\n]|\\.)*"/
+<string> ::= /'([^'\\n]|\\.)*'/
+<number> ::= /[+-]?[0-9]+(\x2E[0-9]+)?([eE][+-]?[0-9]+)?/
+<identifier> ::= /-?[a-zA-Z_][a-zA-Z0-9_-]*/
+<hash> ::= /#[0-9a-fA-F]{3,8}/
+<id_sel> ::= /#[a-zA-Z_][a-zA-Z0-9_-]*/

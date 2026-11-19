@@ -5,7 +5,7 @@
   "DisplayName": "GrammarFile",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "GrammarFile programming-language grammar for the Minotaur parser platform.",
+  "Description": "Grammar file meta grammar (001) with engine-verified lexer core.",
   "License": "MIT",
   "Tags": [
     "programming-language",
