@@ -5,7 +5,7 @@
   "DisplayName": "JSONSchemaDraft7",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "JSON Schema draft-07 grammar for the Minotaur parser platform, hand-authored for the ENFAStepLexer-StepParser engine and validated against the JsonSchemaBuilder generator output (21/21 corpus files).",
+  "Description": "JSON Schema draft-07 grammar for the Minotaur parser platform, hand-authored for the ENFAStepLexer-StepParser engine and validated against the JsonSchemaBuilder generator output (22/22 corpus files).",
   "License": "MIT",
   "Tags": [
     "programming-language",
