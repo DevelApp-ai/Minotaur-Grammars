@@ -1,10 +1,24 @@
 # Conformance cases for JavaScript.grammar - engine-verified lexing pin.
 # Run by the ENFAStepLexer-StepParser integration suite in
-# GreedyLongestMatch mode (engine issues #129/#133); grammar-repository-tests
-# job runs this in engine CI as well.
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
 grammar: JavaScript.grammar
 
 lex: let x = 1; console.log(x);
+lex: const s = "hi\\n"; let t = 'single';
+lex: function f(a, b) { return a + b; }
+lex: x => x * 2; obj?.prop ?? 1;
+lex: const f = (a, b) => a + b;
+lex: `tpl ${x} end`
+lex: const re = /ab+c/gi;
+lex: 0xFF 0o17 0b101 1_000 3.14e-2 10n .5
+lex: if (a === b) { c(); } else { d(); }
+lex: let x = 1; // trailing comment
+lex: let y = 2; /* block */ z();
+lex: for (const k of Object.keys(o)) { total += o[k]; }
+lex: class A extends B { #priv = 1; get x() { return this.#priv; } }
+lex: try { risky(); } catch (e) { throw e; } finally { done(); }
 
-# Input that must be rejected by the token rules (LX1001).
-fail: €
+fail: "unterminated
+
+lexfile: Examples.txt

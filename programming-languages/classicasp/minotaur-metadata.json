@@ -5,7 +5,7 @@
   "DisplayName": "ClassicASP",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "ClassicASP programming-language grammar for the Minotaur parser platform.",
+  "Description": "Classic ASP (VBScript + HTML) grammar with engine-verified lexer core (ws, HTML/ASP comments, <% %> delimiters, strings, numbers incl. &H hex and #date#, identifiers, operators).",
   "License": "MIT",
   "Tags": [
     "programming-language",

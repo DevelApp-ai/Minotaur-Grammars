@@ -1,7 +1,24 @@
 # Conformance cases for TypeScript.grammar - engine-verified lexing pin.
 # Run by the ENFAStepLexer-StepParser integration suite in
-# GreedyLongestMatch mode (engine issues #129/#133); grammar-repository-tests
-# job runs this in engine CI as well.
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
 grammar: TypeScript.grammar
 
 lex: let x: number = 1;
+lex: const s = "hi"; interface I { a: string }
+lex: type T = `a${x}b`; enum E { A, B }
+lex: function f<T>(x: T): T | null { return x; }
+lex: import def, { a as b } from "mod";
+lex: export abstract class C<T> implements I { private x?: number; }
+lex: const re = /ab+c/gi; let n = 0xFF;
+lex: let u: string | number = cond ? "a" : 1;
+lex: declare module "m" { const x: unique symbol; }
+lex: @sealed class D { @m() method() {} }
+lex: for (let i = 0; i < 10; i++) { console.log(i); }
+lex: let x = 1; // c
+lex: let y = 2; /* c */ f(y);
+lex: async function g(): Promise<void> { await h(); }
+
+fail: "unterminated
+
+lexfile: TypeScript_Examples.txt

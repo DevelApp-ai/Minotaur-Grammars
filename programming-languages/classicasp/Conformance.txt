@@ -1,7 +1,19 @@
 # Conformance cases for ClassicASP.grammar - engine-verified lexing pin.
 # Run by the ENFAStepLexer-StepParser integration suite in
-# GreedyLongestMatch mode (engine issues #129/#133); grammar-repository-tests
-# job runs this in engine CI as well.
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
 grammar: ClassicASP.grammar
 
 lex: <% Response.Write "ok" %>
+lex: <%@ Page Language="VBScript" %>
+lex: <%= x + 1 %>
+lex: <html><body>hi</body></html>
+lex: <% Dim x: x = 42 %>
+lex: <% If a <> b Then %><p>x</p><% End If %>
+lex: <%-- asp comment --%> <p>after</p>
+lex: <!-- html comment --> <div>t</div>
+lex: Dim d: d = #12/31/2024# : t = #10:30:00#
+lex: h = &HFF : i = 42 : f = 3.14
+lex: Response.Write "hi\\n"
+
+lexfile: Examples.txt

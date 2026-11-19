@@ -41,8 +41,6 @@ FormatType: EBNF
 
 /* Comments (issue #189: required for documentation extraction) */
 <comment> ::= <single-line-comment> | <multi-line-comment>
-<single-line-comment> ::= /\/\/[^\n]*/
-<multi-line-comment> ::= /\/\*([^*]|\*+[^*/])*\*+\//
 
 /* Import Declarations */
 <import-declaration> ::= "import" <whitespace> <import-clause> <whitespace> "from" <whitespace> <module-specifier> <semicolon>?
@@ -190,7 +188,9 @@ FormatType: EBNF
                       | <member-expression> "[" <expression> "]"
                       | <member-expression> "!"
                       | <member-expression> <type-args>
-<primary-expression> ::= <identifier> | "this" | "super" | <literal> | <array-literal> | <object-literal> | <paren-expression>
+<primary-expression> ::= "this" ;
+<primary-expression> ::= "super" ;
+<primary-expression> ::= <identifier> | <literal> | <array-literal> | <object-literal> | <paren-expression> ;
                       | <arrow-function> | <function-expression> | <class-declaration> | <template-literal> | "await" <whitespace> <unary-expression>
 <argument-list> ::= <assignment-expression> ("," <whitespace>? <assignment-expression>)*
 <array-literal> ::= "[" <argument-list>? "]"
@@ -203,7 +203,8 @@ FormatType: EBNF
 <spread-property> ::= "..." <assignment-expression>
 <paren-expression> ::= "(" <expression> ")"
 <arrow-function> ::= ("async" <whitespace>)? <arrow-params> <whitespace>? "=>" <whitespace>? <arrow-body>
-<arrow-params> ::= <identifier> | "(" <parameter-list>? ")"
+<arrow-params> ::= "(" <parameter-list>? ")" ;
+<arrow-params> ::= <identifier> ;
 <arrow-body> ::= <class-body> | <assignment-expression>
 <function-expression> ::= ("async" <whitespace>)? "function" <identifier>? "(" <parameter-list>? ")" (":" <whitespace> <type-expression>)? <whitespace>? <class-body>?
 
@@ -229,19 +230,24 @@ FormatType: EBNF
 <continue-statement> ::= "continue" (<whitespace> <identifier>)? <semicolon>?
 <expression-statement> ::= <expression> <semicolon>?
 <block> ::= "{" <statement-list>? "}"
-<semicolon> ::= ";"
 
-/* Literals (issue #189: escape sequences in strings, template literal types) */
-<template-literal> ::= "`" <template-parts> "`"
-<template-char> ::= /[^`$\\]/
-<template-parts> ::= (<template-char>+ | "${" <expression> "}")*
-<literal> ::= <string-literal> | <int-literal> | <float-literal> | <bool-literal> | "null" | "undefined" | <regex-literal>
-<string-literal> ::= /"(\\.|[^"\\])*"/ | /'(\\.|[^'\\])*'/
-<int-literal> ::= /[0-9]+/
-<float-literal> ::= /[0-9]+\.[0-9]+/
-<bool-literal> ::= "true" | "false"
-<regex-literal> ::= /\/([^\/\\]|\\.)+\/[a-z]*/
-<identifier> ::= /[_$a-zA-Z][_$a-zA-Z0-9]*/
-<dotted-name> ::= <identifier> ("." <identifier>)*
-<whitespace> ::= /[ \t]+/
-<newline> ::= /\n|\r\n/
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   TypeScript (ES2022 + type system): ws, comments, strings, template literals, regex literals, numbers, identifiers, operators. */
+<whitespace> ::= /[ \t\r\n]+/ => { skip }
+<newline> ::= /\r\n|\n/ => { skip }
+<single-line-comment> ::= /\x2F\x2F[^\n]*/ => { skip }
+<multi-line-comment> ::= /\x2F\*([^*]|\*+[^*\x2F])*\*+\x2F/ => { skip }
+<string-literal> ::= /"([^"\\\n]|\\.)*"/
+<string-literal> ::= /'([^'\\n]|\\.)*'/
+<template-literal-str> ::= /`([^`\\]|\\.)*`/
+<regex-literal> ::= /\x2F([^\x2F\\\n]|\\.)+\x2F[a-zA-Z]*/
+<int-literal> ::= /[0-9][0-9_]*[nN]?/
+<float-literal> ::= /0[xX][0-9a-fA-F_]+[nN]?|0[oO][0-7_]+|0[bB][01_]+|[0-9][0-9_]*(\x2E[0-9_]+)?([eE][+-]?[0-9]+)?[nN]?|\x2E[0-9][0-9_]*([eE][+-]?[0-9]+)?/
+<bool-literal> ::= "true"
+<bool-literal> ::= "false"
+<identifier> ::= /[$_a-zA-Z][$_a-zA-Z0-9]*/
+<semicolon> ::= ";"
+<op> ::= /\.\.\.|\*\*=|\|\|=|\?\?=|\x2F=|>>>=|\|\||\?\?|\?\.|\+\+|\*\*|\x2F|===|!==|>>>|<<=|>>=|&&=|\+=|\*=|\|=|\^=|=>|==|!=|<=|>=|&&|--|-=|%=|&=|<<|>>|\+|\*|\||\^|\?|\.|\(|\)|\{|\}|\[|\]|-|%|&|!|~|<|>|=|:|,|;/

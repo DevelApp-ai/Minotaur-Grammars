@@ -5,7 +5,7 @@
   "DisplayName": "Java 8",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "Java SE 8 grammar (JLS 8) for the Minotaur parser platform. Complete syntactic coverage of Java SE 8 - a superset of Java 7 and earlier - including lambda expressions, method references, default and static interface methods, intersection type casts, and the diamond operator. Replaces the unversioned legacy Java.grammar, which only covered Java through 7.",
+  "Description": "Java 8 grammar with engine-verified lexer core (ws/comments/string/char/number/identifier/operator single-terminal rules).",
   "License": "MIT",
   "Tags": [
     "programming-language",

@@ -202,7 +202,8 @@ Keywords: abstract, assert, boolean, break, byte, case, catch, char, class, cons
 /* Expressions */
 <expression> ::= <lambda-expression> | <assignment-expression>
 <lambda-expression> ::= <lambda-parameters> "->" <lambda-body>
-<lambda-parameters> ::= "(" <lambda-parameter-list>? ")" | <identifier>
+<lambda-parameters> ::= "(" <lambda-parameter-list>? ")" ;
+<lambda-parameters> ::= <identifier> ;
 <lambda-parameter-list> ::= <lambda-parameter> ("," <lambda-parameter>)*
 <lambda-parameter> ::= <variable-modifier>* <unann-type> <variable-declarator-id> | <variable-modifier>* <identifier>
 <lambda-body> ::= <expression> | <block>
@@ -250,7 +251,8 @@ Keywords: abstract, assert, boolean, break, byte, case, catch, char, class, cons
 <class-instance-creation-expression> ::= <unqualified-class-instance-creation-expression> | <expression-name> "." <unqualified-class-instance-creation-expression> | <primary> "." <unqualified-class-instance-creation-expression>
 <unqualified-class-instance-creation-expression> ::= new <type-arguments>? <class-or-interface-type-to-instantiate> "(" <argument-list>? ")" <class-body>?
 <class-or-interface-type-to-instantiate> ::= <identifier> <type-arguments-or-diamond>? ("." <identifier> <type-arguments-or-diamond>?)*
-<type-arguments-or-diamond> ::= <type-arguments> | "<>"
+<type-arguments-or-diamond> ::= "<>" ;
+<type-arguments-or-diamond> ::= <type-arguments> ;
 
 <array-creation-expression> ::= new <primitive-type> <dims> <dim-exprs>? | new <class-or-interface-type> <dims> <dim-exprs>? | new <primitive-type> <dim-exprs> <dims>? | new <class-or-interface-type> <dim-exprs> <dims>?
 <dim-exprs> ::= <dim-expr>+
@@ -268,7 +270,6 @@ Keywords: abstract, assert, boolean, break, byte, case, catch, char, class, cons
 <boolean-literal> ::= true | false
 <character-literal> ::= "'" <single-character> "'" | "'" <escape-sequence> "'"
 <single-character> ::= <input-character-except-quote-or-backslash>
-<string-literal> ::= "\"" <string-characters>? "\""
 <string-characters> ::= <string-character>+
 <string-character> ::= <input-character-except-quote-or-backslash> | <escape-sequence>
 <escape-sequence> ::= "\\" "t" | "\\" "b" | "\\" "n" | "\\" "r" | "\\" "f" | "\\" "'" | "\\" "\"" | "\\" "\\" | <octal-escape>
@@ -305,7 +306,6 @@ Keywords: abstract, assert, boolean, break, byte, case, catch, char, class, cons
 <array-initializer> ::= "{" <variable-initializer-list>? ","? "}"
 <variable-initializer-list> ::= <variable-initializer> ("," <variable-initializer>)*
 
-<identifier> ::= /[A-Za-z_$][A-Za-z0-9_$]*/
 
 <package-name> ::= <identifier> ("." <identifier>)*
 <constant-expression> ::= <expression>
@@ -315,6 +315,21 @@ Keywords: abstract, assert, boolean, break, byte, case, catch, char, class, cons
 <annotations> ::= <annotation>+
 
 /* Comments (issue #189) */
-<single-line-comment> ::= /\/\/[^\n]*/
-<multi-line-comment> ::= /\/\*([^*]|\*+[^*/])*\*+\//
 <comment> ::= <single-line-comment> | <multi-line-comment>
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   Java 8: ws, // and /* */ comments, string + char literals (CSharp10-proven patterns), numeric literals, identifiers, operators. */
+<ws> ::= /[ \t\r\n]+/ => { skip }
+<single-line-comment> ::= /\x2F\x2F[^\n]*/ => { skip }
+<multi-line-comment> ::= /\x2F\*([^*]|\*+[^*\x2F])*\*+\x2F/ => { skip }
+<string-literal> ::= /"([^"\\\n]|\\.)*"/
+<char0> ::= /'[^'\n]'/
+<char1> ::= /'\x5C.'/
+<char2> ::= /'\x5Cu[0-9a-fA-F]{4}'/
+<char3> ::= /'\x5Cx[0-9a-fA-F]{1,4}'/
+<numeric-literal> ::= /0[xX][0-9a-fA-F_]+[lL]?|0[bB][01_]+[lL]?|[0-9][0-9_]*\x2E[0-9_]*([eE][+-]?[0-9]+)?[fFdD]?|\x2E[0-9][0-9_]*([eE][+-]?[0-9]+)?[fFdD]?|[0-9][0-9_]*[eE][+-]?[0-9]+[fFdD]?|[0-9][0-9_]*[lL]?/
+<identifier> ::= /[A-Za-z_$][A-Za-z0-9_$]*/
+<op> ::= /\x2F=|>>>=|\|\||\+\+|\x2F|>>>|<<=|>>=|\+=|\*=|\|=|\^=|::|==|!=|<=|>=|&&|--|-=|%=|&=|<<|>>|\+|\*|\||\^|\?|\.|\(|\)|\{|\}|\[|\]|-|%|&|!|~|<|>|=|:|,|;|@/

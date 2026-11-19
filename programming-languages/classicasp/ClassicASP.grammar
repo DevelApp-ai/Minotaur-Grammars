@@ -46,7 +46,6 @@ FormatType: EBNF
 
 <tag-content> ::= <html-content>
 
-<html-comment> ::= "<!--" <comment-content> "-->"
 
 <comment-content> ::= /[^>]*/
 
@@ -58,7 +57,8 @@ FormatType: EBNF
 
 <directive-name> ::= "LANGUAGE" | "CODEPAGE" | "LCID" | "ENABLESESSIONSTATE" | "TRANSACTION"
 
-<directive-value> ::= "\"" <directive-value-content> "\"" | <directive-value-content>
+<directive-value> ::= "\"" <directive-value-content> "\"" ;
+<directive-value> ::= <directive-value-content> ;
 
 <directive-value-content> ::= /[^">%]*/
 
@@ -239,15 +239,12 @@ FormatType: EBNF
 
 <literal> ::= <string-literal> | <numeric-literal> | <boolean-literal> | <null-literal>
 
-<string-literal> ::= "\"" <string-content> "\"" | "'" <string-content> "'"
 
 <string-content> ::= /[^"']*/
 
 <numeric-literal> ::= <integer> | <decimal>
 
-<integer> ::= /[0-9]+/
 
-<decimal> ::= /[0-9]*\.[0-9]+/
 
 <boolean-literal> ::= "True" | "False" | "true" | "false"
 
@@ -256,15 +253,39 @@ FormatType: EBNF
 <IDENTIFIER> ::= /[a-zA-Z_][a-zA-Z0-9_]*/
 
 /* ASP Date/Time literals */
-<date-literal> ::= "#" /[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{2,4}/ "#"
-<time-literal> ::= "#" /[0-9]{1,2}:[0-9]{2}(:[0-9]{2})?/ "#"
 
 /* ASP Constants */
 <asp-constant> ::= "vbCrLf" | "vbCr" | "vbLf" | "vbTab" | "vbNullChar" | "vbEmpty" | "vbNull"
 
 /* VBScript Constants */
-<vb-constant> ::= <asp-constant> | "vbOK" | "vbCancel" | "vbYes" | "vbNo" | "vbTrue" | "vbFalse"
+<vb-constant> ::= "vbOK" ;
+<vb-constant> ::= "vbCancel" ;
+<vb-constant> ::= "vbYes" ;
+<vb-constant> ::= "vbNo" ;
+<vb-constant> ::= "vbTrue" ;
+<vb-constant> ::= "vbFalse" ;
+<vb-constant> ::= <asp-constant> ;
 
 /* Hex and Octal literals for VBScript */
 <hex-literal> ::= "&H" /[0-9A-Fa-f]+/
 <octal-literal> ::= "&O" /[0-7]+/
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   Classic ASP (VBScript): ws, HTML and ASP comments, <% %> delimiters, strings, numbers incl. &H hex and #date#, identifiers, operators. */
+<ws> ::= /[ \t\r\n]+/ => { skip }
+<html-comment> ::= /<!--([^-]|-[^-]|--[^>])*-->/ => { skip }
+<asp-comment> ::= /\x3C\x25--([^-]|-[^-])*--\x25\x3E/ => { skip }
+<asp-delim> ::= /<!--|<%@|<%=|<%|%>/
+<string-literal> ::= /"([^"\\\n]|\\.)*"/
+<string-literal> ::= /'([^'\\n]|\\.)*'/
+<hex-literal> ::= /&[hH][0-9A-Fa-f]+/
+<date-literal> ::= /#[0-9]{1,2}\x2F[0-9]{1,2}\x2F[0-9]{2,4}#/
+<time-literal> ::= /#[0-9]{1,2}:[0-9]{2}(:[0-9]{2})?#/
+<hash> ::= "#"
+<decimal> ::= /[0-9]*\x2E[0-9]+/
+<integer> ::= /[0-9]+/
+<identifier> ::= /[a-zA-Z_][a-zA-Z0-9_]*/
+<op> ::= /\x2F|<>|<=|>=|\+|\*|\(|\)|\.|-|=|&|,|:|@|#/
