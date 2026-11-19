@@ -9,3 +9,5 @@ lex: <a> ::= "x"
 
 # Input that must be rejected by the token rules (LX1001).
 fail: €
+
+lexfile: Examples.txt

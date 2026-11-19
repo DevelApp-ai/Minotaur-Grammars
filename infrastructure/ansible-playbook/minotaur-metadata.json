@@ -5,7 +5,7 @@
   "DisplayName": "Ansible Playbook",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "Grammar for Ansible playbooks: plays with hosts and roles, task lists with modules, variables, handlers and Jinja2 templated values.",
+  "Description": "Ansible playbook (YAML) with engine-verified lexer core.",
   "License": "MIT",
   "Tags": [
     "infrastructure"

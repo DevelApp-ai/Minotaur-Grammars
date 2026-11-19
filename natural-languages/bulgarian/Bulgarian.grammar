@@ -255,7 +255,13 @@ Keywords: и, или, но, а, ами, че, който, която, което
 
 <adverb> ::= <manner-adverb> | <time-adverb> | <place-adverb>
 
-<manner-adverb> ::= "добре" | "зле" | "бързо" | "бавно" | "лесно" | "трудно" | /[а-я]+о/
+<manner-adverb> ::= "добре" ;
+<manner-adverb> ::= "зле" ;
+<manner-adverb> ::= "бързо" ;
+<manner-adverb> ::= "бавно" ;
+<manner-adverb> ::= "лесно" ;
+<manner-adverb> ::= "трудно" ;
+<manner-adverb> ::= /[а-я]+о/ ;
 
 <time-adverb> ::= "сега" | "вчера" | "днес" | "утре" | "винаги" | "никога" | "вече" | "още" | "рано" | "късно"
 
@@ -306,7 +312,6 @@ Keywords: и, или, но, а, ами, че, който, която, което
 <punctuation> ::= "." | "!" | "?" | "," | ";" | ":"
 
 /* Whitespace */
-<whitespace> ::= /[ \t\n\r]+/
 
 <opt-whitespace> ::= /[ \t\n\r]*/
 
@@ -671,3 +676,13 @@ Keywords: и, или, но, а, ами, че, който, която, което
     ELSE ALLOW_EITHER
 
 /* Bulgarian grammar enhancements complete - now at Danish benchmark level */
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   Bulgarian: ws skip, alphabet word rule, number, punctuation. */
+<whitespace> ::= /[ \t\r\n]+/ => { skip }
+<word> ::= /[абвгдежзийклмнопрстуфхцчшщъыьэюяa-zA-Z]+/
+<number> ::= /[0-9]+/
+<op> ::= /\x2F|\.|\?|\(|\)|\+|\*|,|!|;|:|-|'|"|=|%|&|→|←|—|–|„|“|”|’|«|»/

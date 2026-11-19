@@ -194,7 +194,9 @@ Keywords: e, o, ma, però, dunque, quindi, perché, che, chi, quando, dove, come
 <elliptical-clause> ::= <elliptical-response>
                      | <elliptical-coordination>
 
-<elliptical-response> ::= "sì" | "no" | <adverb>
+<elliptical-response> ::= "sì" ;
+<elliptical-response> ::= "no" ;
+<elliptical-response> ::= <adverb> ;
 
 <elliptical-coordination> ::= <main-clause> <opt-whitespace> "," <opt-whitespace> <coordinating-conjunction> <opt-whitespace> <noun-phrase>
                            | <subject> <opt-whitespace> <verb-phrase> <opt-whitespace> <object> <opt-whitespace> "," <opt-whitespace> <subject> <opt-whitespace> <object>
@@ -248,7 +250,39 @@ Keywords: e, o, ma, però, dunque, quindi, perché, che, chi, quando, dove, come
 
 <numeral> ::= <cardinal-number> | <ordinal-number>
 
-<cardinal-number> ::= "uno" | "una" | "due" | "tre" | "quattro" | "cinque" | "sei" | "sette" | "otto" | "nove" | "dieci" | "undici" | "dodici" | "tredici" | "quattordici" | "quindici" | "sedici" | "diciassette" | "diciotto" | "diciannove" | "venti" | "trenta" | "quaranta" | "cinquanta" | "sessanta" | "settanta" | "ottanta" | "novanta" | "cento" | "mille" | "milione" | "miliardo" | /[0-9]+/
+<cardinal-number> ::= "uno" ;
+<cardinal-number> ::= "una" ;
+<cardinal-number> ::= "due" ;
+<cardinal-number> ::= "tre" ;
+<cardinal-number> ::= "quattro" ;
+<cardinal-number> ::= "cinque" ;
+<cardinal-number> ::= "sei" ;
+<cardinal-number> ::= "sette" ;
+<cardinal-number> ::= "otto" ;
+<cardinal-number> ::= "nove" ;
+<cardinal-number> ::= "dieci" ;
+<cardinal-number> ::= "undici" ;
+<cardinal-number> ::= "dodici" ;
+<cardinal-number> ::= "tredici" ;
+<cardinal-number> ::= "quattordici" ;
+<cardinal-number> ::= "quindici" ;
+<cardinal-number> ::= "sedici" ;
+<cardinal-number> ::= "diciassette" ;
+<cardinal-number> ::= "diciotto" ;
+<cardinal-number> ::= "diciannove" ;
+<cardinal-number> ::= "venti" ;
+<cardinal-number> ::= "trenta" ;
+<cardinal-number> ::= "quaranta" ;
+<cardinal-number> ::= "cinquanta" ;
+<cardinal-number> ::= "sessanta" ;
+<cardinal-number> ::= "settanta" ;
+<cardinal-number> ::= "ottanta" ;
+<cardinal-number> ::= "novanta" ;
+<cardinal-number> ::= "cento" ;
+<cardinal-number> ::= "mille" ;
+<cardinal-number> ::= "milione" ;
+<cardinal-number> ::= "miliardo" ;
+<cardinal-number> ::= /[0-9]+/ ;
 
 <ordinal-number> ::= "primo" | "prima" | "secondo" | "seconda" | "terzo" | "terza" | "quarto" | "quarta" | "quinto" | "quinta" | "sesto" | "settimo" | "ottavo" | "nono" | "decimo" | "undicesimo" | "ventesimo" | "trentesimo" | "centesimo" | "millesimo"
 
@@ -601,7 +635,28 @@ Keywords: e, o, ma, però, dunque, quindi, perché, che, chi, quando, dove, come
                         | <preposition> <opt-whitespace> <pronoun>
                         | <preposition> <opt-whitespace> <verb-infinitive>
 
-<preposition> ::= "a" | "di" | "da" | "in" | "con" | "su" | "per" | "tra" | "fra" | "sopra" | "sotto" | "davanti" | "dietro" | "verso" | "durante" | "prima" | "dopo" | "senza" | "contro" | "secondo" | "mediante" | <compound-preposition>
+<preposition> ::= "a" ;
+<preposition> ::= "di" ;
+<preposition> ::= "da" ;
+<preposition> ::= "in" ;
+<preposition> ::= "con" ;
+<preposition> ::= "su" ;
+<preposition> ::= "per" ;
+<preposition> ::= "tra" ;
+<preposition> ::= "fra" ;
+<preposition> ::= "sopra" ;
+<preposition> ::= "sotto" ;
+<preposition> ::= "davanti" ;
+<preposition> ::= "dietro" ;
+<preposition> ::= "verso" ;
+<preposition> ::= "durante" ;
+<preposition> ::= "prima" ;
+<preposition> ::= "dopo" ;
+<preposition> ::= "senza" ;
+<preposition> ::= "contro" ;
+<preposition> ::= "secondo" ;
+<preposition> ::= "mediante" ;
+<preposition> ::= <compound-preposition> ;
 
 /* Compound prepositions */
 <compound-preposition> ::= "a" <opt-whitespace> "causa" <opt-whitespace> "di"
@@ -734,7 +789,6 @@ Keywords: e, o, ma, però, dunque, quindi, perché, che, chi, quando, dove, come
 <punctuation> ::= "." | "?" | "!" | "," | ";" | ":" | "..." | "-"
 
 /* Whitespace */
-<whitespace> ::= /[ \t\n\r]+/
 
 <opt-whitespace> ::= /[ \t\n\r]*/
 
@@ -1446,3 +1500,13 @@ Keywords: e, o, ma, però, dunque, quindi, perché, che, chi, quando, dove, come
     ELSE VALID
 
 /* Total lines: Italian grammar now enhanced to exceed Danish level */
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   Italian: ws skip, alphabet word rule, number, punctuation. */
+<whitespace> ::= /[ \t\r\n]+/ => { skip }
+<word> ::= /[a-zA-ZàèéìíîòóùúÀÈÉÌÍÎÒÓÙÚ]+/
+<number> ::= /[0-9]+/
+<op> ::= /\x2F|\.|\?|\(|\)|\+|\*|,|!|;|:|-|'|"|=|%|&|→|←|—|–|„|“|”|’|«|»/

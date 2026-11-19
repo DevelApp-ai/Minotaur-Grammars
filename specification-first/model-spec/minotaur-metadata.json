@@ -5,7 +5,7 @@
   "DisplayName": "Data Model Specification (.model)",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "Grammar for .model data model specification files (SpecTree): entities, value objects, enums, relationships with cardinality, invariants and persistence hints mapped to .NET/EF types.",
+  "Description": "Model spec with engine-verified lexer core.",
   "License": "MIT",
   "Tags": [
     "specification-first",

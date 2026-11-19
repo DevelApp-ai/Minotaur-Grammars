@@ -11,7 +11,6 @@ FormatType: EBNF
 <regex> ::= '~' <text> ;
 <identifier> ::= /[a-zA-Z_][a-zA-Z0-9_.]*/ ;
 <text> ::= /'"'[^"]*'"'/ ;
-<number> ::= /[0-9]+('k'|'m'|'g')?/ ;
 
 # --- Coverage completion: remaining language constructs ---
 <geo_block> ::= 'geo' var? '{' (pair | ip pair)* '}' ;
@@ -25,3 +24,15 @@ FormatType: EBNF
 <gzip_block> ::= 'gzip' ('on' | 'off') ';' 'gzip_types' <args> ';' ;
 <proxy_headers> ::= 'proxy_set_header' <arg> <arg> ';' ;
 
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   nginx config */
+<ws> ::= /[ \t\r\n]+/ => { skip }
+<comment> ::= /#[^\n]*/ => { skip }
+<string> ::= /"([^"\\\n]|\\.)*"/
+<string> ::= /'([^'\\\n]|\\.)*'/
+<number> ::= /[+-]?[0-9]+(\x2E[0-9]+)?([eE][+-]?[0-9]+)?/
+<word> ::= /[a-zA-Z_][a-zA-Z0-9_.-]*/
+<op> ::= /\|\||\x2F|:=|=>|->|==|!=|<=|>=|&&|\.|\+|\*|\?|\(|\)|\[|\]|\{|\}|\||\^|\$|\\|:|=|,|-|%|<|>|!|&|~|@|#|"|'/

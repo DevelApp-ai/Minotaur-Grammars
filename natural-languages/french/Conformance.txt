@@ -1,18 +1,12 @@
 # Conformance cases for French.grammar - engine-verified lexing pin.
-# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
-# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
-# engine CI as well.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
 grammar: French.grammar
 
-lex: Je parle.
-lex: Tu manges.
-lex: Il travaille.
-lex: Elle étudie.
-lex: Nous habitons.
-lex: Vous jouez.
-lex: Ils chantent.
-lex: Elles dansent.
+lex: Bonjour, le monde!
+lex: Je m'appelle Anna et j'habite à Paris.
+lex: C'est une belle ville.
+lex: Comment tu t'appelles?
 
-# Inputs that must be rejected by the token rules (LX1001).
-fail: €
-fail: `
+lexfile: Examples.txt

@@ -655,7 +655,6 @@ Keywords: und, oder, aber, wenn, weil, dass, als, ob, wie, der, die, das, ein, e
 <punctuation> ::= "." | "!" | "?" | "," | ";" | ":" | "..." | "-" | "–" | "—"
 
 /* Whitespace */
-<whitespace> ::= /[ \t\n\r]+/
 
 <opt-whitespace> ::= /[ \t\n\r]*/
 
@@ -937,7 +936,23 @@ Keywords: und, oder, aber, wenn, weil, dass, als, ob, wie, der, die, das, ein, e
 
 <numeral> ::= <cardinal-number> | <ordinal-number> | <dialect-numeral>
 
-<cardinal-number> ::= "ein" | "zwei" | "drei" | "vier" | "fünf" | "sechs" | "sieben" | "acht" | "neun" | "zehn" | "elf" | "zwölf" | "zwanzig" | "hundert" | "tausend" | "million" | /[0-9]+/
+<cardinal-number> ::= "ein" ;
+<cardinal-number> ::= "zwei" ;
+<cardinal-number> ::= "drei" ;
+<cardinal-number> ::= "vier" ;
+<cardinal-number> ::= "fünf" ;
+<cardinal-number> ::= "sechs" ;
+<cardinal-number> ::= "sieben" ;
+<cardinal-number> ::= "acht" ;
+<cardinal-number> ::= "neun" ;
+<cardinal-number> ::= "zehn" ;
+<cardinal-number> ::= "elf" ;
+<cardinal-number> ::= "zwölf" ;
+<cardinal-number> ::= "zwanzig" ;
+<cardinal-number> ::= "hundert" ;
+<cardinal-number> ::= "tausend" ;
+<cardinal-number> ::= "million" ;
+<cardinal-number> ::= /[0-9]+/ ;
 
 <ordinal-number> ::= "erste" | "zweite" | "dritte" | "vierte" | "fünfte" | /[0-9]+\./ "."
 
@@ -1395,3 +1410,13 @@ Keywords: und, oder, aber, wenn, weil, dass, als, ob, wie, der, die, das, ein, e
     IF <unreal-wish> OR <polite-request>
     THEN PREFER_SUBJUNCTIVE_2_OVER_WÜRDE_CONSTRUCTION
     ELSE VALID
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   German: ws skip, alphabet word rule, number, punctuation. */
+<whitespace> ::= /[ \t\r\n]+/ => { skip }
+<word> ::= /[a-zA-ZäöüÄÖÜß]+/
+<number> ::= /[0-9]+/
+<op> ::= /\x2F|\.|\?|\(|\)|\+|\*|,|!|;|:|-|'|"|=|%|&|→|←|—|–|„|“|”|’|«|»/

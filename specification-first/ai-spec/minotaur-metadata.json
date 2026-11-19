@@ -5,7 +5,7 @@
   "DisplayName": "AI Component Specification (.ai)",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "Grammar for hierarchical .ai component specification files (SpecTree): component identity, dependencies, requirements, API endpoints, data model references and ADR compliance. Used by Specification-First Development to drive .NET code generation.",
+  "Description": "AI spec with engine-verified lexer core.",
   "License": "MIT",
   "Tags": [
     "specification-first",

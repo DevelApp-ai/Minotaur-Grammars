@@ -5,7 +5,7 @@
   "DisplayName": "EnvoyConfig",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "Minotaur grammar for EnvoyConfig covering the core language subset.",
+  "Description": "Envoy config (YAML) with engine-verified lexer core.",
   "License": "MIT",
   "Tags": [
     "networking"

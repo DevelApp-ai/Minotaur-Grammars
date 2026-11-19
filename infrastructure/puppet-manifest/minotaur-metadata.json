@@ -5,7 +5,7 @@
   "DisplayName": "Puppet Manifest",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "Grammar for Puppet manifests: class and defined-type declarations, resource declarations with attributes, variables, node definitions and expressions.",
+  "Description": "Puppet manifest with engine-verified lexer core.",
   "License": "MIT",
   "Tags": [
     "infrastructure"

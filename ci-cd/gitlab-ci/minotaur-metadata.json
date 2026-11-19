@@ -5,7 +5,7 @@
   "DisplayName": "GitLabCI",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "Minotaur grammar for GitLabCI covering the core language subset.",
+  "Description": "GitLab CI config (YAML) with engine-verified lexer core.",
   "License": "MIT",
   "Tags": [
     "ci-cd"

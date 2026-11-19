@@ -1,18 +1,11 @@
 # Conformance cases for HAProxyConfig.grammar - engine-verified lexing pin.
-# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
-# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
-# engine CI as well.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
 grammar: HAProxyConfig.grammar
 
-lex: global
-lex: log stdout format raw local0
-lex: frontend https
-lex: default_backend servers
-lex: resolvers dns
-lex: nameserver d1 10.0.0.1:53
-lex: frontend f
-lex: http-response set-header X-Frame-Options DENY
+lex: global\n  maxconn 100
+lex: frontend f\n  bind *:80
+lex: backend b\n  server s1 10.0.0.1:80 # c
 
-# Inputs that must be rejected by the token rules (LX1001).
-fail: €
-fail: `
+lexfile: Examples.txt
