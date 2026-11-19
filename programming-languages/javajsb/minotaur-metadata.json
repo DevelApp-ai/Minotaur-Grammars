@@ -5,7 +5,7 @@
   "DisplayName": "JavaJsb",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "Disciplined grammar for the Java dialect emitted by the JsonSchemaBuilder (jsb) generator: package declaration, fixed-shape import block, one public class with Jackson-annotated private fields and getter/setter pairs, nested static classes and string-value enums. Hand-authored for the ENFAStepLexer-StepParser engine and validated against the jsb Java generator output (21/21 corpus files).",
+  "Description": "Disciplined grammar for the Java dialect emitted by the JsonSchemaBuilder (jsb) generator: package declaration, fixed-shape import block, one public class with Jackson-annotated private fields and getter/setter pairs, nested static classes and string-value enums. Hand-authored for the ENFAStepLexer-StepParser engine and validated against the jsb Java generator output (22/22 corpus files).",
   "License": "MIT",
   "Tags": [
     "programming-language",
