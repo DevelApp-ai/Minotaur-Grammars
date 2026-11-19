@@ -9,6 +9,6 @@ lex: %start input
 lex: %%
 lex: input: line | input line ;
 lex: line: NUMBER { printf("%d", $1); } ;
-lex: /* yacc comment */
+lex: %start input /* c */
 
 lexfile: Examples.txt

@@ -5,7 +5,7 @@
 grammar: lex_base.grammar
 
 lex: %{
-lex: #include <stdio.h>
+lex: %{ #include <stdio.h> %}
 lex: %}
 lex: %%
 lex: [0-9]+  { printf("num"); }

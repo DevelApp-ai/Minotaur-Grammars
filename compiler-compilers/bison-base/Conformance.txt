@@ -11,7 +11,7 @@ lex: %right "^"
 lex: %union { int val; char *str; }
 lex: %%
 lex: expr: expr "+" expr { $$ = $1 + $3; } | NUM ;
-lex: /* comment */
+lex: %token NUM /* c */
 lex: %start prog
 
 lexfile: Examples.txt
