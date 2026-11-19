@@ -9,7 +9,7 @@ lex: "quoted, field",x
 lex: "with ""escape""",y
 lex: a,,b
 lex: single
-lex: a,b\nc,d
+lex: a,b\nc,d
 
 fail: "unterminated
 
