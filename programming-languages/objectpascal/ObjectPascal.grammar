@@ -1,0 +1,62 @@
+Grammar: ObjectPascal
+FormatType: EBNF
+
+<unit> ::= "unit" <name> ";" <interface>? <implementation>? "end" "."
+<interface> ::= "interface" <decl>*
+<implementation> ::= "implementation" <decl>*
+<decl> ::= <uses> | <type-decl> | <const-decl> | <var-decl> | <routine>
+<uses> ::= "uses" <name-list> ";"
+<name-list> ::= <name> ("," <name>)*
+<name> ::= <identifier> ("." <identifier>)*
+<type-decl> ::= "type" (<identifier> "=" <type> ";")+
+<type> ::= <name> | "class" <name>? <class-body> "end" | "record" <field>* "end" | "array" "[" <name-list> "]" "of" <type> | "procedure" <params>? | "function" <params>? ":" <type> | "string" ("(" <number> ")")? | "^" <type>
+<class-body> ::= (<visibility> <member>*)*
+<visibility> ::= "public" | "private" | "protected" | "published"
+<member> ::= <field> | <method-decl>
+<field> ::= <identifier> ":" <type> ";"
+<method-decl> ::= ("class")? ("procedure" | "function") <name> <params>? (":" <type>)? ";" ("overload" | "virtual" | "override")* ";"?
+<const-decl> ::= "const" (<identifier> "=" <literal> ";")+
+<var-decl> ::= "var" (<identifier> ("," <identifier>)* ":" <type> ";")+
+<routine> ::= ("procedure" | "function") <name> <params>? (":" <type>)? ";" <block> | <routine>
+<params> ::= "(" (<param> (";" <param>)*)? ")"
+<param> ::= ("var" | "const" | "out")? <identifier> ("," <identifier>)* ":" <type> ("=" <literal>)?
+<block> ::= ("var" <var-decl> | "const" <const-decl> | "type" <type-decl>)* "begin" <stmt>* "end"
+<stmt> ::= <assign> ";" | <if> | <while> | <for> | <repeat> | <case> | <call> ";" | <block> | ";" | <name> ":" <stmt>
+<assign> ::= <lvalue> ":=" <expr>
+<lvalue> ::= <identifier> ("." <identifier> | "[" <args> "]" | "^")*
+<if> ::= "if" <expr> "then" <stmt> ("else" <stmt>)?
+<while> ::= "while" <expr> "do" <stmt>
+<for> ::= "for" <identifier> ":=" <expr> ("to" | "downto") <expr> "do" <stmt>
+<repeat> ::= "repeat" <stmt>* "until" <expr>
+<case> ::= "case" <expr> "of" (<literal> ("," <literal>)* ":" <stmt> ";")+ "end"
+<call> ::= <name> ("(" <args>? ")")?
+<args> ::= <expr> ("," <expr>)*
+<expr> ::= <or>
+<or> ::= <and> ("or" <and>)*
+<and> ::= <not> ("and" <not>)*
+<not> ::= "not" <not> | <rel>
+<rel> ::= <add> (("=" | "<>" | "<" | "<=" | ">" | ">=" | "in") <add>)?
+<add> ::= <mul> (("+" | "-") <mul>)*
+<mul> ::= <unary> (("*" | "/" | "div" | "mod") <unary>)*
+<unary> ::= ("-" | "+")? <primary>
+<primary> ::= <identifier> | <number> | <string> | <charset> | "(" <expr> ")" | "nil" | "true" | "false" | <lvalue> ("(" <args> ")")?
+<literal> ::= <number> | <string> | <charset> | "nil" | "true" | "false"
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   Object Pascal (Delphi): ws, // /* */ and { } comments, single-quoted strings with doubling, #NN char literals, identifiers, operators. */
+<ws> ::= /[ \t\r\n]+/ => { skip }
+<comment> ::= /\x2F\x2F[^\n]*/ => { skip }
+<comment> ::= /\x2F\*([^*]|\*+[^*\x2F])*\*+\x2F/ => { skip }
+<comment> ::= /\{[^}]*\}/ => { skip }
+<string> ::= /"""([^"]|"[^"]|""[^"])*"""/
+<string> ::= /"([^"\\\n]|\\.)*"/
+<string> ::= /'([^'\\\n]|\\.)*'/
+<char> ::= /'([^'\\\n]|\\.)*'/
+<number> ::= /[+-]?(0[xX][0-9a-fA-F_]+|0[oO][0-7_]+|0[bB][01_]+|[0-9][0-9_]*(\x2E[0-9_]*)?([eE][+-]?[0-9]+)?[a-zA-Z]?)/
+<identifier> ::= /[a-zA-Z_][a-zA-Z0-9_]*/
+<string> ::= /'([^']|'')*'/
+<charset> ::= /#[0-9]+/
+<op> ::= /\.\.|\x2F|:=|<>|<=|>=|\+|\*|\(|\)|\[|\]|\.|\^|\$|\\|<|>|=|-|:|;|,|@|"|'/

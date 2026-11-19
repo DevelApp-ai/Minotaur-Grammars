@@ -1,0 +1,27 @@
+{
+  "Id": "develapp.jcl",
+  "Name": "JCL",
+  "Vendor": "DevelApp",
+  "DisplayName": "JCL",
+  "Version": "2.0.0",
+  "MinotaurVersion": "*",
+  "Description": "z/OS JCL (job control language) grammar with engine-verified lexer core.",
+  "License": "MIT",
+  "Tags": [
+    "programming-language",
+    "mainframe",
+    "minotaur"
+  ],
+  "MainFile": "JCL.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free",
+  "EngineVerified": true,
+  "EngineVerifiedBy": "ENFAStepLexer-StepParser@e6d1ae5cf748 (grammar-repository-tests, GreedyLongestMatch)"
+}

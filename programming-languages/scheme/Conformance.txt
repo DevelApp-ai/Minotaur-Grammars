@@ -1,0 +1,18 @@
+# Conformance cases for Scheme.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
+grammar: Scheme.grammar
+
+lex: (define (add a b) (+ a b))
+lex: '(1 2 3)
+lex: `(a ,b ,@c)
+lex: (let ((x 1)) x)
+lex: #t
+lex: #\\a
+lex: #xFF
+lex: #b101
+lex: (cond ((< x 0) -1) (else 1))
+lex: "str"
+
+lexfile: Examples.txt

@@ -1,0 +1,14 @@
+# Conformance cases for REXX.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
+grammar: REXX.grammar
+
+lex: parse arg input
+lex: say 'Hello, ' || name
+lex: if x > 0 then say "pos"; else say "neg"
+lex: do i = 1 to 10 by 2 ... end
+lex: x = 2 ** 10 // 3
+lex: call greet "bob"
+
+lexfile: Examples.txt

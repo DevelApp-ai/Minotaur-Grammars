@@ -1,0 +1,13 @@
+# sum the first column
+BEGIN { total = 0; count = 0 }
+{
+    total += $1
+    count++
+    if ($1 > max) max = $1
+}
+END {
+    printf "sum=%d avg=%.2f max=%d\n", total, total/count, max
+}
+
+function double(x) { return x * 2 }
+/^[0-9]+$/ { print double($1) }

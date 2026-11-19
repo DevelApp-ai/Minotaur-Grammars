@@ -1,0 +1,10 @@
+# delete blank lines and substitute
+/^$/d
+s/foo/bar/gi
+s/\(a\)\(b\)/\2\1/g
+1,10p
+/^#/!d
+:loop
+s/  */ /g
+y/abc/xyz/
+q

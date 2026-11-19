@@ -1,0 +1,16 @@
+;; fibonacci in Scheme
+(define (fib n)
+  (if (< n 2)
+      n
+      (+ (fib (- n 1)) (fib (- n 2)))))
+
+#| block
+   comment |#
+(let loop ((i 0) (acc 0))
+  (if (< i 10)
+      (loop (+ i 1) (+ acc i))
+      (display acc)))
+
+(define xs '(1 2 3))
+(display (map (lambda (x) (* x 2)) xs))
+(define-syntax-rule (when c body) (if c body #f))
