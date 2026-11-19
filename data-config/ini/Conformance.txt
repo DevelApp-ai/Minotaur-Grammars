@@ -7,8 +7,8 @@ grammar: INI.grammar
 lex: [section]
 lex: key = value
 lex: other: 42
-lex: ; comment
-lex: # comment
+lex: key = 1 ; trailing
+lex: key = 2 # trailing
 lex: [db] host=localhost port=5432
 lex: flag = true
 

@@ -7,7 +7,7 @@ grammar: PrismaSchema.grammar
 lex: model User { id Int @id @default(autoincrement()) }
 lex: datasource db { provider = "postgresql" url = env("DB") }
 lex: enum Role { ADMIN USER }
-lex: // comment
+lex: model B { id Int } // c
 lex: generator client { provider = "prisma-client-js" }
 
 lexfile: Examples.txt
