@@ -1,0 +1,23 @@
+# crystal app
+def greet(name : String) : String
+  "Hello, #{name}!"
+end
+
+class Person
+  property name : String
+  def initialize(@name : String)
+  end
+end
+
+people = [Person.new("anna"), Person.new("bob")]
+people.each do |p|
+  puts greet(p.name)
+end
+
+if people.size > 1
+  puts "many"
+else
+  puts "few"
+end
+
+(1..10).each { |i| print i }

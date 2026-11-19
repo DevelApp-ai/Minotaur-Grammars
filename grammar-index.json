@@ -105,6 +105,12 @@
     "CMake.grammar": "infrastructure/cmake/CMake.grammar",
     "HCL2.grammar": "infrastructure/hcl2/HCL2.grammar",
     "Starlark.grammar": "infrastructure/starlark/Starlark.grammar",
-    "Ninja.grammar": "infrastructure/ninja/Ninja.grammar"
+    "Ninja.grammar": "infrastructure/ninja/Ninja.grammar",
+    "Julia.grammar": "programming-languages/julia1/Julia.grammar",
+    "Zig.grammar": "programming-languages/zig014/Zig.grammar",
+    "Groovy.grammar": "programming-languages/groovy4/Groovy.grammar",
+    "OCaml.grammar": "programming-languages/ocaml5/OCaml.grammar",
+    "Crystal.grammar": "programming-languages/crystal1/Crystal.grammar",
+    "Nim.grammar": "programming-languages/nim2/Nim.grammar"
   }
 }

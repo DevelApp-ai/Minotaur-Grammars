@@ -1,0 +1,19 @@
+const std = @import("std");
+
+pub fn main() !void {
+    var stdout = std.io.getStdOut().writer();
+    try stdout.print("Hello, {s}!\n", .{"world"});
+    const x: u32 = 42;
+    const y = x + 0xFF;
+    if (x > 10) {
+        try stdout.print("big\n", .{});
+    } else {
+        try stdout.print("small\n", .{});
+    }
+    var i: usize = 0;
+    while (i < 3) : (i += 1) {
+        try stdout.print("i={d}\n", .{i});
+    }
+}
+
+const Point = struct { x: f64, y: f64 };

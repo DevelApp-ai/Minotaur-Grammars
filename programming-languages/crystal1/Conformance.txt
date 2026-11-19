@@ -1,0 +1,19 @@
+# Conformance cases for Crystal.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
+grammar: Crystal.grammar
+
+lex: def f(x) x + 1 end
+lex: class A < B; end
+lex: s = "hi #{name}"
+lex: :symbol
+lex: x = [1, 2, 3]
+lex: h = {name: "a", age: 36}
+lex: r = 1..10
+lex: if x > 0 then y end
+lex: case x when 1 then "one" else "other" end
+lex: begin risky() rescue e puts e end
+lex: a = 1 + 2 * 3
+
+lexfile: Examples.txt

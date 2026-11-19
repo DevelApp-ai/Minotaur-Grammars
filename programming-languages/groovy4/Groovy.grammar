@@ -1,0 +1,51 @@
+Grammar: Groovy
+FormatType: EBNF
+
+<program> ::= <statement>*
+<statement> ::= <decl> | <expr-stmt> | <if-stmt> | <for-stmt> | <while-stmt> | <try-stmt> | <switch-stmt> | <block>
+<decl> ::= <type>? <identifier> ("=" <expr>)? ";"
+<type> ::= "def" | <name> ("<" <type> ("," <type>)* ">")? ("[" "]")*
+<name> ::= <identifier> ("." <identifier>)*
+<if-stmt> ::= "if" "(" <expr> ")" <statement> ("else" <statement>)?
+<for-stmt> ::= "for" "(" <decl>? ";" <expr>? ";" <expr>? ";" ")" <statement> | "for" "(" <identifier> "in" <expr> ")" <statement>
+<while-stmt> ::= "while" "(" <expr> ")" <statement>
+<try-stmt> ::= "try" <block> ("catch" "(" <type> <identifier> ")" <block>)* ("finally" <block>)?
+<switch-stmt> ::= "switch" "(" <expr> ")" "{" ("case" <expr> ":" <statement>*)* ("default" ":" <statement>*)? "}"
+<block> ::= "{" <statement>* "}"
+<expr-stmt> ::= <expr> ";"
+<expr> ::= <assignment>
+<assignment> ::= <lvalue> ("=" | "+=" | "-=") <expr> | <ternary>
+<lvalue> ::= <identifier> ("." <identifier> | "[" <expr> "]")*
+<ternary> ::= <or> ("?" <expr> ":" <expr>)?
+<or> ::= <and> ("||" <and>)*
+<and> ::= <eq> ("&&" <eq>)*
+<eq> ::= <rel> (("==" | "!=") <rel>)*
+<rel> ::= <add> (("<" | "<=" | ">" | ">=") <add>)*
+<add> ::= <mul> (("+" | "-") <mul>)*
+<mul> ::= <unary> (("*" | "/" | "%") <unary>)*
+<unary> ::= ("-" | "!" | "~" | "++" | "--")? <postfix>
+<postfix> ::= <primary> ("(" <args>? ")" | "." <identifier> | "[" <expr> "]" | ".*" | "?." <identifier>)*
+<args> ::= <expr> ("," <expr>)*
+<primary> ::= <identifier> | <number> | <string> | "true" | "false" | "null" | "(" <expr> ")" | <list> | <map> | <closure>
+<list> ::= "[" <expr>? ("," <expr>)* "]"
+<map> ::= "[" <map-entry>? ("," <map-entry>)* "]"
+<map-entry> ::= <expr> ":" <expr>
+<closure> ::= "{" (<params> "->")? <statement>* "}"
+<params> ::= <identifier> ("," <identifier>)*
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   Groovy 4: ws, comments, strings, chars, numbers, identifiers, operators. */
+<ws> ::= /[ \t\r\n]+/ => { skip }
+<comment> ::= /\x2F\x2F[^\n]*/ => { skip }
+<comment> ::= /\x2F\*([^*]|\*+[^*\x2F])*\*+\x2F/ => { skip }
+<string> ::= /"""([^"]|"[^"]|""[^"])*"""/
+<string> ::= /"([^"\\\n]|\\.)*"/
+<string> ::= /'([^'\\\n]|\\.)*'/
+<char> ::= /'([^'\\\n]|\\.)*'/
+<number> ::= /[+-]?(0[xX][0-9a-fA-F_]+|0[oO][0-7_]+|0[bB][01_]+|[0-9][0-9_]*(\x2E[0-9_]*)?([eE][+-]?[0-9]+)?[fFlL]?)/
+<identifier> ::= /[a-zA-Z_][a-zA-Z0-9_]*/
+<gstring> ::= /"([^"\\\n]|\\.)*"/
+<op> ::= /\.\.\.|\x2F=|\.\.|\|\||\+\+|\*\*|\x2F|\+=|\*=|\|=|\^=|<<=|>>=|->|=>|::|:=|==|!=|<=|>=|&&|--|-=|%=|&=|<<|>>|\+|\*|\||\^|\?|\.|\(|\)|\[|\]|\{|\}|\$|\\|-|%|&|!|~|<|>|=|:|,|;|@|#|"|'/
