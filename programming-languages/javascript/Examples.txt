@@ -1,0 +1,14 @@
+// greet.js - sample module
+const greeting = "Hello, world!";
+let count = 0;
+function greet(name) {
+  const msg = `Hi ${name}!`;
+  console.log(msg);
+  return msg.length;
+}
+const re = /^[a-z]+$/i;
+const nums = [0xFF, 0o17, 0b101, 1_000, 3.14e-2, 10n];
+for (let i = 0; i < nums.length; i++) {
+  count += nums[i] ?? 0;
+}
+export default greet; // done

@@ -1,0 +1,14 @@
+<%@ Page Language="VBScript" %>
+<html>
+<head><title>Demo</title></head>
+<body>
+<!-- page comment -->
+<% Dim name: name = "world" %>
+<p>Hello, <%= name %>!</p>
+<% If name <> "" Then Response.Write "ok" End If %>
+<%
+  Dim d: d = #12/31/2024#
+  Dim h: h = &HFF
+%>
+</body>
+</html>

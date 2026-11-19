@@ -1,0 +1,24 @@
+package demo;
+
+import java.util.List;
+
+/** Doc comment. */
+public class Greeter {
+    private final String name;
+
+    public Greeter(String name) { this.name = name; }
+
+    public String greet() {
+        String msg = "Hello, " + name + '!';
+        return msg;
+    }
+
+    public static void main(String[] args) {
+        long hex = 0xFFL;
+        double d = 1.5e-3f;
+        char c = '\n';
+        int bits = 0b1010;
+        Greeter g = new Greeter("world");
+        System.out.println(g.greet());
+    }
+}

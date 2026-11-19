@@ -5,7 +5,7 @@
   "DisplayName": "TypeScript",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "TypeScript (ES2022 + type system) grammar for the Minotaur parser platform. Hardened for code-analysis consumers (issue #189): comments, async, accessors, decorators, full heritage clauses, declare/export forms, template literal types.",
+  "Description": "TypeScript (ES2022 + type system) grammar with engine-verified lexer core (ws/comments/strings/template/regex/numbers/identifiers/operators single-terminal rules).",
   "License": "MIT",
   "Tags": [
     "programming-language",

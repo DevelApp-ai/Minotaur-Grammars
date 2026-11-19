@@ -55,7 +55,8 @@ SymbolTableSharing: hierarchical
 <class-element> ::= <method-definition> | <field-definition>
 <method-definition> ::= <method-name> "(" <parameter-list>? ")" <block-statement>
 <field-definition> ::= <identifier> <initializer>? <semicolon>?
-<method-name> ::= <identifier> | "constructor"
+<method-name> ::= "constructor" ;
+<method-name> ::= <identifier> ;
 
 /* Control Flow Statements */
 <if-statement> ::= "if" <opt-whitespace> "(" <expression> ")" <statement> <else-clause>?
@@ -179,7 +180,6 @@ SymbolTableSharing: hierarchical
 <octal-literal> ::= "0" <octal-digit>+
 <binary-literal> ::= "0" <binary-indicator> <binary-digit>+
 <binary-indicator> ::= "b" | "B"
-<string-literal> ::= "\"" <double-string-content> "\"" | "'" <single-string-content> "'" | "`" <template-string-content> "`"
 <double-string-content> ::= <double-string-char>*
 <single-string-content> ::= <single-string-char>*
 <template-string-content> ::= <template-string-char>*
@@ -204,12 +204,15 @@ SymbolTableSharing: hierarchical
 <function-expression> ::= "function" <function-name>? "(" <parameter-list>? ")" <block-statement>
 <function-name> ::= <whitespace> <identifier>
 <arrow-function> ::= <arrow-parameters> "=>" <arrow-body>
-<arrow-parameters> ::= <identifier> | "(" <parameter-list>? ")"
+<arrow-parameters> ::= "(" <parameter-list>? ")" ;
+<arrow-parameters> ::= <identifier> ;
 <arrow-body> ::= <assignment-expression> | <block-statement>
 
 /* Identifiers and Keywords */
 <identifier> ::= <identifier-start> <identifier-part>*
-<identifier-start> ::= <letter> | "$" | "_"
+<identifier-start> ::= "$" ;
+<identifier-start> ::= "_" ;
+<identifier-start> ::= <letter> ;
 <identifier-part> ::= <identifier-start> | <digit>
 
 /* Character Classes */
@@ -217,7 +220,19 @@ SymbolTableSharing: hierarchical
 <non-zero-digit> ::= "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
 <octal-digit> ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7"
 <binary-digit> ::= "0" | "1"
-<hex-digit> ::= <digit> | "A" | "B" | "C" | "D" | "E" | "F" | "a" | "b" | "c" | "d" | "e" | "f"
+<hex-digit> ::= "A" ;
+<hex-digit> ::= "B" ;
+<hex-digit> ::= "C" ;
+<hex-digit> ::= "D" ;
+<hex-digit> ::= "E" ;
+<hex-digit> ::= "F" ;
+<hex-digit> ::= "a" ;
+<hex-digit> ::= "b" ;
+<hex-digit> ::= "c" ;
+<hex-digit> ::= "d" ;
+<hex-digit> ::= "e" ;
+<hex-digit> ::= "f" ;
+<hex-digit> ::= <digit> ;
 <letter> ::= "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M"
            | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z"
            | "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m"
@@ -229,8 +244,10 @@ SymbolTableSharing: hierarchical
 <single-string-char> ::= <source-char-except-single-quote-and-backslash> | <escape-sequence>
 <template-string-char> ::= <source-char-except-backtick-and-backslash> | <escape-sequence> | <template-substitution>
 <source-char-except-double-quote-and-backslash> ::= <letter> | <digit> | <space> | <safe-string-punctuation>
-<source-char-except-single-quote-and-backslash> ::= <letter> | <digit> | <space> | <safe-string-punctuation> | "\""
-<source-char-except-backtick-and-backslash> ::= <letter> | <digit> | <space> | <safe-string-punctuation> | "\"" | "'"
+<source-char-except-single-quote-and-backslash> ::= "\"" ;
+<source-char-except-single-quote-and-backslash> ::= <letter> | <digit> | <space> | <safe-string-punctuation> ;
+<source-char-except-backtick-and-backslash> ::= "\"" | "'" ;
+<source-char-except-backtick-and-backslash> ::= <letter> | <digit> | <space> | <safe-string-punctuation> ;
 <safe-string-punctuation> ::= "!" | "#" | "$" | "%" | "&" | "(" | ")" | "*" | "+" | "," | "-" | "."
                              | "/" | ":" | ";" | "<" | "=" | ">" | "?" | "@" | "[" | "]" | "^" | "_"
                              | "{" | "|" | "}" | "~"
@@ -270,3 +287,19 @@ SymbolTableSharing: hierarchical
 <single-line-comment> ::= /\x2F\x2F[^\n]*/
 <multi-line-comment> ::= /\x2F\*([^*]|\*+[^*\x2F])*\*+\x2F/
 <comment> ::= <single-line-comment> | <multi-line-comment>
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   JavaScript ES2022: ws, // and /* */ comments, dq/sq strings, template literals, regex literals, numbers, identifiers, operators. */
+<ws> ::= /[ \t\r\n]+/ => { skip }
+<line-comment> ::= /\x2F\x2F[^\n]*/ => { skip }
+<block-comment> ::= /\x2F\*([^*]|\*+[^*\x2F])*\*+\x2F/ => { skip }
+<string-literal> ::= /"([^"\\\n]|\\.)*"/
+<string-literal> ::= /'([^'\\n]|\\.)*'/
+<template-string> ::= /`([^`\\]|\\.)*`/
+<regex-literal> ::= /\x2F([^\x2F\\\n]|\\.)+\x2F[a-zA-Z]*/
+<numeric-literal> ::= /0[xX][0-9a-fA-F_]+[nN]?|0[oO][0-7_]+|0[bB][01_]+|[0-9][0-9_]*(\x2E[0-9_]+)?([eE][+-]?[0-9]+)?[nN]?|\x2E[0-9][0-9_]*([eE][+-]?[0-9]+)?/
+<identifier> ::= /[$_a-zA-Z][$_a-zA-Z0-9]*/
+<op> ::= /\.\.\.|\*\*=|\|\|=|\?\?=|\x2F=|>>>=|\|\||\?\?|\?\.|\+\+|\*\*|\x2F|===|!==|>>>|<<=|>>=|&&=|\+=|\*=|\|=|\^=|=>|==|!=|<=|>=|&&|--|-=|%=|&=|<<|>>|\+|\*|\||\^|\?|\.|\(|\)|\{|\}|\[|\]|-|%|&|!|~|<|>|=|:|,|;/

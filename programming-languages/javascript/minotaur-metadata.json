@@ -5,7 +5,7 @@
   "DisplayName": "JavaScript",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "JavaScript programming-language grammar for the Minotaur parser platform.",
+  "Description": "JavaScript (ES2022) grammar with engine-verified lexer core (ws/comments/strings/template/regex/numbers/identifiers/operators single-terminal rules).",
   "License": "MIT",
   "Tags": [
     "programming-language",
