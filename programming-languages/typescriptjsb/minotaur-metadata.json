@@ -5,7 +5,7 @@
   "DisplayName": "TypeScriptJsb",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "Disciplined grammar for the TypeScript dialect emitted by the JsonSchemaBuilder (jsb) generator: exported interfaces with documented members, string-literal union type aliases, and type-only imports. Hand-authored for the ENFAStepLexer-StepParser engine and validated against the jsb TypeScript generator output (21/21 corpus files).",
+  "Description": "Disciplined grammar for the TypeScript dialect emitted by the JsonSchemaBuilder (jsb) generator: exported interfaces with documented members, string-literal union type aliases, and type-only imports. Hand-authored for the ENFAStepLexer-StepParser engine and validated against the jsb TypeScript generator output (22/22 corpus files).",
   "License": "MIT",
   "Tags": [
     "programming-language",
