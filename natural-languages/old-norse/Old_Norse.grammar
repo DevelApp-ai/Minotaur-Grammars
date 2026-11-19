@@ -277,8 +277,8 @@ ei"
 // ============================================================================
 
 /* Optional whitespace */
-<opt-whitespace> ::= /[ \t\n\r]+/ | ""
-<whitespace> ::= /[ \t\n\r]+/
+<opt-whitespace> ::= /[ \t\n\r]+/ ;
+<opt-whitespace> ::= "" ;
 
 /* Punctuation */
 <punctuation> ::= "." | "!" | "?" | "," | ";" | ":"
@@ -1445,3 +1445,13 @@ ei"
               /* law, assembly, judgment, fine, manslaughter */
 
 // END OF GRAMMAR
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   Old Norse: ws skip, letter-word rule (language alphabet, raw chars), punctuation. */
+<whitespace> ::= /[ \t\r\n]+/ => { skip }
+<word> ::= /[a-zA-ZáðéíóúýÞæöÁÐÉÍÓÚÝÆÖ]+/
+<number> ::= /[0-9]+/
+<op> ::= /\x2F|\.|\?|\(|\)|,|!|;|:|-|'|"/

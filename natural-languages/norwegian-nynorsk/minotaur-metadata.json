@@ -5,7 +5,7 @@
   "DisplayName": "Norwegian Nynorsk",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "Norwegian_Nynorsk natural-language grammar for the Minotaur parser platform.",
+  "Description": "Norwegian Nynorsk grammar with engine-verified lexer core (ws skip, alphabet word rule, punctuation).",
   "License": "MIT",
   "Tags": [
     "natural-language",

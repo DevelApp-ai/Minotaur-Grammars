@@ -1,1 +1,4 @@
-404: Not Found
+Halló, heimur!
+Ek heiti Óláfr og á hesta mína.
+Þetta er góðr dagr.
+Hvað heitir þú?

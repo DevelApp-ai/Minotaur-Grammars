@@ -49,7 +49,10 @@ TOKEN_SPLIT " "
 <definite-suffix-common> ::= "en" | "n" @GENDER[common] @DEFINITENESS[definite]
 <definite-suffix-neuter> ::= "et" | "t" @GENDER[neuter] @DEFINITENESS[definite]
 
-<article> ::= <article-common-sg> | <article-neuter-sg> | "den" | "det" | "de"
+<article> ::= "den" ;
+<article> ::= "det" ;
+<article> ::= "de" ;
+<article> ::= <article-common-sg> | <article-neuter-sg> ;
 
 // ============================================================================
 // NOUNS (common and neuter gender)
@@ -258,7 +261,6 @@ TOKEN_SPLIT " "
 // WHITESPACE AND PUNCTUATION
 // ============================================================================
 
-<whitespace> ::= /[ \t\n\r]+/
 
 // V2 WORD ORDER RULE (Verb-Second)
 // In main clauses, the finite verb must be in second position
@@ -268,3 +270,13 @@ TOKEN_SPLIT " "
 // This is marked in pronunciation but not orthography
 
 // END OF GRAMMAR
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   Swedish: ws skip, letter-word rule (language alphabet, raw chars), punctuation. */
+<whitespace> ::= /[ \t\r\n]+/ => { skip }
+<word> ::= /[a-zA-ZåäöÅÄÖ]+/
+<number> ::= /[0-9]+/
+<op> ::= /\x2F|\.|\?|\(|\)|,|!|;|:|-|'|"/

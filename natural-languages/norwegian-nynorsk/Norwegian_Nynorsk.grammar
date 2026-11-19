@@ -29,8 +29,8 @@ Keywords: og, eller, men, viss, når, fordi, at, som, der, det, den, dei, eg, du
 @VARIETY[northern]   /* Northern Nynorsk - Nord-Norge influence */
 
 /* Optional whitespace */
-<opt-whitespace> ::= /[ \t\n\r]+/ | ""
-<whitespace> ::= /[ \t\n\r]+/
+<opt-whitespace> ::= /[ \t\n\r]+/ ;
+<opt-whitespace> ::= "" ;
 
 /* Punctuation */
 <punctuation> ::= "." | "!" | "?" | "," | ";" | ":"
@@ -175,7 +175,10 @@ Keywords: og, eller, men, viss, når, fordi, at, som, der, det, den, dei, eg, du
 <definite-suffix-fem> ::= "a" @GENDER[feminine] @DEFINITENESS[definite]
 <definite-suffix-neut> ::= "et" @GENDER[neuter] @DEFINITENESS[definite]
 
-<article> ::= <article-masc-sg> | <article-fem-sg> | <article-neut-sg> | "den" | "det" | "dei"
+<article> ::= "den" ;
+<article> ::= "det" ;
+<article> ::= "dei" ;
+<article> ::= <article-masc-sg> | <article-fem-sg> | <article-neut-sg> ;
 
 // ============================================================================
 // NOUNS (three genders: masculine, feminine, neuter)
@@ -619,9 +622,48 @@ Keywords: og, eller, men, viss, når, fordi, at, som, der, det, den, dei, eg, du
 
 <numeral> ::= <cardinal-number> | <ordinal-number>
 
-<cardinal-number> ::= "ein" | "to" | "tre" | "fire" | "fem" | "seks" | "sju" | "åtte" | "ni" | "ti" | "elleve" | "tolv" | "tretten" | "fjorten" | "femten" | "seksten" | "sytten" | "atten" | "nitten" | "tjue" | "tretti" | "førti" | "femti" | "seksti" | "sytti" | "åtti" | "nitti" | "hundre" | "tusen" | /[0-9]+/
+<cardinal-number> ::= "ein" ;
+<cardinal-number> ::= "to" ;
+<cardinal-number> ::= "tre" ;
+<cardinal-number> ::= "fire" ;
+<cardinal-number> ::= "fem" ;
+<cardinal-number> ::= "seks" ;
+<cardinal-number> ::= "sju" ;
+<cardinal-number> ::= "åtte" ;
+<cardinal-number> ::= "ni" ;
+<cardinal-number> ::= "ti" ;
+<cardinal-number> ::= "elleve" ;
+<cardinal-number> ::= "tolv" ;
+<cardinal-number> ::= "tretten" ;
+<cardinal-number> ::= "fjorten" ;
+<cardinal-number> ::= "femten" ;
+<cardinal-number> ::= "seksten" ;
+<cardinal-number> ::= "sytten" ;
+<cardinal-number> ::= "atten" ;
+<cardinal-number> ::= "nitten" ;
+<cardinal-number> ::= "tjue" ;
+<cardinal-number> ::= "tretti" ;
+<cardinal-number> ::= "førti" ;
+<cardinal-number> ::= "femti" ;
+<cardinal-number> ::= "seksti" ;
+<cardinal-number> ::= "sytti" ;
+<cardinal-number> ::= "åtti" ;
+<cardinal-number> ::= "nitti" ;
+<cardinal-number> ::= "hundre" ;
+<cardinal-number> ::= "tusen" ;
+<cardinal-number> ::= /[0-9]+/ ;
 
-<ordinal-number> ::= "første" | "andre" | "tredje" | "fjerde" | "femte" | "sjette" | "sjuande" | "åttande" | "niande" | "tiande" | /[0-9]+\./
+<ordinal-number> ::= "første" ;
+<ordinal-number> ::= "andre" ;
+<ordinal-number> ::= "tredje" ;
+<ordinal-number> ::= "fjerde" ;
+<ordinal-number> ::= "femte" ;
+<ordinal-number> ::= "sjette" ;
+<ordinal-number> ::= "sjuande" ;
+<ordinal-number> ::= "åttande" ;
+<ordinal-number> ::= "niande" ;
+<ordinal-number> ::= "tiande" ;
+<ordinal-number> ::= /[0-9]+\./ ;
 
 <quantifier> ::= "mange" | "få" | "fleire" | "færre" | "mykje" | "lite" | "nok" | "alle" | "kvar" | "kvart" | "einkvart" | "ingen" | "begge"
 
@@ -860,7 +902,6 @@ Keywords: og, eller, men, viss, når, fordi, at, som, der, det, den, dei, eg, du
 // WHITESPACE AND PUNCTUATION
 // ============================================================================
 
-<whitespace> ::= /[ \t\n\r]+/
 
 // V2 WORD ORDER RULE (Verb-Second)
 // In main clauses, the finite verb must be in second position
@@ -1442,3 +1483,13 @@ Keywords: og, eller, men, viss, når, fordi, at, som, der, det, den, dei, eg, du
     THEN ADDS_PRAGMATIC_MEANING ELSE VALID
 
 // Norwegian Nynorsk final enhancements complete - comprehensive coverage at Danish level
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   Norwegian Nynorsk: ws skip, letter-word rule (language alphabet, raw chars), punctuation. */
+<whitespace> ::= /[ \t\r\n]+/ => { skip }
+<word> ::= /[a-zA-ZæøåÆØÅ]+/
+<number> ::= /[0-9]+/
+<op> ::= /\x2F|\.|\?|\(|\)|,|!|;|:|-|'|"/

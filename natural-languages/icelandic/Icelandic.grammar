@@ -31,8 +31,8 @@ Keywords: og, eða, en, ef, að, sem, er, var, vera, hafa, hefur, við, þú, ha
 @DIALECT[eastern]     /* Austfirðingamál - Eastern Iceland */
 
 /* Optional whitespace */
-<opt-whitespace> ::= /[ \t\n\r]+/ | ""
-<whitespace> ::= /[ \t\n\r]+/
+<opt-whitespace> ::= /[ \t\n\r]+/ ;
+<opt-whitespace> ::= "" ;
 
 /* Punctuation */
 <punctuation> ::= "." | "!" | "?" | "," | ";" | ":"
@@ -350,9 +350,49 @@ Keywords: og, eða, en, ef, að, sem, er, var, vera, hafa, hefur, við, þú, ha
 
 <numeral> ::= <cardinal-number> | <ordinal-number>
 
-<cardinal-number> ::= "einn" | "tveir" | "þrír" | "fjórir" | "fimm" | "sex" | "sjö" | "átta" | "níu" | "tíu" | "ellefu" | "tólf" | "þrettán" | "fjórtán" | "fimmtán" | "sextán" | "sautján" | "átján" | "nítján" | "tuttugu" | "þrjátíu" | "fjörutíu" | "fimmtíu" | "sextíu" | "sjötíu" | "áttatíu" | "níutíu" | "hundrað" | "þúsund" | "milljón" | /[0-9]+/
+<cardinal-number> ::= "einn" ;
+<cardinal-number> ::= "tveir" ;
+<cardinal-number> ::= "þrír" ;
+<cardinal-number> ::= "fjórir" ;
+<cardinal-number> ::= "fimm" ;
+<cardinal-number> ::= "sex" ;
+<cardinal-number> ::= "sjö" ;
+<cardinal-number> ::= "átta" ;
+<cardinal-number> ::= "níu" ;
+<cardinal-number> ::= "tíu" ;
+<cardinal-number> ::= "ellefu" ;
+<cardinal-number> ::= "tólf" ;
+<cardinal-number> ::= "þrettán" ;
+<cardinal-number> ::= "fjórtán" ;
+<cardinal-number> ::= "fimmtán" ;
+<cardinal-number> ::= "sextán" ;
+<cardinal-number> ::= "sautján" ;
+<cardinal-number> ::= "átján" ;
+<cardinal-number> ::= "nítján" ;
+<cardinal-number> ::= "tuttugu" ;
+<cardinal-number> ::= "þrjátíu" ;
+<cardinal-number> ::= "fjörutíu" ;
+<cardinal-number> ::= "fimmtíu" ;
+<cardinal-number> ::= "sextíu" ;
+<cardinal-number> ::= "sjötíu" ;
+<cardinal-number> ::= "áttatíu" ;
+<cardinal-number> ::= "níutíu" ;
+<cardinal-number> ::= "hundrað" ;
+<cardinal-number> ::= "þúsund" ;
+<cardinal-number> ::= "milljón" ;
+<cardinal-number> ::= /[0-9]+/ ;
 
-<ordinal-number> ::= "fyrsti" | "annar" | "þriðji" | "fjórði" | "fimmti" | "sjötti" | "sjöundi" | "áttundi" | "níundi" | "tíundi" | /[0-9]+\./
+<ordinal-number> ::= "fyrsti" ;
+<ordinal-number> ::= "annar" ;
+<ordinal-number> ::= "þriðji" ;
+<ordinal-number> ::= "fjórði" ;
+<ordinal-number> ::= "fimmti" ;
+<ordinal-number> ::= "sjötti" ;
+<ordinal-number> ::= "sjöundi" ;
+<ordinal-number> ::= "áttundi" ;
+<ordinal-number> ::= "níundi" ;
+<ordinal-number> ::= "tíundi" ;
+<ordinal-number> ::= /[0-9]+\./ ;
 
 <indefinite-quantifier> ::= "margir" | "margar" | "mörg" | "fáir" | "fáar" | "fá" | "fleiri" | "færri" | "mikið" | "lítið" | "nóg" | "allir" | "allar" | "öll" | "hver" | "hvort" | "enginn" | "engin" | "ekkert" | "báðir" | "báðar" | "bæði"
 
@@ -881,7 +921,6 @@ Keywords: og, eða, en, ef, að, sem, er, var, vera, hafa, hefur, við, þú, ha
 // WHITESPACE AND PUNCTUATION
 // ============================================================================
 
-<whitespace> ::= /[ \t\n\r]+/
 
 // ============================================================================
 // DISCOURSE MARKERS
@@ -1437,3 +1476,13 @@ Keywords: og, eða, en, ef, að, sem, er, var, vera, hafa, hefur, við, þú, ha
     ELSE <verb> MUST_AGREE_IN_NUMBER
 
 // END OF GRAMMAR
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   Icelandic: ws skip, letter-word rule (language alphabet, raw chars), punctuation. */
+<whitespace> ::= /[ \t\r\n]+/ => { skip }
+<word> ::= /[a-zA-ZáðéíóúýÞæöÁÐÉÍÓÚÝÆÖ]+/
+<number> ::= /[0-9]+/
+<op> ::= /\x2F|\.|\?|\(|\)|,|!|;|:|-|'|"/

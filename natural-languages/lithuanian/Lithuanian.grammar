@@ -11,9 +11,18 @@ Keywords: ir, arba, bet, kad, kuris, kas, kada, kur, kaip, kodėl, jei, ar, ne, 
 <verb> ::= /[a-ząčęėįšųūž]+/ ( "u" | "i" | "a" | "ame" | "ate" )
 <object> ::= <noun>
 <punctuation> ::= "." | "?" | "!"
-<whitespace> ::= /[ \t\n\r]+/
 <opt-whitespace> ::= /[ \t\n\r]*/
 @CONTEXT_RULE[case-agreement]:
     IF <adjective> MODIFIES <noun>
     THEN <adjective>.@CASE == <noun>.@CASE
     ELSE ERROR "Case agreement required"
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   Lithuanian: ws skip, letter-word rule (language alphabet, raw chars), punctuation. */
+<whitespace> ::= /[ \t\r\n]+/ => { skip }
+<word> ::= /[a-zA-Ząčęėįšųūž]+/
+<number> ::= /[0-9]+/
+<op> ::= /\x2F|\.|\?|\(|\)|,|!|;|:|-|'|"/
