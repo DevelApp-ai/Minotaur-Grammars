@@ -11,7 +11,7 @@ lex: 77 WS-LEVEL PIC 9.
 lex: MOVE 42 TO WS-COUNT.
 lex: IF A >= B AND C <> D THEN
 lex: PIC 9(5)V99 VALUE 3.14.
-lex: *> comment line
+lex: MOVE 1 TO X *> note
 lex: ADD 1 TO X GIVING Y.
 lex: CALL "SUB" USING WS-NAME.
 lex: PERFORM VARYING I FROM 1 BY 1 UNTIL I > 10
