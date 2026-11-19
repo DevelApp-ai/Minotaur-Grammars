@@ -1,0 +1,26 @@
+{
+  "Id": "develapp.csv",
+  "Name": "CSV",
+  "Vendor": "DevelApp",
+  "DisplayName": "CSV",
+  "Version": "2.0.0",
+  "MinotaurVersion": "*",
+  "Description": "CSV (RFC 4180) grammar with engine-verified lexer core.",
+  "License": "MIT",
+  "Tags": [
+    "data-config",
+    "minotaur"
+  ],
+  "MainFile": "CSV.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free",
+  "EngineVerified": true,
+  "EngineVerifiedBy": "ENFAStepLexer-StepParser@e6d1ae5cf748 (grammar-repository-tests, GreedyLongestMatch)"
+}

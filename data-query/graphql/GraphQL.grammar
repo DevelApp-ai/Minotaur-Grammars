@@ -1,0 +1,40 @@
+Grammar: GraphQL
+FormatType: EBNF
+
+<document> ::= <definition>+
+<definition> ::= <operation> | <fragment> | <type-system-definition>
+<operation> ::= <operation-type>? <name>? <variable-definitions>? <directives>? <selection-set>
+             | <selection-set>
+<operation-type> ::= "query" | "mutation" | "subscription"
+<selection-set> ::= "{" <selection>+ "}"
+<selection> ::= <field> | <fragment-spread> | <inline-fragment>
+<field> ::= <alias>? <name> <arguments>? <directives>? <selection-set>?
+<alias> ::= <name> ":"
+<arguments> ::= "(" <argument> ("," <argument>)* ")"
+<argument> ::= <name> ":" <value>
+<value> ::= <number> | <string> | <bool> | <null> | <enum> | <list> | <object> | <variable>
+<bool> ::= "true" | "false"
+<null> ::= "null"
+<variable> ::= "$" <name>
+<list> ::= "[" <value> ("," <value>)* "]"
+<object> ::= "{" <name> ":" <value> ("," <name> ":" <value>)* "}"
+<fragment> ::= "fragment" <name> "on" <name> <selection-set>
+<directives> ::= ("@" <name> <arguments>?)+
+<type-system-definition> ::= <schema-def> | <type-def> | <directive-def>
+<type-def> ::= "type" <name> <implements>? <directives>? "{" <field-def>+ "}"
+<field-def> ::= <name> ":" <type>
+<type> ::= <named-type> "[" <type> "]"? "!"? | <named-type> "!"?
+<named-type> ::= <name>
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   GraphQL (Oct 2021): ws, # comments, block strings """ and strings, names, numbers, punctuation ! $ ( ) : = @ [ ] { } | & and ... . */
+<ws> ::= /[ \t\r\n]+/ => { skip }
+<comment> ::= /#[^\n]*/ => { skip }
+<block-string> ::= /"""([^"]|"[^"]|""[^"])*"""/
+<string> ::= /"([^"\\\n]|\\.)*"/
+<name> ::= /[_A-Za-z][_0-9A-Za-z]*/
+<number> ::= /[+-]?(0[xX][0-9a-fA-F_]+|0[oO][0-7_]+|0[bB][01_]+|[0-9][0-9_]*(\x2E[0-9_]*)?([eE][+-]?[0-9]+)?)/
+<op> ::= /\.\.\.|\$|\(|\)|\[|\]|\{|\}|\||!|:|=|@|&/

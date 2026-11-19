@@ -1,0 +1,16 @@
+Grammar: CSV
+FormatType: EBNF
+
+<csv> ::= <record>+
+<record> ::= <field> ("," <field>)* <eol>?
+<field> ::= <quoted> | <text>
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   CSV RFC 4180: quoted fields with "" escape, unquoted text, comma separators, CRLF/LF record ends. No whitespace skipping (spaces are content). */
+<quoted> ::= /"([^"]|"")*"/
+<text> ::= /[^",\r\n]+/
+<comma> ::= ","
+<eol> ::= /\r\n|\n|\r/

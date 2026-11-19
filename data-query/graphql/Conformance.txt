@@ -1,0 +1,21 @@
+# Conformance cases for GraphQL.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
+grammar: GraphQL.grammar
+
+lex: { user(id: 1) { name } }
+lex: query Q($id: ID!) { user(id: $id) { name } }
+lex: mutation { addUser(input: {name: "x"}) { id } }
+lex: type T { a: Int! b: [String] }
+lex: fragment F on User { name }
+lex: schema { query: Query }
+lex: "a string" """block\nstring"""
+lex: field @include(if: $cond) ...F
+lex: x: 42 -3.14
+lex: enum Color { RED GREEN }
+lex: input UserInput { name: String! }
+
+fail: "unterminated
+
+lexfile: Examples.txt

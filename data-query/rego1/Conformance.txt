@@ -1,0 +1,23 @@
+# Conformance cases for Rego.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
+grammar: Rego.grammar
+
+lex: package example.authz
+lex: import data.users as u
+lex: default allow := false
+lex: allow if { input.user == "admin" }
+lex: some x in [1, 2, 3]
+lex: deny contains msg if { msg := "no" }
+lex: x := 1 + 2 * 3
+lex: obj := {"k": "v", "n": 42}
+lex: arr := [1, "two", true]
+lex: f(x, y) := x > y
+lex: s := `raw \\n string`
+lex: p.q.r := "deep"
+lex: x = 1 # comment
+
+fail: "unterminated
+
+lexfile: Examples.txt

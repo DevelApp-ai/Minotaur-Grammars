@@ -92,6 +92,11 @@
     "DotNetProject001.grammar": "programming-languages/dotnetproject001/DotNetProject001.grammar",
     "PHP85.grammar": "programming-languages/php85/PHP85.grammar",
     "SQL2023.grammar": "data-query/sql2023/SQL2023.grammar",
-    "TSQL2022.grammar": "data-query/tsql2022/TSQL2022.grammar"
+    "TSQL2022.grammar": "data-query/tsql2022/TSQL2022.grammar",
+    "TOML.grammar": "data-config/toml/TOML.grammar",
+    "Properties.grammar": "data-config/properties/Properties.grammar",
+    "CSV.grammar": "data-config/csv/CSV.grammar",
+    "GraphQL.grammar": "data-query/graphql/GraphQL.grammar",
+    "Rego.grammar": "data-query/rego1/Rego.grammar"
   }
 }

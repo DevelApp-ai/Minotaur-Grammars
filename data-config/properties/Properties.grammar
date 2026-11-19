@@ -1,0 +1,19 @@
+Grammar: Properties
+FormatType: EBNF
+
+<file> ::= <line>*
+<line> ::= <comment> | <property> | <empty>
+<property> ::= <key> <sep>? <value>?
+<empty> ::= /[ \t]*/
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   Java .properties: # and ! comments, ws, key/value lines, separators = : or whitespace, escaped strings. */
+<ws> ::= /[ \t\r\n]+/ => { skip }
+<comment> ::= /[#!][^\n]*/ => { skip }
+<string> ::= /"([^"\\\n]|\\.)*"/
+<key> ::= /[A-Za-z0-9_.\-]+/
+<value> ::= /[^\n]+/
+<sep> ::= /[=:]/

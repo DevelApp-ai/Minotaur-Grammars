@@ -1,0 +1,21 @@
+# Conformance cases for TOML.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
+grammar: TOML.grammar
+
+lex: name = "demo"
+lex: [package]
+lex: [[bin]]
+lex: x = { a = 1, b = "two" }
+lex: arr = [1, 2, 3,]
+lex: big = 0xFF 0o17 0b101 1_000
+lex: f = 3.14e-2 inf -nan
+lex: d = 2024-01-01 d2 = 10:20:30
+lex: s = "esc\\n\\"q\\""
+lex: lit = 'no \\n escape'
+lex: ml = """line1\nline2"""
+lex: key = "v" # comment
+lex: a.b.c = 1
+
+lexfile: Examples.txt
