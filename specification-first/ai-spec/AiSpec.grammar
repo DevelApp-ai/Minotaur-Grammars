@@ -51,7 +51,8 @@ FormatType: EBNF
 <adr-id> ::= "ADR-" /[0-9]+/
 <http-method> ::= "GET" | "POST" | "PUT" | "DELETE" | "PATCH" | "HEAD" | "OPTIONS"
 <route-path> ::= "/" <path-segment> ("/" <path-segment>)*
-<path-segment> ::= <identifier> | "{" <identifier> "}"
+<path-segment> ::= "{" <identifier> "}" ;
+<path-segment> ::= <identifier> ;
 <type-name> ::= <identifier> "?" | <identifier> "[]" | <identifier>
 <identifier> ::= /[a-zA-Z_][a-zA-Z0-9_]*/
 <free-text> ::= /[^\n]+/
@@ -59,3 +60,18 @@ FormatType: EBNF
 <hash1> ::= "#"
 <hash2> ::= "##"
 <hash3> ::= "###"
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   AI spec */
+<ws> ::= /[ \t\r\n]+/ => { skip }
+<comment> ::= /#[^\n]*/ => { skip }
+<comment> ::= /\x2F\x2F[^\n]*/ => { skip }
+<comment> ::= /\x2F\*([^*]|\*+[^*\x2F])*\*+\x2F/ => { skip }
+<string> ::= /"([^"\\\n]|\\.)*"/
+<string> ::= /'([^'\\\n]|\\.)*'/
+<number> ::= /[+-]?[0-9]+(\x2E[0-9]+)?([eE][+-]?[0-9]+)?/
+<word> ::= /[a-zA-Z_][a-zA-Z0-9_.-]*/
+<op> ::= /\|\||\x2F|:=|=>|->|==|!=|<=|>=|&&|\.|\+|\*|\?|\(|\)|\[|\]|\{|\}|\||\^|\$|\\|:|=|,|-|%|<|>|!|&|~|@|#|"|'/

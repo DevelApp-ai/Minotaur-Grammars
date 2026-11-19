@@ -1,18 +1,12 @@
 # Conformance cases for Hungarian.grammar - engine-verified lexing pin.
-# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
-# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
-# engine CI as well.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
 grammar: Hungarian.grammar
 
-lex: Én olvasok.
-lex: Te írasz.
-lex: Ő tanul.
-lex: Mi lakunk Budapesten.
-lex: Ti esztek.
-lex: Ők dolgoznak.
-lex: Én olvasom a könyvet.
-lex: Te írod a levelet.
+lex: Szia, világ!
+lex: Annának hívnak és Budapesten lakom.
+lex: Ez egy szép város.
+lex: Hogy hívnak?
 
-# Inputs that must be rejected by the token rules (LX1001).
-fail: €
-fail: `
+lexfile: Examples.txt

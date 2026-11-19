@@ -4,13 +4,16 @@ FormatType: EBNF
 # CloudFormation grammar - core subset
 <file> ::= <template> => { buildTemplate($1); }
 <template> ::= <version>? <section>* => { buildCfn($1, $2); }
-<version> ::= /---[\S\s]*?---/ | "{"
+<version> ::= /---[\S\s]*?---/ ;
+<version> ::= "{" ;
 <section> ::= <resources-section> | <parameters-section> | <outputs-section> | <mappings-section> | <conditions-section> | <metadata-section> | <rules-section>
 <resources-section> ::= "Resources" ":" <resource>* => { collectResources($3); }
 <resource> ::= <indent> <logical-name> ":" <resource-body> => { addResource($2, $4); }
 <resource-body> ::= <resource-type> <resource-props> <extra-attr>*
 <resource-type> ::= <indent2> "Type" ":" <aws-type> => { setResourceType($3); }
-<aws-type> ::= /"AWS::[a-zA-Z0-9:]+"/ | /"Custom::[a-zA-Z0-9]+"/ | <string>
+<aws-type> ::= /"AWS::[a-zA-Z0-9:]+"/ ;
+<aws-type> ::= /"Custom::[a-zA-Z0-9]+"/ ;
+<aws-type> ::= <string> ;
 <resource-props> ::= <indent2> "Properties" ":" <prop-map> => { setProperties($4); }
 <prop-map> ::= (<prop-entry>)*
 <prop-entry> ::= <indent3> <prop-name> ":" <value> => { addProperty($2, $4); }
@@ -30,10 +33,9 @@ alue>)+
 <conditions-section> ::= "Conditions" ":" <condition>*
 <condition> ::= <indent> <logical-name> ":" <intrinsic> => { addCondition($2, $3); }
 <value> ::= <scalar> | <list-value> | <intrinsic> | <map-value>
-<scalar> ::= <boolean> | <number> | <string> | "null"
+<scalar> ::= "null" ;
+<scalar> ::= <boolean> | <number> | <string> ;
 <boolean> ::= "true" | "false"
-<number> ::= /[+-]?[0-9]+(\.[0-9]+)?/
-<string> ::= /'[^'\n]*'/ | /"[^"\n]*"/
 <list-value> ::= "[" <value>? ("," <value>)* "]"
 <map-value> ::= "{" <value>* "}"
 <intrinsic> ::= "!" <fn-name> " " <value> => { buildIntrinsic($2, $4); }
@@ -55,3 +57,17 @@ alue>)+
 <hooks_block> ::= "Hooks" ":" <map> ;
 <param_constraints> ::= ("AllowedValues" | "AllowedPattern" | "MaxLength" | "MinLength" | "MaxValue" | "MinValue" | "NoEcho" | "Description") ":" <json_value> ;
 <aws_partition> ::= "AWS::Partition" | "AWS::Region" | "AWS::AccountId" | "AWS::StackName" | "AWS::URLSuffix" ;
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   CloudFormation template (YAML/JSON) */
+<ws> ::= /[ \t\r\n]+/ => { skip }
+<comment> ::= /#[^\n]*/ => { skip }
+<comment> ::= /\x2F\x2F[^\n]*/ => { skip }
+<string> ::= /"([^"\\\n]|\\.)*"/
+<string> ::= /'([^'\\\n]|\\.)*'/
+<number> ::= /[+-]?[0-9]+(\x2E[0-9]+)?([eE][+-]?[0-9]+)?/
+<word> ::= /[a-zA-Z_][a-zA-Z0-9_.-]*/
+<op> ::= /\|\||\x2F|:=|=>|->|==|!=|<=|>=|&&|\.|\+|\*|\?|\(|\)|\[|\]|\{|\}|\||\^|\$|\\|:|=|,|-|%|<|>|!|&|~|@|#|"|'/

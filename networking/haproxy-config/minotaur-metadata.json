@@ -5,7 +5,7 @@
   "DisplayName": "HAProxyConfig",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "Minotaur grammar for HAProxyConfig covering the core language subset.",
+  "Description": "HAProxy config with engine-verified lexer core.",
   "License": "MIT",
   "Tags": [
     "networking"

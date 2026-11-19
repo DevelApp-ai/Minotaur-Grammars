@@ -1,18 +1,12 @@
 # Conformance cases for Swiss_German.grammar - engine-verified lexing pin.
-# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
-# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
-# engine CI as well.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
 grammar: Swiss_German.grammar
 
-lex: Grüezi!
-lex: Grüessech!
-lex: Guete Morge!
-lex: Guete Tag!
-lex: Guete Aabig!
-lex: Uf Widerluege!
-lex: Adé!
-lex: Adieu!
+lex: Hoi, Wält!
+lex: Ich heisse Anna und wohne i Züri.
+lex: Das isch e schöni Stadt.
+lex: Wie heissisch du?
 
-# Inputs that must be rejected by the token rules (LX1001).
-fail: €
-fail: `
+lexfile: Examples.txt

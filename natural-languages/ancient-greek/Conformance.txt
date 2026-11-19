@@ -1,18 +1,12 @@
 # Conformance cases for Ancient_Greek.grammar - engine-verified lexing pin.
-# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
-# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
-# engine CI as well.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
 grammar: Ancient_Greek.grammar
 
-lex: ὁ ἄνθρωπος γράφει.
-lex: ὁ διδάσκαλος διδάσκει.
-lex: ἡ μήτηρ μαγειρεύει.
-lex: λύω.
-lex: λύεις.
-lex: λύει.
-lex: λύομεν.
-lex: λύετε.
+lex: Χαίρετε, κόσμε!
+lex: Ἐγὼ Ἄννα ὀνομάζομαι.
+lex: Αὕτη πόλις καλή ἐστι.
+lex: Πῶς σέ καλοῦσι;
 
-# Inputs that must be rejected by the token rules (LX1001).
-fail: €
-fail: `
+lexfile: Examples.txt

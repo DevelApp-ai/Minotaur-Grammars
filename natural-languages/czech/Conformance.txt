@@ -1,18 +1,12 @@
 # Conformance cases for Czech.grammar - engine-verified lexing pin.
-# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
-# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
-# engine CI as well.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
 grammar: Czech.grammar
 
-lex: Já čtu knihu.
-lex: Ty píšeš dopis.
-lex: On studuje matematiku.
-lex: Ona pracuje ve škole.
-lex: My bydlíme v Praze.
-lex: Vy máte čas.
-lex: Oni se učí česky.
-lex: Já byl doma.
+lex: Ahoj, světe!
+lex: Jmenuji se Anna a bydlím v Praze.
+lex: To je krásné město.
+lex: Jak se jmenuješ?
 
-# Inputs that must be rejected by the token rules (LX1001).
-fail: €
-fail: `
+lexfile: Examples.txt

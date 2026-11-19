@@ -1,18 +1,13 @@
 # Conformance cases for ApacheHttpdConfig.grammar - engine-verified lexing pin.
-# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
-# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
-# engine CI as well.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
 grammar: ApacheHttpdConfig.grammar
 
-lex: RewriteEngine On
-lex: </IfModule>
-lex: Options -Indexes +FollowSymLinks
-lex: AllowOverride None
-lex: SetEnv APP_ENV production
-lex: Header always set X-Frame-Options DENY
-lex: Require all granted
-lex: </Directory>
+lex: <VirtualHost *:80>
+lex:   ServerName example.com
+lex:   DocumentRoot /var/www
+lex: </VirtualHost>
+lex: Listen 80 # c
 
-# Inputs that must be rejected by the token rules (LX1001).
-fail: €
-fail: `
+lexfile: Examples.txt

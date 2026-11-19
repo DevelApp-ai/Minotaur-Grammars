@@ -7,3 +7,5 @@ lex: hello kw1 world
 
 # Inputs that must be rejected by the token rules (LX1001).
 fail: \u20ac
+
+lexfile: Examples.txt

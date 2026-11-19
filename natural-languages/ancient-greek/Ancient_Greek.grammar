@@ -290,7 +290,22 @@ Keywords: καί, ἤ, δέ, ἀλλά, εἰ, ἐάν, ὅτι, ἵνα, ὅπ�
 <adverbial> ::= <adverb>
              | <prepositional-phrase>
 
-<adverb> ::= /[α-ωά-ώἀ-ὤᾀ-ᾤ]+ως/ | "νῦν" | "τότε" | "πάλαι" | "ἔτι" | "ἤδη" | "αὖθις" | "ἐνθάδε" | "ἐκεῖ" | "ποῦ" | "καλῶς" | "κακῶς" | "εὖ" | "σφόδρα" | "μάλα" | "πάνυ"
+<adverb> ::= /[α-ωά-ώἀ-ὤᾀ-ᾤ]+ως/ ;
+<adverb> ::= "νῦν" ;
+<adverb> ::= "τότε" ;
+<adverb> ::= "πάλαι" ;
+<adverb> ::= "ἔτι" ;
+<adverb> ::= "ἤδη" ;
+<adverb> ::= "αὖθις" ;
+<adverb> ::= "ἐνθάδε" ;
+<adverb> ::= "ἐκεῖ" ;
+<adverb> ::= "ποῦ" ;
+<adverb> ::= "καλῶς" ;
+<adverb> ::= "κακῶς" ;
+<adverb> ::= "εὖ" ;
+<adverb> ::= "σφόδρα" ;
+<adverb> ::= "μάλα" ;
+<adverb> ::= "πάνυ" ;
 
 /* Prepositional phrases */
 <prepositional-phrase> ::= <preposition> <opt-whitespace> <noun-phrase>
@@ -313,7 +328,6 @@ Keywords: καί, ἤ, δέ, ἀλλά, εἰ, ἐάν, ὅτι, ἵνα, ὅπ�
 <punctuation> ::= "." | ";" | "," | "·"
 
 /* Whitespace */
-<whitespace> ::= /[ \t\n\r]+/
 
 <opt-whitespace> ::= /[ \t\n\r]*/
 
@@ -1556,3 +1570,12 @@ Keywords: καί, ἤ, δέ, ἀλλά, εἰ, ἐάν, ὅτι, ἵνα, ὅπ�
 /* Advanced syntax: All case uses, subordinate clause types, particles         */
 /* ============================================================================ */
 
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   Ancient Greek: ws skip, alphabet word rule, number, punctuation. */
+<whitespace> ::= /[ \t\r\n]+/ => { skip }
+<word> ::= /[αβγδεζηθικλμνξοπρςστυφχψωΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡ΢ΣΤΥΦΧΨΩάέήίΰαβγδεζηθικλμνξοπρςστυφχψωϊϋόύώἀἁἂἃἄἅἆἇἈἉἊἋἌἍἎἏἐἑἒἓἔἕ἖἗ἘἙἚἛἜἝ἞἟ἠἡἢἣἤἥἦἧἨἩἪἫἬἭἮἯἰἱἲἳἴἵἶἷἸἹἺἻἼἽἾἿὀὁὂὃὄὅ὆὇ὈὉὊὋὌὍ὎὏ὐὑὒὓὔὕὖὗ὘Ὑ὚Ὓ὜Ὕ὞ὟὠὡὢὣὤὥὦὧὨὩὪὫὬὭὮὯὰάὲέὴήὶίὸόὺύὼώ὾὿ᾀᾁᾂᾃᾄᾅᾆᾇᾈᾉᾊᾋᾌᾍᾎᾏᾐᾑᾒᾓᾔᾕᾖᾗᾘᾙᾚᾛᾜᾝᾞᾟᾠᾡᾢᾣᾤᾥᾦᾧᾨᾩᾪᾫᾬᾭᾮᾯᾰᾱᾲᾳᾴ᾵ᾶᾷᾸᾹᾺΆᾼ᾽ι᾿῀῁ῂῃῄ῅ῆῇῈΈῊΉῌ῍῎῏ῐῑῒΐ῔῕ῖῗῘῙῚΊ῜῝῞῟ῠῡῢΰῤῥῦῧῨῩῪΎῬ῭΅`῰῱ῲῳῴ῵ῶῷῸΌῺΏῼ´῾῿]+/
+<number> ::= /[0-9]+/
+<op> ::= /\x2F|\.|\?|\(|\)|\+|\*|,|!|;|:|-|'|"|=|%|&|→|←|—|–|„|“|”|’|«|»/

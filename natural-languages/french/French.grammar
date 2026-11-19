@@ -204,7 +204,10 @@ Keywords: et, ou, mais, donc, or, ni, car, parce, que, qui, quand, où, comment,
 <elliptical-clause> ::= <elliptical-response>
                      | <elliptical-coordination>
 
-<elliptical-response> ::= "oui" | "non" | "si" | <adverb>
+<elliptical-response> ::= "oui" ;
+<elliptical-response> ::= "non" ;
+<elliptical-response> ::= "si" ;
+<elliptical-response> ::= <adverb> ;
 
 <elliptical-coordination> ::= <main-clause> <opt-whitespace> "," <opt-whitespace> <coordinating-conjunction> <opt-whitespace> <noun-phrase>
                            | <subject> <opt-whitespace> <verb-phrase> <opt-whitespace> <object> <opt-whitespace> "," <opt-whitespace> <subject> <opt-whitespace> <object>
@@ -259,7 +262,36 @@ Keywords: et, ou, mais, donc, or, ni, car, parce, que, qui, quand, où, comment,
 
 <numeral> ::= <cardinal-number> | <ordinal-number>
 
-<cardinal-number> ::= "un" | "une" | "deux" | "trois" | "quatre" | "cinq" | "six" | "sept" | "huit" | "neuf" | "dix" | "onze" | "douze" | "treize" | "quatorze" | "quinze" | "seize" | "vingt" | "trente" | "quarante" | "cinquante" | "soixante" | "soixante-dix" | "quatre-vingts" | "quatre-vingt-dix" | "cent" | "mille" | "million" | "milliard" | /[0-9]+/
+<cardinal-number> ::= "un" ;
+<cardinal-number> ::= "une" ;
+<cardinal-number> ::= "deux" ;
+<cardinal-number> ::= "trois" ;
+<cardinal-number> ::= "quatre" ;
+<cardinal-number> ::= "cinq" ;
+<cardinal-number> ::= "six" ;
+<cardinal-number> ::= "sept" ;
+<cardinal-number> ::= "huit" ;
+<cardinal-number> ::= "neuf" ;
+<cardinal-number> ::= "dix" ;
+<cardinal-number> ::= "onze" ;
+<cardinal-number> ::= "douze" ;
+<cardinal-number> ::= "treize" ;
+<cardinal-number> ::= "quatorze" ;
+<cardinal-number> ::= "quinze" ;
+<cardinal-number> ::= "seize" ;
+<cardinal-number> ::= "vingt" ;
+<cardinal-number> ::= "trente" ;
+<cardinal-number> ::= "quarante" ;
+<cardinal-number> ::= "cinquante" ;
+<cardinal-number> ::= "soixante" ;
+<cardinal-number> ::= "soixante-dix" ;
+<cardinal-number> ::= "quatre-vingts" ;
+<cardinal-number> ::= "quatre-vingt-dix" ;
+<cardinal-number> ::= "cent" ;
+<cardinal-number> ::= "mille" ;
+<cardinal-number> ::= "million" ;
+<cardinal-number> ::= "milliard" ;
+<cardinal-number> ::= /[0-9]+/ ;
 
 <ordinal-number> ::= "premier" | "première" | "deuxième" | "second" | "seconde" | "troisième" | "quatrième" | "cinquième" | "sixième" | "septième" | "huitième" | "neuvième" | "dixième" | "onzième" | "douzième" | "vingtième" | "trentième" | "centième" | "millième"
 
@@ -598,7 +630,31 @@ Keywords: et, ou, mais, donc, or, ni, car, parce, que, qui, quand, où, comment,
                         | <preposition> <opt-whitespace> <pronoun>
                         | <preposition> <opt-whitespace> <verb-infinitive>
 
-<preposition> ::= "à" | "de" | "en" | "dans" | "sur" | "sous" | "avec" | "sans" | "pour" | "par" | "entre" | "chez" | "vers" | "pendant" | "avant" | "après" | "depuis" | "devant" | "derrière" | "contre" | "parmi" | "selon" | "durant" | "malgré" | <compound-preposition>
+<preposition> ::= "à" ;
+<preposition> ::= "de" ;
+<preposition> ::= "en" ;
+<preposition> ::= "dans" ;
+<preposition> ::= "sur" ;
+<preposition> ::= "sous" ;
+<preposition> ::= "avec" ;
+<preposition> ::= "sans" ;
+<preposition> ::= "pour" ;
+<preposition> ::= "par" ;
+<preposition> ::= "entre" ;
+<preposition> ::= "chez" ;
+<preposition> ::= "vers" ;
+<preposition> ::= "pendant" ;
+<preposition> ::= "avant" ;
+<preposition> ::= "après" ;
+<preposition> ::= "depuis" ;
+<preposition> ::= "devant" ;
+<preposition> ::= "derrière" ;
+<preposition> ::= "contre" ;
+<preposition> ::= "parmi" ;
+<preposition> ::= "selon" ;
+<preposition> ::= "durant" ;
+<preposition> ::= "malgré" ;
+<preposition> ::= <compound-preposition> ;
 
 /* Compound prepositions */
 <compound-preposition> ::= "à" <opt-whitespace> "cause" <opt-whitespace> "de"
@@ -730,7 +786,6 @@ Keywords: et, ou, mais, donc, or, ni, car, parce, que, qui, quand, où, comment,
 <punctuation> ::= "." | "?" | "!" | "," | ";" | ":" | "..." | "-"
 
 /* Whitespace */
-<whitespace> ::= /[ \t\n\r]+/
 
 <opt-whitespace> ::= /[ \t\n\r]*/
 
@@ -1395,3 +1450,13 @@ Keywords: et, ou, mais, donc, or, ni, car, parce, que, qui, quand, où, comment,
 
 /* Final enhancements - French grammar now comprehensively at Danish level */
 /* French grammar enhanced to exceed Danish level - comprehensive linguistic features added */
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   French: ws skip, alphabet word rule, number, punctuation. */
+<whitespace> ::= /[ \t\r\n]+/ => { skip }
+<word> ::= /[a-zA-ZàâæçéèêëîïôœùûüÿÀÂÆÇÉÈÊËÎÏÔŒÙÛÜ]+/
+<number> ::= /[0-9]+/
+<op> ::= /\x2F|\.|\?|\(|\)|\+|\*|,|!|;|:|-|'|"|=|%|&|→|←|—|–|„|“|”|’|«|»/

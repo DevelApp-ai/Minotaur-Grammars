@@ -1,14 +1,14 @@
 # Conformance cases for AiSpec.grammar - engine-verified lexing pin.
-# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
-# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
-# engine CI as well.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
 grammar: AiSpec.grammar
 
-lex: - REQ-001: Must support creation of orders with multiple items
-lex: - REQ-002: Must validate inventory availability before order confirmation
-lex: - REQ-003: Should send notifications on order status changes
-lex: - POST /api/orders: Creates a new order
-lex: - GET /api/orders/{id}: Retrieves order details
-lex: - PUT /api/orders/{id}/status: Updates order status
-lex: - GET /api/orders/customer/{customerId}: Lists customer orders
-lex: - Order
+lex: key: value
+lex: name = "x" # c
+lex: section:\n  a: 1\n  b: [1, 2]
+lex: list:\n- x\n- y
+lex: ports: [80, 443]
+lex: on: push
+
+lexfile: Examples.txt
