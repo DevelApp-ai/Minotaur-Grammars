@@ -5,7 +5,7 @@
   "DisplayName": "Faroese",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "Faroese natural-language grammar for the Minotaur parser platform.",
+  "Description": "Faroese grammar with engine-verified lexer core (ws skip, alphabet word rule, punctuation).",
   "License": "MIT",
   "Tags": [
     "natural-language",

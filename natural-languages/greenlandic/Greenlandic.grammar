@@ -26,8 +26,8 @@ grammar Greenlandic;
 <opt-punctuation> ::= "." | "!" | "?" | ""
 
 /* Whitespace handling */
-<opt-whitespace> ::= /[ \t\n\r]+/ | ""
-<whitespace> ::= /[ \t\n\r]+/
+<opt-whitespace> ::= /[ \t\n\r]+/ ;
+<opt-whitespace> ::= "" ;
 
 /* Main sentence types */
 <sentence> ::= <declarative-sentence>
@@ -822,3 +822,13 @@ grammar Greenlandic;
     ELSE ERROR "Discourse markers must be clause-initial"
 
 /* Greenlandic grammar enhancements complete - now at Danish benchmark level */
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   Greenlandic: ws skip, alphabet word rule, number, punctuation. */
+<whitespace> ::= /[ \t\r\n]+/ => { skip }
+<word> ::= /[a-zA-ZáðéíóúýÞæöÁÐÉÍÓÚÝÆÖ]+/
+<number> ::= /[0-9]+/
+<op> ::= /\x2F|\.|\?|\(|\)|,|!|;|:|-|'|"/

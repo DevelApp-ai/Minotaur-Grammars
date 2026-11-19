@@ -5,7 +5,7 @@
   "DisplayName": "Finnish",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "Finnish natural-language grammar for the Minotaur parser platform.",
+  "Description": "Finnish grammar with engine-verified lexer core (ws skip, alphabet word rule, punctuation).",
   "License": "MIT",
   "Tags": [
     "natural-language",

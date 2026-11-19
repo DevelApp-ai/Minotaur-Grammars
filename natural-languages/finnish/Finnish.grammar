@@ -1172,7 +1172,6 @@ options {
 // WHITESPACE AND PUNCTUATION
 // ============================================================================
 
-<whitespace> ::= /[ \t\n\r]+/
                ;
 
 <punctuation> ::= "." | "," | ";" | ":" | "!" | "?" | "..." | "–" | "—"
@@ -1407,3 +1406,13 @@ rule passive_voice_formation {
 // ============================================================================
 // END OF FINNISH GRAMMAR
 // ============================================================================
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   Finnish: ws skip, alphabet word rule, number, punctuation. */
+<whitespace> ::= /[ \t\r\n]+/ => { skip }
+<word> ::= /[a-zA-ZäöÄÖšžŠŽ]+/
+<number> ::= /[0-9]+/
+<op> ::= /\x2F|\.|\?|\(|\)|,|!|;|:|-|'|"/

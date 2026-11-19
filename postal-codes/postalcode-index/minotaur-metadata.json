@@ -5,7 +5,7 @@
   "DisplayName": "PostalCode Index",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "PostalCode_Index postal-code grammar for the Minotaur parser platform.",
+  "Description": "Postal code grammar index (CEBNF) with engine-verified lexer core.",
   "License": "MIT",
   "Tags": [
     "postal-code",

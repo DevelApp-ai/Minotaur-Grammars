@@ -38,8 +38,8 @@ Keywords: og, ella, men, um, at, sum, er, var, vera, hava, við, tú, hann, hon,
 <opt-punctuation> ::= "." | "!" | "?" | ""
 
 /* Whitespace handling */
-<opt-whitespace> ::= /[ \t\n\r]+/ | ""
-<whitespace> ::= /[ \t\n\r]+/
+<opt-whitespace> ::= /[ \t\n\r]+/ ;
+<opt-whitespace> ::= "" ;
 
 /* Punctuation */
 <punctuation> ::= "." | "!" | "?" | "," | ";" | ":"
@@ -458,9 +458,49 @@ Keywords: og, ella, men, um, at, sum, er, var, vera, hava, við, tú, hann, hon,
 /* Numerals and quantifiers */
 <numeral> ::= <cardinal-number> | <ordinal-number>
 
-<cardinal-number> ::= "ein" | "tveir" | "tríggir" | "fýra" | "fimm" | "seks" | "sjey" | "átta" | "níggju" | "tíggju" | "ellivu" | "tólv" | "trettan" | "fjúrtan" | "fimmtan" | "sekstan" | "seytjan" | "átjan" | "nítjan" | "tjúgu" | "tríati" | "fjøruti" | "hálvtrýss" | "trýss" | "hálvfjerds" | "fjerds" | "hálvfems" | "fems" | "hundrað" | "túsund" | /[0-9]+/
+<cardinal-number> ::= "ein" ;
+<cardinal-number> ::= "tveir" ;
+<cardinal-number> ::= "tríggir" ;
+<cardinal-number> ::= "fýra" ;
+<cardinal-number> ::= "fimm" ;
+<cardinal-number> ::= "seks" ;
+<cardinal-number> ::= "sjey" ;
+<cardinal-number> ::= "átta" ;
+<cardinal-number> ::= "níggju" ;
+<cardinal-number> ::= "tíggju" ;
+<cardinal-number> ::= "ellivu" ;
+<cardinal-number> ::= "tólv" ;
+<cardinal-number> ::= "trettan" ;
+<cardinal-number> ::= "fjúrtan" ;
+<cardinal-number> ::= "fimmtan" ;
+<cardinal-number> ::= "sekstan" ;
+<cardinal-number> ::= "seytjan" ;
+<cardinal-number> ::= "átjan" ;
+<cardinal-number> ::= "nítjan" ;
+<cardinal-number> ::= "tjúgu" ;
+<cardinal-number> ::= "tríati" ;
+<cardinal-number> ::= "fjøruti" ;
+<cardinal-number> ::= "hálvtrýss" ;
+<cardinal-number> ::= "trýss" ;
+<cardinal-number> ::= "hálvfjerds" ;
+<cardinal-number> ::= "fjerds" ;
+<cardinal-number> ::= "hálvfems" ;
+<cardinal-number> ::= "fems" ;
+<cardinal-number> ::= "hundrað" ;
+<cardinal-number> ::= "túsund" ;
+<cardinal-number> ::= /[0-9]+/ ;
 
-<ordinal-number> ::= "fyrsti" | "annar" | "triði" | "fjórði" | "fimmti" | "sætti" | "sjeyndi" | "áttandi" | "níundi" | "tíundi" | /[0-9]+\./
+<ordinal-number> ::= "fyrsti" ;
+<ordinal-number> ::= "annar" ;
+<ordinal-number> ::= "triði" ;
+<ordinal-number> ::= "fjórði" ;
+<ordinal-number> ::= "fimmti" ;
+<ordinal-number> ::= "sætti" ;
+<ordinal-number> ::= "sjeyndi" ;
+<ordinal-number> ::= "áttandi" ;
+<ordinal-number> ::= "níundi" ;
+<ordinal-number> ::= "tíundi" ;
+<ordinal-number> ::= /[0-9]+\./ ;
 
 <quantifier> ::= "nógv" | "lítið" | "fleiri" | "færri" | "allir" | "ongin" | "summi" | "nakrir" | "hvør"
 
@@ -1483,3 +1523,13 @@ Keywords: og, ella, men, um, at, sum, er, var, vera, hava, við, tú, hann, hon,
  */
 
 /* End of comprehensive Faroese grammar - now at Danish benchmark level */
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   Faroese: ws skip, alphabet word rule, number, punctuation. */
+<whitespace> ::= /[ \t\r\n]+/ => { skip }
+<word> ::= /[a-zA-ZáðéíóúýÞæöÁÐÉÍÓÚÝÆÖ]+/
+<number> ::= /[0-9]+/
+<op> ::= /\x2F|\.|\?|\(|\)|,|!|;|:|-|'|"/
