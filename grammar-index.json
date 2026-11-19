@@ -19,6 +19,7 @@
     "JavaScriptES2022.grammar": "programming-languages/javascriptes2022/JavaScriptES2022.grammar",
     "JSON.grammar": "programming-languages/json/JSON.grammar",
     "JSONSchema.grammar": "programming-languages/jsonschema/JSONSchema.grammar",
+    "JSONSchemaJsb.grammar": "programming-languages/jsonschemajsb/JSONSchemaJsb.grammar",
     "PL1.grammar": "programming-languages/pl1/PL1.grammar",
     "PowerShell.grammar": "programming-languages/powershell/PowerShell.grammar",
     "Python311.grammar": "programming-languages/python311/Python311.grammar",

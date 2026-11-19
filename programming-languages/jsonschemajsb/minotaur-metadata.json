@@ -1,0 +1,27 @@
+{
+  "Id": "develapp.jsonschemajsb",
+  "Name": "JSONSchemaJsb",
+  "Vendor": "DevelApp",
+  "DisplayName": "JSONSchemaJsb",
+  "Version": "2.0.0",
+  "MinotaurVersion": "*",
+  "Description": "Disciplined grammar for the JSON Schema draft-07 emission of the JsonSchemaBuilder (jsb) generator: single-root object schemas with jsb keyword members, properties/definitions maps, string enums and composition lists. Hand-authored for the ENFAStepLexer-StepParser engine and validated against the jsb generator output (22/22 corpus files).",
+  "License": "MIT",
+  "Tags": [
+    "programming-language",
+    "minotaur"
+  ],
+  "MainFile": "JSONSchemaJsb.grammar",
+  "LabyrinthExtension": true,
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free",
+  "EngineVerified": true,
+  "EngineVerifiedBy": "DevelApp.StepParser 1.75.0 (GreedyLongestMatch; jsb corpus harness, 22/22 files)"
+}
