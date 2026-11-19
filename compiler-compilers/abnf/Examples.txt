@@ -1,1 +1,4 @@
-404: Not Found
+; sample ABNF
+http-message = request-line *( header-field CRLF ) CRLF [ message-body ]
+request-line = method SP request-target SP HTTP-version CRLF
+method = "GET" / "POST"

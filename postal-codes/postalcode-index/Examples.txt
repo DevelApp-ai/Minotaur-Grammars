@@ -1,0 +1,4 @@
+/* master index */
+<postal-code-grammar> ::= <international> | <europe> ;
+<international> ::= "us-postal-code" | "uk-postal-code" ;
+<europe> ::= "de" | "fr" ;

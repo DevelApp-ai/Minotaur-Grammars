@@ -1,15 +1,14 @@
-# Conformance cases for ApacheAccessCombined.grammar - engine-verified lexing pin (benchmarks corpus, issue #192).
-# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
-# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
-# engine CI as well.
+# Conformance cases for ApacheAccessCombined.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
 grammar: ApacheAccessCombined.grammar
 
 lex: 127.0.0.1 - frank [10/Oct/2000:13:55:36 -0700] "GET /apache_pb.gif HTTP/1.0" 200 2326 "http://www.example.com/start.html" "Mozilla/5.0 (X11; Linux x86_64)"
 lex: 10.0.0.8 - - [10/Oct/2000:13:56:01 -0700] "POST /login HTTP/1.1" 302 - "https://app.example.com/" "curl/8.0.1"
 lex: 2001:db8::1 - - [11/Oct/2000:09:15:44 -0700] "HEAD /health HTTP/1.0" 200 0 "-" "kube-probe/1.29"
+lex: 192.168.1.10 - alice [12/Oct/2000:08:00:00 +0200] "GET /a/b.css HTTP/1.1" 304 - "-" "Wget/1.21"
 
-# Inputs that must be rejected by the token rules (LX1001).
 fail: €
 
-# Whole example corpus as a lex case (raw content).
 lexfile: Examples.txt

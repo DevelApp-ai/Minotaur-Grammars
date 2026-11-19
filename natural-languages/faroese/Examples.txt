@@ -1,1 +1,4 @@
-404: Not Found
+Halló, heimur!
+Eg heiti Anna og búgvi í Tórshavn.
+Hetta er ein flott ey.
+Hvat heitir tú?
