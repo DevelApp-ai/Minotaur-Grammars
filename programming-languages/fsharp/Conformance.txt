@@ -1,10 +1,25 @@
 # Conformance cases for FSharp.grammar - engine-verified lexing pin.
 # Run by the ENFAStepLexer-StepParser integration suite in
-# GreedyLongestMatch mode (engine issues #129/#133); grammar-repository-tests
-# job runs this in engine CI as well.
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
 grammar: FSharp.grammar
 
-lex: let add a b = a + b
+lex: let x = 1
+lex: let s = "hi\\\\n"
+lex: let v = @"C:\\\\temp"
+lex: let t = """multi "line" string"""
+lex: let c = 'a'
+lex: let c2 = '\\n'
+lex: let f x = x + 1.5e-3
+lex: let h = 0xFF 0o17 42uy
+lex: let pipe = xs |> List.map f <| y
+lex: type R = { A: int; B: string }
+lex: let x = 1 // trailing
+lex: let y = 2 (* block *) + 3
+lex: match x with | Some v -> v | None -> 0
+lex: let t = a :: b @ c @@ d
+lex: if a >= b && c <> d then e()
 
-# Input that must be rejected by the token rules (LX1001).
-fail: €
+fail: "unterminated
+
+lexfile: Examples.txt

@@ -1,15 +1,23 @@
 # Conformance cases for Bash.grammar - engine-verified lexing pin.
 # Run by the ENFAStepLexer-StepParser integration suite in
-# GreedyLongestMatch mode (engine issues #129/#133); grammar-repository-tests
-# job runs this in engine CI as well.
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
 grammar: Bash.grammar
 
-lex: set -euo pipefail
-lex: greet() {
-lex: local name="$1"
-lex: printf 'Hello, %s!\\n' "$name"
-lex: }
-lex: greet 'World' > greetings.txt
+lex: echo "hello world"
+lex: echo 'single $quoted'
+lex: x=42; echo $x ${HOME}/bin
+lex: cat <<EOF > out.txt
+lex: if [ -f file ]; then echo yes; fi
+lex: for i in 1 2 3; do echo $i; done
+lex: ls -la | grep foo 2>&1 | tee log.txt
+lex: echo $((1 + 2 * 3))
+lex: printf '%s\\n' "ansi $x"
+lex: cmd <<-'END'
+lex: echo hi # comment
+lex: x=$((16#FF)); echo $x
+lex: function f() { local a=1; return $a; }
+lex: a=1; b=2; [ $a -lt $b ] && echo ok || echo no
+lex: echo ${arr[0]} $# $? $!
 
-# Whole real corpus file as a lex case (raw content).
 lexfile: Examples.txt

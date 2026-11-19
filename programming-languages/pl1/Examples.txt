@@ -1,0 +1,14 @@
+DEMO: PROCEDURE OPTIONS (MAIN);
+    DECLARE (NAME, MSG) CHAR(20);
+    DECLARE COUNT FIXED BIN(31) INIT(0);
+    NAME = 'world';
+    MSG = 'Hello, ' || NAME || '!';
+    /* block comment */
+    DO WHILE (COUNT < 3);
+        COUNT = COUNT + 1;
+        PUT SKIP LIST('count=' || COUNT);
+    END;
+    PUT SKIP LIST(MSG);
+    DECLARE H HEX(4) INIT(X'FF');
+    DECLARE B BIN(8) INIT(B'1010');
+END DEMO;

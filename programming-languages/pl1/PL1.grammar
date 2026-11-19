@@ -33,7 +33,9 @@ FormatType: EBNF
 
 <data-declaration> ::= "DCL" <data-identifier> <data-type> <data-attributes>? ";"
 
-<data-identifier> ::= <IDENTIFIER> | "(" <IDENTIFIER> "," <IDENTIFIER> ")" | "(" <IDENTIFIER> ")"
+<data-identifier> ::= "(" <IDENTIFIER> "," <IDENTIFIER> ")" ;
+<data-identifier> ::= "(" <IDENTIFIER> ")" ;
+<data-identifier> ::= <IDENTIFIER> ;
 
 <data-type> ::= <simple-type> | <qualified-type>
 
@@ -116,7 +118,6 @@ FormatType: EBNF
 
 <hex-literal> ::= /[0-9A-Fa-f]+X/
 
-<string-literal> ::= "\"" <character>* "\"" | "'" <character>* "'"
 
 <character> ::= /[^"']/
 
@@ -136,11 +137,13 @@ FormatType: EBNF
 
 <factor> ::= <primary> ("**" <primary>)*
 
-<primary> ::= <literal> | <identifier> | "(" <arithmetic-expression> ")" | <function-call>
+<primary> ::= "(" <arithmetic-expression> ")" ;
+<primary> ::= <literal> | <identifier> | <function-call> ;
 
 <string-expression> ::= <string-primary> ("||" <string-primary>)*
 
-<string-primary> ::= <literal> | <identifier> | "(" <string-expression> ")" | <function-call>
+<string-primary> ::= "(" <string-expression> ")" ;
+<string-primary> ::= <literal> | <identifier> | <function-call> ;
 
 <boolean-expression> ::= <boolean-primary> (("&" | "|") <boolean-primary>)*
 
@@ -182,7 +185,8 @@ FormatType: EBNF
 
 <procedure-identifier> ::= <IDENTIFIER>
 
-<procedure-options> ::= "(" <parameter-list> ")" | <procedure-option-list>
+<procedure-options> ::= "(" <parameter-list> ")" ;
+<procedure-options> ::= <procedure-option-list> ;
 
 <procedure-option-list> ::= "OPTIONS" "(" <procedure-option> ("," <procedure-option>)* ")"
 
@@ -298,7 +302,12 @@ FormatType: EBNF
 /* Exception Handling */
 <on-statement> ::= "ON" <on-condition> <on-action> ";"
 
-<on-condition> ::= <condition-name> | "ENDFILE" "(" <file-reference> ")" | "ENDDATA" | "ERROR" | "FINISH" | "CONVERSION"
+<on-condition> ::= "ENDFILE" "(" <file-reference> ")" ;
+<on-condition> ::= "ENDDATA" ;
+<on-condition> ::= "ERROR" ;
+<on-condition> ::= "FINISH" ;
+<on-condition> ::= "CONVERSION" ;
+<on-condition> ::= <condition-name> ;
 
 <condition-name> ::= <IDENTIFIER>
 
@@ -341,7 +350,6 @@ FormatType: EBNF
  * Identifiers and Reserved Words
  * ============================================ */
 
-<IDENTIFIER> ::= /[A-Za-z][A-Za-z0-9_$]*/
 
 /* PL/I Reserved Words */
 <RESERVED_WORD> ::= "ADDRESS" | "ALL" | "ALLOCATE" | "AND" | "ANY" | "ARG" | "ARRAY" 
@@ -368,3 +376,15 @@ FormatType: EBNF
                   | "TYPE" | "UNALIGNED" | "UNDEFINED" | "UNLOCK" | "UNSIGNED" | "UNTIL" 
                   | "UPDATE" | "UPPER" | "USING" | "VALUE" | "VALUES" | "VARYING" 
                   | "VIRTUAL" | "WAIT" | "WHEN" | "WHILE" | "WITH" | "WRITE"
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   PL/I: ws, /* */ comments, doubled-quote strings, decimal/binary/hex literals, identifiers, operators. */
+<ws> ::= /[ \t\r\n]+/ => { skip }
+<block-comment> ::= /\x2F\*([^*]|\*+[^*\x2F])*\*+\x2F/ => { skip }
+<string-literal> ::= /"([^"]|"")*"/
+<numeric-literal> ::= /[+-]?([0-9]*\x2E[0-9]+|[0-9]+\x2E[0-9]*)|[01]+[bB]|[0-9A-Fa-f]+[xX]|[+-]?[0-9]+/
+<IDENTIFIER> ::= /[A-Za-z][A-Za-z0-9_$]*/
+<op> ::= /\x2F=|\*\*|\|\||\x2F|<=|>=|->|=>|\(|\)|\.|\+|\*|\[|\]|\{|\}|\||\^|\$|,|;|:|=|<|>|-|&|~/

@@ -56,7 +56,6 @@ FormatType: EBNF
 
 <data-description-entry> ::= <level-number> <data-name>? <data-clauses>* "."
 
-<level-number> ::= /0[1-9]|[1-4][0-9]|77|88/
 
 <data-name> ::= <IDENTIFIER>
 
@@ -64,7 +63,6 @@ FormatType: EBNF
 
 <picture-clause> ::= ("PIC" | "PICTURE") "IS"? <picture-string>
 
-<picture-string> ::= /[X9AS\(\)V\.,\-\+\$\*Z]+/
 
 <usage-clause> ::= "USAGE" "IS"? <usage-type>
 
@@ -157,7 +155,8 @@ FormatType: EBNF
 
 <term> ::= <factor> (("*" | "/") <factor>)*
 
-<factor> ::= <identifier-or-literal> | "(" <arithmetic-expression> ")"
+<factor> ::= "(" <arithmetic-expression> ")" ;
+<factor> ::= <identifier-or-literal> ;
 
 <identifier-or-literal> ::= <identifier> | <literal>
 
@@ -167,11 +166,8 @@ FormatType: EBNF
 
 <numeric-literal> ::= <integer> | <decimal>
 
-<string-literal> ::= "\"" <character>* "\"" | "'" <character>* "'"
 
-<integer> ::= /[+-]?[0-9]+/
 
-<decimal> ::= /[+-]?[0-9]*\.[0-9]+/
 
 <character> ::= /[^"']/
 
@@ -248,7 +244,6 @@ FormatType: EBNF
 
 <label-clause> ::= "LABEL" ("RECORD" "IS" | "RECORDS" "ARE") ("STANDARD" | "OMITTED")
 
-<IDENTIFIER> ::= /[A-Za-z][A-Za-z0-9\-]*/
 
 /* COBOL File I/O Statements */
 <open-statement> ::= "OPEN" <open-mode> <file-name> ("," <file-name>)* "."
@@ -504,4 +499,19 @@ FormatType: EBNF
 <exception-options> ::= "IS" "ABSTRACT" | "INHERITS" <identifier>
 
 /* Final additions */
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   COBOL 2023: ws, *> line comments, sq/dq doubled-quote strings, level numbers, ints/decimals, picture strings, dashed identifiers, operators. */
+<ws> ::= /[ \t\r\n]+/ => { skip }
+<line-comment> ::= /\x2A\x3E[^\n]*/ => { skip }
+<string-literal> ::= /'([^']|'')*'/
+<string-literal> ::= /"([^"]|"")*"/
+<level-number> ::= /0[1-9]|[1-4][0-9]|77|88/
+<integer> ::= /[0-9]+/
+<decimal> ::= /[0-9]*\x2E[0-9]+/
+<picture-string> ::= /[X9AS()V,.\-+\$\*Z0-9]+/
 <IDENTIFIER> ::= /[A-Za-z][A-Za-z0-9\-]*/
+<op> ::= /\x2F=|\*\*|\x2F|>=|<=|<>|\(|\)|\.|\+|\*|\$|,|;|:|=|-|<|>|'|"/

@@ -1,8 +1,20 @@
 # Conformance cases for COBOL2023.grammar - engine-verified lexing pin.
 # Run by the ENFAStepLexer-StepParser integration suite in
-# GreedyLongestMatch mode (engine issues #129/#133); grammar-repository-tests
-# job runs this in engine CI as well.
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
 grammar: COBOL2023.grammar
 
 lex: IDENTIFICATION DIVISION.
-lex: PROCEDURE DIVISION.
+lex: DISPLAY 'Hello, world'.
+lex: 01 WS-NAME PIC X(20) VALUE "abc".
+lex: 77 WS-LEVEL PIC 9.
+lex: MOVE 42 TO WS-COUNT.
+lex: IF A >= B AND C <> D THEN
+lex: PIC 9(5)V99 VALUE 3.14.
+lex: *> comment line
+lex: ADD 1 TO X GIVING Y.
+lex: CALL "SUB" USING WS-NAME.
+lex: PERFORM VARYING I FROM 1 BY 1 UNTIL I > 10
+lex: EVALUATE X WHEN 1 DISPLAY "one" WHEN OTHER DISPLAY "other" END-EVALUATE.
+
+lexfile: Examples.txt

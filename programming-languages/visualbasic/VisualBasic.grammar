@@ -132,7 +132,12 @@ FormatType: EBNF
                 | "(" <argument-list>? ")"
                 | "(" <expression> ")"
                 | "!" <identifier>
-<primary-expression> ::= <literal> | <identifier> | <dotted-name> | <new-expression> | "(" <expression> ")" | "Me" | "MyBase" | "MyClass" | "GetType" <whitespace>? "(" <type-expression> ")"
+<primary-expression> ::= "(" <expression> ")" ;
+<primary-expression> ::= "Me" ;
+<primary-expression> ::= "MyBase" ;
+<primary-expression> ::= "MyClass" ;
+<primary-expression> ::= "GetType" <whitespace>? "(" <type-expression> ")" ;
+<primary-expression> ::= <literal> | <identifier> | <dotted-name> | <new-expression> ;
 <new-expression> ::= "New" <whitespace> <type-expression> <whitespace>? "(" <argument-list>? ")" <whitespace>? <object-initializer>?
 <argument-list> ::= <argument> ("," <whitespace>? <argument>)*
 <argument> ::= <expression> | <identifier> ":=" <whitespace>? <expression>
@@ -142,17 +147,25 @@ FormatType: EBNF
 <attributes> ::= "<" <attribute-list> ">" <newline>
 <attribute-list> ::= <attribute> ("," <whitespace>? <attribute>)*
 <attribute> ::= <dotted-name> <whitespace>? "(" <argument-list>? ")"
-<literal> ::= <string-literal> | <int-literal> | <float-literal> | <bool-literal> | "Nothing" | <date-literal>
-<string-literal> ::= /"[^"]*"/
-<int-literal> ::= /&?H[0-9A-Fa-f]+/ | /[0-9]+/ | /&[Oo][0-7]+/
-<float-literal> ::= /[0-9]+\.[0-9]+/ | /[0-9]+\.[0-9]*[eE][+-]?[0-9]+/
+<literal> ::= "Nothing" ;
+<literal> ::= <string-literal> | <int-literal> | <float-literal> | <bool-literal> | <date-literal> ;
 <bool-literal> ::= "True" | "False"
-<date-literal> ::= /#[0-9\/:-]+[ ]?[APap][Mm]#/
-<identifier> ::= /[_a-zA-Z][_a-zA-Z0-9]*/
 <dotted-name> ::= <identifier> ("." <identifier>)*
-<whitespace> ::= /[ \t]+/
-<newline> ::= /\n|\r\n/
 
 /* Comments (issue #189) */
-<apostrophe-comment> ::= /'[^\n]*/
 <comment> ::= <apostrophe-comment>
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   Visual Basic: ws, apostrophe comments, doubled-quote strings, &H/&O/decimal numbers with type suffixes, #date# literals, identifiers with type chars, operators. */
+<whitespace> ::= /[ \t\r\n]+/ => { skip }
+<newline> ::= /\r\n|\n/ => { skip }
+<apostrophe-comment> ::= /'[^\n]*/ => { skip }
+<string-literal> ::= /"([^"]|"")*"/
+<int-literal> ::= /&[hH][0-9A-Fa-f]+[!#@%$&]?|&[oO][0-7]+[!#@%$&]?|[0-9]+\x2E[0-9]*([eE][+-]?[0-9]+)?[!#@%$&]?|[0-9]+[!#@%$&]?/
+<float-literal> ::= /&[hH][0-9A-Fa-f]+[!#@%$&]?|&[oO][0-7]+[!#@%$&]?|[0-9]+\x2E[0-9]*([eE][+-]?[0-9]+)?[!#@%$&]?|[0-9]+[!#@%$&]?/
+<date-literal> ::= /#[0-9\x2F:.-]+ ?[APap][Mm]#/
+<identifier> ::= /[_a-zA-Z][_a-zA-Z0-9]*[!#$@%&]?/
+<op> ::= /\x2F|\\\\|<=|>=|<>|<<|>>|=>|:=|\+|\*|\^|\(|\)|\.|\[|\]|\{|\}|\$|-|&|=|<|>|,|:|;|%|!|#|@|_/
