@@ -1,0 +1,29 @@
+Grammar: HLASM
+FormatType: EBNF
+
+<program> ::= <stmt>*
+<stmt> ::= <label>? <mnemonic> <operands>? <comment>?
+<label> ::= <identifier>
+<mnemonic> ::= <identifier>
+<operands> ::= <operand> ("," <operand>)*
+<operand> ::= <identifier> | <number> | <string> | "(" <operands> ")" | "*" <expr> | "'" <expr> | <expr> "(" <expr> ")" | "=" <literal>
+<literal> ::= <string> | <number> | /[A-Z][A-Z0-9]*/ 
+<expr> ::= <term> (("+" | "-") <term>)*
+<term> ::= <identifier> | <number> | "*"
+<comment> ::= <identifier>
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   HLASM (z/OS assembler): ws, //* comments, single-quoted strings with doubling, identifiers, machine ops. */
+<ws> ::= /[ \t\r\n]+/ => { skip }
+<comment> ::= /\x2F\x2F\*[^\n]*/ => { skip }
+<string> ::= /"""([^"]|"[^"]|""[^"])*"""/
+<string> ::= /"([^"\\\n]|\\.)*"/
+<string> ::= /'([^'\\\n]|\\.)*'/
+<char> ::= /'([^'\\\n]|\\.)*'/
+<number> ::= /[+-]?(0[xX][0-9a-fA-F_]+|0[oO][0-7_]+|0[bB][01_]+|[0-9][0-9_]*(\x2E[0-9_]*)?([eE][+-]?[0-9]+)?[a-zA-Z]?)/
+<identifier> ::= /[A-Za-z_@#$][A-Za-z0-9_@#$]*/
+<string> ::= /'([^']|'')*'/
+<op> ::= /\x2F|\.|\+|\*|\(|\)|\(|\)|\\|\||,|-|=|'|"|&|<|>/

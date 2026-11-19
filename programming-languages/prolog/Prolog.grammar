@@ -1,0 +1,35 @@
+Grammar: Prolog
+FormatType: EBNF
+
+<program> ::= <clause>*
+<clause> ::= <head> ":-" <body>? "." | <head> "." | "?-" <body> "."
+<head> ::= <atom> ("(" <terms> ")")?
+<atom> ::= <identifier>
+<body> ::= <goal> (("," | ";") <goal>)*
+<goal> ::= <atom> ("(" <terms> ")")? | "!" | "fail" | <expr> <compare> <expr> | "[" <terms>? "]" | <variable> "=" <term>
+<compare> ::= "=" | "\=" | "==" | "\==" | "=:=" | "=\=" | "=<" | "<" | ">" | ">=" | "is"
+<terms> ::= <term> ("," <term>)*
+<term> ::= <atom> | <variable> | <number> | <string> | "[" <terms>? ("|" <term>)? "]" | <atom> "(" <terms> ")" | <expr>
+<expr> ::= <add>
+<add> ::= <mul> (("+" | "-") <mul>)*
+<mul> ::= <unary> (("*" | "/" | "//" | "mod" | "**") <unary>)*
+<unary> ::= ("-")? <primary>
+<primary> ::= <atom> | <variable> | <number> | "(" <expr> ")" | <atom> "(" <terms> ")"
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   Prolog (ISO): ws, % and /* */ comments, double-quoted strings, single-quoted atoms, vars uppercase, numbers, operators incl :- --> \= is mod. */
+<ws> ::= /[ \t\r\n]+/ => { skip }
+<comment> ::= /%[^\n]*/ => { skip }
+<comment> ::= /\x2F\*([^*]|\*+[^*\x2F])*\*+\x2F/ => { skip }
+<string> ::= /"""([^"]|"[^"]|""[^"])*"""/
+<string> ::= /"([^"\\\n]|\\.)*"/
+<string> ::= /'([^'\\\n]|\\.)*'/
+<char> ::= /'([^'\\\n]|\\.)*'/
+<number> ::= /[0-9][0-9_]*(\x2E[0-9_]*)?([eE][+-]?[0-9]+)?|0[xX][0-9a-fA-F]+/
+<identifier> ::= /[a-z][a-zA-Z0-9_]*/
+<string> ::= /'([^'\\\n]|\\.)*'/
+<variable> ::= /[A-Z_][a-zA-Z0-9_]*/
+<op> ::= /\x2F\x2F|\\==|=\\=|\*\*|\x2F|-->|\\=|=:=|mod|:-|=<|>=|==|is|\+|\*|\^|\||\(|\)|\[|\]|\.|\?|\\|<|>|=|-|!|,|;|:|"|'/

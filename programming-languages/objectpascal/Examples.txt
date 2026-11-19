@@ -1,0 +1,32 @@
+unit Greeter;
+
+interface
+
+uses
+  SysUtils;
+
+type
+  TGreeter = class
+  private
+    FName: string;
+  public
+    constructor Create(const AName: string);
+    procedure Greet;
+  end;
+
+const
+  DefaultName = 'world';
+
+implementation
+
+constructor TGreeter.Create(const AName: string);
+begin
+  FName := AName;
+end;
+
+procedure TGreeter.Greet;
+begin
+  WriteLn('Hello, ' + FName + '!');
+end;
+
+end.

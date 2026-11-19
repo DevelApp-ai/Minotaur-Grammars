@@ -1,0 +1,26 @@
+Grammar: sed
+FormatType: EBNF
+
+<script> ::= <cmd>*
+<cmd> ::= <addr>? <command> <flags>?
+<addr> ::= <number> | "$" | "/" <text> "/" | <number> "," <addr> | "/" <text> "/" "," <addr>
+<command> ::= "s" | "y" | "d" | "p" | "q" | "a" | "i" | "c" | "r" | "w" | "b" | "t" | ":" <label> | "{" <script> "}" | <label> ":" | "=" | "#" <text>
+<label> ::= <identifier>
+<flags> ::= <identifier>
+<text> ::= <identifier> | <string>
+<number> ::= /[0-9]+/
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   sed (POSIX/GNU): ws, # comments, strings, addresses and s/// commands lexed as words/operators. */
+<ws> ::= /[ \t\r\n]+/ => { skip }
+<comment> ::= /#[^\n]*/ => { skip }
+<string> ::= /"""([^"]|"[^"]|""[^"])*"""/
+<string> ::= /"([^"\\\n]|\\.)*"/
+<string> ::= /'([^'\\\n]|\\.)*'/
+<char> ::= /'([^'\\\n]|\\.)*'/
+<number> ::= /[+-]?(0[xX][0-9a-fA-F_]+|0[oO][0-7_]+|0[bB][01_]+|[0-9][0-9_]*(\x2E[0-9_]*)?([eE][+-]?[0-9]+)?[a-zA-Z]?)/
+<identifier> ::= /[a-zA-Z0-9_.-]+/
+<op> ::= /\x2F|\\|\{|\}|\(|\)|\+|\*|\?|\$|\^|\\|:|;|,|!|&|=|<|>|-|"|'/

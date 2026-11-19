@@ -1,0 +1,46 @@
+Grammar: AWK
+FormatType: EBNF
+
+<program> ::= <rule>* | <func>* <rule>*
+<rule> ::= <pattern>? <action> | <pattern>
+<pattern> ::= <expr> | <expr> "," <expr> | "BEGIN" | "END"
+<action> ::= "{" <stmt>* "}"
+<func> ::= "function" <identifier> "(" <params>? ")" <action>
+<params> ::= <identifier> ("," <identifier>)*
+<stmt> ::= <assign> ";"? | <if> | <while> | <for> | <print> | <action> | <expr> ";"? | "next" | "exit" | "return" <expr>?
+<assign> ::= <lvalue> ("=" | "+=" | "-=" | "*=" | "/=" | "%=" | "^=") <expr>
+<lvalue> ::= <identifier> | "$" <expr> | <identifier> "[" <expr> "]"
+<if> ::= "if" "(" <expr> ")" <stmt> ("else" <stmt>)?
+<while> ::= "while" "(" <expr> ")" <stmt>
+<for> ::= "for" "(" <expr>? ";" <expr>? ";" <expr>? ")" <stmt>
+<print> ::= ("print" | "printf") <expr-list>? (">" <expr> | ">>" <expr> | "|" <expr>)?
+<expr-list> ::= <expr> ("," <expr>)*
+<expr> ::= <ternary>
+<ternary> ::= <or> ("?" <expr> ":" <ternary>)?
+<or> ::= <and> ("||" <and>)*
+<and> ::= <in> ("&&" <in>)*
+<in> ::= <rel> ("in" <identifier>)?
+<rel> ::= <concat> (("==" | "!=" | "<" | "<=" | ">" | ">=") <concat>)?
+<concat> ::= <add> <add>?  
+<add> ::= <mul> (("+" | "-") <mul>)*
+<mul> ::= <unary> (("*" | "/" | "%") <unary>)*
+<unary> ::= ("!" | "-" | "+" | "~")? <postfix>
+<postfix> ::= <primary> ("++" | "--")?
+<primary> ::= <identifier> | <number> | <string> | "(" <expr> ")" | "$" <expr> | <identifier> "[" <expr> "]" | <func-call> | "getline" <lvalue>?
+<func-call> ::= <identifier> "(" <args>? ")"
+<args> ::= <expr> ("," <expr>)*
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   AWK (POSIX/gawk): ws, # comments, double-quoted strings, $ field refs, numbers, rich operator set. */
+<ws> ::= /[ \t\r\n]+/ => { skip }
+<comment> ::= /#[^\n]*/ => { skip }
+<string> ::= /"""([^"]|"[^"]|""[^"])*"""/
+<string> ::= /"([^"\\\n]|\\.)*"/
+<string> ::= /'([^'\\\n]|\\.)*'/
+<char> ::= /'([^'\\\n]|\\.)*'/
+<number> ::= /[+-]?(0[xX][0-9a-fA-F_]+|0[oO][0-7_]+|0[bB][01_]+|[0-9][0-9_]*(\x2E[0-9_]*)?([eE][+-]?[0-9]+)?[a-zA-Z]?)/
+<identifier> ::= /[a-zA-Z_][a-zA-Z0-9_]*/
+<op> ::= /\x2F=|\+\+|\|\||\x2F|\+=|\*=|\^=|--|-=|%=|==|!=|<=|>=|&&|\+|\*|\^|\?|\(|\)|\{|\}|\[|\]|\$|\||\\|!|~|<|>|=|-|%|:|,|;|@|&|"|'/

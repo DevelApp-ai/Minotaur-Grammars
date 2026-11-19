@@ -1,0 +1,24 @@
+Attribute VB_Name = "Module1"
+Option Explicit
+
+Public Const MaxCount As Integer = 100
+
+Public Sub Greet(ByVal name As String)
+    Dim msg As String
+    msg = "Hello, " & name & "!"
+    If Len(msg) > 0 Then
+        Debug.Print msg
+    Else
+        Debug.Print "empty"
+    End If
+End Sub
+
+Public Function Twice(ByVal x As Integer) As Integer
+    Twice = x * 2
+End Function
+
+' loop demo
+Dim i As Integer
+For i = 1 To 10 Step 2
+    Debug.Print i
+Next i

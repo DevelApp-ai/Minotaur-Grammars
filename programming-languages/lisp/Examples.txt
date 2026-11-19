@@ -1,0 +1,15 @@
+;; fibonacci in Common Lisp
+(defun fib (n)
+  (if (< n 2)
+      n
+      (+ (fib (- n 1)) (fib (- n 2)))))
+
+(let ((xs '(1 2 3 4 5)))
+  (format t "sum=~a~%" (reduce #'+ xs)))
+
+(defmacro when (cond &body body)
+  `(if ,cond (progn ,@body)))
+
+(setf *ratio* 3/4)
+(setf *hex* #xFF)
+(print "hello, lisp")

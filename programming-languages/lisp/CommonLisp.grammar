@@ -1,0 +1,23 @@
+Grammar: CommonLisp
+FormatType: EBNF
+
+<program> ::= <form>*
+<form> ::= <atom> | "(" <form>* ")" | "'" <form> | "`" <form> | "," <form> | ",@" <form>
+<atom> ::= <symbol> | <number> | <string>
+<symbol> ::= <identifier>
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   Common Lisp: ws, ; comments, double-quoted strings, symbols with full Lisp char set, numbers incl ratios and #x radix, quote/backquote/comma. */
+<ws> ::= /[ \t\r\n]+/ => { skip }
+<comment> ::= /;[^\n]*/ => { skip }
+<string> ::= /"""([^"]|"[^"]|""[^"])*"""/
+<string> ::= /"([^"\\\n]|\\.)*"/
+<string> ::= /'([^'\\\n]|\\.)*'/
+<char> ::= /'([^'\\\n]|\\.)*'/
+<number> ::= /[+-]?[0-9]+\x2F[0-9]+|[+-]?[0-9][0-9_]*(\x2E[0-9_]*)?([eE][+-]?[0-9]+)?/
+<identifier> ::= /[a-zA-Z!$%&*+\-.\x2F<=>?@^_~][a-zA-Z0-9!$%&*+\-.\x2F<=>?@^_~]*/
+<number> ::= /#[box][0-9a-fA-F]+/
+<op> ::= /,@|\(|\)|\.|\\|'|`|,|#|"|'/

@@ -1,0 +1,14 @@
+% family relations
+parent(tom, bob).
+parent(bob, ann).
+
+ancestor(X, Y) :- parent(X, Y).
+ancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).
+
+?- ancestor(tom, ann).
+
+% arithmetic
+square(N, S) :- S is N * N.
+
+sum([], 0).
+sum([H|T], S) :- sum(T, S1), S is H + S1.

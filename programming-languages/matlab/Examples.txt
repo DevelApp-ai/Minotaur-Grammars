@@ -1,0 +1,16 @@
+% quadratic roots
+x = [1 -3 2];
+disc = x(2)^2 - 4*x(1)*x(3);
+if disc >= 0
+    r = (-x(2) + sqrt(disc)) / (2*x(1));
+    fprintf("root: %f\n", r);
+else
+    disp("no real roots");
+end
+
+% matrix demo
+A = [1 2; 3 4];
+B = A' * A;
+v = (1:10).';
+s = "hello " + "world";
+t = 'it''s';

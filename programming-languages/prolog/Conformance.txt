@@ -1,0 +1,16 @@
+# Conformance cases for Prolog.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
+grammar: Prolog.grammar
+
+lex: parent(tom, bob).
+lex: ancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).
+lex: square(N, S) :- S is N * N.
+lex: sum([H|T], S) :- sum(T, S1), S is H + S1.
+lex: X \\= Y
+lex: X =:= 3
+lex: foo(X) :- X > 2, !.
+lex: likes(mary, food).
+
+lexfile: Examples.txt

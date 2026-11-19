@@ -1,0 +1,18 @@
+# Conformance cases for CommonLisp.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
+grammar: CommonLisp.grammar
+
+lex: (defun add (a b) (+ a b))
+lex: '(1 2 3)
+lex: `(a ,b ,@c)
+lex: (if (< x 0) (- x) x)
+lex: (let ((x 1)) (print x))
+lex: 3/4
+lex: #xFF
+lex: #b101
+lex: "a string"
+lex: (defmacro m () `(+ 1 2))
+
+lexfile: Examples.txt

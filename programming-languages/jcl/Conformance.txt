@@ -1,0 +1,13 @@
+# Conformance cases for JCL.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
+grammar: JCL.grammar
+
+lex: //JOB1 JOB (ACCT),'MSG',CLASS=A
+lex: //STEP1 EXEC PGM=IEFBR14
+lex: //DD1 DD DSN=MY.DATA,DISP=SHR
+lex: //SORTOUT DD DSN=OUT.FILE,DISP=(NEW,CATLG),SPACE=(CYL,(5,5))
+lex: //STEP2 EXEC PROC=PROC1,PARM='X'
+
+lexfile: Examples.txt

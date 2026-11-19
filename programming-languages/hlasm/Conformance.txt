@@ -1,0 +1,14 @@
+# Conformance cases for HLASM.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
+grammar: HLASM.grammar
+
+lex: MYPROG CSECT
+lex: STM 14,12,12(13)
+lex: WTO (1)
+lex: MSG DC C'HELLO'
+lex: LA 1,=A(MSG)
+lex: BR 14
+
+lexfile: Examples.txt

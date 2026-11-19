@@ -119,6 +119,18 @@
     "Ada2022.grammar": "programming-languages/ada2022/Ada2022.grammar",
     "D.grammar": "programming-languages/d2/D.grammar",
     "Gleam.grammar": "programming-languages/gleam1/Gleam.grammar",
-    "GDScript.grammar": "programming-languages/gdscript4/GDScript.grammar"
+    "GDScript.grammar": "programming-languages/gdscript4/GDScript.grammar",
+    "MATLAB.grammar": "programming-languages/matlab/MATLAB.grammar",
+    "JCL.grammar": "programming-languages/jcl/JCL.grammar",
+    "REXX.grammar": "programming-languages/rexx/REXX.grammar",
+    "HLASM.grammar": "programming-languages/hlasm/HLASM.grammar",
+    "ObjectPascal.grammar": "programming-languages/objectpascal/ObjectPascal.grammar",
+    "VBA.grammar": "programming-languages/vba/VBA.grammar",
+    "Tcl.grammar": "programming-languages/tcl/Tcl.grammar",
+    "AWK.grammar": "programming-languages/awk/AWK.grammar",
+    "sed.grammar": "programming-languages/sed/sed.grammar",
+    "CommonLisp.grammar": "programming-languages/lisp/CommonLisp.grammar",
+    "Scheme.grammar": "programming-languages/scheme/Scheme.grammar",
+    "Prolog.grammar": "programming-languages/prolog/Prolog.grammar"
   }
 }

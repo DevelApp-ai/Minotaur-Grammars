@@ -1,0 +1,17 @@
+# Conformance cases for ObjectPascal.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
+grammar: ObjectPascal.grammar
+
+lex: unit U; interface implementation end.
+lex: type T = class ... end;
+lex: const S = 'it''s';
+lex: if x > 0 then y := 1 else y := 2;
+lex: for i := 1 to 10 do WriteLn(i);
+lex: while x < 5 do x := x + 1;
+lex: case x of 1: a(); 2, 3: b(); end
+lex: x := arr[1] + #65 + $FF;
+lex: repeat x := x - 1; until x = 0;
+
+lexfile: Examples.txt

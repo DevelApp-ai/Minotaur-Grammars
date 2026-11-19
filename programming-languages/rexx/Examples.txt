@@ -1,0 +1,10 @@
+/* REXX demo */
+parse arg name
+if name = '' then name = 'world'
+say 'Hello,' name'!'    /* greeting */
+do i = 1 to 3
+   say "iteration" i
+end
+x = 2 ** 10
+y = x // 3
+return

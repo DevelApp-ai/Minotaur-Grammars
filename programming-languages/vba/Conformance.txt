@@ -1,0 +1,16 @@
+# Conformance cases for VBA.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
+grammar: VBA.grammar
+
+lex: Sub Main() ... End Sub
+lex: Dim x As Integer
+lex: msg = "Hello, " & name
+lex: If a > 0 Then b() Else c() End If
+lex: For i = 1 To 10 Step 2 ... Next i
+lex: While x < 5 ... Wend
+lex: x = 2 ^ 10 \\ 3
+lex: s = "say ""hi"""
+
+lexfile: Examples.txt

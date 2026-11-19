@@ -1,0 +1,27 @@
+Grammar: JCL
+FormatType: EBNF
+
+<job> ::= <jcl-stmt>*
+<jcl-stmt> ::= "//" <name> <op> <operands> <continuation>?
+<name> ::= <identifier>
+<op> ::= "JOB" | "EXEC" | "DD" | "PROC" | "PEND" | "SET" | "IF" | "ELSE" | "ENDIF" | "INCLUDE" | "JCLLIB" | "OUTPUT"
+<operands> ::= <operand> ("," <operand>)*
+<operand> ::= <identifier> | <string> | <number> | "(" <operands> ")" | "*" <identifier> | <keyword-arg>
+<keyword-arg> ::= <identifier> "=" <operand>
+<continuation> ::= ","
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   JCL (z/OS job control): ws, //* comments, single-quoted strings with doubling, identifiers with @#$ and -, operators. */
+<ws> ::= /[ \t\r\n]+/ => { skip }
+<comment> ::= /\x2F\x2F\*[^\n]*/ => { skip }
+<string> ::= /"""([^"]|"[^"]|""[^"])*"""/
+<string> ::= /"([^"\\\n]|\\.)*"/
+<string> ::= /'([^'\\\n]|\\.)*'/
+<char> ::= /'([^'\\\n]|\\.)*'/
+<number> ::= /[+-]?(0[xX][0-9a-fA-F_]+|0[oO][0-7_]+|0[bB][01_]+|[0-9][0-9_]*(\x2E[0-9_]*)?([eE][+-]?[0-9]+)?[a-zA-Z]?)/
+<identifier> ::= /[A-Za-z_@#$][A-Za-z0-9_@#$-]*/
+<string> ::= /'([^']|'')*'/
+<op> ::= /\x2F\x2F|\x2F|\(|\)|\.|\*|\+|\\|=|,|-|"|'/
