@@ -3,8 +3,10 @@
   "Name": "GB_English",
   "Vendor": "DevelApp",
   "DisplayName": "GB English",
-  "Version": "1.0.0",
+  "Version": "2.0.0",
   "MinotaurVersion": "*",
+  "EngineVerified": true,
+  "EngineVerifiedBy": "ENFAStepLexer-StepParser@e6d1ae5cf748 (grammar-repository-tests, GreedyLongestMatch)",
   "Description": "GB_English natural-language grammar for the Minotaur parser platform.",
   "License": "MIT",
   "Tags": [
