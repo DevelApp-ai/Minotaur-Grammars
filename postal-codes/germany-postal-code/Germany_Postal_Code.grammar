@@ -52,7 +52,12 @@ ContextSensitive: true
 <last-name> ::= <text>
 <name-suffix> ::= "Jr." | "Sr." | "II" | "III" | "IV"
 
-<company-name> ::= <text> | "GmbH" | "AG" | "KG" | "e.V." | "Gbr"
+<company-name> ::= "GmbH" ;
+<company-name> ::= "AG" ;
+<company-name> ::= "KG" ;
+<company-name> ::= "e.V." ;
+<company-name> ::= "Gbr" ;
+<company-name> ::= <text> ;
 
 /* ============================================================================
  * STREET ADDRESS
@@ -280,7 +285,8 @@ ContextSensitive: true
 <text> ::= <character> | <character> <text>
 
 <whitespace> ::= " " | "\t" | <whitespace> <whitespace>
-<opt-whitespace> ::= "" | <whitespace>
+<opt-whitespace> ::= "" ;
+<opt-whitespace> ::= <whitespace> ;
 
 <EOL> ::= "\n" | "\r\n" | "\r"
 
@@ -307,3 +313,15 @@ ContextSensitive: true
  * - East Germany (former GDR) codes start with 0-1 (mostly)
  * - West Germany (former FRG) codes start with 2-9 (mostly)
  */
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   Postal code / address format (germany-postal-code) */
+<ws> ::= /[ \t\r\n]+/ => { skip }
+<string> ::= /"([^"\\\n]|\\.)*"/
+<string> ::= /'([^'\\\n]|\\.)*'/
+<number> ::= /[+-]?[0-9]+(\x2E[0-9]+)?([eE][+-]?[0-9]+)?/
+<word> ::= /[a-zA-Z_][a-zA-Z0-9_]*/
+<op> ::= /\x2F|\.|\(|\)|-|_|,|'|#/

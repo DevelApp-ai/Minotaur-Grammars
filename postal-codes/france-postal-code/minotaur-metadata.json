@@ -5,7 +5,7 @@
   "DisplayName": "France Postal Code",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "France_Postal_Code postal-code grammar for the Minotaur parser platform.",
+  "Description": "Postal code / address format (france-postal-code) with engine-verified lexer core.",
   "License": "MIT",
   "Tags": [
     "postal-code",

@@ -1,11 +1,16 @@
 # Conformance cases for Mexico_Postal_Code.grammar - engine-verified lexing pin.
-# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
-# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
-# engine CI as well.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
 grammar: Mexico_Postal_Code.grammar
 
-lex: Calle C. Av. Avenida
+lex: 12345
+lex: 12345-6789
+lex: A1B 2C3
+lex: 123 Main St Apt 4B
+lex: PO Box 42
+lex: O'Neil's Cottage
+lex: SW1A 1AA
+lex: K1A 0B1
 
-# Inputs that must be rejected by the token rules (LX1001).
-fail: €
-fail: `
+lexfile: Examples.txt

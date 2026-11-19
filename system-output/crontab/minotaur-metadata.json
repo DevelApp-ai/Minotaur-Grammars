@@ -5,7 +5,7 @@
   "DisplayName": "Crontab",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "Minotaur grammar for Crontab covering the core language subset.",
+  "Description": "Crontab entries with engine-verified lexer core.",
   "License": "MIT",
   "Tags": [
     "system-output"

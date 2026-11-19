@@ -1,0 +1,5 @@
+%token NUMBER
+%start input
+%%
+input: /* empty */ | input line ;
+line: NUMBER '\n' { printf("%d\n", $1); } ;

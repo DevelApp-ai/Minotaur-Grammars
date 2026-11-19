@@ -1,0 +1,15 @@
+# Conformance cases for Crontab.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
+grammar: Crontab.grammar
+
+lex: * * * * * /usr/bin/backup.sh
+lex: 0 2 * * 1 /usr/local/bin/weekly
+lex: */15 * * * * root /usr/local/bin/job
+lex: 30 4 1 * * echo "monthly"
+lex: PATH=/usr/local/bin:/usr/bin
+lex: MAILTO=admin@example.com
+lex: 0 0 * * 0 /bin/true # weekly
+
+lexfile: Examples.txt

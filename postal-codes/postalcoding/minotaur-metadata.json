@@ -5,7 +5,7 @@
   "DisplayName": "PostalCoding",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "PostalCoding postal-code grammar for the Minotaur parser platform.",
+  "Description": "Postal code / address format (postalcoding) with engine-verified lexer core.",
   "License": "MIT",
   "Tags": [
     "postal-code",

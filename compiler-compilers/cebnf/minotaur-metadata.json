@@ -5,7 +5,7 @@
   "DisplayName": "CEBNF",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "CEBNF compiler-compiler grammar for the Minotaur parser platform.",
+  "Description": "CEBNF (ISO variant) with engine-verified lexer core.",
   "License": "MIT",
   "Tags": [
     "compiler-compiler",

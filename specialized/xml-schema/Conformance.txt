@@ -1,7 +1,16 @@
-# Conformance cases for Xsd10.grammar - engine-verified lexing pin.
-# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
-# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
-# engine CI as well.
-grammar: Xsd10.grammar
+# Conformance cases for Xsd11.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
+grammar: Xsd11.grammar
 
-lex: ?[^ > /> >
+lex: <?xml version="1.0"?>
+lex: <schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+lex: <element name="note" type="xs:string"/>
+lex: <complexType name="USAddress">
+lex: <xs:element ref="name" maxOccurs="unbounded"/>
+lex: <attribute name="lang" type="xs:language"/>
+lex: <simpleType name="zip"><restriction base="xs:string"/></simpleType>
+lex: <schema> <!-- c --> </schema>
+
+lexfile: Examples.txt
