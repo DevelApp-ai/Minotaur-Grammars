@@ -309,7 +309,6 @@ Keywords: και, ή, ο, όχι, αλλά, αν, όταν, επειδή, ότι
 <punctuation> ::= "." | "!" | ";" | "," | ":" | "·" | "..." | "-"
 
 /* Whitespace */
-<whitespace> ::= /[ \t\n\r]+/
 
 <opt-whitespace> ::= /[ \t\n\r]*/
 
@@ -1487,3 +1486,12 @@ Keywords: και, ή, ο, όχι, αλλά, αν, όταν, επειδή, ότι
 
 <habitual-aspect> ::= "συνηθίζω" <opt-whitespace> "να" <opt-whitespace> <verb-present-active-1sg>
 
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   Modern Greek: ws skip, letter-word rule (language alphabet, raw chars), punctuation. */
+<whitespace> ::= /[ \t\r\n]+/ => { skip }
+<word> ::= /[a-zA-Zα-ωΑ-Ωά-ώΆΈΉΊΌΎΏΪΫ]+/
+<number> ::= /[0-9]+/
+<op> ::= /\x2F|\.|\?|\(|\)|,|!|;|:|-|'|"/

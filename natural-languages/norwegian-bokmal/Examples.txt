@@ -1,1 +1,5 @@
-404: Not Found
+Hei, verden!
+Jeg heter Anna og kjører bil.
+Dette er en vakker by.
+Hva heter du?
+God morgen!

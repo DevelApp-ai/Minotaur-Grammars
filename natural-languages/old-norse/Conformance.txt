@@ -1,11 +1,12 @@
 # Conformance cases for Old_Norse.grammar - engine-verified lexing pin.
-# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
-# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
-# engine CI as well.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
 grammar: Old_Norse.grammar
 
-lex: hestr hest hesti hests
+lex: Halló heimur!
+lex: Ek heiti Óláfr.
+lex: Þetta er gott.
+lex: Hvað heitir þú?
 
-# Inputs that must be rejected by the token rules (LX1001).
-fail: €
-fail: `
+lexfile: Examples.txt

@@ -1,1 +1,5 @@
-404: Not Found
+Halló, heimur!
+Ég heiti Anna og á eigin bíl.
+Þetta er falleg borg.
+Hvað kostar þetta?
+Góðan daginn!

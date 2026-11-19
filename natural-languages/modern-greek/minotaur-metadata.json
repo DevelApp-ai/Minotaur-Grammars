@@ -5,7 +5,7 @@
   "DisplayName": "Modern Greek",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "Modern_Greek natural-language grammar for the Minotaur parser platform.",
+  "Description": "Modern Greek grammar with engine-verified lexer core (ws skip, alphabet word rule, punctuation).",
   "License": "MIT",
   "Tags": [
     "natural-language",

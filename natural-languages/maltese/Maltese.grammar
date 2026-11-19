@@ -6,13 +6,13 @@ Keywords: u, jew, iżda, li, min, x, meta, fejn, kif, għaliex, jekk, le, f, fuq
 <sentence> ::= <subject>? <opt-whitespace> <verb> <opt-whitespace> <object>? <punctuation>?
 <subject> ::= <pronoun> | <noun>
 <pronoun> ::= "jiena" | "inti" | "huwa" | "hi" | "aħna" | "intom" | "huma"
-<noun> ::= /[a-zċġħż]+/ | <triconsonantal-root>
+<noun> ::= /[a-zċġħż]+/ ;
+<noun> ::= <triconsonantal-root> ;
 <triconsonantal-root> ::= /[bcdfgħjklmnpqrstvwxzżċġ]{3}/
 <verb> ::= <triconsonantal-root> <pattern>?
 <pattern> ::= "a" | "ie" | "u" | "et" | "it"
 <object> ::= <noun>
 <punctuation> ::= "." | "?" | "!"
-<whitespace> ::= /[ \t\n\r]+/
 <opt-whitespace> ::= /[ \t\n\r]*/
 @CONTEXT_RULE[triconsonantal-morphology]:
     IF <word> IS verb OR noun
@@ -22,3 +22,13 @@ Keywords: u, jew, iżda, li, min, x, meta, fejn, kif, għaliex, jekk, le, f, fuq
     IF <word> IS romance-origin
     THEN FOLLOWS romance-grammar
     ELSE FOLLOWS semitic-grammar
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   Maltese: ws skip, letter-word rule (language alphabet, raw chars), punctuation. */
+<whitespace> ::= /[ \t\r\n]+/ => { skip }
+<word> ::= /[a-zA-Zċġħż]+/
+<number> ::= /[0-9]+/
+<op> ::= /\x2F|\.|\?|\(|\)|,|!|;|:|-|'|"/
