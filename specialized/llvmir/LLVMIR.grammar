@@ -1,0 +1,36 @@
+Grammar: LLVMIR
+FormatType: EBNF
+
+<module> ::= <top-decl>*
+<top-decl> ::= <global> | <declare> | <define> | <attr>
+<global> ::= "@" <name> "=" <type> <value>
+<declare> ::= "declare" <type> "@" <name> "(" <params>? ")"
+<define> ::= "define" <type> "@" <name> "(" <params>? ")" <block>
+<attr> ::= "attributes" "#" <number> "=" "{" <string>* "}"
+<params> ::= <param> ("," <param>)*
+<param> ::= <type> <value>
+<type> ::= <identifier> ("*")* ("[" <number> "x" <type> "]")? | "void" | "label"
+<value> ::= <number> | <string> | "@" <name> | "%" <name> | "true" | "false" | "null" | <type> <number>
+<block> ::= <label> ":" <instr>*
+<label> ::= <identifier> | <number>
+<instr> ::= ("%" <name> "=")? <op> <operands> <meta>*
+<op> ::= "add" | "sub" | "mul" | "sdiv" | "urem" | "and" | "or" | "xor" | "shl" | "lshr" | "icmp" | "br" | "ret" | "call" | "store" | "load" | "phi"
+<operands> ::= <operand> ("," <operand>)*
+<operand> ::= <type> <value>
+<meta> ::= "," "!" <name> "!" <number>
+<name> ::= <identifier>
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   LLVM IR (17): ws, ; comments, double-quoted strings, globals @x / locals %x / labels, integers incl hex, types as identifiers, operators. */
+<ws> ::= /[ \t\r\n]+/ => { skip }
+<comment> ::= /;[^\n]*/ => { skip }
+<string> ::= /"""([^"]|"[^"]|""[^"])*"""/
+<string> ::= /"([^"\\\n]|\\.)*"/
+<string> ::= /'([^'\\\n]|\\.)*'/
+<char> ::= /'([^'\\\n]|\\.)*'/
+<number> ::= /[+-]?(0[xX][0-9a-fA-F]+|[0-9][0-9_]*(\x2E[0-9_]*)?([eE][+-]?[0-9]+)?)/
+<identifier> ::= /[a-zA-Z_$.][a-zA-Z0-9_$.]*/
+<op> ::= /\x2F|\+|\*|\(|\)|\[|\]|\{|\}|\\|=|-|<|>|,|:|!|#|@|%|x|"|'/

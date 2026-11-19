@@ -1,0 +1,26 @@
+Grammar: OpenAPI3
+FormatType: EBNF
+
+<spec> ::= <mapping>
+<mapping> ::= <entry>*
+<entry> ::= <key> ":" <value>
+<key> ::= <identifier> | <string>
+<value> ::= <scalar> | <mapping> | <sequence>
+<scalar> ::= <identifier> | <number> | <string> | "true" | "false" | "null"
+<sequence> ::= ("-" <value>)+
+<number> ::= /[0-9]+(' + BS + 'x2E[0-9]+)?/
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   OpenAPI 3.x (YAML form): ws, # comments, quoted/plain scalars as strings/idents, YAML punctuation, keys with colons. */
+<ws> ::= /[ \t\r\n]+/ => { skip }
+<comment> ::= /#[^\n]*/ => { skip }
+<string> ::= /"""([^"]|"[^"]|""[^"])*"""/
+<string> ::= /"([^"\\\n]|\\.)*"/
+<string> ::= /'([^'\\\n]|\\.)*'/
+<char> ::= /'([^'\\\n]|\\.)*'/
+<number> ::= /[+-]?(0[xX][0-9a-fA-F_]+|0[oO][0-7_]+|0[bB][01_]+|[0-9][0-9_]*(\x2E[0-9_]*)?([eE][+-]?[0-9]+)?[a-zA-Z]?)/
+<identifier> ::= /[a-zA-Z0-9_.-]+/
+<op> ::= /\x2F|\$|\[|\]|\{|\}|\||\*|\?|\.|\\|:|-|,|>|&|!|@|#|"|'/

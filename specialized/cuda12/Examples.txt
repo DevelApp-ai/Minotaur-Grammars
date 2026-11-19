@@ -1,0 +1,20 @@
+#include <cuda_runtime.h>
+
+__global__ void saxpy(float a, const float* x, float* y, int n) {
+    int i = blockIdx.x * blockDim.x + threadIdx.x;
+    if (i < n) {
+        y[i] = a * x[i] + y[i];
+    }
+}
+
+__device__ float helper(float v) { return v * 2.0f; }
+
+int main() {
+    int n = 1024;
+    float *dx, *dy;
+    cudaMalloc(&dx, n * sizeof(float));
+    saxpy<<<(n + 255) / 256, 256>>>(1.0f, dx, dy, n);
+    const char* msg = R"(done
+)";
+    return 0;
+}

@@ -1,0 +1,15 @@
+# Conformance cases for Verilog2005.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
+grammar: Verilog2005.grammar
+
+lex: module m(input a, output b); assign b = a; endmodule
+lex: always @(posedge clk) q <= q + 1;
+lex: assign y = a === b ? 1 : 0;
+lex: x = 4'hFF + 'b1010;
+lex: if (a && b) c = a | b; else c = ~a;
+lex: $display("val=%d", x);
+lex: case (op) 2'b00: y = a + b; default: y = 0; endcase
+
+lexfile: Examples.txt

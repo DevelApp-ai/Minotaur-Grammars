@@ -1,0 +1,59 @@
+Grammar: SystemVerilog2017
+FormatType: EBNF
+
+<compilation-unit> ::= <item>*
+<item> ::= <package> | <class-def> | <interface-def> | <module> | <program>
+<package> ::= "package" <name> ";" <item>* "endpackage"
+<class-def> ::= "class" <name> ("extends" <name>)? ("implements" <name-list>)? ";" <member>* "endclass"
+<member> ::= ("public" | "protected" | "private" | "static" | "virtual")* <type>? <name> ("(" <params>? ")")? (";" | <block>)
+<interface-def> ::= "interface" <name> ";" <member>* "endinterface"
+<module> ::= "module" <name> <port-list>? ";" <item>* "endmodule"
+<program> ::= "program" <name> ";" <item>* "endprogram"
+<port-list> ::= "(" <port> ("," <port>)* ")"
+<port> ::= ("input" | "output" | "inout")? <type>? ("[" <expr> ":" <expr> "]")? <name>
+<type> ::= <name> ("[" <expr>? "]")* | "logic" ("[" <expr> ":" <expr> "]")? | "bit" | "reg" | "wire"
+<name-list> ::= <name> ("," <name>)*
+<name> ::= <identifier> ("::" <identifier>)*
+<params> ::= <param> ("," <param>)*
+<param> ::= <type>? <name> ("=" <expr>)?
+<block> ::= "begin" <stmt>* "end"
+<stmt> ::= <decl> ";" | <assign> | <if> | <for> | <while> | <case> | <block> | <lvalue> ("<=" | "=") <expr> ";" | <expr> ";" | <assert>
+<decl> ::= <type> <name> ("=" <expr>)? ("," <name> ("=" <expr>)?)*
+<assign> ::= "assign" <lvalue> "=" <expr> ";"
+<if> ::= "if" "(" <expr> ")" <stmt> ("else" <stmt>)?
+<for> ::= "for" "(" <decl>? ";" <expr>? ";" <expr> ")" <stmt>
+<while> ::= "while" "(" <expr> ")" <stmt>
+<case> ::= "case" "(" <expr> ")" <case-item>+ "endcase"
+<case-item> ::= <expr> ("," <expr>)* ":" <stmt> | "default" ":" <stmt>
+<assert> ::= "assert" "(" <expr> ")" ("else" <expr>)? ";"
+<lvalue> ::= <name> ("[" <expr> "]" | "." <name>)*
+<expr> ::= <ternary>
+<ternary> ::= <or> ("?" <expr> ":" <expr>)?
+<or> ::= <and> ("||" <and>)*
+<and> ::= <bit> ("&&" <bit>)*
+<bit> ::= <eq> (("&" | "|" | "^") <eq>)*
+<eq> ::= <rel> (("==" | "!=" | "===" | "!==") <rel>)*
+<rel> ::= <shift> (("<" | "<=" | ">" | ">=" | "inside") <shift>)?
+<shift> ::= <add> (("<<" | ">>" | "<<<" | ">>>") <add>)*
+<add> ::= <mul> (("+" | "-") <mul>)*
+<mul> ::= <unary> (("*" | "/" | "%" | "**") <unary>)*
+<unary> ::= ("~" | "!" | "-")? <postfix>
+<postfix> ::= <primary> ("++" | "--" | "(" <args>? ")" | "[" <expr> "]" | "." <name>)*
+<primary> ::= <name> | <number> | <string> | "(" <expr> ")" | "{" <expr> ("," <expr>)* "}" | "new"
+<args> ::= <expr> ("," <expr>)*
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   SystemVerilog-2017: ws, // and /* */ comments, strings, literals, class/interface keywords, operators incl :: and <<< >>>. */
+<ws> ::= /[ \t\r\n]+/ => { skip }
+<comment> ::= /\x2F\x2F[^\n]*/ => { skip }
+<comment> ::= /\x2F\*([^*]|\*+[^*\x2F])*\*+\x2F/ => { skip }
+<string> ::= /"""([^"]|"[^"]|""[^"])*"""/
+<string> ::= /"([^"\\\n]|\\.)*"/
+<string> ::= /'([^'\\\n]|\\.)*'/
+<char> ::= /'([^'\\\n]|\\.)*'/
+<number> ::= /[0-9][0-9_]*'[sS]?[bBoOdDhH][0-9a-fA-FxXzZ_?]+|'[sS]?[bBoOdDhH][0-9a-fA-FxXzZ_?]+|[0-9][0-9_]*(\x2E[0-9_]*)?([eE][+-]?[0-9]+)?/
+<identifier> ::= /[a-zA-Z_][a-zA-Z0-9_]*/
+<op> ::= /inside|\x2F=|\|\||\x2F|\+\+|\*\*|<<<|>>>|===|!==|~\||\^~|~\^|\+=|\*=|\|=|\^=|<<=|>>=|==|!=|<=|>=|&&|<<|>>|~&|\+|\*|\||\^|\?|\(|\)|\[|\]|\{|\}|\.|\$|\\|::|--|-=|%=|&=|-|%|&|~|!|<|>|=|:|,|;|@|#|`|'|"/

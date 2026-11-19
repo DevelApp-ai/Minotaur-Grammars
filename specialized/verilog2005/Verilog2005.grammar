@@ -1,0 +1,51 @@
+Grammar: Verilog2005
+FormatType: EBNF
+
+<module> ::= <module-item>*
+<module-item> ::= <decl> | <instantiation> | <always> | <assign> | <directive>
+<directive> ::= "`" <identifier> <text>*
+<decl> ::= "module" <name> <port-list>? ";" <module-item>* "endmodule"
+<port-list> ::= "(" <port> ("," <port>)* ")"
+<port> ::= ("input" | "output" | "inout")? ("wire" | "reg")? ("[" <expr> ":" <expr> "]")? <name>
+<name> ::= <identifier>
+<instantiation> ::= <name> <name>? "(" <port-conn>* ")" ";"
+<port-conn> ::= <expr> | "." <name> "(" <expr>? ")"
+<always> ::= "always" ("@" "(" <sens> ")" | "@" "*") <stmt>
+<sens> ::= ("posedge" | "negedge")? <name>
+<assign> ::= "assign" <lvalue> "=" <expr> ";"
+<stmt> ::= <assign> | <always> | <if> | <case> | <block> | <expr> ";" | <lvalue> "<=" <expr> ";"
+<block> ::= "begin" <stmt>* "end"
+<if> ::= "if" "(" <expr> ")" <stmt> ("else" <stmt>)?
+<case> ::= "case" "(" <expr> ")" <case-item>+ "endcase"
+<case-item> ::= <expr> ("," <expr>)* ":" <stmt> | "default" ":" <stmt>
+<lvalue> ::= <name> ("[" <expr> "]")?
+<expr> ::= <ternary>
+<ternary> ::= <or> ("?" <expr> ":" <expr>)?
+<or> ::= <and> ("||" <and>)*
+<and> ::= <bit> ("&&" <bit>)*
+<bit> ::= <eq> (("&" | "|" | "^" | "~&" | "~|" | "^~") <eq>)*
+<eq> ::= <rel> (("==" | "!=" | "===" | "!==") <rel>)*
+<rel> ::= <shift> (("<" | "<=" | ">" | ">=") <shift>)*
+<shift> ::= <add> (("<<" | ">>" | "<<<" | ">>>") <add>)*
+<add> ::= <mul> (("+" | "-") <mul>)*
+<mul> ::= <unary> (("*" | "/" | "%") <unary>)*
+<unary> ::= ("~" | "!" | "-" | "&" | "~&" | "|" | "~|" | "^" | "~^")? <primary>
+<primary> ::= <name> ("(" <args>? ")")? | <number> | <string> | "(" <expr> ")" | "{" <expr> ("," <expr>)* "}" | "$" <name> "(" <args>? ")"
+<args> ::= <expr> ("," <expr>)*
+<text> ::= <identifier> | <number>
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   Verilog-2005: ws, // and /* */ comments, backtick directives, strings, sized/unsized literals, identifiers, operators. */
+<ws> ::= /[ \t\r\n]+/ => { skip }
+<comment> ::= /\x2F\x2F[^\n]*/ => { skip }
+<comment> ::= /\x2F\*([^*]|\*+[^*\x2F])*\*+\x2F/ => { skip }
+<string> ::= /"""([^"]|"[^"]|""[^"])*"""/
+<string> ::= /"([^"\\\n]|\\.)*"/
+<string> ::= /'([^'\\\n]|\\.)*'/
+<char> ::= /'([^'\\\n]|\\.)*'/
+<number> ::= /[0-9][0-9_]*'[sS]?[bBoOdDhH][0-9a-fA-FxXzZ_?]+|'[sS]?[bBoOdDhH][0-9a-fA-FxXzZ_?]+|[0-9][0-9_]*(\x2E[0-9_]*)?([eE][+-]?[0-9]+)?/
+<identifier> ::= /[a-zA-Z_][a-zA-Z0-9_]*/
+<op> ::= /\|\||\x2F|<<<|>>>|===|!==|~\||\^~|~\^|==|!=|<=|>=|&&|<<|>>|~&|\+|\*|\||\^|\?|\(|\)|\[|\]|\{|\}|\.|\$|\\|-|%|&|~|!|<|>|=|:|,|;|@|#|`|'|"/

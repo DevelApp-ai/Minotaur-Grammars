@@ -1,0 +1,15 @@
+# Conformance cases for CUDA12.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
+grammar: CUDA12.grammar
+
+lex: __global__ void k(float* x) { x[0] = 1.0f; }
+lex: kernel<<<grid, block>>>(args);
+lex: int i = blockIdx.x * blockDim.x + threadIdx.x;
+lex: if (i < n) y[i] += a * x[i];
+lex: float v = 0x1Fp4 + 1.5e3f;
+lex: auto s = R"(raw\nstring)";
+lex: template <typename T> T twice(T v) { return v * 2; }
+
+lexfile: Examples.txt

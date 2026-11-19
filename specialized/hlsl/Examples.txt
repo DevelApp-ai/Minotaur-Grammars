@@ -1,0 +1,15 @@
+struct VSOut {
+  float4 pos : SV_POSITION;
+  float2 uv  : TEXCOORD0;
+};
+
+Texture2D gTex : register(t0);
+SamplerState gSmp : register(s0);
+
+float4 PSMain(VSOut input) : SV_TARGET {
+  float4 c = gTex.Sample(gSmp, input.uv);
+  if (c.a > 0.5f) {
+    return c * 1.5f;
+  }
+  return float4(0.0f, 0.0f, 0.0f, 1.0f);
+}

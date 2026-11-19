@@ -1,0 +1,51 @@
+Grammar: WGSL
+FormatType: EBNF
+
+<shader> ::= <global-decl>*
+<global-decl> ::= <attribute>* <decl>
+<attribute> ::= "@" <name> ("(" <args>? ")")?
+<decl> ::= "var" <name> (":" <type>)? ("=" <expr>)? ";" | "let" <name> (":" <type>)? "=" <expr> ";" | "const" <name> (":" <type>)? "=" <expr> ";" | <func>
+<func> ::= "fn" <name> "(" <params>? ")" ("->" <type>)? <block>
+<params> ::= <param> ("," <param>)*
+<param> ::= ("@" <name>)? <name> ":" <type>
+<type> ::= <name> ("<" <type-args> ">")?
+<type-args> ::= <type> ("," <type>)* | <expr>
+<block> ::= "{" <stmt>* "}"
+<stmt> ::= <decl> | <assign> | <if> | <for> | <while> | <loop> | <return> | <call> ";" | <block> | "break" ";" | "continue" ";"
+<assign> ::= <lvalue> ("=" | "+=" | "-=" | "*=" | "/=") <expr> ";"
+<lvalue> ::= <name> ("." <name> | "[" <expr> "]")*
+<if> ::= "if" <expr> <block> ("else" <block>)?
+<for> ::= "for" "(" <stmt>? <expr>? ";" <expr>? ")" <block>
+<while> ::= "while" <expr> <block>
+<loop> ::= "loop" <block>
+<return> ::= "return" <expr>? ";"
+<call> ::= <name> "(" <args>? ")"
+<args> ::= <expr> ("," <expr>)*
+<expr> ::= <ternary>
+<ternary> ::= <or> ("?" <expr> ":" <expr>)?
+<or> ::= <and> ("||" <and>)*
+<and> ::= <bit> ("&&" <bit>)*
+<bit> ::= <eq> (("&" | "|" | "^") <eq>)*
+<eq> ::= <rel> (("==" | "!=") <rel>)*
+<rel> ::= <shift> (("<" | "<=" | ">" | ">=") <shift>)*
+<shift> ::= <add> (("<<" | ">>") <add>)*
+<add> ::= <mul> (("+" | "-") <mul>)*
+<mul> ::= <unary> (("*" | "/" | "%") <unary>)*
+<unary> ::= ("-" | "!" | "~")? <primary>
+<primary> ::= <name> ("(" <args>? ")")? | <number> | <string> | "(" <expr> ")" | "true" | "false"
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   WGSL (WebGPU shading): ws, // and /* */ comments, strings, hex/float literals with p-exponent, attributes @..., operators. */
+<ws> ::= /[ \t\r\n]+/ => { skip }
+<comment> ::= /\x2F\x2F[^\n]*/ => { skip }
+<comment> ::= /\x2F\*([^*]|\*+[^*\x2F])*\*+\x2F/ => { skip }
+<string> ::= /"""([^"]|"[^"]|""[^"])*"""/
+<string> ::= /"([^"\\\n]|\\.)*"/
+<string> ::= /'([^'\\\n]|\\.)*'/
+<char> ::= /'([^'\\\n]|\\.)*'/
+<number> ::= /0[xX][0-9a-fA-F]+(\x2E[0-9a-fA-F]*)?([pP][+-]?[0-9]+)?|[0-9][0-9_]*(\x2E[0-9_]*)?([eE][+-]?[0-9]+)?[fFhH]?/
+<identifier> ::= /[a-zA-Z_][a-zA-Z0-9_]*/
+<op> ::= /\x2F=|\|\||\x2F|\+=|\*=|\|=|\^=|->|==|!=|<=|>=|&&|<<|>>|-=|%=|&=|\+|\*|\||\^|\?|\(|\)|\[|\]|\{|\}|\.|\\|-|%|&|~|!|<|>|=|:|,|;|@|"|'/

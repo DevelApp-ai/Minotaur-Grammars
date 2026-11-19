@@ -1,0 +1,13 @@
+# Conformance cases for XSLT30.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
+grammar: XSLT30.grammar
+
+lex: <xsl:template match="/">...</xsl:template>
+lex: <xsl:value-of select="@name"/>
+lex: <xsl:for-each select="items/item">...</xsl:for-each>
+lex: {concat($a, $b)}
+lex: <xsl:if test="price > 10">expensive</xsl:if>
+
+lexfile: Examples.txt
