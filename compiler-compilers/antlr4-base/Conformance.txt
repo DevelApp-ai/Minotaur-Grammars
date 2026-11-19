@@ -1,7 +1,16 @@
 # Conformance cases for antlr4_base.grammar - engine-verified lexing pin.
-# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
-# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
-# engine CI as well.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
 grammar: antlr4_base.grammar
 
-lex: fragment : ; :
+lex: grammar Expr;
+lex: expr: expr ("+"|"-") expr | INT ;
+lex: fragment LETTER: [a-zA-Z];
+lex: ID: [a-zA-Z_][a-zA-Z0-9_]*;
+lex: WS: [ \\t\\r\\n]+ -> skip;
+lex: NUM: [0-9]+ ("." [0-9]+)?;
+lex: STRING: '"' (~["\\\\] | "\\\\" .)* '"';
+lex: a: b -> skip, c: d;
+
+lexfile: Examples.txt

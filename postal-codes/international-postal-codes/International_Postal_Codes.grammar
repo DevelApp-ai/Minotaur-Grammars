@@ -749,7 +749,8 @@ ContextSensitive: true
 
 /* Whitespace */
 <whitespace> ::= " " | "\t" | <whitespace> <whitespace>
-<opt-whitespace> ::= "" | <whitespace>
+<opt-whitespace> ::= "" ;
+<opt-whitespace> ::= <whitespace> ;
 
 /* End of line */
 <EOL> ::= "\n" | "\r\n" | "\r"
@@ -780,3 +781,15 @@ ContextSensitive: true
  * - Some countries use alphanumeric codes (e.g., Canada, UK, Netherlands)
  * - Always check with local postal authority for current standards
  */
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   Postal code / address format (international-postal-codes) */
+<ws> ::= /[ \t\r\n]+/ => { skip }
+<string> ::= /"([^"\\\n]|\\.)*"/
+<string> ::= /'([^'\\\n]|\\.)*'/
+<number> ::= /[+-]?[0-9]+(\x2E[0-9]+)?([eE][+-]?[0-9]+)?/
+<word> ::= /[a-zA-Z_][a-zA-Z0-9_]*/
+<op> ::= /\x2F|\.|\(|\)|-|_|,|'|#/

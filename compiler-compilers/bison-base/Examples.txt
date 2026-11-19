@@ -1,0 +1,9 @@
+/* sample bison grammar */
+%{
+#include <stdio.h>
+%}
+%token NUM
+%left '+' '-'
+%%
+prog: expr { printf("%d", $1); } ;
+expr: expr '+' expr { $$ = $1 + $3; } | NUM ;

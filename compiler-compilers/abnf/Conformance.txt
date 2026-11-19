@@ -1,11 +1,16 @@
 # Conformance cases for ABNF.grammar - engine-verified lexing pin.
-# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
-# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
-# engine CI as well.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
 grammar: ABNF.grammar
 
-lex: 404: Not Found
-lex: - = =/ |
+lex: http-message = request-line
+lex: rulename = ALPHA *(ALPHA / DIGIT / "-")
+lex: char-val = DQUOTE *CHAR DQUOTE
+lex: num-val = "%x" HEXDIG / "%d" DIGIT / "%b" BIT
+lex: option = "[" alternation "]"
+lex: group = "(" alternation ")"
+lex: repetition = *DIGIT / 1*5DIGIT
+lex: value = 200 / "OK" ; ok
 
-# Whole example corpus as a lex case (raw content; '#' lines are comments).
 lexfile: Examples.txt

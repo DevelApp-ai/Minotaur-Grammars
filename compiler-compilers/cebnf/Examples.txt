@@ -1,0 +1,5 @@
+/* CEBNF sample */
+syntax      ::= rule+ ;
+rule        ::= rulename "::=" expression ";" ;
+rulename    ::= letter (letter | digit | "-")* ;
+expression  ::= term ("|" term)* ;

@@ -1,0 +1,9 @@
+%option noyywrap
+%s IN_COMMENT
+%%
+[0-9]+        { return TOKEN_NUM; }
+[a-zA-Z_]+    { return TOKEN_ID; }
+"[^"]*"       { return TOKEN_STR; }
+[ \t\r\n]+  { /* skip */ }
+%%
+int main(void) { yylex(); return 0; }

@@ -1,7 +1,14 @@
 # Conformance cases for yacc_base.grammar - engine-verified lexing pin.
-# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
-# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
-# engine CI as well.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
 grammar: yacc_base.grammar
 
-lex: %% %% %token %type
+lex: %token NUMBER
+lex: %start input
+lex: %%
+lex: input: line | input line ;
+lex: line: NUMBER { printf("%d", $1); } ;
+lex: /* yacc comment */
+
+lexfile: Examples.txt

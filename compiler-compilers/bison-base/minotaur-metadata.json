@@ -5,7 +5,7 @@
   "DisplayName": "bison base",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "bison_base compiler-compiler grammar for the Minotaur parser platform.",
+  "Description": "Bison/Yacc grammar base with engine-verified lexer core.",
   "License": "MIT",
   "Tags": [
     "compiler-compiler",

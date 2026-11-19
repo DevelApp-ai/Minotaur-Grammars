@@ -1,0 +1,10 @@
+%{
+#include <stdio.h>
+%}
+DIGIT   [0-9]
+%%
+{DIGIT}+      { printf("number\n"); }
+[a-zA-Z_]+    { return ID; }
+[ \t\n]      ;
+%%
+int main(void) { return yylex(); }

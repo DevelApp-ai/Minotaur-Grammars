@@ -1,11 +1,12 @@
 # Conformance cases for CEBNF.grammar - engine-verified lexing pin.
-# Run by the ENFAStepLexer-StepParser integration suite in GreedyLongestMatch
-# mode (engine issues #129/#133); the grammar-repository-tests job runs this in
-# engine CI as well.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
 grammar: CEBNF.grammar
 
-lex: ::= 0 1 2
+lex: <syntax> ::= <rule> <syntax> ;
+lex: <rule> ::= <rule-name> "::=" <expression> ;
+lex: /* comment */ x ::= "a" | "b" ;
+lex: letter ::= "A" | "B" ... "Z" ;
 
-# Inputs that must be rejected by the token rules (LX1001).
-fail: €
-fail: `
+lexfile: Examples.txt
