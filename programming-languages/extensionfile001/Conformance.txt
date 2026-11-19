@@ -1,11 +1,12 @@
-# Conformance cases for ExtensionFile.grammar - engine-verified lexing pin.
+# Conformance cases for ExtensionFile001.grammar - engine-verified lexing pin.
 # Run by the ENFAStepLexer-StepParser integration suite in
-# GreedyLongestMatch mode (engine issues #129/#133); grammar-repository-tests
-# job runs this in engine CI as well.
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
 grammar: ExtensionFile001.grammar
 
-lex: Grammar: Demo
-lex: <a> ::= "x"
+lex: Extends Grammar: CSharp10
+lex: Include: CSharp10, HTMLEmbedded
+lex: <identifier> ::= /[a-zA-Z_][a-zA-Z0-9_]*/
+lex: Grammar: CEBNF
 
-# Input that must be rejected by the token rules (LX1001).
-fail: €
+lexfile: Examples.txt

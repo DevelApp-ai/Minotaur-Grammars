@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <title>Demo</title>
+  <link rel="stylesheet" href="site.css"/>
+</head>
+<body>
+  <!-- main -->
+  <h1 class="title">Hello</h1>
+  <p>Some <b>bold</b> text &amp; entities</p>
+  <script src="app.js"></script>
+  <img src="logo.png" alt="logo"/>
+</body>
+</html>

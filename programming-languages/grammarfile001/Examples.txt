@@ -1,0 +1,5 @@
+Grammar: CEBNF
+FormatType: EBNF
+
+<start> ::= <item>* ;
+<item> ::= <identifier> "::=" <word> ";" ;

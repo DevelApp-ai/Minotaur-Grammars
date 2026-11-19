@@ -44,11 +44,13 @@ SymbolTableSharing: hierarchical
 
 <raw-text-element> ::= <script-element> | <style-element> | <textarea-element> | <title-element>
 <script-element> ::= "<script" (<whitespace> <attribute>)* <whitespace>? ">" <script-content> "</script" <whitespace>? ">"
-<script-content> ::= <javascript-source> | <typescript-source> | ""
+<script-content> ::= "" ;
+<script-content> ::= <javascript-source> | <typescript-source> ;
 <javascript-source> ::= /* delegated to the JavaScript grammar (EmbeddedLanguage) */ ""
 <typescript-source> ::= /* delegated to the TypeScript grammar when type="text/typescript" */ ""
 <style-element> ::= "<style" (<whitespace> <attribute>)* <whitespace>? ">" <style-content> "</style" <whitespace>? ">"
-<style-content> ::= <css-source> | ""
+<style-content> ::= "" ;
+<style-content> ::= <css-source> ;
 <css-source> ::= /* delegated to the CSS grammar (EmbeddedLanguage) */ ""
 <textarea-element> ::= "<textarea" (<whitespace> <attribute>)* <whitespace>? ">" <text-content> "</textarea" <whitespace>? ">"
 
@@ -62,7 +64,16 @@ SymbolTableSharing: hierarchical
 <single-quoted-value> ::= "'" /[^']*/ "'"
 <unquoted-value> ::= /[^ \t\n>"'=]+/
 
-<comment> ::= "<!--" /[^>]*?/ "-->"
 <cdata-section> ::= "<![CDATA[" /[^]]*?/ "]]>"
 
-<whitespace> ::= /[ \t\r\n]+/
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   HTML: ws, comments, strings, identifiers, text. */
+<whitespace> ::= /[ \t\r\n]+/ => { skip }
+<comment> ::= /<!--([^-]|-[^-]|--[^>])*-->/ => { skip }
+<string> ::= /"([^"\\\n]|\\.)*"/
+<string> ::= /'([^'\\n]|\\.)*'/
+<identifier> ::= /[a-zA-Z_][a-zA-Z0-9_]*/
+<text> ::= /[^<&"]+/

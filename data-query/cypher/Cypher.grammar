@@ -25,7 +25,8 @@ FormatType: EBNF
 <property_access> ::= <identifier> '.' <identifier> ;
 <func_call> ::= <identifier> '(' <args>? ')' ;
 <args> ::= <expr>( ',' <expr>)* ;
-<literal> ::= <number> | <text> | <boolean> | 'NULL' | <list> ;
+<literal> ::= 'NULL' ;
+<literal> ::= <number> | <text> | <boolean> | <list> ;
 <list> ::= '[' <args>? ']' ;
 <boolean> ::= 'true' | 'false' | 'TRUE' | 'FALSE' ;
 <binop> ::= '=' | '<>' | '<' | '>' | '<=' | '>=' | '+' | 'AND' | 'OR' | 'STARTS' 'WITH' | 'CONTAINS' ;
@@ -40,7 +41,14 @@ FormatType: EBNF
 <load_csv> ::= "LOAD" "CSV" ( "WITH" "HEADERS" )? "FROM" "string" ( "AS" <identifier> )? ( "field_terminator" )? ;
 <use_clause> ::= "USE" "graph_name" ;
 
-<auto_identifier_1> ::= /a-zA-Z_/ ;
-<auto_identifier_2> ::= /a-zA-Z0-9_*/ ;
-<auto_text_3> ::= /^"*/ ;
-<auto_number_4> ::= /0-9+/ ;
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   Cypher: ws, // comments, strings, numbers, identifiers. */
+<whitespace> ::= /[ \t\r\n]+/ => { skip }
+<line_comment> ::= /\x2F\x2F[^\n]*/ => { skip }
+<string> ::= /"([^"\\\n]|\\.)*"/
+<string> ::= /'([^'\\n]|\\.)*'/
+<number> ::= /[0-9]+(\x2E[0-9]+)?/
+<identifier> ::= /[a-zA-Z_][a-zA-Z0-9_]*/

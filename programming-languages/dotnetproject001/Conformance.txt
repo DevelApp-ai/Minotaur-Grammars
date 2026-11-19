@@ -1,7 +1,15 @@
-# Conformance cases for DotNetProject.grammar - engine-verified lexing pin.
+# Conformance cases for DotNetProject001.grammar - engine-verified lexing pin.
 # Run by the ENFAStepLexer-StepParser integration suite in
-# GreedyLongestMatch mode (engine issues #129/#133); grammar-repository-tests
-# job runs this in engine CI as well.
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
 grammar: DotNetProject001.grammar
 
-lex: <Project Sdk="Microsoft.NET.Sdk" />
+lex: <?xml version="1.0" encoding="utf-8"?>
+lex: <Project Sdk="Microsoft.NET.Sdk">
+lex: <TargetFramework>net8.0</TargetFramework>
+lex: <Compile Include="src\\**\\*.cs" />
+lex: <PackageReference Include="X" Version="1.0.0" />
+lex: <Project /> <!-- c -->
+lex: </Project>
+
+lexfile: Examples.txt

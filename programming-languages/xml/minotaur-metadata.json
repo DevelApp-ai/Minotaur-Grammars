@@ -5,7 +5,7 @@
   "DisplayName": "XML",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "XML 1.0 grammar for the Minotaur parser platform (authored for issue #8).",
+  "Description": "XML 1.0 grammar (issue #8) with engine-verified lexing; lookahead-free comment/CDATA rules.",
   "License": "MIT",
   "Tags": [
     "programming-language",

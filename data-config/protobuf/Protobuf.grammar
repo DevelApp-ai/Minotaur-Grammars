@@ -33,9 +33,6 @@ FormatType: EBNF
 <field-number> ::= /[0-9]+/
 <bool-literal> ::= "true" | "false"
 <qualified-id> ::= <identifier> ("." <identifier>)*
-<identifier> ::= /[a-zA-Z_][a-zA-Z0-9_]*/
-<number> ::= /[+-]?[0-9]+(\.[0-9]+)?/
-<string> ::= /"[^"\n]*"/ | /'[^'\n]*'/
 
 # --- Coverage completion: remaining language constructs ---
 <field_label> ::= ("optional" | "required" | "repeated") ;
@@ -45,3 +42,16 @@ FormatType: EBNF
 <extensions_use> ::= "extensions" <identifier> ("," <identifier>)* ";" ;
 <extend_block> ::= "extend" <type> "{" <field>* "}" ;
 <stream_decl> ::= "stream" <identifier> "{" <option>* "}" ;
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   Protobuf proto3: ws, // and /* */ comments, string, number, identifier. */
+<whitespace> ::= /[ \t\r\n]+/ => { skip }
+<line_comment> ::= /\x2F\x2F[^\n]*/ => { skip }
+<block_comment> ::= /\x2F\*([^*]|\*+[^*\x2F])*\*+\x2F/ => { skip }
+<string> ::= /"([^"\\\n]|\\.)*"/
+<string> ::= /'([^'\\n]|\\.)*'/
+<number> ::= /[+-]?[0-9]+(\x2E[0-9]+)?/
+<identifier> ::= /[a-zA-Z_][a-zA-Z0-9_]*/

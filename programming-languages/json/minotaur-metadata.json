@@ -5,7 +5,7 @@
   "DisplayName": "JSON",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "JSON programming-language grammar for the Minotaur parser platform.",
+  "Description": "JSON (RFC 7159) grammar with engine-verified lexer core (ws/string/number single-terminal rules).",
   "License": "MIT",
   "Tags": [
     "programming-language",

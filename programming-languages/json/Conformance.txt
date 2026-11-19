@@ -1,7 +1,27 @@
 # Conformance cases for JSON.grammar - engine-verified lexing pin.
 # Run by the ENFAStepLexer-StepParser integration suite in
-# GreedyLongestMatch mode (engine issues #129/#133); grammar-repository-tests
-# job runs this in engine CI as well.
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
 grammar: JSON.grammar
 
-lex: {"a": 1, "b": [true, null]}
+lex: {"a": 1}
+lex: [1, 2, 3]
+lex: "hello world"
+lex: "esc \\" \\\\ \\n \\u0041"
+lex: -42
+lex: 3.14
+lex: 1e10
+lex: -2.5E-3
+lex: 0
+lex: true
+lex: false
+lex: null
+lex: {"key": [true, null, {"x": -1.5e-3}]}
+lex: { "spaced" : "out" }
+lex: []
+lex: {}
+lex: "\\u00e9\\u4e2d"
+
+fail: "unterminated
+
+lexfile: Examples.txt

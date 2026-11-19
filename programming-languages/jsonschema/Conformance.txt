@@ -1,7 +1,20 @@
 # Conformance cases for JSONSchema.grammar - engine-verified lexing pin.
 # Run by the ENFAStepLexer-StepParser integration suite in
-# GreedyLongestMatch mode (engine issues #129/#133); grammar-repository-tests
-# job runs this in engine CI as well.
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
 grammar: JSONSchema.grammar
 
-lex: {"type": "object"}
+lex: {"type": "string"}
+lex: "$schema": "http://json-schema.org/draft-07/schema#"
+lex: {"a": 1} // line comment
+lex: {"a": 1} /* block comment */
+lex: "pattern": "^[0-9]{5}$"
+lex: "minimum": 0
+lex: "maximum": 150.5
+lex: "items": { "type": "string" }
+lex: ["name", "age"]
+lex: "additionalProperties": false
+
+fail: "unterminated
+
+lexfile: Examples.txt

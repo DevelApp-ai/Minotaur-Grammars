@@ -1,0 +1,6 @@
+# example folder project layout
+src/main.cs
+src/util.cs
+README.md
+build/output.dll
+tests/test1.cs

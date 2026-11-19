@@ -1,0 +1,22 @@
+{
+  "name": "minotaur-example",
+  "version": "1.2.3",
+  "private": true,
+  "scripts": {
+    "build": "tsc -p .",
+    "test": "jest"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "express": "~4.18.2"
+  },
+  "keywords": ["parser", "lexer", "json"],
+  "nested": { "a": [1, 2, 3], "b": { "c": null } },
+  "numbers": [-42, 3.14, 1e10, -2.5E-3, 0],
+  "escapes": "line\nbreak \"quoted\" \\slash \u0041",
+  "empty_obj": {},
+  "empty_arr": [],
+  "unicode": "caf\u00e9 \u4e2d\u6587",
+  "bool": [true, false],
+  "nullval": null
+}

@@ -1,7 +1,18 @@
 # Conformance cases for XML.grammar - engine-verified lexing pin.
 # Run by the ENFAStepLexer-StepParser integration suite in
-# GreedyLongestMatch mode (engine issues #129/#133); grammar-repository-tests
-# job runs this in engine CI as well.
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
 grammar: XML.grammar
 
+lex: <?xml version="1.0" encoding="UTF-8"?>
 lex: <a b="c">text</a>
+lex: <empty/>
+lex: <p>x</p> <!-- a comment -->
+lex: <![CDATA[ raw <x> & ]]>
+lex: <?target data?>
+lex: &amp; &#65; &#x42;
+lex: <!DOCTYPE greeting SYSTEM "hello.dtd">
+lex: <a>text &lt;tag&gt; more</a>
+lex: <ns:tag attr='single'>x</ns:tag>
+
+lexfile: Examples.txt

@@ -1,0 +1,17 @@
+/* main stylesheet */
+:root {
+  --main-color: #336699;
+}
+body, html {
+  margin: 0;
+  padding: 1em;
+  font-family: sans-serif;
+}
+#header > .title::after {
+  content: "v1.0";
+  color: var(--main-color);
+}
+a:hover { text-decoration: underline; }
+@media (max-width: 600px) {
+  .sidebar { display: none; }
+}
