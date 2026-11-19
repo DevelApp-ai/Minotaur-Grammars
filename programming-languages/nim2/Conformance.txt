@@ -1,0 +1,19 @@
+# Conformance cases for Nim.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
+grammar: Nim.grammar
+
+lex: proc f(x: int): int = x + 1
+lex: var xs = @[1, 2, 3]
+lex: let s = "hi $name"
+lex: r = r"^\\d+$"
+lex: if a > 0: echo "pos"
+lex: for i in 1..10: echo i
+lex: while x < 5: x += 1
+lex: type T = enum A, B
+lex: echo f(1)
+lex: #[ block\n comment ]# 42
+lex: x = a + b * 2
+
+lexfile: Examples.txt

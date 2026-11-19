@@ -1,0 +1,48 @@
+Grammar: Zig
+FormatType: EBNF
+
+<root> ::= <top-level-decl>*
+<top-level-decl> ::= <fn-decl> | <var-decl> | <const-decl> | <struct-decl> | <enum-decl> | <usingnamespace> | "pub" <top-level-decl>
+<fn-decl> ::= "fn" <identifier> "(" <params>? ")" <type>? <block>
+<params> ::= <param> ("," <param>)*
+<param> ::= <identifier> ":" <type> | "..." | "comptime" <identifier> ":" <type>
+<var-decl> ::= "var" <identifier> (":" <type>)? "=" <expr> ";"
+<const-decl> ::= "const" <identifier> (":" <type>)? "=" <expr> ";"
+<struct-decl> ::= "const" <name> "=" "struct" "{" <struct-member>* "}"
+<name> ::= <identifier>
+<type> ::= <name> ("?" | "*" | "[" <expr>? "]" | "[" ":" <identifier>? "]")?
+<block> ::= "{" <stmt>* "}"
+<stmt> ::= <var-decl> | <const-decl> | <if-expr> | <while-expr> | <for-expr> | <return> | <expr> ";" | <block>
+<if-expr> ::= "if" "(" <expr> ")" <block> ("else" <block>)?
+<while-expr> ::= "while" "(" <expr> ")" (":" <block>)? <block> ("else" <block>)?
+<for-expr> ::= "for" "(" <expr> ")" "|" <capture> "|" <block>
+<capture> ::= <identifier> ("," <identifier>)*
+<return> ::= "return" <expr>? ";"
+<expr> ::= <assignment>
+<assignment> ::= <lvalue> ("=" | "+=" | "-=") <expr> | <or-expr>
+<lvalue> ::= <identifier> ("." <identifier> | "[" <expr> "]" | ".*")?
+<or-expr> ::= <and-expr> ("or" <and-expr>)*
+<and-expr> ::= <cmp> ("and" <cmp>)*
+<cmp> ::= <bit> (("==" | "!=" | "<" | ">" | "<=" | ">=") <bit>)?
+<bit> ::= <add> (("|" | "&" | "^" | "<<" | ">>") <add>)*
+<add> ::= <mul> (("+" | "-" | "++" | "--") <mul>)*
+<mul> ::= <unary> (("*" | "/" | "%" | "**") <unary>)*
+<unary> ::= ("-" | "!" | "~" | "&")? <postfix>
+<postfix> ::= <primary> ("(" <args>? ")" | "." <identifier> | "[" <expr> "]" | "?" <block> | ".*" | " orelse " <expr>)*
+<args> ::= <expr> ("," <expr>)*
+<primary> ::= <identifier> | <number> | <string> | <char> | "(" <expr> ")" | <block> | <array> | "@" <identifier> "(" <args>? ")"
+<array> ::= "{" <expr> ("," <expr>)* "}"
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   Zig 0.14: ws, // comments, multiline \\ strings, strings, chars, numbers, identifiers, operators. */
+<ws> ::= /[ \t\r\n]+/ => { skip }
+<comment> ::= /\x2F\x2F[^\n]*/ => { skip }
+<mlstring> ::= /\\[^\n]*/
+<string> ::= /"([^"\\\n]|\\.)*"/
+<char> ::= /'([^'\\\n]|\\.)*'/
+<number> ::= /[+-]?(0[xX][0-9a-fA-F_]+|0[oO][0-7_]+|0[bB][01_]+|[0-9][0-9_]*(\x2E[0-9_]*)?([eE][+-]?[0-9]+)?[fFlL]?)/
+<identifier> ::= /[a-zA-Z_][a-zA-Z0-9_]*/
+<op> ::= /\.\.\.|\x2F=|\|\||\?\?|\x2F|and|<<=|>>=|\+=|\*=|\|=|\^=|->|==|!=|<=|>=|&&|or|<<|>>|-=|%=|&=|\+|\*|\||\^|\?|\.|\(|\)|\[|\]|\{|\}|\\|-|%|&|!|~|<|>|=|:|,|;|@|"|'/

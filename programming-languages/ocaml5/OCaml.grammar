@@ -1,0 +1,36 @@
+Grammar: OCaml
+FormatType: EBNF
+
+<implementation> ::= <structure-item>*
+<structure-item> ::= <let-binding> | <type-def> | <module-def> | <open> | <expr> ";;"
+<let-binding> ::= "let" "rec"? <pattern> ("=" | ":") <expr> | "let" <pattern> "=" <expr>
+<pattern> ::= <constr> <pattern>* | <identifier> | "(" <pattern> ("," <pattern>)* ")" | "[" <pattern> (";" <pattern>)* "]" | "_"
+<type-def> ::= "type" <identifier> ("=" <type-expr>)?
+<type-expr> ::= <constr> | <identifier> | <type-expr> "->" <type-expr> | <type-expr> "*" <type-expr> | "(" <type-expr> ")"
+<module-def> ::= "module" <constr> "=" "struct" <structure-item>* "end"
+<open> ::= "open" <constr>
+<expr> ::= <application>
+<application> ::= <match> | <if-expr> | <fun> | <seq> | <app>
+<match> ::= "match" <expr> "with" ("|" <pattern> "->" <expr>)+
+<if-expr> ::= "if" <expr> "then" <expr> ("else" <expr>)?
+<fun> ::= "fun" <pattern> "->" <expr> | "function" ("|" <pattern> "->" <expr>)+
+<seq> ::= <app> (";" <app>)*
+<app> ::= <prefix> <arg>*
+<arg> ::= <primary>
+<prefix> ::= <primary>
+<primary> ::= <identifier> | <constr> | <number> | <string> | <char> | "(" <expr> ")" | "[" <expr> (";" <expr>)* "]" | "{" <field> (";" <field>)* "}" | <constr> <primary>
+<field> ::= <identifier> "=" <expr>
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   OCaml 5: ws, (* *) comments (non-nested), strings, chars, numbers, identifiers (with quote), operators. */
+<ws> ::= /[ \t\r\n]+/ => { skip }
+<comment> ::= /\(\*([^*]|\*+[^*\)])*\*+\)/ => { skip }
+<string> ::= /"([^"\\\n]|\\.)*"/
+<char> ::= /'([^'\\\n]|\\.)*'/
+<number> ::= /[+-]?(0[xX][0-9a-fA-F_]+|0[oO][0-7_]+|0[bB][01_]+|[0-9][0-9_]*(\x2E[0-9_]*)?([eE][+-]?[0-9]+)?[fFlL]?)/
+<identifier> ::= /[a-z_][a-zA-Z0-9_']*/
+<constr> ::= /[A-Z][a-zA-Z0-9_']*/
+<op> ::= /\x2F|\|\||land|lxor|mod|lor|->|::|:=|==|!=|<=|>=|<>|\+|\*|\^|&&|\||<<|>>|\(|\)|\[|\]|\{|\}|\.|\\|<|>|-|%|&|@|,|;|:|=|"|'/

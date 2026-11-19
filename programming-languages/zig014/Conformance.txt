@@ -1,0 +1,20 @@
+# Conformance cases for Zig.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
+grammar: Zig.grammar
+
+lex: const x: u32 = 42;
+lex: pub fn main() !void { }
+lex: var s = "hi\\n";
+lex: const ml = \\\\
+lex: line1
+lex: line2;
+lex: if (a) { b(); } else { c(); }
+lex: while (i < 10) : (i += 1) { }
+lex: for (items) |item| { }
+lex: x ?? y
+lex: defer cleanup();
+lex: @import("std")
+
+lexfile: Examples.txt

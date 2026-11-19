@@ -1,0 +1,20 @@
+# fibonacci
+function fib(n)
+    n <= 2 && return 1
+    return fib(n-1) + fib(n-2)
+end
+
+#= block
+   comment =#
+x = [1, 2, 3]
+y = sum(x .+ 1)
+s = "value: $x"
+r = r"^\d+$"
+f(x) = x^2 + 2x + 1
+for i in 1:10
+    println(i)
+end
+struct Point
+    x::Float64
+    y::Float64
+end

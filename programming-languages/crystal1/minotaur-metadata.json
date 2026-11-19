@@ -1,0 +1,26 @@
+{
+  "Id": "develapp.crystal",
+  "Name": "Crystal",
+  "Vendor": "DevelApp",
+  "DisplayName": "Crystal",
+  "Version": "2.0.0",
+  "MinotaurVersion": "*",
+  "Description": "Crystal 1.x grammar with engine-verified lexer core.",
+  "License": "MIT",
+  "Tags": [
+    "programming-language",
+    "minotaur"
+  ],
+  "MainFile": "Crystal.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free",
+  "EngineVerified": true,
+  "EngineVerifiedBy": "ENFAStepLexer-StepParser@e6d1ae5cf748 (grammar-repository-tests, GreedyLongestMatch)"
+}

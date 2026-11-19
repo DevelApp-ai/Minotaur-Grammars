@@ -1,0 +1,19 @@
+import std/strutils
+
+proc greet(name: string): string =
+  result = "Hello, " & name & "!"
+
+var xs = @[1, 2, 3]
+for x in xs:
+  echo x * 2
+
+if xs.len > 2:
+  echo "big"
+else:
+  echo "small"
+
+let s = r"raw
+string"
+const pi = 3.14
+type Kind = enum A, B, C
+greet("world")

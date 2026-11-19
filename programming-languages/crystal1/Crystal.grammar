@@ -1,0 +1,54 @@
+Grammar: Crystal
+FormatType: EBNF
+
+<program> ::= <stmt>*
+<stmt> ::= <def> | <class-def> | <module-def> | <if-stmt> | <unless> | <while-stmt> | <for-stmt> | <case-stmt> | <begin-stmt> | <expr>
+<def> ::= "def" <identifier> ("(" <params>? ")")? <stmt>* "end"
+<params> ::= <param> ("," <param>)*
+<param> ::= <identifier> (":" <type>)? ("=" <expr>)? | "&" <identifier> | "*" <identifier> | "**" <identifier>
+<type> ::= <name> ("(" <type> ("," <type>)* ")")?
+<class-def> ::= "class" <name> ("<" <name>)? (" " < <name>)? <stmt>* "end"
+<module-def> ::= "module" <name> <stmt>* "end"
+<name> ::= <constant> ("::" <constant>)*
+<constant> ::= /[A-Z][a-zA-Z0-9_]*/
+<if-stmt> ::= "if" <expr> <stmt>* ("elsif" <expr> <stmt>*)* ("else" <stmt>*)? "end"
+<unless> ::= "unless" <expr> <stmt>* "end"
+<while-stmt> ::= "while" <expr> <stmt>* "end"
+<for-stmt> ::= "for" <identifier> "in" <expr> <stmt>* "end"
+<case-stmt> ::= "case" <expr> ("when" <expr> ("," <expr>)* <stmt>*)+ ("else" <stmt>*)? "end"
+<begin-stmt> ::= "begin" <stmt>* ("rescue" <identifier>? <stmt>*)* ("ensure" <stmt>*)? "end"
+<expr> ::= <assignment>
+<assignment> ::= <lvalue> ("=" | "+=" | "-=") <expr> | <or-expr>
+<lvalue> ::= <identifier> | <constant> | <index-expr> | <call>
+<or-expr> ::= <and-expr> ("||" <and-expr>)*
+<and-expr> ::= <not-expr> ("&&" <not-expr>)*
+<not-expr> ::= "not" <not-expr> | <comparison>
+<comparison> ::= <add> (("==" | "!=" | "<" | "<=" | ">" | ">=" | "===") <add>)?
+<add> ::= <mul> (("+" | "-") <mul>)*
+<mul> ::= <unary> (("*" | "/" | "%" | "//") <unary>)*
+<unary> ::= ("-" | "+" | "!" | "~")? <postfix>
+<postfix> ::= <primary> ("(" <args>? ")" | "." <identifier> ("(" <args>? ")")? | "[" <args> "]" | "?")*
+<args> ::= <expr> ("," <expr>)* | <identifier> ":" <expr>
+<call> ::= <identifier> ("(" <args>? ")")?
+<index-expr> ::= <primary> "[" <args> "]"
+<primary> ::= <identifier> | <constant> | <number> | <string> | <symbol> | <char> | "true" | "false" | "nil" | "(" <expr> ")" | <array> | <hash> | <range>
+<array> ::= "[" <expr>? ("," <expr>)* "]"
+<hash> ::= "{" <hash-entry>? ("," <hash-entry>)* "}"
+<hash-entry> ::= <expr> "=>" <expr> | <identifier> ":" <expr>
+<range> ::= <expr> (".." | "...") <expr>
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   Crystal 1.x (Ruby-like): ws, comments, strings, chars, numbers, identifiers, operators. */
+<ws> ::= /[ \t\r\n]+/ => { skip }
+<comment> ::= /#[^\n]*/ => { skip }
+<string> ::= /"""([^"]|"[^"]|""[^"])*"""/
+<string> ::= /"([^"\\\n]|\\.)*"/
+<string> ::= /'([^'\\\n]|\\.)*'/
+<char> ::= /'([^'\\\n]|\\.)*'/
+<number> ::= /[+-]?(0[xX][0-9a-fA-F_]+|0[oO][0-7_]+|0[bB][01_]+|[0-9][0-9_]*(\x2E[0-9_]*)?([eE][+-]?[0-9]+)?[fFlL]?)/
+<identifier> ::= /[a-zA-Z_][a-zA-Z0-9_]*/
+<symbol> ::= /:[a-zA-Z_][a-zA-Z0-9_?!]*/
+<op> ::= /\.\.\.|\x2F=|\.\.|\|\||\+\+|\*\*|\x2F|\+=|\*=|\|=|\^=|<<=|>>=|->|=>|::|:=|==|!=|<=|>=|&&|--|-=|%=|&=|<<|>>|\+|\*|\||\^|\?|\.|\(|\)|\[|\]|\{|\}|\$|\\|-|%|&|!|~|<|>|=|:|,|;|@|#|"|'/

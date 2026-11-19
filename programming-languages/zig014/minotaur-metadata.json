@@ -1,0 +1,26 @@
+{
+  "Id": "develapp.zig",
+  "Name": "Zig",
+  "Vendor": "DevelApp",
+  "DisplayName": "Zig",
+  "Version": "2.0.0",
+  "MinotaurVersion": "*",
+  "Description": "Zig 0.14 grammar with engine-verified lexer core.",
+  "License": "MIT",
+  "Tags": [
+    "programming-language",
+    "minotaur"
+  ],
+  "MainFile": "Zig.grammar",
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free",
+  "EngineVerified": true,
+  "EngineVerifiedBy": "ENFAStepLexer-StepParser@e6d1ae5cf748 (grammar-repository-tests, GreedyLongestMatch)"
+}

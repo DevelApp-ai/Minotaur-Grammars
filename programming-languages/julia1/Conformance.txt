@@ -1,0 +1,20 @@
+# Conformance cases for Julia.grammar - engine-verified lexing pin.
+# Run by the ENFAStepLexer-StepParser integration suite in
+# GreedyLongestMatch mode (engine issues #129/#133); the
+# grammar-repository-tests job runs this in engine CI as well.
+grammar: Julia.grammar
+
+lex: function f(x) x + 1 end
+lex: x = [1, 2, 3]
+lex: s = "hi $name"
+lex: r = r"^a+$"
+lex: if a > 0 println("pos") else println("neg") end
+lex: for i in 1:10 println(i) end
+lex: struct P x::Int end
+lex: using LinearAlgebra
+lex: x = a ? b : c
+lex: f(x, y=2; z=3) = x
+lex: p = Point(1.0, 2.0)
+lex: arr = [i^2 for i in 1:5]
+
+lexfile: Examples.txt

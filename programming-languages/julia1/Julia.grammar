@@ -1,0 +1,50 @@
+Grammar: Julia
+FormatType: EBNF
+
+<program> ::= <stmt>*
+<stmt> ::= <expr> | <assignment> | <function-def> | <struct-def> | <module-def> | <if-stmt> | <for-loop> | <while-loop> | <using>
+<assignment> ::= <target> "=" <expr> | <target> ":=" <expr>
+<target> ::= <identifier> | <index-expr>
+<function-def> ::= "function" <name> "(" <params>? ")" <block> "end"
+<name> ::= <identifier> ("." <identifier>)*
+<params> ::= <param> ("," <param>)* ("," ";" <param>)*)?
+<param> ::= <identifier> ("=" <expr>)? | "..." <identifier> | <identifier> "::" <type>
+<type> ::= <name> ("{" <type> ("," <type>)* "}")?
+<struct-def> ::= "struct" <name> <block> "end" | "mutable" "struct" <name> <block> "end"
+<module-def> ::= "module" <name> <stmt>* "end"
+<if-stmt> ::= "if" <expr> <block> ("elseif" <expr> <block>)* ("else" <block>)? "end"
+<for-loop> ::= "for" <target> "=" <expr> <block> "end" | "for" <target> "in" <expr> <block> "end"
+<while-loop> ::= "while" <expr> <block> "end"
+<using> ::= "using" <name> ("," <name>)* | "import" <name>
+<block> ::= <stmt>*
+<expr> ::= <ternary>
+<ternary> ::= <or-expr> ("?" <expr> ":" <expr>)?
+<or-expr> ::= <and-expr> ("||" <and-expr>)*
+<and-expr> ::= <cmp> ("&&" <cmp>)*
+<cmp> ::= <add> (("==" | "!=" | "<" | "<=" | ">" | ">=" | "∈") <add>)?
+<add> ::= <mul> (("+" | "-") <mul>)*
+<mul> ::= <unary> (("*" | "/" | "//" | "%") <unary>)*
+<unary> ::= ("-" | "!" | "~")? <postfix>
+<postfix> ::= <primary> ("(" <args>? ")" | "." <identifier> | "[" <args> "]" | "'")*
+<args> ::= <expr> ("," <expr>)*
+<primary> ::= <identifier> | <number> | <string> | <char> | "(" <expr> ")" | <array> | <tuple> | <macrocall>
+<array> ::= "[" <expr>? ("," <expr>)* "]" | "[" <expr> (";" <expr>)* "]"
+<tuple> ::= "(" <expr> "," <expr> ("," <expr>)* ")"
+<macrocall> ::= "@" <name> <primary>?
+
+/* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
+   single-terminal token rules only (regex alternatives inside productions do
+   not materialize into lexer rules in the engine). String/char/block-comment
+   patterns are the proven CSharp10 ones; '/' is written \x2F inside regexes.
+   Julia 1.x: ws, # and #= =# comments, triple/raw strings, strings, chars, numbers, identifiers, operators. */
+<ws> ::= /[ \t\r\n]+/ => { skip }
+<comment> ::= /\#=([^#]|#[^=])*=#/ => { skip }
+<comment> ::= /#[^\n]*/ => { skip }
+<string> ::= /"""([^"]|"[^"]|""[^"])*"""/
+<string> ::= /r"([^"\\]|\\.)*"/
+<string> ::= /"([^"\\\n]|\\.)*"/
+<char> ::= /'([^'\\\n]|\\.)*'/
+<number> ::= /[+-]?(0[xX][0-9a-fA-F_]+|0[oO][0-7_]+|0[bB][01_]+|[0-9][0-9_]*(\x2E[0-9_]*)?([eE][+-]?[0-9]+)?[fFlL]?)/
+<number> ::= /[+-]?[0-9]+im/
+<identifier> ::= /[a-zA-Z_!][a-zA-Z0-9_!]*/
+<op> ::= /\x2F\x2F=|\x2F\x2F|\.\.\.|\x2F=|\.\.|\|\||\x2F|\|>|<\||\+=|\*=|\^=|>>>|->|=>|::|==|!=|<=|>=|&&|-=|÷=|<<|>>|\+|\*|\^|\||\?|\.|\(|\)|\[|\]|\{|\}|\$|\\|-|%|÷|&|~|<|>|=|:|,|;|@|"|'/

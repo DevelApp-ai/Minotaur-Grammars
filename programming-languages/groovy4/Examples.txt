@@ -1,0 +1,24 @@
+// groovy script
+def greet(name) {
+    return "Hello, ${name}!"
+}
+
+def list = [1, 2, 3]
+list.each { println it * 2 }
+
+if (list.size() > 2) {
+    println "big"
+} else {
+    println "small"
+}
+
+try {
+    risky()
+} catch (Exception e) {
+    println e.message
+} finally {
+    cleanup()
+}
+
+def m = [a: 1, b: "two"]
+def c = { x -> x + 1 }

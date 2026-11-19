@@ -1,0 +1,17 @@
+(* list utilities *)
+let rec map f = function
+  | [] -> []
+  | x :: xs -> f x :: map f xs
+
+let rec sum = function
+  | [] -> 0
+  | x :: xs -> x + sum xs
+
+type point = { x : float; y : float }
+
+let origin = { x = 0.0; y = 0.0 }
+
+let () =
+  let xs = [1; 2; 3] in
+  Printf.printf "%d
+" (sum (map (fun x -> x * 2) xs))
