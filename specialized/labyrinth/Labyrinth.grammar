@@ -50,7 +50,8 @@ FormatType: EBNF
 # (DevelApp-ai/ENFAStepLexer-StepParser#65, #66), so metavariable and
 # ellipsis tokens are defined per target language, not here.
 <quoted-pattern> ::= <quoted> ;
-<quoted> ::= /'"'[^"\n]*'"'/ | /"'"[^'\n]*'"'/ ;
+<quoted> ::= /'"'[^"\n]*'"'/
+<quoted> ::= /"'"[^'\n]*"'/
 <metavar> ::= "$" /[A-Z_][A-Z0-9_]*/ => { metavarRef($2); }
 <comment> ::= "#" /[\S\s]*/ => { skip(); }
 <empty> ::= /[ \t]*/ ;

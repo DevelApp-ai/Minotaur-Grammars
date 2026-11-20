@@ -15,7 +15,7 @@ FormatType: EBNF
 <type-id> ::= /[a-zA-Z0-9-]+/
 <string> ::= '"' <char>* '"' | "raw" '"' /[^"]*/ '"' | /#[^\n]+#/
 <boolean> ::= "true" | "false"
-<char> ::= /[^"\\]/ | "\\" /./ | "\\u{" /[0-9a-fA-F]+/ "}"
+<char> ::= /[^"\\]|\\.|\\u\{[0-9a-fA-F]+\}/
 
 # --- Coverage completion: remaining language constructs ---
 <slashdash_arg> ::= "/-" <value> ;

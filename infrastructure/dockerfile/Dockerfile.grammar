@@ -54,7 +54,8 @@ FormatType: EBNF
 <workdir-instr> ::= "WORKDIR" <path> => { setWorkdir($2); }
 <onbuild-instr> ::= "ONBUILD" <instruction> => { addOnbuild($2); }
 <stopsignal-instr> ::= "STOPSIGNAL" <signal> => { setStopSignal($2); }
-<signal> ::= /SIG[A-Z]+/ | /[0-9]+/
+<signal> ::= /SIG[A-Z]+/
+<signal> ::= /[0-9]+/
 <healthcheck-instr> ::= "HEALTHCHECK" ("NONE" | <healthcheck-args>) => { setHealthcheck($2); }
 <healthcheck-args> ::= <hc-flag>* "CMD" ("--interval=" <duration> | "--timeout=" <duration> | "--start-period=" <duration> | "--retries=" <number> | "CMD")* <shell-form>
 <hc-flag> ::= /--(interval|timeout|start-period|start-interval)=[0-9]+[smh]/ | /--retries=[0-9]+/

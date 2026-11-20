@@ -17,7 +17,7 @@ FormatType: EBNF
 <symbol-chars> ::= /[a-zA-Z*+!_?<>=./-][a-zA-Z0-9*+!_?<>=./#-]*/
 <character> ::= "\\" /./ | "\\" /[a-zA-Z]+/ | "\\u" /[0-9a-fA-F]{4}/ | "\\space" | "\\newline" | "\\tab"
 <boolean> ::= "true" | "false"
-<char> ::= /[^"\\]/ | "\\" /./
+<char> ::= /[^"\\]|\\./
 
 # --- Coverage completion: remaining language constructs ---
 <namespaced_keyword> ::= ":" <symbol> "/" <symbol> ;

@@ -45,7 +45,8 @@ FormatType: EBNF
 <binop> ::= "==" | "!=" | "<" | ">" | "<=" | ">=" | "+" | "-" | "*" | "/" | "&&" | "||"
 <ruby-identifier> ::= /[a-zA-Z_][a-zA-Z0-9_]*/
 <attr-key> ::= /[a-zA-Z_][a-zA-Z0-9_]*/
-<string> ::= /'[^'\n]*'/ | /"[^"\n]*"/
+<string> ::= /'[^'\n]*'/
+<string> ::= /"[^"\n]*"/
 
 # --- Coverage completion: remaining language constructs ---
 

@@ -8,7 +8,8 @@ FormatType: EBNF
         | <targets> ":" <order-only-prereqs> <recipe>?
         | <pattern-rule> | <static-pattern-rule> | <double-colon-rule>
 <targets> ::= <target> (" " <target>)*
-<target> ::= /[a-zA-Z0-9_.$\/()%+-]+/ | /"[^"]+"/
+<target> ::= /[a-zA-Z0-9_.$\/()%+-]+/
+<target> ::= /"[^"]+"/
 <prerequisites> ::= <prereq>+
 <prereq> ::= <normal-prereq> | <order-only-start> <prereq>*
 <normal-prereq> ::= /[a-zA-Z0-9_.$\/%+*-]+/ | <variable-ref>
