@@ -14,7 +14,7 @@
     "java8"
   ],
   "MainFile": "Java8.grammar",
-  "LabyrinthExtension": false,
+  "LabyrinthExtension": true,
   "Dependencies": [],
   "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
   "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
