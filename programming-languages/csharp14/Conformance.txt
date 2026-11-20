@@ -3,7 +3,9 @@
 # lex: input is real C# that MUST lex to completion (GreedyLongestMatch,
 # engine issues #129/#133). fail: input must be rejected (LX1001).
 # The parse bar beyond lexing (full-parse of the entire jsb C# corpus,
-# 66/66 files) is documented in README.md and pinned by Examples.txt.
+# 66/66 files, general C# probes 10/10, and the LaunchMobile-Builder
+# application corpus 30/32) is documented in README.md and pinned by
+# Examples.txt.
 grammar: CSharp14.grammar
 
 # Declaration and member shapes the grammar full-parses.
@@ -27,6 +29,15 @@ lex: var s = @"raw"; var i = $"{x}"; var c = 'a'; double d = 3.14e2;
 lex: x = a + b * c - d / e % f; x++; y--; p = q ? r : s; w = x ?? y;
 lex: // line comment\n/* block comment */ int x = 1;
 lex: await File.WriteAllTextAsync(_path, content);
+
+# Application-scale statement shapes (LaunchMobile-Builder corpus).
+lex: var manifest = JsonSerializer.Deserialize<Manifest>(json) ?? throw new InvalidOperationException("missing");
+lex: BaseUrl = Environment.GetEnvironmentVariable("URL") is { Length: > 0 } url ? url : "http://localhost";
+lex: if (map.TryGetValue(key, out var value) && !string.IsNullOrEmpty(value)) { results.Add(value); }
+lex: foreach (var (name, item) in pairs) { Write(name, item); }
+lex: public Composer(ILogger logger) : base(logger) { }
+lex: private static string Describe(int n) => n > 0 ? "pos" : "nonpos";
+lex: await StoreAsync(); var rest = s ?? string.Empty;
 
 # Inputs that are not C# must be rejected by the token rules.
 fail: `backticks`
