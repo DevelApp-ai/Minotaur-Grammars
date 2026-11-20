@@ -34,6 +34,8 @@ FormatType: EBNF
 <unary> ::= ("-" | "!" | "~")? <primary>
 <primary> ::= <name> ("(" <args>? ")")? | <number> | <string> | "(" <expr> ")" | "true" | "false"
 
+<name> ::= <identifier>
+
 /* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
    single-terminal token rules only (regex alternatives inside productions do
    not materialize into lexer rules in the engine). String/char/block-comment

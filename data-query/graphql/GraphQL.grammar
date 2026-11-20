@@ -26,6 +26,15 @@ FormatType: EBNF
 <type> ::= <named-type> "[" <type> "]"? "!"? | <named-type> "!"?
 <named-type> ::= <name>
 
+<schema-def> ::= "schema" "{" <operation-type> ":" <name> ("," <operation-type> ":" <name>)* "}"
+<directive-def> ::= "directive" "@" <name> <arguments>? "on" <name> ("|" <name>)*
+<enum> ::= <name>
+<fragment-spread> ::= "..." <name>
+<inline-fragment> ::= "..." ("on" <name>)? <selection-set>
+<implements> ::= "implements" <name> ("&" <name>)*
+<variable-definitions> ::= "(" <variable-def> ("," <variable-def>)* ")"
+<variable-def> ::= <variable> ":" <type>
+
 /* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
    single-terminal token rules only (regex alternatives inside productions do
    not materialize into lexer rules in the engine). String/char/block-comment

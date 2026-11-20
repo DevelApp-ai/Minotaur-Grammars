@@ -21,7 +21,7 @@ FormatType: EBNF
 <if> ::= "if" <expr> "then" <stmt>* ("elsif" <expr> "then" <stmt>*)* ("else" <stmt>*)? "end" "if" ";"
 <case> ::= "case" <expr> "is" ("when" <choice> ("|" <choice>)* "=>" <stmt>)+ "end" "case" ";"
 <choice> ::= <expr> | <expr> ".." <expr> | "others"
-<loop> ::= "loop" <stmt>* "end" "loop" ";" | "while" <expr> "loop" <stmt>* "end" "loop" ";"
+<loop> ::= "loop" <stmt>* "end" "loop" ";"
 <for> ::= "for" <name> "in" ("reverse")? <expr> ".." <expr> "loop" <stmt>* "end" "loop" ";"
 <return> ::= "return" <expr>? ";"
 <call> ::= <name> ("(" <args> ")")?
@@ -37,6 +37,8 @@ FormatType: EBNF
 <unary> ::= ("-" | "+" | "abs")? <power>
 <power> ::= <primary> ("**" <unary>)?
 <primary> ::= <name> ("(" <args> ")" | "." <identifier> | "'" <identifier>)? | <number> | <string> | "(" <expr> ")" | "true" | "false"
+
+<while> ::= "while" <expr> "loop" <stmt>* "end" "loop" ";"
 
 /* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
    single-terminal token rules only (regex alternatives inside productions do

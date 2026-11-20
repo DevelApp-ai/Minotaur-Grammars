@@ -24,6 +24,13 @@ FormatType: EBNF
 <dict> ::= "{" (<expr> ":" <expr> ("," <expr> ":" <expr>)*)? "}"
 <listcomp> ::= "[" <expr> "for" <target> "in" <expr> ("if" <expr>)* "]"
 
+<expr-stmt> ::= <expr>
+<params> ::= <param> ("," <param>)*
+<param> ::= <identifier> ("=" <expr>)?
+<args> ::= <expr> ("," <expr>)*
+<target> ::= <identifier> ("." <identifier> | "[" <expr> "]")*
+<relop> ::= "==" | "!=" | "<" | "<=" | ">" | ">=" | "in" | "not" "in"
+
 /* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
    single-terminal token rules only (regex alternatives inside productions do
    not materialize into lexer rules in the engine). String/char/block-comment

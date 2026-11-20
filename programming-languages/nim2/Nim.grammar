@@ -5,7 +5,7 @@ FormatType: EBNF
 <stmt> ::= <var-decl> | <let-decl> | <const-decl> | <proc-def> | <type-def> | <if-stmt> | <for-stmt> | <while-stmt> | <expr-stmt> | <comment-stmt>
 <var-decl> ::= "var" <ident-list> (":" <type>)? ("=" <expr>)?
 <let-decl> ::= "let" <ident-list> (":" <type>)? ("=" <expr>)?
-<const-decl> ::= "const" <ident> (":" <type>)? "=" <expr>
+<const-decl> ::= "const" <identifier> (":" <type>)? "=" <expr>
 <ident-list> ::= <ident-def> ("," <ident-def>)*
 <ident-def> ::= <identifier> (":" <type>)? ("=" <expr>)?
 <proc-def> ::= "proc" <identifier> ("(" <params>? ")")? (":" <type>)? <block>

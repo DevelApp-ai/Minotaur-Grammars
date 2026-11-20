@@ -32,6 +32,8 @@ FormatType: EBNF
 <tuple> ::= "(" <expr> "," <expr> ("," <expr>)* ")"
 <macrocall> ::= "@" <name> <primary>?
 
+<index-expr> ::= <identifier> "[" <args> "]"
+
 /* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
    single-terminal token rules only (regex alternatives inside productions do
    not materialize into lexer rules in the engine). String/char/block-comment
