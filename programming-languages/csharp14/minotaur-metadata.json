@@ -1,0 +1,27 @@
+{
+  "Id": "develapp.csharp14",
+  "Name": "CSharp14",
+  "Vendor": "DevelApp",
+  "DisplayName": "CSharp14",
+  "Version": "2.0.0",
+  "MinotaurVersion": "*",
+  "Description": "CSharp14 general programming-language grammar for the Minotaur parser platform (full-parse of the jsb C# corpus: 66/66).",
+  "License": "MIT",
+  "Tags": [
+    "programming-language",
+    "minotaur"
+  ],
+  "MainFile": "CSharp14.grammar",
+  "LabyrinthExtension": true,
+  "Dependencies": [],
+  "Documentation": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Repository": "https://github.com/DevelApp-ai/Minotaur-Grammars",
+  "Author": {
+    "Username": "larsbuch",
+    "FirstName": "Lars",
+    "LastName": "Buch-Jepsen"
+  },
+  "PricingModel": "free",
+  "EngineVerified": true,
+  "EngineVerifiedBy": "DevelApp.StepParser 1.75.0 (GreedyLongestMatch; grammar-harness full-parse: 66/66 jsb C# corpus + 10 general C# probes)"
+}

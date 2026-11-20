@@ -1,0 +1,36 @@
+# Conformance cases for CSharp14.grammar (general C# grammar, issue #246).
+#
+# lex: input is real C# that MUST lex to completion (GreedyLongestMatch,
+# engine issues #129/#133). fail: input must be rejected (LX1001).
+# The parse bar beyond lexing (full-parse of the entire jsb C# corpus,
+# 66/66 files) is documented in README.md and pinned by Examples.txt.
+grammar: CSharp14.grammar
+
+# Declaration and member shapes the grammar full-parses.
+lex: using System;\nusing System.Collections.Generic;\nnamespace N { class C { } }
+lex: namespace N;\npublic class C { public int P { get; set; } }
+lex: class C { }\ninterface I { string Name { get; } }\nstruct S { public int X { get; set; } }
+lex: public partial class C { public string A { get; set; } public string B { get; set; } public string C { get; set; } }
+lex: [JsonProperty("a")] public string A { get; set; } = "a";
+lex: public enum E { A, B, C }\npublic enum F : byte { X = 1 }
+lex: public delegate void H(object sender);
+lex: public class C<T> where T : class { public List<T> Items { get; set; } = new List<T>(); }
+lex: public DateTime? Created { get; set; }
+lex: string Label => "constant";
+lex: int Volume() { int level = 3; var label = "loud"; if (level > 2) { return level; } return 0; }
+lex: private static readonly string[] Names = new string[] { "a", "b" };
+lex: global using System;
+
+# Token-layer shapes (lex bar; some shapes beyond the documented parse scope).
+lex: int n = 1_000_000; long h = 0xDEAD_BEEF; uint b = 0b1010_1010;
+lex: var s = @"raw"; var i = $"{x}"; var c = 'a'; double d = 3.14e2;
+lex: x = a + b * c - d / e % f; x++; y--; p = q ? r : s; w = x ?? y;
+lex: // line comment\n/* block comment */ int x = 1;
+lex: await File.WriteAllTextAsync(_path, content);
+
+# Inputs that are not C# must be rejected by the token rules.
+fail: `backticks`
+fail: x € y
+
+# Whole example file (full-parse corpus example) as a lex case.
+lexfile: Examples.txt

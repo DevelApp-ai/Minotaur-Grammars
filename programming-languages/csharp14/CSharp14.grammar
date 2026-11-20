@@ -1,0 +1,371 @@
+Grammar: CSharp14
+FormatType: EBNF
+
+Keywords: abstract, as, base, bool, break, byte, case, catch, char, checked, class, const, continue, decimal, default, delegate, do, double, else, enum, event, explicit, extern, false, finally, fixed, float, for, foreach, goto, if, implicit, in, int, interface, internal, is, lock, long, namespace, new, null, object, operator, out, override, params, private, protected, public, readonly, ref, return, sbyte, sealed, short, sizeof, stackalloc, static, string, struct, switch, this, throw, true, try, typeof, uint, ulong, unchecked, unsafe, ushort, using, virtual, void, volatile, while, add, alias, ascending, async, await, by, descending, dynamic, equals, from, get, global, group, into, join, let, nameof, notnull, on, orderby, partial, remove, select, set, unmanaged, value, var, when, where, with, yield, and, or, not, record, init, file, scoped, required
+<whitespace> ::= /[ \t\r\n]+/ => { skip }
+<comment> ::= /\x2F\x2F[^\n]*/ => { skip }
+/* Block comments: within-rule group/alternation, compiled by the engine to a
+   forward-only NFA (ENFAStepLexer-StepParser issue #129). */
+<comment> ::= /\x2F\*([^*]|\*+[^*\x2F])*\*+\x2F/ => { skip }
+<identifier> ::= /[a-zA-Z_@][a-zA-Z0-9_]*/
+<integer_literal> ::= /[0-9]+/
+<integer_literal> ::= /0[xX][0-9a-fA-F]+/
+<integer_literal> ::= /0[bB][01]+/
+<integer_literal> ::= /[0-9]+[uUlL][uUlL]?/
+/* Digit separators (C# 7+): 1_000_000, 0xDEAD_BEEF, 0b1010_1010.
+   Underscores must sit between digits, hence the two-digit bookends. */
+<integer_literal> ::= /[0-9][0-9_]*[0-9]/
+<integer_literal> ::= /0[xX][0-9a-fA-F][0-9a-fA-F_]*[0-9a-fA-F]/
+<integer_literal> ::= /0[bB][01][01_]*[01]/
+<real_literal> ::= /[0-9]*\.[0-9]+/
+<real_literal> ::= /[0-9]+\.[0-9]*[fFdDmM]/
+<real_literal> ::= /[0-9]*\.[0-9]+[eE][+-]?[0-9]+/
+<real_literal> ::= /[0-9]+[eE][+-]?[0-9]+/
+<char_literal> ::= /'[^'\n]'/
+/* Char escapes as same-named alternatives ('\n', '\'', '\\', '\u0041',
+   '\x41'); \x5C is a literal backslash so the pattern stays inside the
+   supported linear subset. */
+<char_literal> ::= /'\x5C.'/
+<char_literal> ::= /'\x5Cu[0-9a-fA-F]{4}'/
+<char_literal> ::= /'\x5Cx[0-9a-fA-F]{1,4}'/
+/* Regular strings with escaped interior characters (\"a\\\"b\"). */
+<string_literal> ::= /"([^"\\\n]|\\.)*"/
+/* Verbatim strings with doubled quotes (@"a""b"). */
+<verbatim_string_literal> ::= /@"([^"]|"")*"/
+<interpolated_string_literal> ::= /\$"([^"\\\n]|\\.)*"/
+/* Raw string literals (C# 10): at least three quotes, interior quotes allowed
+   as long as no run of three closes the literal early. */
+<raw_string_literal> ::= /[\x22]{3}[^\x22]*[\x22]{3}/
+<raw_string_literal> ::= /[\x22]{3}([^\x22]|[\x22][^\x22]|[\x22]{2}[^\x22])*[\x22]{3}/
+<semicolon> ::= ";"
+<colon> ::= ":"
+<comma> ::= ","
+<dot> ::= "."
+<open_paren> ::= "("
+<close_paren> ::= ")"
+<open_brace> ::= "{"
+<close_brace> ::= "}"
+<open_bracket> ::= "["
+<close_bracket> ::= "]"
+<less_than> ::= "<"
+<greater_than> ::= ">"
+<equals_sign> ::= "="
+<plus> ::= "+"
+<minus> ::= "-"
+<asterisk> ::= "*"
+<slash> ::= "/"
+<percent> ::= "%"
+<ampersand> ::= "&"
+<question_mark> ::= "?"
+<exclamation> ::= "!"
+<vertical_bar> ::= "|"
+<caret> ::= "^"
+<tilde> ::= "~"
+<hash> ::= "#"
+<op_equals> ::= "=="
+<op_lambda> ::= "=>"
+<op_increment> ::= "++"
+<op_decrement> ::= "--"
+<op_plus_assign> ::= "+="
+<op_minus_assign> ::= "-="
+<op_multiply_assign> ::= "*="
+<op_divide_assign> ::= "/="
+<op_modulus_assign> ::= "%="
+<op_and_assign> ::= "&="
+<op_or_assign> ::= "|="
+<op_xor_assign> ::= "^="
+<op_logical_and> ::= "&&"
+<op_logical_or> ::= "||"
+<op_shift_left> ::= "<<"
+<op_shift_right> ::= ">>"
+<op_shift_left_assign> ::= "<<="
+<op_shift_right_assign> ::= ">>="
+<op_less_equal> ::= "<="
+<op_greater_equal> ::= ">="
+<op_null_coalesce> ::= "??"
+<op_null_coalesce_assign> ::= "??="
+<op_null_conditional> ::= "?."
+<op_colon_colon> ::= "::"
+<op_not_equal> ::= "!="
+/* Keywords (from the Keywords: header) as quoted-literal token rules. */
+<abstract> ::= "abstract"
+<as> ::= "as"
+<base> ::= "base"
+<bool> ::= "bool"
+<break> ::= "break"
+<byte> ::= "byte"
+<case> ::= "case"
+<catch> ::= "catch"
+<char> ::= "char"
+<checked> ::= "checked"
+<class> ::= "class"
+<const> ::= "const"
+<continue> ::= "continue"
+<decimal> ::= "decimal"
+<default> ::= "default"
+<delegate> ::= "delegate"
+<do> ::= "do"
+<double> ::= "double"
+<else> ::= "else"
+<enum> ::= "enum"
+<event> ::= "event"
+<explicit> ::= "explicit"
+<extern> ::= "extern"
+<false> ::= "false"
+<finally> ::= "finally"
+<fixed> ::= "fixed"
+<float> ::= "float"
+<for> ::= "for"
+<foreach> ::= "foreach"
+<goto> ::= "goto"
+<if> ::= "if"
+<implicit> ::= "implicit"
+<in> ::= "in"
+<int> ::= "int"
+<interface> ::= "interface"
+<internal> ::= "internal"
+<is> ::= "is"
+<lock> ::= "lock"
+<long> ::= "long"
+<namespace> ::= "namespace"
+<new> ::= "new"
+<null> ::= "null"
+<object> ::= "object"
+<operator> ::= "operator"
+<out> ::= "out"
+<override> ::= "override"
+<params> ::= "params"
+<private> ::= "private"
+<protected> ::= "protected"
+<public> ::= "public"
+<readonly> ::= "readonly"
+<ref> ::= "ref"
+<return> ::= "return"
+<sbyte> ::= "sbyte"
+<sealed> ::= "sealed"
+<short> ::= "short"
+<sizeof> ::= "sizeof"
+<stackalloc> ::= "stackalloc"
+<static> ::= "static"
+<string> ::= "string"
+<struct> ::= "struct"
+<switch> ::= "switch"
+<this> ::= "this"
+<throw> ::= "throw"
+<true> ::= "true"
+<try> ::= "try"
+<typeof> ::= "typeof"
+<uint> ::= "uint"
+<ulong> ::= "ulong"
+<unchecked> ::= "unchecked"
+<unsafe> ::= "unsafe"
+<ushort> ::= "ushort"
+<using> ::= "using"
+<virtual> ::= "virtual"
+<void> ::= "void"
+<volatile> ::= "volatile"
+<while> ::= "while"
+<add> ::= "add"
+<alias> ::= "alias"
+<ascending> ::= "ascending"
+<async> ::= "async"
+<await> ::= "await"
+<by> ::= "by"
+<descending> ::= "descending"
+<dynamic> ::= "dynamic"
+<equals> ::= "equals"
+<from> ::= "from"
+<get> ::= "get"
+<global> ::= "global"
+<group> ::= "group"
+<into> ::= "into"
+<join> ::= "join"
+<let> ::= "let"
+<nameof> ::= "nameof"
+<notnull> ::= "notnull"
+<on> ::= "on"
+<orderby> ::= "orderby"
+<partial> ::= "partial"
+<remove> ::= "remove"
+<select> ::= "select"
+<set> ::= "set"
+<unmanaged> ::= "unmanaged"
+<value> ::= "value"
+<var> ::= "var"
+<when> ::= "when"
+<where> ::= "where"
+<with> ::= "with"
+<yield> ::= "yield"
+<and> ::= "and"
+<or> ::= "or"
+<not> ::= "not"
+<record> ::= "record"
+<init> ::= "init"
+<file> ::= "file"
+<scoped> ::= "scoped"
+<required> ::= "required"
+<pp_directive> ::= /#[^\n]*/ => { skip }
+<using_directive(priority:10)> ::= /using[^\n;{}]*;/
+<ns_head> ::= /namespace[^\n{};]+/
+<attr_list> ::= /\[[^\[\]\n]*\]/
+<modifiers(priority:10)> ::= /(public|private|protected|internal|static|sealed|abstract|partial|readonly|ref|unsafe|extern|new|override|virtual|async|required|file|const|volatile)( (public|private|protected|internal|static|sealed|abstract|partial|readonly|ref|unsafe|extern|new|override|virtual|async|required|file|const|volatile))*/
+<class_head> ::= /(class|interface|struct|record)[^\n{};]*/
+<enum_head> ::= /enum[^\n{};]*/
+<delegate_stmt> ::= /delegate[^\n{}();]*\([^()]*\)[^\n{};]*;/
+<field_init(priority:10)> ::= /=([^;{}\n"']|"[^"\n]*"|'[^'\n]*'|\{([^;{}\n"']|"[^"\n]*"|'[^'\n]*')*\})+;/
+<arrow_tail> ::= /=>([^;\n{}"']|"[^"\n]*"|'[^'\n]*')+;/
+<params_token> ::= /\(([^()]|\([^()]*\))*\)/
+<params_semi> ::= /\(([^()]|\([^()]*\))*\)[ \t]*;/
+<ctor_colon_part> ::= /:(this|base)\(([^()]|\([^()]*\))*\)/
+<jump_stmt> ::= /(return|break|continue|goto|throw|await|yield)([^;{}"'\n]|"[^"\n]*"|'[^'\n]*')*;/
+<var_stmt> ::= /var[ \t][^;{}\n]*;/
+<flow_head> ::= /(if|for|foreach|while|switch|lock|fixed|using|catch|checked|unchecked)[^\n{}]*\)/
+<case_label> ::= /(case|default)[^\n{};]*:/
+<qual_type> ::= /[A-Za-z_@][A-Za-z0-9_]*(\.[A-Za-z_@][A-Za-z0-9_]+)+(<([^<>]|<[^<>]*>)*>)?/
+<gen_type> ::= /[A-Za-z_@][A-Za-z0-9_]*<([^<>]|<[^<>]*>)*>/
+<array_type> ::= /[A-Za-z_@][A-Za-z0-9_]*(\[[^\]\n]*\])+/
+<compilation_unit> ::= <root_seq>
+<root_seq> ::= <root_seq> <root_item>
+<root_seq> ::= <root_item>
+<root_seq> ::= <root_seq> <root_seq>
+<root_item> ::= <using_directive>
+<root_item> ::= global <using_directive>
+<root_item> ::= <ns_file_head>
+<root_item> ::= <namespace_decl>
+<root_item> ::= <type_decl>
+<ns_file_head> ::= /namespace[^\n{};]*;/
+<namespace_decl> ::= <ns_head> '{' <root_seq> '}'
+<namespace_decl> ::= <ns_head> '{' '}'
+<namespace_decl> ::= <ns_head> '{' <class_body_seq> '}'
+<type_decl> ::= <class_decl>
+<type_decl> ::= <enum_decl>
+<type_decl> ::= <delegate_stmt>
+<type_decl> ::= <modifiers> <delegate_stmt>
+<type_decl> ::= <class_head> ';'
+<class_decl> ::= <attr_list> <modifiers> <class_head> '{' <class_body_seq> '}'
+<class_decl> ::= <attr_list> <modifiers> <class_head> '{' '}'
+<class_decl> ::= <attr_list> <class_head> '{' <class_body_seq> '}'
+<class_decl> ::= <attr_list> <class_head> '{' '}'
+<class_decl> ::= <modifiers> <class_head> '{' <class_body_seq> '}'
+<class_decl> ::= <modifiers> <class_head> '{' '}'
+<class_decl> ::= <class_head> '{' <class_body_seq> '}'
+<class_decl> ::= <class_head> '{' '}'
+<class_decl> ::= <modifiers> <class_head> ';'
+<class_body_seq> ::= <class_body_seq> <member_decl>
+<class_body_seq> ::= <member_decl>
+<class_body_seq> ::= <class_body_seq> <class_body_seq>
+<class_body_seq> ::= <class_body_seq> <attr_list> <class_body_seq>
+<class_body_seq> ::= <class_body_seq> <modifiers> <class_body_seq>
+<class_body_seq> ::= <modifiers> <class_body_seq>
+<class_body_seq> ::= <attr_list> <class_body_seq>
+<class_body_seq> ::= <attr_list> <modifiers> <class_body_seq>
+<member_decl> ::= <attr_list> <modifiers> <member_core>
+<member_decl> ::= <modifiers> <member_core>
+<member_decl> ::= <member_core>
+<member_core> ::= <method_decl>
+<member_core> ::= <prop_decl>
+<member_core> ::= <field_decl>
+<member_core> ::= <event_decl>
+<member_core> ::= <ctor_decl>
+<member_core> ::= <operator_decl>
+<member_core> ::= <type_decl>
+<method_decl> ::= <ret_type> <identifier> <params_token> '{' <stmt_seq> '}'
+<method_decl> ::= <ret_type> <identifier> <params_token> <params_semi>
+<method_decl> ::= <ret_type> <identifier> <params_semi>
+<method_decl> ::= <ret_type> <identifier> <params_token> <arrow_tail>
+<method_decl> ::= <identifier> <params_token> '{' <stmt_seq> '}'
+<method_decl> ::= <ret_type> <identifier> <params_token> '{' '}'
+<method_decl> ::= <identifier> <params_token> '{' '}'
+<method_decl> ::= <identifier> <params_token> <params_semi>
+<method_decl> ::= <identifier> <params_semi>
+<ret_type> ::= 'string' | 'bool' | 'object' | 'long' | 'int' | 'double' | 'float' | 'decimal' | 'char' | 'byte' | 'short' | 'uint' | 'ulong' | 'ushort' | 'sbyte' | 'dynamic' | 'void'
+<ret_type> ::= 'string' '?' | 'bool' '?' | 'object' '?' | 'long' '?' | 'int' '?' | 'double' '?' | 'float' '?' | 'decimal' '?' | 'char' '?' | 'byte' '?' | 'short' '?' | 'uint' '?' | 'ulong' '?' | 'ushort' '?' | 'sbyte' '?'
+<ret_type> ::= <identifier>
+<ret_type> ::= <identifier> '?'
+<ret_type> ::= <qual_type>
+<ret_type> ::= <qual_type> '?'
+<ret_type> ::= <gen_type>
+<ret_type> ::= <gen_type> '?'
+<ret_type> ::= <gen_type> <attr_list>
+<ret_type> ::= <gen_type> <attr_list> '?'
+<ret_type> ::= <array_type>
+<ret_type> ::= <array_type> '?'
+<prop_decl> ::= <ret_type> <identifier> '{' <accessor_seq> '}'
+<prop_decl> ::= <ret_type> <identifier> '{' <accessor_seq> '}' <field_init>
+<prop_decl> ::= <ret_type> <identifier> <arrow_tail>
+<field_decl> ::= <ret_type> <identifier> <field_init>
+<field_decl> ::= <ret_type> <identifier> ';'
+<event_decl> ::= event <ret_type> <identifier> ';'
+<event_decl> ::= event <ret_type> <identifier> '{' <accessor_seq> '}'
+<event_decl> ::= event <ret_type> <identifier> <arrow_tail>
+<ctor_decl> ::= <identifier> <params_token> '{' <stmt_seq> '}'
+<ctor_decl> ::= <identifier> <params_token> <ctor_colon_part> '{' <stmt_seq> '}'
+<ctor_decl> ::= <identifier> <params_token> '{' '}'
+<operator_decl> ::= <ret_type> operator <op_symbol> <params_token> '{' <stmt_seq> '}'
+<operator_decl> ::= implicit operator <ret_type> <params_token> '{' <stmt_seq> '}'
+<operator_decl> ::= explicit operator <ret_type> <params_token> '{' <stmt_seq> '}'
+<op_symbol> ::= '+' | '-' | '*' | '/' | '%' | '!' | '~' | '==' | '!=' | '>' | '<' | '>=' | '<=' | '&&' | '||' | '++' | '--' | '<<' | '>>' | '&' | '|' | '^' | 'true' | 'false'
+<enum_decl> ::= <enum_head> '{' <enum_body_seq> '}'
+<enum_decl> ::= <enum_head> '{' '}'
+<enum_decl> ::= <modifiers> <enum_head> '{' <enum_body_seq> '}'
+<enum_decl> ::= <modifiers> <enum_head> '{' '}'
+<enum_body_seq> ::= <identifier>
+<enum_body_seq> ::= <identifier> ',' <identifier>
+<enum_body_seq> ::= <identifier> ',' <identifier> ',' <identifier>
+<enum_body_seq> ::= <enum_body_seq> ',' <identifier>
+<stmt_seq> ::= <stmt_seq> <stmt>
+<stmt_seq> ::= <stmt>
+<stmt_seq> ::= <stmt_seq> <stmt_seq>
+<stmt> ::= <jump_stmt>
+<stmt> ::= <var_stmt>
+<stmt> ::= <local_decl>
+<stmt> ::= <flow_stmt>
+<stmt> ::= <case_label>
+<flow_stmt> ::= <flow_head> '{' <stmt_seq> '}'
+<flow_stmt> ::= <flow_head> <jump_stmt>
+<flow_stmt> ::= <flow_head> <var_stmt>
+<flow_stmt> ::= else '{' <stmt_seq> '}'
+<flow_stmt> ::= else <flow_head> '{' <stmt_seq> '}'
+<flow_stmt> ::= do '{' <stmt_seq> '}' <flow_head> ';'
+<flow_stmt> ::= try '{' <stmt_seq> '}'
+<flow_stmt> ::= try '{' <stmt_seq> '}' finally '{' <stmt_seq> '}'
+<flow_stmt> ::= try '{' <stmt_seq> '}' <catch_part>
+<flow_stmt> ::= try '{' <stmt_seq> '}' <catch_part> finally '{' <stmt_seq> '}'
+<flow_stmt> ::= try '{' <stmt_seq> '}' <catch_part> <catch_part>
+<flow_stmt> ::= try '{' <stmt_seq> '}' <catch_part> <catch_part> finally '{' <stmt_seq> '}'
+<catch_part> ::= catch '{' <stmt_seq> '}'
+<catch_part> ::= catch <flow_head> '{' <stmt_seq> '}'
+<local_decl> ::= <ret_type> <identifier> ';'
+<local_decl> ::= <ret_type> <identifier> <field_init>
+<accessor_seq> ::= <accessor_seq> <accessor>
+<accessor_seq> ::= <accessor>
+<accessor_seq> ::= <accessor_seq> <accessor_seq>
+<accessor> ::= get ';'
+<accessor> ::= set ';'
+<accessor> ::= init ';'
+<accessor> ::= add ';'
+<accessor> ::= remove ';'
+<accessor> ::= get '{' <stmt_seq> '}'
+<accessor> ::= set '{' <stmt_seq> '}'
+<accessor> ::= init '{' <stmt_seq> '}'
+<accessor> ::= get <arrow_tail>
+<accessor> ::= set <arrow_tail>
+<accessor> ::= private set ';'
+<accessor> ::= <modifiers> get ';'
+<accessor> ::= <modifiers> set ';'
+<accessor> ::= <modifiers> init ';'
+<accessor> ::= <attr_list> get ';'
+<flow_stmt> ::= <stmt_seq> <catch_part>
+<flow_stmt> ::= <stmt_seq> <catch_part> <catch_part>
+<flow_stmt> ::= <stmt_seq> <catch_part> finally '{' <stmt_seq> '}'
+<flow_stmt> ::= <stmt_seq> <catch_part> <catch_part> finally '{' <stmt_seq> '}'
+<flow_stmt> ::= <flow_stmt> <catch_part>
+<flow_stmt> ::= <flow_stmt> finally '{' <stmt_seq> '}'
+<flow_stmt> ::= <flow_stmt> <catch_part> finally '{' <stmt_seq> '}'
+<flow_stmt> ::= finally '{' <stmt_seq> '}'
+<stmt_seq> ::= <stmt_seq> <catch_part>
+<stmt_seq> ::= <stmt_seq> <flow_stmt>
+<catch_part> ::= <flow_head> '{' <stmt_seq> '}'
+<catch_part> ::= <identifier> '{' <stmt_seq> '}'
+<catch_part> ::= <flow_head> '{' '}'
+<catch_part> ::= <identifier> '{' '}'
