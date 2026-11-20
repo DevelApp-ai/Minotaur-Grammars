@@ -14,6 +14,14 @@ this grammar covers the ANSI core.
 
 ## Validation scope
 
+This grammar is **probe-verified** (the `Examples.txt` ANSI corpus and
+Conformance.txt probes PASS under the coverage-checked harness), NOT
+corpus-verified: the jsb TSQL generator output is T-SQL, not ANSI
+(`IF NOT EXISTS ... EXEC(N'CREATE SCHEMA ...') GO` prologues, `IF
+OBJECT_ID ... DROP TABLE` guards, `IDENTITY(1,1)`, `NVARCHAR(n)`,
+`DEFAULT N'...'`) and belongs to `data-query/tsql2022/`, which validates
+that corpus 21/21. sql2023 covers the ANSI core those files don't use.
+
 A **disciplined DDL subset**: the `CREATE TABLE` shapes JsonSchemaBuilder
 schemas conceptually map to in ANSI SQL, plus named table constraints. It
 is the right tool for validating generated ANSI DDL; it is NOT a

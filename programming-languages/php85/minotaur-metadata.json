@@ -5,7 +5,7 @@
   "DisplayName": "PHP85",
   "Version": "2.0.0",
   "MinotaurVersion": "*",
-  "Description": "PHP 8.5 grammar for the Minotaur parser platform, hand-authored and engine-verified against the JsonSchemaBuilder PHP generator output (21/21 corpus files).",
+  "Description": "PHP 8.5 grammar for the Minotaur parser platform, hand-authored and engine-verified against the JsonSchemaBuilder PHP generator output (22/22 corpus files).",
   "License": "MIT",
   "Tags": [
     "programming-language",
@@ -23,5 +23,5 @@
   },
   "PricingModel": "free",
   "EngineVerified": true,
-  "EngineVerifiedBy": "DevelApp.StepParser 1.75.0 (GreedyLongestMatch; jsb corpus harness, 21/21 files)"
+  "EngineVerifiedBy": "DevelApp.StepParser 1.75.0 (GreedyLongestMatch; jsb corpus harness, 22/22 files)"
 }

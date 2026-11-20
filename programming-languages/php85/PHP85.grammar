@@ -123,12 +123,10 @@ Keywords: abstract, and, array, as, break, callable, case, catch, class, clone, 
 
 
 <script> ::= <open_tag>
-<script> ::= <open_tag> <top_statement>
-<script> ::= <open_tag> <top_statement> <top_statement>
-<script> ::= <open_tag> <top_statement> <top_statement> <top_statement>
-<script> ::= <open_tag> <top_statement> <top_statement> <top_statement> <top_statement>
-<script> ::= <open_tag> <top_statement> <top_statement> <top_statement> <top_statement> <top_statement>
-<script> ::= <open_tag> <top_statement> <top_statement> <top_statement> <top_statement> <top_statement> <top_statement>
+<script> ::= <open_tag> <top_statement_seq>
+
+<top_statement_seq> ::= <top_statement_seq> <top_statement_seq>
+<top_statement_seq> ::= <top_statement>
 
 <top_statement> ::= <declare_block> | <namespace_statement> | <use_declaration> | <class_declaration> | <interface_declaration> | <trait_declaration> | <enum_declaration> | <function_declaration>
 
