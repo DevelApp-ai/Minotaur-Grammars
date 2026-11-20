@@ -62,6 +62,30 @@ Ratings are mechanical scans (production presence + wiring reachability). Markup
 grammars (JSON, JSONSchema, XML, XAML, HTML, WASM text, PL/I, ClassicASP, CSS,
 project-infrastructure grammars) are out of scope for code-analysis consumers.
 
+## New grammars added in #299-#303 (tracking #247) - honest scope
+
+The 51 grammars added in PRs #299-#303 (38 languages incl. mainframe/legacy JCL, REXX,
+HLASM; HDL Verilog/SystemVerilog/VHDL; IR LLVM/MLIR; shaders WGSL/GLSL/HLSL/CUDA; plus
+query/config/infrastructure/spec formats) are at a different coverage level than the
+audited table above, and this is stated plainly rather than marked R1-R8:
+
+- **Lexer: engine-verified full.** Every new dir has a language-specific single-terminal
+  lexer core, `Conformance.txt` (`lex:`/`fail:`/`lexfile: Examples.txt`) enforced by CI in
+  this repo and by the engine's `grammar-repository-tests` job, a real `Examples.txt`,
+  v2.0.0 `EngineVerified` metadata, LICENSE, and a `grammar-index.json` entry.
+- **Productions: core-syntax scope, deliberately shallow** (7-58 productions vs 100-647
+  for the deep legacy grammars). They cover the language's core statement/expression
+  forms and lexer surface, not full spec coverage (e.g. no SystemVerilog packages/
+  covergroups, no full VHDL-2008 PSL). R1-R8 declaration-level audit per language is
+  **not yet done** for these grammars - tracked here as follow-up.
+- **Parse level: not measured.** Engine #157 measured 82/128 *legacy* corpus grammars
+  exceeding a 75 s parse cap on their own Examples; the new grammars are outside that
+  measurement, so parse-level usability of the new grammars is currently unverified
+  (lex-level only).
+
+See `docs/language-versions.md` ("New grammars added in #299-#303") for the per-language
+version matrix with feature evidence.
+
 ## Remaining work (tracked, not blocking)
 
 - **R8 (identifier-level spans)** — contract work in

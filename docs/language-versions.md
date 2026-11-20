@@ -63,6 +63,62 @@ productions for X's defining features.
 | VB.NET | `VisualBasic` | VB.NET 8+ (VS 2005) | `Using` statement (VB8) |
 | WebAssembly | `WebAssembly20` | WASM 2.0 (text format) | named |
 
+## New grammars added in #299-#303 (2026-11, tracking #247)
+
+All 51 grammars below are engine-verified full (v2.0.0 metadata, `Conformance.txt`
+with `lex:`/`fail:`/`lexfile: Examples.txt` pins enforced in CI, real `Examples.txt`,
+MIT `LICENSE`, `grammar-index.json` entry). Language grammars carry the version in the
+folder name where the language has a stable version; platform-pinned languages
+(ABAP, Apex, JCL, HLASM, AWK, sed) are named by the platform release they target and
+listed here with that pin. Parse-level (not just lex-level) verification of these
+grammars is pending engine #157.
+
+| Language | Grammar | Supported version(s) | Evidence |
+|---|---|---|---|
+| ABAP | `abap` | ABAP 7.50 (SAP BTP) | `DATA ... TYPE`, `SELECT ... INTO`, `WRITE: /`, `LOOP AT`, field symbols `<fs>` |
+| Ada | `ada2022` | Ada 2022 | named; `16#FF#` based literals, `'Image` attributes, `case ... when others =>` |
+| Apex | `apex` | Salesforce Apex, API v60 | `@RestResource`, SOQL `[SELECT ... FROM ... WHERE ...]`, `global with sharing class` |
+| AWK | `awk` | POSIX awk / gawk 5.x | `BEGIN`/`END`, `$1` field refs, `printf`, `function`, `NR`/`NF` |
+| Common Lisp | `lisp` | ANSI X3.226-1994 | `defun`, quote/quasiquote `'` `` ` `` `,`, `, @`, `3/4` ratios, `#xFF` radix |
+| Crystal | `crystal1` | Crystal 1.x | named; `def`, `case ... when`, string interpolation `#{}`, `||=` |
+| CUDA | `cuda12` | CUDA 12 | named; `__global__`/`__device__`, `<<<grid, block>>>` launch, `blockIdx`/`threadIdx`, `R"(...)"` raw strings |
+| D | `d2` | D 2.x | named; `/+ +/` nested comments, `r"..."` raw + backtick strings, `foreach (i; 0 .. 10)` |
+| Fortran | `fortran2023` | Fortran 2023 (free-form) | named; `!` comments, `do while`, `character(len=*)`, kind-suffixed reals, `intent(inout)` |
+| GDScript | `gdscript4` | GDScript 4 (Godot 4) | named; `@export`, `signal`, `func ... -> void`, `:=`, `$Node` paths, `match` |
+| Gleam | `gleam1` | Gleam 1.x | named; `pub fn`, `|>`, `<>` concat, `case { [x, ..] -> }` spreads |
+| GLSL | `glsl` | GLSL 4.60 / ESSL | `#version 450`, `layout(location = 0)`, `gl_Position`, `vec3`, `uniform` |
+| Groovy | `groovy4` | Groovy 4 | named; closures, GString `"$x"`, `def`, Elvis `?:` |
+| HLSL | `hlsl` | HLSL, Shader Model 6 (DXC) | `SV_POSITION`/`SV_TARGET` semantics, `Texture2D`, `register(t0)`, `SamplerState` |
+| HLASM | `hlasm` | HLASM R6 (z/OS 3.1) | `CSECT`, `STM`/`LM`/`BR`, `USING`, `DC C'...'`, `//*` comments |
+| JCL | `jcl` | z/OS 3.1 JCL | `//NAME JOB/EXEC/DD`, `//*` comments, `DISP=(NEW,CATLG)`, `SPACE=(CYL,(5,5))`, `PROC=` |
+| Julia | `julia1` | Julia 1.x | named; `#= ... =#` block comments, `r"..."` raw strings, `1im` imaginary, `f(x, y=2; z=3)` |
+| LLVM IR | `llvmir` | LLVM IR 17 | named; `define`/`declare`, `@globals`/`%locals`/`^labels`, `i32`, `icmp`/`br`/`ret`/`call`, `!dbg` |
+| MATLAB | `matlab` | MATLAB R2024a | `%` + `%{ %}` comments, `...` continuation, `.'` transpose, `fprintf`, `end`-indexing |
+| MLIR | `mlir` | MLIR (current dialects) | `func.func`, `tensor<4x8xf32>`, `%0 = arith.constant 0 : i32`, regions `{ ^bb0: }` |
+| Nim | `nim2` | Nim 2 | named; `proc`, `var`, `#[ ... ]#` block comments, `defer`, `let` |
+| ObjC | `objectivec` | Objective-C 2.0 | `@interface`/`@implementation`, message sends `[obj m:a]`, `@"..."` literals, `@[]`/`@{}` |
+| Object Pascal | `objectpascal` | Object Pascal, Delphi 12 | `class ... end`, `procedure`/`function`, `begin`/`end`, `:=`, `{ $... }` directives |
+| OCaml | `ocaml5` | OCaml 5 | named; `let ... in`, `function | ... ->`, variant types, `(* *)` comments |
+| Prolog | `prolog` | Prolog ISO/IEC 13211-1 | `:-` clauses, `is`/`mod`, `\=`, `[H|T]` lists, `.` end, uppercase vars |
+| REXX | `rexx` | REXX ANSI X3.274-1996 / ooRexx | `--` + `/* */` comments, `say`, `parse arg`, `do i = 1 to n ... end`, `||` concat |
+| Scheme | `scheme` | Scheme R7RS | `define`, `let`/`cond`, `#t`/`#f`, `#\a` chars, `#| |#` block comments, `#xFF` |
+| sed | `sed` | POSIX sed / GNU sed 4.x | `s/old/new/g` (any delimiter), addresses `1,10`/`$`/`/re/`, `:label`, `d`/`p`/`q`, `y///` |
+| SystemVerilog | `systemverilog2017` | SystemVerilog-2017 (IEEE 1800-2017) | named; `class`, `always_ff`, `typedef`, `inside`, `<<< >>>`, `assert (...)` |
+| Tcl | `tcl` | Tcl 8.6 | `proc`, `set`, `[...]` substitution, `{$...}` bracing, `foreach`, `expr {}` |
+| VHDL | `vhdl2008` | VHDL-2008 (IEEE 1076-2008) | named; `entity`/`architecture`, `process` + `rising_edge`, `'1'` bits, `16#FF#`, `std_logic_vector` |
+| VBA | `vba` | VBA 7.1 | `Sub`/`Function ... End`, `Dim x As T`, `'` comments, `For ... Next`, `Debug.Print` |
+| Verilog | `verilog2005` | Verilog-2005 (IEEE 1364-2005) | named; `module`/`endmodule`, `always @(posedge clk)`, nonblocking `<=`, sized literals `4'hFF`, `` `define `` |
+| WGSL | `wgsl` | WGSL (W3C WebGPU) | `@vertex`/`@fragment`, `vec4f`, `var<storage>`, hex-float `0x1.8p3`, `array<vec2f, 3>` |
+| XSLT | `xslt30` | XSLT 3.0 | named; `<xsl:stylesheet version="3.0">`, `match` patterns, `select` XPath, AVT `{...}`, `xsl:function` |
+| Zig | `zig014` | Zig 0.14 | named; `comptime`, `errdefer`/`orelse`, `?T` optionals, `@"builtin"`, `asm` |
+
+Versioned data/query/config/infrastructure formats added in the same batches:
+`plsql2023` (Oracle 23ai), `graphql` (Oct 2021), `rego1` (OPA Rego 1.x), `xpath31`,
+`xquery31`, `jq1`, `toml` (1.0), `properties`, `csv` (RFC 4180), `cmake` (3.x),
+`hcl2` (Terraform HCL 2), `starlark` (Bazel), `ninja`, `openapi3` (3.x, YAML form),
+`pcre2` (PCRE2). These keep format names; their version is in the folder name where
+the format is versioned.
+
 Non-versioned formats (XML, JSON, JSON Schema, XAML, PL/I, CSS, HTML, project
 grammars) are out of scope for this matrix; CSS should eventually pin a level
 (follow-up).
