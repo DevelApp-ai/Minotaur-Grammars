@@ -1,0 +1,59 @@
+// Example C# shapes CSharp14.grammar full-parses (completed depth-1 path,
+// contiguous byte coverage, GreedyLongestMatch). Mirrors machine-generated
+// json-schema-builder output and common general C# declaration forms.
+
+// usings (plain and global) + namespace + attr-decorated property classes.
+global using System;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
+
+namespace Funny.Onion
+{
+    /// <summary>
+    /// DataOwner: used to test data owner definition
+    /// </summary>
+    public partial class DataOwner
+    {
+        /// <summary>
+        /// DefinitionName: the definition name
+        /// </summary>
+        [JsonPropertyName("myTopPartDataString")]
+        public string MyTopPartDataString { get; set; }
+
+        [JsonProperty("items"), JsonConverter(typeof(StringEnumConverter))]
+        public List<string> Items { get; set; } = new List<string>();
+
+        public DateTime? Created { get; set; }
+
+        public string Label => "constant";
+
+        public int Count { get; private set; }
+
+        public partial class NestedDefinition
+        {
+            [JsonProperty("valueInDefinition")]
+            public string ValueInDefinition { get; set; } = "abc123";
+        }
+    }
+
+    public enum DataType
+    {
+        Text,
+        Number,
+        Flag
+    }
+
+    public delegate void Handler(object sender);
+
+    public interface IShape
+    {
+        string Name { get; }
+        double Area();
+    }
+
+    public struct Point
+    {
+        public int X { get; set; }
+        public int Y { get; set; }
+    }
+}
