@@ -16,6 +16,12 @@ FormatType: EBNF
 <primary> ::= "(" <expr> ")" | <string> | <number> | <var> | <constructor>
 <constructor> ::= "<" <qname> ">" <expr>* "</" <qname> ">"
 
+<relop> ::= "=" | "!=" | "<" | "<=" | ">" | ">=" | "eq" | "ne" | "lt" | "le" | "gt" | "ge"
+<decl> ::= "function" <qname> "(" <param>* ")" <block> | "variable" <qname> "(" <expr> ")"? | "option" <qname> <string>
+<param> ::= "$" <qname> <type>?
+<type> ::= <qname>
+<block> ::= "{" <expr>* "}"
+
 /* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
    single-terminal token rules only (regex alternatives inside productions do
    not materialize into lexer rules in the engine). String/char/block-comment

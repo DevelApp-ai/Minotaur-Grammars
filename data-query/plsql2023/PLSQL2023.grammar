@@ -21,6 +21,9 @@ FormatType: EBNF
 <factor> ::= <identifier> | <string> | <number> | "(" <expression> ")" | <call>
 <exception-handler> ::= "WHEN" <identifier> ("OR" <identifier>)* "THEN" <statement>+
 
+<select-list> ::= "*" | <expression> ("," <expression>)*
+<table> ::= <identifier> ("." <identifier>)*
+
 /* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
    single-terminal token rules only (regex alternatives inside productions do
    not materialize into lexer rules in the engine). String/char/block-comment

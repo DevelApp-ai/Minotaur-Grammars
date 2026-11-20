@@ -33,6 +33,10 @@ FormatType: EBNF
 <primary> ::= <identifier> | <number> | <string> | <char> | "(" <expr> ")" | <block> | <array> | "@" <identifier> "(" <args>? ")"
 <array> ::= "{" <expr> ("," <expr>)* "}"
 
+<enum-decl> ::= "enum" <name> "{" <name> ("," <name>)* "}"
+<usingnamespace> ::= "usingnamespace" <name>
+<struct-member> ::= <name> ":" <type> | <fn-decl>
+
 /* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
    single-terminal token rules only (regex alternatives inside productions do
    not materialize into lexer rules in the engine). String/char/block-comment
