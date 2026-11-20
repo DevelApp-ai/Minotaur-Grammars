@@ -58,7 +58,8 @@ FormatType: EBNF
 <signal> ::= /[0-9]+/
 <healthcheck-instr> ::= "HEALTHCHECK" ("NONE" | <healthcheck-args>) => { setHealthcheck($2); }
 <healthcheck-args> ::= <hc-flag>* "CMD" ("--interval=" <duration> | "--timeout=" <duration> | "--start-period=" <duration> | "--retries=" <number> | "CMD")* <shell-form>
-<hc-flag> ::= /--(interval|timeout|start-period|start-interval)=[0-9]+[smh]/ | /--retries=[0-9]+/
+<hc-flag> ::= /--(interval|timeout|start-period|start-interval)=[0-9]+[smh]/
+<hc-flag> ::= /--retries=[0-9]+/
 <duration> ::= /[0-9]+[smh]/
 <shell-instr> ::= "SHELL" <exec-form> => { setShell($2); }
 <maintainer-instr> ::= "MAINTAINER" <free-text> => { setMaintainer($2); }
