@@ -41,7 +41,9 @@ alue>)+
 <intrinsic> ::= "!" <fn-name> " " <value> => { buildIntrinsic($2, $4); }
              | "{" <fn-fullname> ":" <value> "}" => { buildIntrinsic($2, $4); }
 <fn-name> ::= "Ref" | "GetAtt" | "Sub" | "Join" | "If" | "FindInMap" | "Base64" | "GetAZs" | "ImportValue" | "Select" | "Split" | "Cidr"
-<fn-fullname> ::= /"Fn::[A-Za-z]+"/ | /"Ref"/ | /"Condition"/
+<fn-fullname> ::= /"Fn::[A-Za-z]+"/
+<fn-fullname> ::= /"Ref"/
+<fn-fullname> ::= /"Condition"/
 <logical-name> ::= <identifier>
 <prop-name> ::= <identifier>
 <identifier> ::= /[a-zA-Z_][a-zA-Z0-9]*/

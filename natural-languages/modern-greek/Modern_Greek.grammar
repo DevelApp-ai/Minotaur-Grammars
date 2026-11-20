@@ -276,7 +276,8 @@ Keywords: και, ή, ο, όχι, αλλά, αν, όταν, επειδή, ότι
 
 <auxiliary-verb-have> ::= "έχω" | "έχεις" | "έχει" | "έχουμε" | "έχετε" | "έχουν"
 
-<participle> ::= /[α-ωά-ώΑ-Ω]+ει/ | /[α-ωά-ώΑ-Ω]+μένος/
+<participle> ::= /[α-ωά-ώΑ-Ω]+ει/
+<participle> ::= /[α-ωά-ώΑ-Ω]+μένος/
 
 /* Object */
 <object> ::= <noun-phrase> @CASE[accusative]

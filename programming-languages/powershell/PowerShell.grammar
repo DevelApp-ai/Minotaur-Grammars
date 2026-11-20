@@ -200,7 +200,8 @@ FormatType: EBNF
 <double-quoted-string> ::= '"' <dq-string-body> '"'
 <dq-string-body> ::= <dq-string-part>*
 <dq-string-part> ::= /[^"`$]+/ | '`' /./ | <simple-variable> | <sub-expression> | '(' <expression> ')' | '$' <whitespace>?
-<verbatim-string> ::= /'[^']*'/ | /"[^"]*"/
+<verbatim-string> ::= /'[^']*'/
+<verbatim-string> ::= /"[^"]*"/
 <here-string> ::= <here-string-double> | <here-string-single>
 <here-string-double> ::= '@"' <newline> <hs-double-body>? <newline> '"@'
 <hs-double-body> ::= <hs-double-part>*

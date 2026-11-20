@@ -22,7 +22,7 @@ FormatType: EBNF
 <quoted-string> ::= '"' <char>* '"'
 <triple-string> ::= '"""' /[^"""]*/ '"""'
 <unquoted-string> ::= /[^$"{}\[\]=:,+#`^?!@*&\\]+/
-<char> ::= /[^"\\]/ | "\\" /./
+<char> ::= /[^"\\]|\\./
 
 # --- Coverage completion: remaining language constructs ---
 <array_concat> ::= <array> <array> ;
