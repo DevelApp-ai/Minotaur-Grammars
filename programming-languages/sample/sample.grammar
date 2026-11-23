@@ -124,6 +124,8 @@ Metadata: {
   description: "Sample grammar demonstrating context-sensitive projections and semantic rules"
   targetLanguage: "SampleLanguage"
 }
+<class-member> ::= <IDENTIFIER> | <STRING> | <NUMBER>
+
 /* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
    identifier, number, string/char literals, punctuation and comments as token
    rules. String/char/block-comment patterns are the proven CSharp10 ones. */

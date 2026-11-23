@@ -5,6 +5,8 @@ FormatType: EBNF
 <file> ::= <statement>* => { buildRecipe($1); }
 <statement> ::= <resource-block> | <ruby-assignment> | <if-stmt> | <include-stmt> | <attribute-stmt>
 <resource-block> ::= <resource-type> " " <resource-name> "do" <resource-body> "end" => { declareResource($1, $3, $5); }
+<identifier> ::= <ruby-identifier>
+
 <resource-type> ::= "package" | "service" | "template" | "file" | "directory" | "cookbook_file" | "remote_file" | "execute" | "script" | "cron" | "user" | "group" | "apt_repository" | "gem_package" | "systemd_unit" | "execute" | "log" | <identifier>
 <resource-name> ::= <string> | <ruby-identifier>
 <resource-body> ::= <resource-attr>*

@@ -10,6 +10,8 @@ FormatType: EBNF
 <document> ::= <prolog> <element> <misc>*
 <prolog> ::= <xml-decl>? <misc>* (<doctypedecl> <misc>*)?
 
+<cp> ::= <contentspec>
+
 <xml-decl> ::= "<?xml" <version-info> <encoding-decl>? <sd-decl>? <s>? "?>"
 <version-info> ::= <s> "version" <eq> ("'" <version-num> "'" | '"' <version-num> '"')
 <version-num> ::= "1.0" | "1.1"
