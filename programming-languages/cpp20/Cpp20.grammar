@@ -434,6 +434,31 @@ Keywords: alignas, alignof, and, and_eq, asm, auto, bitand, bitor, bool, break, 
 <declaration> ::= <function-definition> | <block-declaration> | <template-declaration> | <explicit-instantiation> | <explicit-specialization> | <linkage-specification> | <namespace-definition> | <empty-declaration> | <attribute-declaration> | <module-import-declaration>
 <declaration-seq> ::= (<declaration> | <comment>)+
 
+<identifier> ::= <lx_identifier>
+<class-name> ::= <lx_identifier>
+<enum-name> ::= <class-name>
+<namespace-name> ::= <lx_identifier>
+<header-name> ::= <lx_string> | <lx_identifier>
+<pp-number> ::= <lx_number>
+<preprocessing-token> ::= <lx_identifier> | <lx_number> | <lx_op0>
+<preprocessing-op-or-punc> ::= <lx_op0>
+<any-token-except-paren-bracket-brace> ::= <lx_identifier> | <lx_number> | <lx_string>
+<character-literal> ::= <lx_char0> | <lx_char1> | <lx_char2> | <lx_char3>
+<user-defined-character-literal> ::= <character-literal>
+<string-literal> ::= <lx_string> | <lx_raw_string>
+<user-defined-string-literal> ::= <string-literal>
+<literal> ::= <lx_number> | <character-literal> | <string-literal>
+<alias-declaration> ::= <simple-declaration>
+<opaque-enum-declaration> ::= <simple-declaration>
+<expression-statement> ::= <simple-declaration>
+<function-definition> ::= <simple-declaration>
+<identifier-list> ::= <lx_identifier> ("," <lx_identifier>)*
+<operator> ::= <lx_op0>
+<rparen> ::= <lx_op0>
+<type-constraint> ::= <lx_identifier>
+
+<each-non-white-space-character-that-cannot-be-one-of-the-above> ::= <lx_identifier> | <lx_number> | <lx_op0>
+
 /* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
    single-terminal token rules only (regex alternatives inside productions do
    not materialize into lexer rules). String/char/block-comment patterns are

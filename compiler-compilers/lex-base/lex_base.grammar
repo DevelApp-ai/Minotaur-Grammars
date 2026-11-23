@@ -402,6 +402,17 @@ ErrorRecovery: {
   enhanceErrorRecovery($1);
 }
 
+<basic-c-actions> ::= <c-code-line>
+<better-error-recovery> ::= <c-code-line>
+<c-code> ::= <c-code-line>+
+<c-statement> ::= <c-code-line>
+<default-rule> ::= <word>
+<extended-regex-patterns> ::= <word>
+<flex-feature-emulation> ::= <word>
+<limited-regex-features> ::= <word>
+<simple-regex> ::= <word>
+<value> ::= <number>
+
 /* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
    single-terminal token rules only (regex alternatives inside productions do
    not materialize into lexer rules in the engine). String/char/block-comment

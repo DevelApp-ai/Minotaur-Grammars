@@ -31,6 +31,18 @@ Keywords: abstract, as, base, bool, break, byte, case, catch, char, checked, cla
  * because a bare '/' would end the pattern at the grammar-file layer.
  */
 
+<any_character_except_quote> ::= <char_literal>
+<any_character_except_quote_and_brace> ::= <char_literal>
+<any_character_except_quote_backslash_and_newline> ::= <char_literal>
+<any_character_except_quote_backslash_brace_and_newline> ::= <char_literal>
+<close_brace_escape_sequence> ::= <close_brace>
+<quote_escape_sequence> ::= <char_literal>
+<unicode_character_of_classes_Lu_Ll_Lt_Lm_Lo_or_Nl> ::= <char_literal>
+<unicode_character_of_classes_Mn_or_Mc> ::= <char_literal>
+<unicode_character_of_the_class_Cf> ::= <char_literal>
+<unicode_character_of_the_class_Nd> ::= <char_literal>
+<unicode_character_of_the_class_Pc> ::= <char_literal>
+
 <whitespace> ::= /[ \t\r\n]+/ => { skip }
 <comment> ::= /\x2F\x2F[^\n]*/ => { skip }
 /* Block comments: within-rule group/alternation, compiled by the engine to a
