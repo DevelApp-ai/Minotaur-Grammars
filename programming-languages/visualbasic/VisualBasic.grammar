@@ -155,6 +155,8 @@ FormatType: EBNF
 /* Comments (issue #189) */
 <comment> ::= <apostrophe-comment>
 
+<interface-member> ::= <identifier> | <literal>
+
 /* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
    single-terminal token rules only (regex alternatives inside productions do
    not materialize into lexer rules in the engine). String/char/block-comment

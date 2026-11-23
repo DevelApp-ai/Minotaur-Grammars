@@ -459,6 +459,9 @@ ErrorRecovery: {
   processExtendedUserCode($1);
 }
 
+<c-code> ::= <c-code-line>+
+<pattern-combination> ::= <word> (<op> <word>)*
+
 /* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
    single-terminal token rules only (regex alternatives inside productions do
    not materialize into lexer rules in the engine). String/char/block-comment

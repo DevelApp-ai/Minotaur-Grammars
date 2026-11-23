@@ -288,6 +288,8 @@ SymbolTableSharing: hierarchical
 <multi-line-comment> ::= /\x2F\*([^*]|\*+[^*\x2F])*\*+\x2F/
 <comment> ::= <single-line-comment> | <multi-line-comment>
 
+<string-content> ::= <op>*
+
 /* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
    single-terminal token rules only (regex alternatives inside productions do
    not materialize into lexer rules in the engine). String/char/block-comment

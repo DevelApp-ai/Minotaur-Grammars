@@ -3,6 +3,8 @@ FormatType: EBNF
 
 # NomadHcl grammar - core subset
 <file> ::= <job-block> => { buildNomadJob($1); }
+<affinity-block> ::= <constraint-block>
+
 <job-block> ::= "job" <string> "{" <job-attr>* "}" => { declareJob($2, $4); }
 <job-attr> ::= <identifier> "=" <value> => { setJobAttr($1, $3); }
            | <identifier> "{" <inner-attr>* "}" => { setJobBlock($1, $3); }

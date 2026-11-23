@@ -940,6 +940,8 @@ Keywords: as, async, await, break, const, continue, crate, dyn, else, enum, exte
 
 <whitespace> ::= <ascii-whitespace>
 
+<qualified-path-expression> ::= <lx_identifier> ("::" <lx_identifier>)*
+
 /* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
    single-terminal token rules only (regex alternatives inside productions do
    not materialize into lexer rules). String/char/block-comment patterns are
