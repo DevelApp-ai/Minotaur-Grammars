@@ -607,6 +607,10 @@ Keywords: abstract, assert, boolean, break, byte, case, catch, char, class, cons
 
 <enhanced-for-statement-no-short-if> ::= for ( <local-variable-declaration> : <expression> ) <statement-no-short-if>
 
+<input-character> ::= <lx_char0> | <lx_char1> | <lx_char2> | <lx_char3>
+<input-character-except-quote-and-backslash> ::= <lx_char0> | <lx_char1> | <lx_char2>
+<keyword> ::= <lx_identifier>
+
 /* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
    single-terminal token rules only (regex alternatives inside productions do
    not materialize into lexer rules). String/char/block-comment patterns are

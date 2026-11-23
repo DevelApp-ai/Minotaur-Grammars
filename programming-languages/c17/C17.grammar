@@ -184,6 +184,10 @@ Keywords: auto, break, case, char, const, continue, default, do, double, else, e
 <multi-line-comment> ::= /\x2F\*([^*]|\*+[^*\x2F])*\*+\x2F/
 <comment> ::= <single-line-comment> | <multi-line-comment>
 
+<any-char-except-double-quote-backslash-newline> ::= <lx_char0> | <lx_char1> | <lx_char2> | <lx_char3>
+<any-char-except-single-quote-backslash-newline> ::= <lx_char0> | <lx_char1> | <lx_char2>
+<declaration-list> ::= <declaration> <declaration-list>?
+
 /* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
    single-terminal token rules only (regex alternatives inside productions do
    not materialize into lexer rules). String/char/block-comment patterns are

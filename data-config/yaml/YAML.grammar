@@ -52,6 +52,9 @@ FormatType: EBNF
 <escape> ::= "\\" /["\\\/bfnrt0NLP_]/ | "\\x" /[0-9a-fA-F]{2}/ ;
 <indentation> ::= /[ ]*/ => { trackIndent($1); }
 
+<directives> ::= ("%" <identifier> <scalar-body>?)+
+<text> ::= <plain> | <scalar-body> | <string>
+
 /* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
    single-terminal token rules only (regex alternatives inside productions do
    not materialize into lexer rules in the engine). String/char/block-comment

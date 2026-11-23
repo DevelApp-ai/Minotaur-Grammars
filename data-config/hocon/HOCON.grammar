@@ -30,6 +30,9 @@ FormatType: EBNF
 <quoted_key> ::= <text> ":" <value> ;
 <object_merge> ::= <object> ("&" | "|") <object> ;
 
+<path> ::= <identifier> ("." <identifier>)*
+<text> ::= <unquoted-string> | <string>
+
 /* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
    single-terminal token rules only (regex alternatives inside productions do
    not materialize into lexer rules in the engine). String/char/block-comment

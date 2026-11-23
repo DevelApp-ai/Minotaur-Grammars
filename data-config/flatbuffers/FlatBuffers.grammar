@@ -39,6 +39,14 @@ teger> ::= /[+-]?[0-9]+/
 <native_include> ::= "native_include" <text> ";" ;
 <rpc_streaming> ::= <identifier> "(" <type> ")" ":" <type> "(streaming)" ";" ;
 
+<enum_field> ::= <identifier> ("=" <integer>)? ","?
+<integer> ::= <number>
+<qualified> ::= <identifier> ("." <identifier>)*
+<scalar_type> ::= <identifier>
+<text> ::= <string> | <identifier>
+<type> ::= <scalar_type> | <identifier>
+<value> ::= <number> | <string> | <identifier>
+
 /* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
    single-terminal token rules only (regex alternatives inside productions do
    not materialize into lexer rules in the engine). String/char/block-comment

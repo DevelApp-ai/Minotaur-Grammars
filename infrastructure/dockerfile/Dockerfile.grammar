@@ -4,6 +4,14 @@ FormatType: EBNF
 # Dockerfile grammar - core subset
 <file> ::= <instruction>* => { buildDockerfile($1); }
 <instruction> ::= <from-instr> | <run-instr> | <cmd-instr> | <entrypoint-instr> | <env-instr> | <arg-instr> | <label-instr> | <copy-instr> | <add-instr> | <expose-instr> | <volume-instr> | <user-instr> | <workdir-instr> | <onbuild-instr> | <stopsignal-instr> | <healthcheck-instr> | <shell-instr> | <maintainer-instr> | <comment>
+<identifier> ::= <arg-name> | <image-name> | <stage-name> | <env-key> | <label-key>
+<user> ::= <user-spec>
+<group> ::= <user-spec>
+<host> ::= <identifier>
+<ref> ::= <tag> | <digest>
+<text> ::= <free-text> | <env-space-value>
+<cmd> ::= <shell-form> | <free-text>
+
 <comment> ::= "#" /[\S\s]*/ => { skip(); }
 <from-instr> ::= "FROM" <image-ref> ("AS" <stage-name>)? => { addStage($2, $4); }
              | "FROM" <image-ref> "AS" <stage-name>

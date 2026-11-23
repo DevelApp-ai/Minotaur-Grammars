@@ -396,6 +396,13 @@ ErrorRecovery: {
   processExtendedActions($1);
 }
 
+<arithmetic-expression> ::= <number> | <stack-reference> | <function-call>
+<c-code> ::= <c-code-line>+
+<control-statement> ::= <assignment-statement> | <c-code-line>
+<expression> ::= <arithmetic-expression> | <string> | <INTEGER>
+<function-call> ::= <IDENTIFIER> "(" (<expression> ("," <expression>)*)? ")"
+<type-specifier> ::= <IDENTIFIER>
+
 /* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
    single-terminal token rules only (regex alternatives inside productions do
    not materialize into lexer rules in the engine). String/char/block-comment
