@@ -23,6 +23,12 @@ FormatType: EBNF
 <initial>         ::= <character>
 <name>            ::= <text>
 
+<EOL> ::= <ws>
+<character> ::= <word>
+<opt-whitespace> ::= <ws>
+<text> ::= <word>
+<whitespace> ::= <ws>
+
 /* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
    single-terminal token rules only (regex alternatives inside productions do
    not materialize into lexer rules in the engine). String/char/block-comment

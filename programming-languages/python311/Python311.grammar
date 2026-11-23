@@ -397,6 +397,16 @@ Keywords: False, None, True, and, as, assert, async, await, break, class, contin
 <hash-comment> ::= /#[^\n]*/
 <comment> ::= <hash-comment>
 
+<any_ascii_character> ::= <lx_op0>
+<any_ascii_character_except_backslash> ::= <lx_op1>
+<any_ascii_character_except_backslash_or_newline_or_quote> ::= <lx_op2>
+<any_source_character> ::= <lx_op3>
+<any_source_character_except_backslash> ::= <lx_op4>
+<any_source_character_except_backslash_or_newline_or_quote> ::= <lx_op5>
+<async> ::= <lx_identifier>
+<disjunction> ::= <expression>
+<slices> ::= <t_primary>
+
 /* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
    single-terminal token rules only (regex alternatives inside productions do
    not materialize into lexer rules). String/char/block-comment patterns are

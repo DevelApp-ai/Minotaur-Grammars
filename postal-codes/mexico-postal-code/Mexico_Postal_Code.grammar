@@ -93,6 +93,11 @@ FormatType: CEBNF
 <opt-whitespace> ::= <whitespace> ;
 <EOL> ::= "\n" | "\r\n" | "\r"
 
+<first-name> ::= <word>
+<last-name> ::= <word>
+<name-suffix> ::= <word>
+<title> ::= <word>
+
 /* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
    single-terminal token rules only (regex alternatives inside productions do
    not materialize into lexer rules in the engine). String/char/block-comment

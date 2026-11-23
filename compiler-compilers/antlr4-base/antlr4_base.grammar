@@ -324,6 +324,23 @@ ErrorRecovery: {
   processExtendedPrecedence($1);
 }
 
+<KEYWORD> ::= <IDENTIFIER>
+<binary-op> ::= <op>
+<character> ::= <word>
+<escape-sequence> ::= <word>
+<cleanup-action> ::= <java-code>
+<exception-type> ::= <IDENTIFIER>
+<recovery-action> ::= <java-code>
+<expression> ::= <primary-expr>
+<primary-expr> ::= <IDENTIFIER> | <string>
+<operator> ::= <op>
+<fragment-ref> ::= <string>
+<lexer-rule-ref> ::= <LEXER_IDENTIFIER>
+<parser-rule-ref> ::= <PARSER_IDENTIFIER>
+<java-code> ::= <word>+
+<java-code-block> ::= <java-code>
+<java-expression> ::= <java-code>
+
 /* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
    single-terminal token rules only (regex alternatives inside productions do
    not materialize into lexer rules in the engine). String/char/block-comment
