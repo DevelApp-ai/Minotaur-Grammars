@@ -50,6 +50,9 @@ FormatType: EBNF
 <double_lit_exp> ::= [0-9]+ "e" [0-9]+ ;
 <path_component> ::= ("." | ".." | "~") ;
 
+<path> ::= <path-chars> | <file-path>
+<type> ::= <primitive> | <identifier> | <label>
+
 /* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
    single-terminal token rules only (regex alternatives inside productions do
    not materialize into lexer rules in the engine). String/char/block-comment

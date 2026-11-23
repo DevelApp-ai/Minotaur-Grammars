@@ -41,6 +41,11 @@ FormatType: EBNF
 <load_csv> ::= "LOAD" "CSV" ( "WITH" "HEADERS" )? "FROM" "string" ( "AS" <identifier> )? ( "field_terminator" )? ;
 <use_clause> ::= "USE" "graph_name" ;
 
+<auto_identifier_1> ::= <identifier>
+<auto_identifier_2> ::= <identifier>
+<auto_number_4> ::= <number>
+<auto_text_3> ::= <string>
+
 /* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
    single-terminal token rules only (regex alternatives inside productions do
    not materialize into lexer rules in the engine). String/char/block-comment

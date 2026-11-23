@@ -60,6 +60,13 @@ alue>)+
 <param_constraints> ::= ("AllowedValues" | "AllowedPattern" | "MaxLength" | "MinLength" | "MaxValue" | "MinValue" | "NoEcho" | "Description") ":" <json_value> ;
 <aws_partition> ::= "AWS::Partition" | "AWS::Region" | "AWS::AccountId" | "AWS::StackName" | "AWS::URLSuffix" ;
 
+<args> ::= <scalar> ("," <scalar>)*
+<text> ::= <word> | <string> | <scalar>
+<json_value> ::= <scalar> | <map> | <args>
+<map> ::= "{" (<text> ":" <json_value> ("," <text> ":" <json_value>)*)? "}"
+<metadata-section> ::= "Metadata" ":" <map>
+<rules-section> ::= "Rules" ":" <map>
+
 /* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
    single-terminal token rules only (regex alternatives inside productions do
    not materialize into lexer rules in the engine). String/char/block-comment

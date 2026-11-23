@@ -43,6 +43,10 @@ FormatType: EBNF
 <extend_block> ::= "extend" <type> "{" <field>* "}" ;
 <stream_decl> ::= "stream" <identifier> "{" <option>* "}" ;
 
+<field-options> ::= "[" <option> ("," <option>)* "]"
+<option> ::= <identifier> "=" (<string> | <number> | <identifier>)
+<qualified> ::= <identifier> ("." <identifier>)*
+
 /* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
    single-terminal token rules only (regex alternatives inside productions do
    not materialize into lexer rules in the engine). String/char/block-comment

@@ -920,6 +920,9 @@ Keywords: async, await, break, case, catch, class, const, continue, debugger, de
 <covered-formal-parameters> ::= ( <formal-parameter-list>? )
 <covered-call-expression-and-async-arrow-head> ::= <member-expression> <arguments>
 
+<binding-element-list> ::= <binding-element> ("," <binding-element>)*
+<cover-call-expression-and-async-arrow-head> ::= <call-expression>
+
 /* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
    single-terminal token rules only (regex alternatives inside productions do
    not materialize into lexer rules). String/char/block-comment patterns are

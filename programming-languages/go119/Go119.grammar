@@ -8,6 +8,10 @@ FormatType: EBNF
  */
 
 <go-file> ::= <package-clause> <import-decls>? <top-level-decls>?
+<expression-list> ::= <expression> ("," <expression>)*
+<parameter> ::= <identifier> <type-expression>
+<type-spec-list> ::= <type-spec> ("," <type-spec>)*
+
 <package-clause> ::= "package" <whitespace> <package-name> <newline>
 <package-name> ::= <identifier>
 <import-decls> ::= <import-decl>+

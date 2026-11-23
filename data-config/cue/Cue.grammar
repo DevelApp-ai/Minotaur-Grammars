@@ -49,6 +49,12 @@ Z0-9$_]*/ | /[a-zA-Z$_][a-zA-Z0-9$_-]*/
 <ellipsis_top> ::= "..." ;
 <bounds_expr> ::= (">" | "<" | ">=" | "<=" | "!=" | "=") <number> ;
 
+<alias> ::= <simple-name>
+<attr-body> ::= <identifier> (":" <type>)?
+<unary-expr> ::= <primary>
+<binary-expr> ::= <unary-expr> (<op> <unary-expr>)*
+<type> ::= <identifier> | <string> | <literal>
+
 /* Lexer core for engine-verified lexing (ENFAStepLexer-StepParser #129/#133):
    single-terminal token rules only (regex alternatives inside productions do
    not materialize into lexer rules in the engine). String/char/block-comment

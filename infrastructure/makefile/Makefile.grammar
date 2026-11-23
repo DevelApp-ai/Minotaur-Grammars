@@ -8,6 +8,12 @@ FormatType: EBNF
         | <targets> ":" <order-only-prereqs> <recipe>?
         | <pattern-rule> | <static-pattern-rule> | <double-colon-rule>
 <targets> ::= <target> (" " <target>)*
+<name> ::= <target> | <var-name>
+<value> ::= <var-value>
+<assignment> ::= <name> ("=" | ":=") <value>
+<prereqs> ::= <target> ("|" <prereqs>)?
+<text> ::= <var-value>
+
 <target> ::= /[a-zA-Z0-9_.$\/()%+-]+/
 <target> ::= /"[^"]+"/
 <prerequisites> ::= <prereq>+
